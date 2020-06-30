@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9-iuFTrWxG-NMbBqeS359Y491i0G0HcZ44NiICCEs7s">
+<meta name="baidu-site-verification" content="eQr4ptzetx">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Java &amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668; &amp;#x6BCF;&amp;#x4E2A; Java &amp;#x6587;&amp;#x4EF6;&amp;#x90FD;&amp;#x5B58;&amp;#x50A8;&amp;#x7740;&amp;#x9700;&amp;#x8981;&amp;#x6267;&amp;#x884C;&amp;#x7684;&amp;#x7A0B;&amp;#x5E8F;&amp;#x903B;&amp;#x8F91;&amp;#xFF0C;&amp;#x8FD9;&amp;#x4">
+<meta name="keywords" content="jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java类加载机制">
+<meta property="og:url" content="https://leaderli.github.io/2020/04/23/java类加载机制/index.html">
+<meta property="og:site_name" content="大狗哥传奇">
+<meta property="og:description" content="Java &amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668; &amp;#x6BCF;&amp;#x4E2A; Java &amp;#x6587;&amp;#x4EF6;&amp;#x90FD;&amp;#x5B58;&amp;#x50A8;&amp;#x7740;&amp;#x9700;&amp;#x8981;&amp;#x6267;&amp;#x884C;&amp;#x7684;&amp;#x7A0B;&amp;#x5E8F;&amp;#x903B;&amp;#x8F91;&amp;#xFF0C;&amp;#x8FD9;&amp;#x4">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://leaderli.github.io/images/java类加载机制_2020-04-23-10-53-16.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java类加载机制_2020-04-23-10-52-52.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java类加载机制_2020-04-23-10-54-17.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java类加载机制_2020-04-23-10-54-38.png">
+<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java类加载机制">
+<meta name="twitter:description" content="Java &amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x5668; &amp;#x6BCF;&amp;#x4E2A; Java &amp;#x6587;&amp;#x4EF6;&amp;#x90FD;&amp;#x5B58;&amp;#x50A8;&amp;#x7740;&amp;#x9700;&amp;#x8981;&amp;#x6267;&amp;#x884C;&amp;#x7684;&amp;#x7A0B;&amp;#x5E8F;&amp;#x903B;&amp;#x8F91;&amp;#xFF0C;&amp;#x8FD9;&amp;#x4">
+<meta name="twitter:image" content="https://leaderli.github.io/images/java类加载机制_2020-04-23-10-53-16.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://leaderli.github.io/2020/04/23/java类加载机制/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>java类加载机制 | 大狗哥传奇</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eQr4ptzetx";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大狗哥传奇</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+  <script type="text/javascript">
+     var search_path = "<%= config.search.path %>";
+     if (search_path.length == 0) {
+     	search_path = "search.json";
+     }
+     var path = "<%= config.root %>" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+ </script>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/04/23/java类加载机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java类加载机制
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-23 10:51:29" itemprop="dateCreated datePublished" datetime="2020-04-23T10:51:29+08:00">2020-04-23</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="java-&#x7C7B;&#x52A0;&#x8F7D;&#x5668;">Java &#x7C7B;&#x52A0;&#x8F7D;&#x5668;</h2>
+<p>&#x6BCF;&#x4E2A; Java &#x6587;&#x4EF6;&#x90FD;&#x5B58;&#x50A8;&#x7740;&#x9700;&#x8981;&#x6267;&#x884C;&#x7684;&#x7A0B;&#x5E8F;&#x903B;&#x8F91;&#xFF0C;&#x8FD9;&#x4E9B; java &#x6587;&#x4EF6;&#x7ECF;&#x8FC7; Java &#x7F16;&#x8BD1;&#x5668;&#x7F16;&#x8BD1;&#x6210; class &#x6587;&#x4EF6;&#xFF0C;class &#x6587;&#x4EF6;&#x4E2D;&#x4FDD;&#x5B58;&#x7740; JVM &#x865A;&#x62DF;&#x673A;&#x6307;&#x4EE4;&#xFF0C;&#x5F53;&#x9700;&#x8981;&#x67D0;&#x4E2A;&#x7C7B;&#x65F6;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x5C06;&#x4F1A;&#x52A0;&#x8F7D;&#x5B83;&#x7684; class &#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684; class &#x5BF9;&#x8C61;&#xFF0C;&#x5C06; class &#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x5230;&#x865A;&#x62DF;&#x673A;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x79F0;&#x4E3A;&#x7C7B;&#x52A0;&#x8F7D;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A; <img src="/images/java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-53-16.png" alt="java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-53-16.png"></p>
+<ol type="1">
+<li><p>&#x52A0;&#x8F7D;&#xFF1A;&#x7C7B;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x7684;&#x4E00;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x5168;&#x9650;&#x5B9A;&#x540D;&#x67E5;&#x627E;&#x6B64;&#x7C7B;&#x5B57;&#x8282;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x5229;&#x7528;&#x5B57;&#x8282;&#x7801;&#x6587;&#x4EF6;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Class &#x5BF9;&#x8C61;</p></li>
+<li><p>&#x9A8C;&#x8BC1;&#xFF1A;&#x76EE;&#x7684;&#x5728;&#x4E8E;&#x786E;&#x4FDD; Class &#x6587;&#x4EF6;&#x7684;&#x5B57;&#x8282;&#x6D41;&#x4E2D;&#x5305;&#x542B;&#x4FE1;&#x606F;&#x7B26;&#x5408;&#x5F53;&#x524D;&#x865A;&#x62DF;&#x673A;&#x8981;&#x6C42;&#xFF0C;&#x4E0D;&#x4F1A;&#x5371;&#x5BB3;&#x865A;&#x62DF;&#x673A;&#x81EA;&#x8EAB;&#x5B89;&#x5168;&#x3002;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#x56DB;&#x79CD;&#x9A8C;&#x8BC1;&#xFF0C;&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x9A8C;&#x8BC1;&#x3001;&#x5143;&#x6570;&#x636E;&#x9A8C;&#x8BC1;&#x3001;&#x5B57;&#x8282;&#x7801;&#x9A8C;&#x8BC1;&#x3001;&#x7B26;&#x53F7;&#x5F15;&#x7528;&#x9A8C;&#x8BC1;&#x3002;</p></li>
+<li><p>&#x51C6;&#x5907;&#xFF1A;&#x4E3A;&#x7C7B;&#x53D8;&#x91CF;(&#x5373; static &#x4FEE;&#x9970;&#x7684;&#x5B57;&#x6BB5;&#x53D8;&#x91CF;)&#x5206;&#x914D;&#x5185;&#x5B58;&#x5E76;&#x4E14;&#x8BBE;&#x7F6E;&#x8BE5;&#x7C7B;&#x53D8;&#x91CF;&#x7684;&#x521D;&#x59CB;&#x503C;(&#x5982; static int i &#xFF1D; 5;&#x8FD9;&#x91CC;&#x53EA;&#x8BB2; i &#x521D;&#x59CB;&#x5316;&#x4E3A; 0&#xFF0C;&#x81F3;&#x4E8E; 5 &#x7684;&#x503C;&#x5C06;&#x5728;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x8D4B;&#x503C;)&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x5305;&#x542B;&#x4F7F;&#x7528; final &#x4FEE;&#x9970;&#x7684; static&#xFF0C;&#x56E0;&#x4E3A; final &#x5728;&#x7F16;&#x8BD1;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x5206;&#x914D;&#x4E86;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x4E0D;&#x4F1A;&#x4E3A;&#x89C6;&#x529B;&#x53D8;&#x91CF;&#x5206;&#x914D;&#x521D;&#x59CB;&#x5316;&#x503C;&#xFF0C;&#x7C7B;&#x53D8;&#x91CF;&#x4F1A;&#x5206;&#x914D;&#x5728;&#x65B9;&#x6CD5;&#x533A;&#x4E2D;&#xFF0C;&#x800C;&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;&#x662F;&#x4F1A;&#x968F;&#x7740;&#x5BF9;&#x8C61;&#x4E00;&#x8D77;&#x5206;&#x914D;&#x5230; Java &#x5806;&#x4E2D;&#x3002;</p></li>
+<li><p>&#x89E3;&#x6790;&#xFF1A;&#x4E3B;&#x8981;&#x8BB2;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x7B26;&#x53F7;&#x5F15;&#x7528;&#x66FF;&#x6362;&#x4E3A;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x7684;&#x8FC7;&#x7A0B;&#x3002;&#x7B26;&#x53F7;&#x5F15;&#x7528;&#x5C31;&#x662F;&#x4E00;&#x7EC4;&#x7B26;&#x53F7;&#x6765;&#x63CF;&#x8FF0;&#x76EE;&#x6807;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x4F55;&#x5B57;&#x9762;&#x91CF;&#xFF0C;&#x800C;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x5C31;&#x662F;&#x76F4;&#x63A5;&#x6307;&#x5411;&#x76EE;&#x6807;&#x7684;&#x6307;&#x9488;&#x3001;&#x76F8;&#x5BF9;&#x4FBF;&#x79FB;&#x91CF;&#x6216;&#x8005;&#x4E00;&#x4E2A;&#x95F4;&#x63A5;&#x5B9A;&#x4F4D;&#x5230;&#x76EE;&#x6807;&#x7684;&#x53E5;&#x67C4;&#x3002;&#x6709;&#x7C7B;&#x6216;&#x8005;&#x63A5;&#x53E3;&#x7684;&#x89E3;&#x6790;&#xFF0C;&#x5B57;&#x6BB5;&#x89E3;&#x6790;&#xFF0C;&#x7C7B;&#x65B9;&#x6CD5;&#x89E3;&#x6790;&#xFF0C;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x89E3;&#x6790;(&#x8FD9;&#x91CC;&#x8BBE;&#x8BA1;&#x5230;&#x5B57;&#x8282;&#x7801;&#x53D8;&#x91CF;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x5982;&#x9700;&#x8BE6;&#x7EC6;&#x4E86;&#x89E3;&#xFF0C;&#x53EF;&#x53C2;&#x8003;&#x300A;&#x6DF1;&#x5165; Java &#x865A;&#x62DF;&#x673A;&#x300B;)</p></li>
+<li><p>&#x521D;&#x59CB;&#x5316;&#xFF1A;&#x7C7B;&#x52A0;&#x8F7D;&#x6700;&#x540E;&#x9636;&#x6BB5;&#xFF0C;&#x82E5;&#x8BE5;&#x7C7B;&#x5177;&#x6709;&#x8D85;&#x7C7B;&#xFF0C;&#x5219;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x6267;&#x884C;&#x9759;&#x6001;&#x521D;&#x59CB;&#x5316;&#x5668;&#x548C;&#x9759;&#x6001;&#x521D;&#x59CB;&#x5316;&#x6210;&#x5458;&#x53D8;&#x91CF;(&#x5982;&#x524D;&#x9762;&#x53EA;&#x521D;&#x59CB;&#x5316;&#x4E86;&#x9ED8;&#x8BA4;&#x503C;&#x7684; static &#x53D8;&#x91CF;&#x5C06;&#x4F1A;&#x5728;&#x8FD9;&#x4E2A;&#x9636;&#x6BB5;&#x8D4B;&#x503C;&#xFF0C;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x4E5F;&#x5C06;&#x88AB;&#x521D;&#x59CB;&#x5316;)</p></li>
+</ol>
+<p>&#x8FD9;&#x4FBF;&#x662F;&#x7C7B;&#x52A0;&#x8F7D;&#x7684; 5 &#x4E2A;&#x8FC7;&#x7A0B;&#xFF0C;&#x800C;&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x4EFB;&#x52A1;&#x662F;&#x6839;&#x636E;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x5168;&#x9650;&#x5B9A;&#x540D;&#x6765;&#x8BFB;&#x53D6;&#x6B64;&#x7C7B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x5B57;&#x8282;&#x6D41;&#x5230; JVM &#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x8F6C;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;&#x4E0E;&#x76EE;&#x6807;&#x7C7B;&#x5BF9;&#x5E94;&#x7684; java.lang.Class &#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#xFF0C;&#x5728;&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x63D0;&#x4F9B;&#x4E86; 3 &#x79CD;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;(Bootstrap)&#x3001;&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;(Extension)&#x3001;&#x7CFB;&#x7EDF;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;(System &#x4E5F;&#x79F0;&#x5E94;&#x7528;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;)</p>
+<p>&#x901A;&#x8FC7;&#x4E00;&#x6BB5;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x6765; java &#x521D;&#x59CB;&#x5316;&#x7684;&#x4E00;&#x4E9B;&#x8FC7;&#x7A0B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>{</span><br><span class="line">    {</span><br><span class="line">        func();</span><br><span class="line">    }</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            String name = (String) Son.class.getField(<span class="string">&quot;name&quot;</span>).get(<span class="keyword">this</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;name = &quot;</span> + name);</span><br><span class="line">        } <span class="keyword">catch</span> (IllegalAccessException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        } <span class="keyword">catch</span> (NoSuchFieldException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span></span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String name = <span class="string">&quot;son&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        Son son = <span class="keyword">new</span> Son();</span><br><span class="line">        son.func();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5176;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;</p>
+<blockquote>
+<p>name = null name = son</p>
+</blockquote>
+<p>&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x5206;&#x6790;<code>Son</code>&#x7684;&#x5B57;&#x8282;&#x7801;&#x4E2D;&#x5173;&#x4E8E;&#x6784;&#x9020;&#x5668;&#x7684;&#x7247;&#x6BB5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> com.leaderli.algrohtms.Son();</span><br><span class="line">  descriptor: ()V</span><br><span class="line">  flags: ACC_PUBLIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=<span class="number">2</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">       <span class="number">0</span>: aload_0</span><br><span class="line">       1: invokespecial #1                  // Method com/leaderli/algrohtms/Father.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">       <span class="number">4</span>: aload_0</span><br><span class="line">       5: ldc           #2                  // String son</span><br><span class="line">       7: putfield      #3                  // Field name:Ljava/lang/String;</span><br><span class="line">      <span class="number">10</span>: <span class="keyword">return</span></span><br><span class="line">    LineNumberTable:</span><br><span class="line">      line <span class="number">3</span>: <span class="number">0</span></span><br><span class="line">      line <span class="number">5</span>: <span class="number">4</span></span><br><span class="line">    LocalVariableTable:</span><br><span class="line">      Start  Length  Slot  Name   Signature</span><br><span class="line">          <span class="number">0</span>      <span class="number">11</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lcom/leaderli/algrohtms/Son;</span><br></pre></td></tr></table></figure>
+<p><code>Son</code>&#x7C7B;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x663E;&#x793A;&#x7684;&#x5199;&#x6784;&#x9020;&#x5668;&#xFF0C;&#x4F46;&#x662F; java &#x4F1A;&#x7ED9;&#x6211;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x6784;&#x9020;&#x5668;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#xFF0C;<code>Son</code>&#x7684;&#x6784;&#x9020;&#x5668;&#x4E00;&#x5F00;&#x59CB;&#x5C31;&#x4F1A;&#x8C03;&#x7528;<code>Father</code>&#x7684;&#x6784;&#x9020;&#x5668;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x6B64;&#x65F6;&#x6210;&#x5458;&#x53D8;&#x91CF;<code>name</code>&#x8FD8;&#x6CA1;&#x6709;&#x5B8C;&#x6210;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;&#xFF0C;&#x56E0;&#x6B64;&#x5728;<code>Father</code>&#x7C7B;&#x4E2D;<code>name</code>&#x7684;&#x503C;&#x4E3A;&#x96F6;&#x503C;&#xFF0C;&#x5373;<code>null</code>&#x3002;&#x5728;&#x7236;&#x7C7B;&#x6784;&#x9020;&#x5668;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5219;&#x4F1A;&#x5F00;&#x59CB;&#x5BF9;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x8FDB;&#x884C;&#x8D4B;&#x503C;&#x3002;</p>
+<h3 id="&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;bootstrap">&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;(Bootstrap)</h3>
+<p>&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4E3B;&#x8981;&#x52A0;&#x8F7D;&#x7684;&#x662F; JVM &#x81EA;&#x8EAB;&#x9700;&#x8981;&#x7684;&#x7C7B;&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x52A0;&#x8F7D;&#x4F7F;&#x7528; C++&#x8BED;&#x8A00;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x662F;&#x865A;&#x62DF;&#x673A;&#x81EA;&#x8EAB;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x5B83;&#x8D1F;&#x8D23;&#x8BB2;<code>&lt;JAVA_HOME&gt;/lib</code>&#x8DEF;&#x5F84;&#x4E0B;&#x7684;&#x6838;&#x5FC3;&#x7C7B;&#x5E93;&#x6216;<code>-Xbootclasspath</code>&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x4E0B;&#x7684; jar &#x5305;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x6CE8;&#x610F;&#x7531;&#x4E8E;&#x865A;&#x62DF;&#x673A;&#x662F;&#x6309;&#x7167;&#x6587;&#x4EF6;&#x540D;&#x8BC6;&#x522B;&#x52A0;&#x8F7D; jar &#x5305;&#x7684;&#xFF0C;&#x5982; rt.jar,&#x5982;&#x679C;&#x6587;&#x4EF6;&#x540D;&#x4E0D;&#x88AB;&#x865A;&#x62DF;&#x673A;&#x8BC6;&#x522B;&#xFF0C;&#x5373;&#x4F7F;&#x628A; jar &#x5305;&#x4E22;&#x5230; lib &#x76EE;&#x5F55;&#x4E0B;&#x4E5F;&#x662F;&#x6CA1;&#x6709;&#x4F5C;&#x7528;&#x7684;&#x3002;(&#x51FA;&#x4E8E;&#x5B89;&#x5168;&#x8003;&#x8651;,Bootstrap &#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x53EA;&#x52A0;&#x8F7D;&#x5305;&#x540D;&#x4E3A; java,javax,sun &#x7B49;&#x5F00;&#x5934;&#x7684;&#x7C7B;)</p>
+<h3 id="&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;extension">&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;(Extension)</h3>
+<p>&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x662F;&#x6307; Sun &#x516C;&#x53F8;&#x5B9E;&#x73B0;&#x7684;<code>sun.misc.Launcher$ExtClassLoader</code>&#x7C7B;&#xFF0C;&#x7531; Java &#x8BED;&#x8A00;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x662F; Launcher &#x7684;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#xFF0C;&#x5B83;&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;<code>&lt;JAVA_HOME&gt;/lib/ext</code>&#x76EE;&#x5F55;&#x4E0B;&#x6216;&#x8005;&#x7531;&#x7CFB;&#x7EDF;&#x53D8;&#x91CF;<code>-Djava.ext.dir</code>&#x6307;&#x5B9A;&#x8DEF;&#x5F84;&#x4E2D;&#x7684;&#x7C7B;&#x5E93;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ExtClassLoader&#x7C7B;&#x4E2D;&#x83B7;&#x53D6;&#x8DEF;&#x5F84;&#x7684;&#x4EE3;&#x7801;</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> File[] getExtDirs() {</span><br><span class="line">     <span class="comment">//&#x52A0;&#x8F7D;&lt;JAVA_HOME&gt;/lib/ext&#x76EE;&#x5F55;&#x4E2D;&#x7684;&#x7C7B;&#x5E93;</span></span><br><span class="line">     String s = System.getProperty(<span class="string">&quot;java.ext.dirs&quot;</span>);</span><br><span class="line">     File[] dirs;</span><br><span class="line">     <span class="keyword">if</span> (s != <span class="keyword">null</span>) {</span><br><span class="line">         StringTokenizer st =</span><br><span class="line">             <span class="keyword">new</span> StringTokenizer(s, File.pathSeparator);</span><br><span class="line">         <span class="keyword">int</span> count = st.countTokens();</span><br><span class="line">         dirs = <span class="keyword">new</span> File[count];</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) {</span><br><span class="line">             dirs[i] = <span class="keyword">new</span> File(st.nextToken());</span><br><span class="line">         }</span><br><span class="line">     } <span class="keyword">else</span> {</span><br><span class="line">         dirs = <span class="keyword">new</span> File[<span class="number">0</span>];</span><br><span class="line">     }</span><br><span class="line">     <span class="keyword">return</span> dirs;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>###&#x7CFB;&#x7EDF;(System)&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</p>
+<p>&#x4E5F;&#x79F0;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x52A0;&#x8F7D;&#x5668;&#x662F;&#x6307; Sun &#x516C;&#x53F8;&#x5B9E;&#x73B0;&#x7684;<code>sun.misc.Launcher$AppClassLoader</code>&#x3002;&#x5B83;&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;&#x7CFB;&#x7EDF;&#x7C7B;&#x8DEF;&#x5F84;<code>java -classpath</code>&#x6216;<code>-D java.class.path</code>&#x6307;&#x5B9A;&#x8DEF;&#x5F84;&#x4E0B;&#x7684;&#x7C7B;&#x5E93;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x7528;&#x5230;&#x7684; cclasspath &#x8DEF;&#x5F84;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x8BE5;&#x8BE5;&#x7C7B;&#x52A0;&#x8F7D;&#x662F;&#x7A0B;&#x5E8F;&#x4E2D;&#x9ED8;&#x8BA4;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x901A;&#x8FC7;<code>ClassLoader#getSystemClassLoader()</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x8BE5;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;</p>
+<p>&#x5728; Java &#x7684;&#x65E5;&#x5E38;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x7C7B;&#x7684;&#x52A0;&#x8F7D;&#x51E0;&#x4E4E;&#x662F;&#x7531;&#x4E0A;&#x8FF0; 3 &#x79CD;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x76F8;&#x4E92;&#x914D;&#x5408;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x5728;&#x5FC5;&#x8981;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;Java &#x865A;&#x62DF;&#x673A;&#x5BF9; class &#x6587;&#x4EF6;&#x91C7;&#x7528;&#x7684;&#x662F;&#x6309;&#x9700;&#x52A0;&#x8F7D;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5F53;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x8BE5;&#x7C7B;&#x65F6;&#x624D;&#x4F1A;&#x5C06;&#x5B83;&#x7684; class &#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x751F;&#x6210; class &#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x4E14;&#x52A0;&#x8F7D;&#x67D0;&#x4E2A;&#x7C7B;&#x7684; class &#x6587;&#x4EF6;&#x65F6;&#xFF0C;Java &#x865A;&#x62DF;&#x673A;&#x91C7;&#x7528;&#x7684;&#x662F;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x5373;&#x628A;&#x8BF7;&#x6C42;&#x4EA4;&#x7531;&#x7236;&#x7C7B;&#x5904;&#x7406;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x79CD;&#x4EFB;&#x52A1;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x8FDB;&#x4E00;&#x6B65;&#x4E86;&#x89E3;&#x5B83;&#x3002;</p>
+<h2 id="&#x7406;&#x89E3;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;">&#x7406;&#x89E3;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;</h2>
+<h3 id="&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x5DE5;&#x4F5C;&#x539F;&#x7406;">&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h3>
+<p>&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x8981;&#x6C42;&#x9664;&#x4E86;&#x9876;&#x5C42;&#x7684;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x5916;&#xFF0C;&#x5176;&#x4F59;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x90FD;&#x5E94;&#x5F53;&#x7531;&#x81EA;&#x5DF1;&#x7684;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x8BF7;&#x6CE8;&#x610F;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x4E2D;&#x7684;&#x7236;&#x5B50;&#x5173;&#x7CFB;&#x5E76;&#x975E;&#x901A;&#x5E38;&#x6240;&#x8BF4;&#x7684;&#x7C7B;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#xFF0C;&#x800C;&#x662F;&#x91C7;&#x7528;&#x7EC4;&#x5408;&#x5173;&#x7CFB;&#x6765;&#x590D;&#x7528;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x76F8;&#x5173;&#x4EE3;&#x7801;&#xFF0C;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#xFF1A; <img src="/images/java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-52-52.png" alt="java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-52-52.png"></p>
+<p>&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x662F;&#x5728; Java 1.2 &#x540E;&#x5F15;&#x5165;&#x7684;&#xFF0C;&#x5176;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x6536;&#x5230;&#x4E86;&#x7C7B;&#x52A0;&#x8F7D;&#x8BF7;&#x6C42;&#xFF0C;&#x5B83;&#x5E76;&#x4E0D;&#x4F1A;&#x81EA;&#x5DF1;&#x5148;&#x53BB;&#x52A0;&#x8F7D;&#xFF0C;&#x800C;&#x662F;&#x628A;&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#x59D4;&#x6258;&#x7ED9;&#x7236;&#x7C7B;&#x7684;&#x52A0;&#x8F7D;&#x5668;&#x53BB;&#x6267;&#x884C;&#xFF0C;&#x5982;&#x679C;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x8FD8;&#x5B58;&#x5728;&#x5176;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x5219;&#x8FDB;&#x4E00;&#x6B65;&#x5411;&#x4E0A;&#x59D4;&#x6258;&#xFF0C;&#x4F9D;&#x6B21;&#x9012;&#x5F52;&#xFF0C;&#x8BF7;&#x6C42;&#x6700;&#x7EC8;&#x5C06;&#x5230;&#x8FBE;&#x9876;&#x5C42;&#x7684;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x5982;&#x679C;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;&#x7C7B;&#x52A0;&#x8F7D;&#x4EFB;&#x52A1;&#xFF0C;&#x5C31;&#x6210;&#x529F;&#x8FD4;&#x56DE;&#xFF0C;&#x5018;&#x82E5;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x65E0;&#x6CD5;&#x5B8C;&#x6210;&#x52A0;&#x8F7D;&#x4EFB;&#x52A1;&#xFF0C;&#x5B50;&#x52A0;&#x8F7D;&#x5668;&#x624D;&#x4F1A;&#x5C1D;&#x8BD5;&#x81EA;&#x5DF1;&#x53BB;&#x52A0;&#x8F7D;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x3002;</p>
+<h3 id="&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x4F18;&#x52BF;">&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x4F18;&#x52BF;</h3>
+<p>&#x91C7;&#x7528;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x52BF;&#x662F; Java &#x7C7B;&#x968F;&#x7740;&#x5B83;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4E00;&#x8D77;&#x5177;&#x5907;&#x4E86;&#x4E00;&#x79CD;&#x5E26;&#x6709;&#x4F18;&#x5148;&#x7EA7;&#x7684;&#x5C42;&#x6B21;&#x5173;&#x7CFB;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x5C42;&#x7EA7;&#x5173;&#x7CFB;&#xFF0C;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x7C7B;&#x7684;&#x91CD;&#x590D;&#x52A0;&#x8F7D;&#xFF0C;&#x5F53;&#x7236;&#x7C7B;&#x5DF2;&#x7ECF;&#x52A0;&#x8F7D;&#x4E86;&#x8BE5;&#x7C7B;&#x65F6;&#xFF0C;&#x5C31;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x5B50;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x518D;&#x52A0;&#x8F7D;&#x4E00;&#x6B21;&#x3002;&#x5176;&#x6B21;&#x662F;&#x8003;&#x8651;&#x5230;&#x5B89;&#x5168;&#x56E0;&#x7D20;&#xFF0C;Java &#x6838;&#x5FC3; api &#x5728;&#x5B9A;&#x4E49;&#x7C7B;&#x578B;&#x65F6;&#x4E0D;&#x4F1A;&#x88AB;&#x968F;&#x610F;&#x66FF;&#x6362;&#xFF0C;&#x5047;&#x8BBE;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;<code>java.lang.Integer</code>&#x7684;&#x7C7B;&#xFF0C;&#x901A;&#x8FC7;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x4F20;&#x9012;&#x5230;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x800C;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x8F7D;&#x6838;&#x5FC3; Java API &#x53D1;&#x73B0;&#x8FD9;&#x4E2A;&#x540D;&#x5B57;&#x7684;&#x7C7B;&#xFF0C;&#x53D1;&#x73B0;&#x8BE5;&#x7C7B;&#x5DF2;&#x88AB;&#x52A0;&#x8F7D;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x7F51;&#x7EDC;&#x4F20;&#x9012;&#x8FC7;&#x6765;&#x7684;<code>java.lang.Integer</code>&#xFF0C;&#x800C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5DF2;&#x52A0;&#x8F7D;&#x8FC7;&#x7684;<code>Integer.class</code>&#xFF0C;&#x8FD9;&#x6837;&#x4FBF;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x6838;&#x5FC3; API &#x88AB;&#x968F;&#x610F;&#x7BE1;&#x6539;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x4ECE;&#x4EE3;&#x7801;&#x5C42;&#x9762;&#x4E86;&#x89E3;&#x51E0;&#x4E2A; Java &#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x53CA;&#x5176;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4ED6;&#x4EEC;&#x7684;&#x7C7B;&#x56FE;&#x5173;&#x7CFB;&#x5982;&#x4E0B; <img src="/images/java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-54-17.png" alt="java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-54-17.png"></p>
+<p>&#x4ECE;&#x56FE;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x9876;&#x5C42;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x65F6; ClassLoader &#x7C7B;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x5176;&#x540E;&#x6240;&#x6709;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x90FD;&#x7EE7;&#x627F;&#x81EA; ClassLoader(&#x4E0D;&#x5305;&#x62EC;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;)&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD; ClassLoader &#x4E2D;&#x51E0;&#x4E2A;&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<ul>
+<li><p><code>loadClass(String)</code></p>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x52A0;&#x8F7D;&#x6307;&#x5B9A;&#x540D;&#x79F0;(&#x5305;&#x62EC;&#x5305;&#x540D;)&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x7C7B;&#x578B;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x8F7D; JDK 1.2 &#x4E4B;&#x540E;&#x4E0D;&#x518D;&#x5EFA;&#x8BAE;&#x7528;&#x6237;&#x91CD;&#x5199;&#x4F46;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#xFF0C;<code>loadClass()</code>&#x65B9;&#x6CD5;&#x662F;<code>ClassLoader</code>&#x7C7B;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4E2D;&#x7684;&#x903B;&#x8F91;&#x5C31;&#x662F;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5176;&#x6E90;&#x7801;&#x5982;&#x4E0B;&#xFF0C;<code>loadClass(String name, boolean resolve)</code>&#x662F;&#x4E00;&#x4E2A;&#x91CD;&#x8F7D;&#x65B9;&#x6CD5;&#xFF0C;resolve &#x53C2;&#x6570;&#x4EE3;&#x8868;&#x662F;&#x5426;&#x751F;&#x5B58; class &#x5BF9;&#x8C61;&#x7684;&#x540C;&#x65F6;&#x89E3;&#x6790;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve) <span class="keyword">throws</span> ClassNotFoundException{</span><br><span class="line">  <span class="keyword">synchronized</span> (getClassLoadingLock(name)){</span><br><span class="line">    <span class="comment">//&#x5148;&#x4ECE;&#x7F13;&#x5B58;&#x67E5;&#x627E;&#x8BE5;class&#x5BF9;&#x8C61;&#xFF0C;&#x627E;&#x5230;&#x5C31;&#x4E0D;&#x7528;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;</span></span><br><span class="line">    Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">    <span class="keyword">if</span>(c == <span class="keyword">null</span>){</span><br><span class="line">      <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">      <span class="keyword">try</span>{</span><br><span class="line">        <span class="keyword">if</span>(parent !=<span class="keyword">null</span>){</span><br><span class="line">          <span class="comment">//&#x5982;&#x679C;&#x627E;&#x4E0D;&#x5230;&#xFF0C;&#x5219;&#x59D4;&#x6258;&#x7ED9;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;</span></span><br><span class="line">          c = parent.loadClass(name,<span class="keyword">false</span>);</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">          <span class="comment">//&#x5982;&#x679C;&#x6CA1;&#x6709;&#x7236;&#x7C7B;&#xFF0C;&#x5219;&#x59D4;&#x6258;&#x7ED9;&#x542F;&#x52A8;&#x52A0;&#x8F7D;&#x5668;&#x53BB;&#x52A0;&#x8F7D;</span></span><br><span class="line">          c = findBootstrapClassOrNull(name);</span><br><span class="line">        }<span class="keyword">catch</span>(ClassNotFoundException e){</span><br><span class="line">          ...</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(c == <span class="keyword">null</span>){</span><br><span class="line">          <span class="comment">//&#x5982;&#x679C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#xFF0C;&#x5219;&#x901A;&#x8FC7;&#x81EA;&#x5B9A;&#x4E49;&#x5B9E;&#x73B0;&#x7684;findClass&#x53BB;&#x67E5;&#x627E;&#x5E76;&#x52A0;&#x8F7D;</span></span><br><span class="line">          c  = findClass(name);</span><br><span class="line">        }</span><br><span class="line">      }</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span>(resolve){<span class="comment">//&#x662F;&#x5426;&#x9700;&#x8981;&#x8F7D;&#x52A0;&#x8F7D;&#x65F6;&#x8FDB;&#x884C;&#x89E3;&#x6790;</span></span><br><span class="line">        resolveClass(c);</span><br><span class="line">      }</span><br><span class="line">      <span class="keyword">return</span> c;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6B63;&#x5982; <code>loadClass</code>&#x65B9;&#x6CD5;&#x6240;&#x5C55;&#x793A;&#x7684;&#xFF0C;&#x5F53;&#x7C7B;&#x52A0;&#x8F7D;&#x8BF7;&#x6C42;&#x5230;&#x6765;&#x65F6;&#xFF0C;&#x5148;&#x4ECE;&#x7F13;&#x5B58;&#x4E2D;&#x67E5;&#x627E;&#x8BE5;&#x7C7B;&#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x5219;&#x4EA4;&#x7ED9;&#x8BE5;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x82E5;&#x6CA1;&#x6709;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x5219;&#x4EA4;&#x7ED9;&#x9876;&#x5C42;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x53BB;&#x52A0;&#x8F7D;&#xFF0C;&#x82E5;&#x6700;&#x540E;&#x6CA1;&#x6709;&#x627E;&#x5230;&#xFF0C;&#x5219;&#x4F7F;&#x7528;<code>findClass()</code>&#x65B9;&#x6CD5;&#x53BB;&#x52A0;&#x8F7D;&#x3002;&#x4ECE;<code>loadClass</code>&#x5B9E;&#x73B0;&#x4E5F;&#x53EF;&#x4EE5;&#x77E5;&#x9053;&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#x52A0;&#x8F7D;&#x7C7B;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x4E5F;&#x6CA1;&#x6709;&#x590D;&#x6742;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x53EA;&#x60F3;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x52A0;&#x8F7D;&#x81EA;&#x5B9A;&#x6307;&#x5B9A;&#x7684;&#x7C7B;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>this.getClass().getClassLoder.loadClass(&quot;className&quot;)</code>,&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x8C03;&#x7528;<code>ClassLoader</code>&#x7684; loadClass &#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x5230; class &#x5BF9;&#x8C61;&#x3002;</p></li>
+<li><p><code>findCLass(String)</code></p>
+<p>&#x8F7D; JDK1.2 &#x4E4B;&#x524D;&#xFF0C;&#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x65F6;&#xFF0C;&#x603B;&#x4F1A;&#x53BB;&#x7EE7;&#x627F; ClassLoader &#x7C7B;&#x5E76;&#x91CD;&#x5199; loadClass &#x65B9;&#x6CD5;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x4F46;&#x662F;&#x5728; JDK1.2 &#x4E4B;&#x540E;&#x5DF2;&#x4E0D;&#x518D;&#x5EFA;&#x8BAE;&#x7528;&#x6237;&#x53BB;&#x8986;&#x76D6;<code>loadCLass()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x662F;&#x5EFA;&#x8BAE;&#x628A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x903B;&#x8F91;&#x5199;&#x5728;<code>findClass()</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x4ECE;&#x524D;&#x9762;&#x7684;&#x5206;&#x6790;&#x53EF;&#x77E5;&#xFF0C;<code>findClass()</code>&#x65B9;&#x6CD5;&#x662F;<code>loadClass()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x88AB;&#x8C03;&#x7528;&#x7684;&#xFF0C;&#x5F53;<code>loadClass()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;&#x5931;&#x8D25;&#x540E;&#xFF0C;&#x5219;&#x4F1A;&#x8C03;&#x7528;&#x81EA;&#x5DF1;&#x7684;<code>findClass()</code>&#x65B9;&#x6CD5;&#x6765;&#x5B8C;&#x6210;&#x7C7B;&#x52A0;&#x8F7D;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4E5F;&#x7B26;&#x5408;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;<code>ClassLoader</code>&#x7C7B;&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;<code>findClass()</code>&#x65B9;&#x6CD5;&#x7684;&#x5177;&#x4F53;&#x903B;&#x8F91;&#xFF0C;&#x53D6;&#x800C;&#x4EE3;&#x4E4B;&#x7684;&#x662F;&#x629B;&#x51FA;<code>ClassNotFoundException</code>&#x4E00;&#x573A;&#xFF0C;&#x540C;&#x65F6;&#x5E94;&#x8BE5;&#x77E5;&#x9053;&#x7684;&#x662F;&#xFF40;<code>findClass</code>&#x65B9;&#x6CD5;&#x901A;&#x5E38;&#x662F;&#x548C;<code>defineClass</code>&#x65B9;&#x6CD5;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x7684;&#xFF0C;<code>ClassLoader</code>&#x7C7B;&#x4E2D;<code>findCLass</code>&#x65B9;&#x6CD5;&#x6E90;&#x7801;&#x5982;&#x4E0B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x76F4;&#x63A5;&#x629B;&#x51FA;&#x5F02;&#x5E38;</span></span><br><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ClassNotFoundException(name);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+<li><p><code>defineClass(byte[] b, int off ,int len)</code></p>
+<p><code>defineClass()</code>&#x65B9;&#x6CD5;&#x662F;&#x7528;&#x6765;&#x5C06; byte &#x5B57;&#x8282;&#x6D41;&#x89E3;&#x6790;&#x6210; JVM &#x80FD;&#x591F;&#x8BC6;&#x522B;&#x7684; Class &#x5BF9;&#x8C61;(<code>CLassLoader</code>&#x4E2D;&#x5DF2;&#x5B9E;&#x73B0;&#x8BE5;&#x65B9;&#x6CD5;&#x903B;&#x8F91;)&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A; &#x65B9;&#x6CD5;&#x4E0D;&#x4EC5;&#x80FD;&#x591F;&#x901A;&#x8FC7; class &#x6587;&#x4EF6;&#x5B9E;&#x4F8B;&#x5316; class &#x5BF9;&#x8C61;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x65B9;&#x6CD5;&#x5B9E;&#x4F8B;&#x5316; class &#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x5B57;&#x8282;&#x7801;&#xFF0C;&#x7136;&#x540E;&#x8F6C;&#x6362;&#x4E3A; byte &#x5B57;&#x8282;&#x6D41;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684; Class &#x5BF9;&#x8C61;&#xFF0C;<code>defineClass()</code>&#x65B9;&#x6CD5;&#x901A;&#x5E38;&#x4E0E;<code>findClass()</code>&#x65B9;&#x6CD5;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5728;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x65F6;&#xFF0C;&#x4F1A;&#x76F4;&#x63A5;&#x8986;&#x76D6;<code>ClassLoader</code>&#x7684;<code>findClass()</code>&#x65B9;&#x6CD5;&#x5E76;&#x7F16;&#x5199;&#x52A0;&#x8F7D;&#x89C4;&#x5219;&#xFF0C;&#x53D6;&#x5F97;&#x8981;&#x52A0;&#x8F7D;&#x7C7B;&#x7684;&#x5B57;&#x8282;&#x7801;&#x540E;&#x8F6C;&#x5316;&#x4E3A;&#x6D41;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;<code>defineClass()</code>&#x65B9;&#x6CD5;&#x751F;&#x6210;&#x7C7B;&#x7684; Class &#x5BF9;&#x8C61;&#xFF0C;&#x7B80;&#x5355;&#x4F8B;&#x5B50;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException {</span><br><span class="line">      <span class="comment">// &#x83B7;&#x53D6;&#x7C7B;&#x7684;&#x5B57;&#x8282;&#x6570;&#x7EC4;</span></span><br><span class="line">      <span class="keyword">byte</span>[] classData = getClassData(name);</span><br><span class="line">      <span class="keyword">if</span> (classData == <span class="keyword">null</span>) {</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> ClassNotFoundException();</span><br><span class="line">      } <span class="keyword">else</span> {</span><br><span class="line">          <span class="comment">//&#x4F7F;&#x7528;defineClass&#x751F;&#x6210;class&#x5BF9;&#x8C61;</span></span><br><span class="line">          <span class="keyword">return</span> defineClass(name, classData, <span class="number">0</span>, classData.length);</span><br><span class="line">      }</span><br><span class="line">  }</span><br></pre></td></tr></table></figure>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x76F4;&#x63A5;&#x8C03;&#x7528;<code>defineClass()</code>&#x65B9;&#x6CD5;&#x751F;&#x6210;&#x7C7B;&#x7684; Class &#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x7684; Class &#x5BF9;&#x8C61;&#x5E76;&#x6CA1;&#x6709;&#x89E3;&#x6790;(&#x4E5F;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x94FE;&#x63A5;&#x9636;&#x6BB5;&#xFF0C;&#x6BD5;&#x7ADF;&#x89E3;&#x6790;&#x662F;&#x94FE;&#x63A5;&#x7684;&#x6700;&#x540E;&#x4E00;&#x6B65;)&#xFF0C;&#x5176;&#x89E3;&#x6790;&#x64CD;&#x4F5C;&#x9700;&#x8981;&#x7B49;&#x5F85;&#x521D;&#x59CB;&#x5316;&#x9636;&#x6BB5;&#x8FDB;&#x884C;&#x3002;</p></li>
+<li><p><code>resolveClass(Class&lt;?&gt; c)</code></p>
+<p>&#x4F7F;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4F7F;&#x7C7B;&#x7684; Class &#x5BF9;&#x8C61;&#x521B;&#x5EFA;&#x5B8C;&#x6210;&#x4E5F;&#x540C;&#x65F6;&#x88AB;&#x89E3;&#x6790;&#x3002;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x8BF4;&#x7684;&#x94FE;&#x63A5;&#x9636;&#x6BB5;&#x4E3B;&#x8981;&#x662F;&#x5BF9;&#x5B57;&#x8282;&#x7801;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#xFF0C;&#x4E3A;&#x7C7B;&#x53D8;&#x91CF;&#x5206;&#x914D;&#x5185;&#x5B58;&#x5E76;&#x8BBE;&#x7F6E;&#x521D;&#x59CB;&#x503C;&#x540C;&#x65F6;&#x5C06;&#x5B57;&#x8282;&#x7801;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x7B26;&#x53F7;&#x5F15;&#x7528;&#x8F6C;&#x6362;&#x4E3A;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x4E0A;&#x8FF0; 4 &#x4E2A;&#x65B9;&#x6CD5;&#x662F;<code>ClassLoader</code>&#x7C7B;&#x4E2D;&#x7684;&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x4F1A;&#x7ECF;&#x5E38;&#x7528;&#x5230;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x63A5;&#x7740;&#x770B;<code>SercureClassLoader</code>&#x6269;&#x5C55;&#x4E86;<code>ClassLoader</code>&#xFF0C;&#x65B0;&#x589E;&#x4E86;&#x51E0;&#x4E2A;&#x4E0E;&#x4F7F;&#x7528;&#x76F8;&#x5173;&#x7684;&#x4EE3;&#x7801;&#x6E90;(&#x5BF9;&#x4EE3;&#x7801;&#x6E90;&#x7684;&#x4F4D;&#x7F6E;&#x53CA;&#x8BC1;&#x4E66;&#x7684;&#x9A8C;&#x8BC1;)&#x548C;&#x6743;&#x9650;&#x5B9A;&#x4E49;&#x7C7B;&#x9A8C;&#x8BC1;(&#x4E3B;&#x8981;&#x662F;&#x6307;&#x5BF9; class &#x6E90;&#x7801;&#x7684;&#x8BBF;&#x95EE;&#x6743;&#x9650;)&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4E00;&#x822C;&#x6211;&#x4EEC;&#x4E0D;&#x4F1A;&#x76F4;&#x63A5;&#x8DDF;&#x8FD9;&#x4E2A;&#x7C7B;&#x6253;&#x4EA4;&#x9053;&#xFF0C;&#x66F4;&#x591A;&#x662F;&#x4E0E;&#x5B83;&#x7684;&#x5B50;&#x7C7B;<code>URLClassLoader</code>&#x6709;&#x6240;&#x5173;&#x8054;&#xFF0C;&#x524D;&#x9762;&#x8BF4;&#x8FC7;&#xFF0C;<code>ClassLoader</code>&#x662F;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x5F88;&#x591A;&#x65B9;&#x6CD5;&#x662F;&#x7A7A;&#x7684;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#xFF0C;&#x5E76;&#x65B0;&#x589E;&#x4E86;<code>URLClassPath</code>&#x7C7B;&#x534F;&#x52A9;&#x53D6;&#x5F97; Class &#x5B57;&#x8282;&#x7801;&#x6D41;&#x7B49;&#x529F;&#x80FD;&#xFF0C;&#x5728;&#x7F16;&#x5199;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x592A;&#x8FC7;&#x4E8E;&#x590D;&#x6742;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x96C6;&#x6210;<code>URLClassLoader</code>&#x7C7B;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x81EA;&#x5DF1;&#x53BB;&#x7F16;&#x5199;<code>findClass()</code>&#x65B9;&#x6CD5;&#x53CA;&#x83B7;&#x53D6;&#x5B57;&#x8282;&#x7801;&#x6D41;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F7F;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7F16;&#x5199;&#x66F4;&#x52A0;&#x7B80;&#x6D01;&#xFF0C;&#x4E0B;&#x9762;&#x662F;<code>URLClassLoader</code>&#x7684;&#x7C7B;&#x56FE; <img src="/images/java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-54-38.png" alt="java&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;_2020-04-23-10-54-38.png"></p></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+            
+              <div>
+                
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+              </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/23/java字节码/" rel="next" title="java字节码">
+                <i class="fa fa-chevron-left"></i> java字节码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/23/mysql/" rel="prev" title="mysql">
+                mysql <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lijun</p>
+              <div class="site-description motion-element" itemprop="description">与其感慨路难行，不如马上就出发</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-类加载器"><span class="nav-number">1.</span> <span class="nav-text">Java 类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动类加载器bootstrap"><span class="nav-number">1.1.</span> <span class="nav-text">启动类加载器(Bootstrap)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展类加载器extension"><span class="nav-number">1.2.</span> <span class="nav-text">扩展类加载器(Extension)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解双亲委派模式"><span class="nav-number">2.</span> <span class="nav-text">理解双亲委派模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#双亲委派模式工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">双亲委派模式工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双亲委派模式优势"><span class="nav-number">2.2.</span> <span class="nav-text">双亲委派模式优势</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lijun</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '0c587ba925564ae382e7',
+    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
+    repo: 'comment',
+    owner: 'leaderli',
+    admin: ['leaderli'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'false# Facebook-like distraction free mode'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '0c587ba925564ae382e7',
+    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
+    repo: 'comment',
+    owner: 'leaderli',
+    admin: ['leaderli'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'false# Facebook-like distraction free mode'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\|]/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      var words = [],grep_position=[]
+                      if(wordLen>5){
+                        var words = word.split(/[+]/);
+                        word =words[0]
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        if ( wordLen>5  && words.length>1){
+                            var grep = words[1]
+                            if(grep.length>1 ){
+
+                             if((grep_position = text.indexOf(grep, -1)) > -1){
+                              index.push({position: position, word: word});
+                             } 
+                            }else{
+                              index.push({position: grep_position, word: grep});
+                            }
+                        }else{
+                          index.push({position: position, word: word});
+                        }
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+   <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>
