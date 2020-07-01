@@ -142,10 +142,12 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x6587;&amp;#x4EF6;&amp;#x7ED3;&amp;#x6784; &amp;#x5F53;&amp;#x4F7F;&amp;#x7528;git init&amp;#x521B;&amp;#x5EFA;&amp;#x4E00;&amp;#x4E2A;&amp;#x65B0;&amp;#x7684;&amp;#x4ED3;&amp;#x5E93;&amp;#x65F6;&amp;#xFF0C;Git &amp;#x4F1A;&amp;#x521B;&amp;#x5EFA;&amp;#x4E00;&amp;#x4E2A;.git&amp;#x76EE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta property="og:image" content="https://leaderli.github.io/images/深入git_内部数据存储结构.png">
+<meta property="og:updated_time" content="2020-07-01T09:27:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入git">
 <meta name="twitter:description" content="&amp;#x6587;&amp;#x4EF6;&amp;#x7ED3;&amp;#x6784; &amp;#x5F53;&amp;#x4F7F;&amp;#x7528;git init&amp;#x521B;&amp;#x5EFA;&amp;#x4E00;&amp;#x4E2A;&amp;#x65B0;&amp;#x7684;&amp;#x4ED3;&amp;#x5E93;&amp;#x65F6;&amp;#xFF0C;Git &amp;#x4F1A;&amp;#x521B;&amp;#x5EFA;&amp;#x4E00;&amp;#x4E2A;.git&amp;#x76EE">
+<meta name="twitter:image" content="https://leaderli.github.io/images/深入git_内部数据存储结构.png">
 
 
 
@@ -479,7 +481,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-01 17:27:31" itemprop="dateModified" datetime="2020-07-01T17:27:31+08:00">2020-07-01</time>
               </span>
             
           
@@ -562,6 +564,26 @@
 <p>blob &#x5BF9;&#x8C61;&#x662F;&#x9488;&#x5BF9;&#x6570;&#x636E;&#x5185;&#x5BB9;&#x7684;&#xFF0C;&#x4E0D;&#x533A;&#x5206;&#x6587;&#x4EF6;</p>
 <p>&#x4F8B;&#x5982;&#xFF1A;</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&apos;version 1&apos;</span> &gt; 2.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add 2.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> find .git/objects/ -<span class="built_in">type</span> f</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x53EF;&#x4EE5;&#x770B;&#x5230;blob&#x5BF9;&#x8C61;&#x5E76;&#x6CA1;&#x6709;&#x589E;&#x52A0;</span></span><br><span class="line">.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4</span><br><span class="line">.git/objects/83/baae61804e65cc73a7201a7252750c76066a</span><br><span class="line"><span class="meta">$</span><span class="bash"> git ls-files --stage</span></span><br><span class="line">100644 83baae61804e65cc73a7201a7252750c76066a30 0 1.txt</span><br><span class="line">100644 83baae61804e65cc73a7201a7252750c76066a30 0 2.txt</span><br></pre></td></tr></table></figure>
+<h3 id="tree">tree</h3>
+<p>Git &#x4EE5;&#x4E00;&#x79CD;&#x7C7B;&#x4F3C;&#x4E8E; UNIX &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x65B9;&#x5F0F;&#x5B58;&#x50A8;&#x5185;&#x5BB9;&#xFF0C;&#x4F46;&#x4F5C;&#x4E86;&#x4E9B;&#x8BB8;&#x7B80;&#x5316;&#x3002; &#x6240;&#x6709;&#x5185;&#x5BB9;&#x5747;&#x4EE5;&#x6811;&#x5BF9;&#x8C61;&#x548C;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x7684;&#x5F62;&#x5F0F;&#x5B58;&#x50A8;&#xFF0C;&#x5176;&#x4E2D;&#x6811;&#x5BF9;&#x8C61;&#x5BF9;&#x5E94;&#x4E86; UNIX &#x4E2D;&#x7684;&#x76EE;&#x5F55;&#x9879;&#xFF0C;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x5219;&#x5927;&#x81F4;&#x4E0A;&#x5BF9;&#x5E94;&#x4E86; inodes &#x6216;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x3002; &#x4E00;&#x4E2A;&#x6811;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x6761;&#x6216;&#x591A;&#x6761;&#x6811;&#x5BF9;&#x8C61;&#x8BB0;&#x5F55;&#xFF08;tree entry&#xFF09;&#xFF0C;&#x6BCF;&#x6761;&#x8BB0;&#x5F55;&#x542B;&#x6709;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x5B50;&#x6811;&#x5BF9;&#x8C61;&#x7684; SHA-1 &#x6307;&#x9488;&#xFF0C;&#x4EE5;&#x53CA;&#x76F8;&#x5E94;&#x7684;&#x6A21;&#x5F0F;&#x3001;&#x7C7B;&#x578B;&#x3001;&#x6587;&#x4EF6;&#x540D;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>git commit</code>&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&apos;commit 1&apos;</span></span></span><br><span class="line">[master (root-commit) 9f1224b] commit 1</span><br><span class="line"> 2 files changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 1.txt</span><br><span class="line"> create mode 100644 2.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;.git&#x76EE;&#x5F55;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> find .git/ -<span class="built_in">type</span></span></span><br><span class="line">.git/refs/heads/master</span><br><span class="line">...</span><br><span class="line">.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4</span><br><span class="line">.git/objects/83/baae61804e65cc73a7201a7252750c76066a30</span><br><span class="line">.git/objects/1d/49be59d2805f145b66c15641a11e945a5d021a</span><br><span class="line">.git/objects/9f/1224bca340fb2e4235adfa3e42297033c26ec9</span><br><span class="line">.git/index</span><br><span class="line">.git/COMMIT_EDITMSG</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x751F;&#x6210;&#x4E86;&#x4E24;&#x4E2A;&#x65B0;&#x7684;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> tree</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 1d49be</span></span><br><span class="line">100644 blob 83baae61804e65cc73a7201a7252750c76066a30 1.txt</span><br><span class="line">100644 blob 83baae61804e65cc73a7201a7252750c76066a30 2.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit commit&#x4E2D;&#x5305;&#x542B;&#x4E86;tree&#x5BF9;&#x8C61;&#x7684;sha1</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 9f1224b</span></span><br><span class="line">tree 1d49be59d2805f145b66c15641a11e945a5d021a</span><br><span class="line">author leaderli &lt;429243408@qq.com&gt; 1593549136 +0800</span><br><span class="line">committer leaderli &lt;429243408@qq.com&gt; 1593549136 +0800</span><br><span class="line"></span><br><span class="line">commit 1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;&#x6240;&#x6709;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file --batch-check --batch-all-objects</span></span><br><span class="line">1d49be59d2805f145b66c15641a11e945a5d021a tree 66</span><br><span class="line">83baae61804e65cc73a7201a7252750c76066a30 blob 10</span><br><span class="line">9f1224bca340fb2e4235adfa3e42297033c26ec9 commit 163</span><br><span class="line">d670460b4b4aece5915caf5c68d12f560a9fe3e4 blob 13</span><br></pre></td></tr></table></figure>
+<h3 id="git-gc">git gc</h3>
+<p>&#x5F53;&#x4F7F;&#x7528;<code>git gc</code>&#x6216;&#x8005;<code>git push</code>&#x65F6;&#xFF0C;git &#x4F1A;&#x81EA;&#x52A8;&#x5C06;<code>.git/objects/</code>&#x4E0B;&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x538B;&#x7F29;&#xFF0C;&#x5728;<code>.git/objects/pack/</code>&#x4E0B;&#x751F;&#x6210;<code>.idx</code>&#x548C;<code>.pack</code>&#x6587;&#x4EF6;&#x3002;</p>
+<h2 id="&#x5206;&#x652F;">&#x5206;&#x652F;</h2>
+<p>git &#x7684; commit &#x662F;&#x4E00;&#x4E2A;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE; &#x67E5;&#x770B;.git &#x5185;&#x7684;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x751F;&#x6210;&#x4E86;.git/refs.heads/master&#xFF0C;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x5176;&#x6307;&#x5411; commit 1</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> more .git/refs/heads/master</span></span><br><span class="line">9f1224bca340fb2e4235adfa3e42297033c26ec9</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x65B0;&#x589E;&#x5B50;&#x76EE;&#x5F55;&#x4EE5;&#x53CA;&#x5B50;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x6DFB;&#x52A0;&#x5230; stage &#x533A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;version 3&quot;</span> &gt; dir/3.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">  dir/</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x6DFB;&#x52A0;&#x5230;&#x7F13;&#x5B58;&#x533A;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add dir/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">  new file:   dir/3.txt</span><br></pre></td></tr></table></figure>
+<h3 id="git-diff">git diff</h3>
+<p><code>git diff --cache</code>&#x662F;&#x6BD4;&#x8F83; index &#x548C; HEAD &#x7684;&#x5DEE;&#x5F02;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x6211;&#x4EEC;&#x67E5;&#x770B;HEAD&#x7684;&#x5185;&#x5BB9;,&#x53D1;&#x73B0;HEAD&#x6307;&#x5411;master&#x7684;commit 1</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> more .git/HEAD</span></span><br><span class="line">ref: refs/heads/master</span><br><span class="line"><span class="meta">$</span><span class="bash"> more .git/refs/heads/master</span></span><br><span class="line">9f1224bca340fb2e4235adfa3e42297033c26ec9</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> commit 1&#x6307;&#x5411;&#x7684;tree&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5BB9;&#x4E3A;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file  -p 9f1224bca340fb2e4235adfa3e42297033c26ec9</span></span><br><span class="line">tree 1d49be59d2805f145b66c15641a11e945a5d021a</span><br><span class="line">author leaderli &lt;429243408@qq.com&gt; 1593549136 +0800</span><br><span class="line">committer leaderli &lt;429243408@qq.com&gt; 1593549136 +0800</span><br><span class="line"></span><br><span class="line">commit 1</span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 1d49be59d2805f145b66c15641a11e945a5d021a</span></span><br><span class="line">100644 blob 83baae61804e65cc73a7201a7252750c76066a30 1.txt</span><br><span class="line">100644 blob 83baae61804e65cc73a7201a7252750c76066a30 2.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> index</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git ls-files -s</span></span><br><span class="line">100644 83baae61804e65cc73a7201a7252750c76066a30 0 1.txt</span><br><span class="line">100644 83baae61804e65cc73a7201a7252750c76066a30 0 2.txt</span><br><span class="line">100644 7170a5278f42ea12d4b6de8ed1305af8c393e756 0 dir/3.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x4F7F;&#x7528;diff&#x67E5;&#x770B;&#x5DEE;&#x5F02;&#x5185;&#x5BB9;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git diff --cached</span></span><br><span class="line">diff --git a/dir/3.txt b/dir/3.txt</span><br><span class="line">new file mode 100644</span><br><span class="line">index 0000000..7170a52</span><br><span class="line">--- /dev/null</span><br><span class="line">+++ b/dir/3.txt</span><br><span class="line">@@ -0,0 +1 @@</span><br><span class="line">+version 3</span><br></pre></td></tr></table></figure>
+<p>&#x63D0;&#x4EA4; commit 2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&apos;commit 2&apos;</span></span></span><br><span class="line">[master 014901f] commit 2</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 dir/3.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> HEAD&#x5F53;&#x524D;&#x6267;&#x884C;commit 2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> more .git/HEAD</span></span><br><span class="line">ref: refs/heads/master</span><br><span class="line"><span class="meta">$</span><span class="bash"> more .git/refs/heads/master</span></span><br><span class="line">014901f4a370ec3d0db58fc7a4cf9950d2111fbe</span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 014901f4a370ec3d0db58fc7a4cf9950d2111fbe</span></span><br><span class="line">tree 162488e047cda08c69e932e81722f7ce191057ee</span><br><span class="line"><span class="meta">#</span><span class="bash"> commit 2&#x7684;&#x7236;&#x8282;&#x70B9;&#x4E3A;commit 1</span></span><br><span class="line">parent 9f1224bca340fb2e4235adfa3e42297033c26ec9</span><br><span class="line">author leaderli &lt;429243408@qq.com&gt; 1593555980 +0800</span><br><span class="line">committer leaderli &lt;429243408@qq.com&gt; 1593555980 +0800</span><br><span class="line"></span><br><span class="line">commit 2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;commit 2 &#x6307;&#x5411;&#x7684;tree</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p 162488e047cda08c69e932e81722f7ce191057ee</span></span><br><span class="line">100644 blob 83baae61804e65cc73a7201a7252750c76066a30 1.txt</span><br><span class="line">100644 blob 83baae61804e65cc73a7201a7252750c76066a30 2.txt</span><br><span class="line">040000 tree b57d4c5b3c1f31f87d0d5e7343db0b53f8f650c2 dir</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cat-file -p b57d4c5b3c1f31f87d0d5e7343db0b53f8f650c2</span></span><br><span class="line">100644 blob 7170a5278f42ea12d4b6de8ed1305af8c393e756 3.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> HEAD&#x6267;&#x884C;&#x7684;tree&#x548C;index&#x7684;&#x4E00;&#x81F4;&#x4E86;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git diff --cached</span></span><br></pre></td></tr></table></figure>
+<p>&#x4ECE;&#x6982;&#x5FF5;&#x4E0A;&#x8BB2;&#xFF0C;&#x6B64;&#x65F6; Git &#x5185;&#x90E8;&#x5B58;&#x50A8;&#x7684;&#x6570;&#x636E;&#x6709;&#x70B9;&#x50CF;&#x8FD9;&#x6837;&#xFF1A; <img src="/images/&#x6DF1;&#x5165;git_&#x5185;&#x90E8;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7ED3;&#x6784;.png" alt="&#x6DF1;&#x5165;git_&#x5185;&#x90E8;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7ED3;&#x6784;.png"></p>
+<p><code>git diff &lt;commit1&gt; &lt;commit2&gt;</code>&#x7684;&#x539F;&#x7406;&#x90FD;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;</p>
+<h3 id="&#x5207;&#x6362;&#x5206;&#x652F;">&#x5207;&#x6362;&#x5206;&#x652F;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git sw -b dev</span></span><br><span class="line">Switched to a new branch &apos;dev&apos;</span><br><span class="line"><span class="meta">$</span><span class="bash"> find .git/ -<span class="built_in">type</span> f</span></span><br><span class="line">.git/refs/heads/master</span><br><span class="line">.git/refs/heads/dev</span><br><span class="line"><span class="meta">#</span><span class="bash"> HEAD &#x6307;&#x5411;&#x4E86;dev&#x5206;&#x652F;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> more .git/HEAD</span></span><br><span class="line">ref: refs/heads/dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">dev&#x5206;&#x652F;&#x6307;&#x5411;commit2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> more .git/refs/heads/dev</span></span><br><span class="line">014901f4a370ec3d0db58fc7a4cf9950d2111fbe</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1095,7 +1117,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件结构"><span class="nav-number">1.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象结构"><span class="nav-number">2.</span> <span class="nav-text">对象结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#blob"><span class="nav-number">2.1.</span> <span class="nav-text">blob</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件结构"><span class="nav-number">1.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象结构"><span class="nav-number">2.</span> <span class="nav-text">对象结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#blob"><span class="nav-number">2.1.</span> <span class="nav-text">blob</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tree"><span class="nav-number">2.2.</span> <span class="nav-text">tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-gc"><span class="nav-number">2.3.</span> <span class="nav-text">git gc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">3.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-diff"><span class="nav-number">3.1.</span> <span class="nav-text">git diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">3.2.</span> <span class="nav-text">切换分支</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1313,344 +1335,354 @@
 
 
   
-  <script>
+
+
+
+  
+<script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
     // Search DB path;
     var search_path = "search.json";
     if (search_path.length === 0) {
-      search_path = "search.xml";
+        search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {
-      isXml = false;
+        isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
 
     var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
+        $('.popup').hide();
+        $('#local-search-input').val('');
+        $('.search-result-list').remove();
+        $('#no-result').remove();
+        $(".local-search-pop-overlay").remove();
+        $('body').css('overflow', '');
     }
 
     function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+            .css('overflow', 'hidden');
+        $('.search-popup-overlay').click(onPopupClose);
+        $('.popup').toggle();
+        var $localSearchInput = $('#local-search-input');
+        $localSearchInput.attr("autocapitalize", "none");
+        $localSearchInput.attr("autocorrect", "off");
+        $localSearchInput.focus();
     }
 
     // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
 
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+        // start loading animation
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                '<div id="search-loading-icon">' +
+                '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                '</div>' +
+                '</div>')
+            .css('overflow', 'hidden');
+        $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
-      
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\|]/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      var words = [],grep_position=[]
-                      if(wordLen>5){
-                        var words = word.split(/[+]/);
-                        word =words[0]
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        if ( wordLen>5  && words.length>1){
-                            var grep = words[1]
-                            if(grep.length>1 ){
-
-                             if((grep_position = text.indexOf(grep, -1)) > -1){
-                              index.push({position: position, word: word});
-                             } 
-                            }else{
-                              index.push({position: grep_position, word: grep});
-                            }
-                        }else{
-                          index.push({position: position, word: word});
-                        }
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
+        $.ajax({
+            url: path,
+            dataType: isXml ? "xml" : "json",
+            async: true,
+            success: function (res) {
+                // get the contents from search data
+                isfetched = true;
+                $('.popup').detach().appendTo('.header-inner');
+                var datas = isXml ? $("entry", res).map(function () {
                     return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
                     };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
+                }).get() : res;
+                var input = document.getElementById(search_id);
+                var resultContent = document.getElementById(content_id);
+                var inputEventFunction = function () {
+                    var searchText = input.value.toLowerCase();
+                    if (searchText.length < 1) {
+                        return
                     }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    var keywords = []
+                    var first_keyword;
+                    if (searchText.charAt(0) === '/') {
+                        if (searchText.indexOf('/', 1) == 1) {
+                            keywords.push(searchText.substring(1))
+                        } else if (searchText.length > 2 && searchText.charAt(searchText.length - 1) === '/') {
+                            keywords.push('$$')
+                            try {
+                                eval('first_keyword = ' + searchText + 'g');
+                            } catch (err) {
+                                console.error(err)
+                                return
+                            }
+                            input.value = searchText.substring(0,searchText.length-1)
+                        } else {
+                            return
+                        }
                     } else {
-                      return sliceLeft.start - sliceRight.start;
+                        keywords.push(searchText);
                     }
-                  });
+                    var resultItems = [];
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = false;
+                        var hitCount = 0;
+                        var searchTextCount = 0;
+                        var title = data.title.trim();
+                        var titleInLowerCase = title.toLowerCase();
+                        var content = data.content.trim();
+                        var contentInLowerCase = content.toLowerCase();
+                        var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                        var indexOfTitle = [];
+                        var indexOfContent = [];
+                        // only match articles with not empty titles
+                        if (title != '') {
+                            if (first_keyword) {
+                                keywords = contentInLowerCase.match(first_keyword)
+                            }
+                            if (!keywords) {
+                                keywords = []
+                            }
+                            keywords.forEach(function (keyword) {
+                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
 
-                  // select top N slices in content
+                                  console.log(contentInLowerCase)
+                                }
+                                function getIndexByWord(word, text, caseSensitive) {
+                                    var wordLen = word.length;
+                                    if (wordLen === 0) {
+                                        return [];
+                                    }
+                                    var startPosition = 0, position = [], index = [];
+                                    if (!caseSensitive) {
+                                        text = text.toLowerCase();
+                                        word = word.toLowerCase();
+                                    }
+                                    while ((position = text.indexOf(word, startPosition)) > -1) {
 
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
+                                        index.push({ position: position, word: word });
+                                        startPosition = position + wordLen;
+                                    }
+                                    return index;
+                                }
 
-                  // highlight title and content
+                                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                            });
+                            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                isMatch = true;
+                                hitCount = indexOfTitle.length + indexOfContent.length;
+                            }
+                        }
 
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
+                        // show search results
 
-                  var resultItem = '';
+                        if (isMatch) {
+                            // sort index by position of keyword
 
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
+                            [indexOfTitle, indexOfContent].forEach(function (index) {
+                                index.sort(function (itemLeft, itemRight) {
+                                    if (itemRight.position !== itemLeft.position) {
+                                        return itemRight.position - itemLeft.position;
+                                    } else {
+                                        return itemLeft.word.length - itemRight.word.length;
+                                    }
+                                });
+                            });
 
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
+                            // merge hits into slices
 
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
+                            function mergeIntoSlice(text, start, end, index) {
+                                var item = index[index.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                var hits = [];
+                                var searchTextCountInSlice = 0;
+                                while (position + word.length <= end && index.length != 0) {
+                                    if (word === searchText) {
+                                        searchTextCountInSlice++;
+                                    }
+                                    hits.push({ position: position, length: word.length });
+                                    var wordEnd = position + word.length;
+
+                                    // move to next position of hit
+
+                                    index.pop();
+                                    while (index.length != 0) {
+                                        item = index[index.length - 1];
+                                        position = item.position;
+                                        word = item.word;
+                                        if (wordEnd > position) {
+                                            index.pop();
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+                                searchTextCount += searchTextCountInSlice;
+                                return {
+                                    hits: hits,
+                                    start: start,
+                                    end: end,
+                                    searchTextCount: searchTextCountInSlice
+                                };
+                            }
+
+                            var slicesOfTitle = [];
+                            if (indexOfTitle.length != 0) {
+                                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                            }
+
+                            var slicesOfContent = [];
+                            while (indexOfContent.length != 0) {
+                                var item = indexOfContent[indexOfContent.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                // cut out 100 characters
+                                var start = position - 20;
+                                var end = position + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (end < position + word.length) {
+                                    end = position + word.length;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                            }
+
+                            // sort slices in content by search text's count and hits' count
+
+                            slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                    return sliceRight.hits.length - sliceLeft.hits.length;
+                                } else {
+                                    return sliceLeft.start - sliceRight.start;
+                                }
+                            });
+
+                            // select top N slices in content
+
+                            var upperBound = parseInt('1');
+                            if (upperBound >= 0) {
+                                slicesOfContent = slicesOfContent.slice(0, upperBound);
+                            }
+
+                            // highlight title and content
+
+                            function highlightKeyword(text, slice) {
+                                var result = '';
+                                var prevEnd = slice.start;
+                                slice.hits.forEach(function (hit) {
+                                    result += text.substring(prevEnd, hit.position);
+                                    var end = hit.position + hit.length;
+                                    result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                    prevEnd = end;
+                                });
+                                result += text.substring(prevEnd, slice.end);
+                                return result;
+                            }
+
+                            var resultItem = '';
+
+                            if (slicesOfTitle.length != 0) {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                            } else {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                            }
+
+                            slicesOfContent.forEach(function (slice) {
+                                resultItem += "<a href='" + articleUrl + "'>" +
+                                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                    "...</p>" + "</a>";
+                            });
+
+                            resultItem += "</li>";
+                            resultItems.push({
+                                item: resultItem,
+                                searchTextCount: searchTextCount,
+                                hitCount: hitCount,
+                                id: resultItems.length
+                            });
+                        }
+                    })
+                    if (keywords.length === 1 && keywords[0] === "") {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+                    } else if (resultItems.length === 0) {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+                    } else {
+                        resultItems.sort(function (resultLeft, resultRight) {
+                            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                return resultRight.searchTextCount - resultLeft.searchTextCount;
+                            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                return resultRight.hitCount - resultLeft.hitCount;
+                            } else {
+                                return resultRight.id - resultLeft.id;
+                            }
+                        });
+                        var searchResultList = '<ul class=\"search-result-list\">';
+                        resultItems.forEach(function (result) {
+                            searchResultList += result.item;
+                        })
+                        searchResultList += "</ul>";
+                        resultContent.innerHTML = searchResultList;
+                    }
                 }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
+
+                if ('auto' === 'auto') {
+                    input.addEventListener('input', inputEventFunction);
                 } else {
-                  return resultRight.id - resultLeft.id;
+                    $('.search-icon').click(inputEventFunction);
+                    input.addEventListener('keypress', function (event) {
+                        if (event.keyCode === 13) {
+                            inputEventFunction();
+                        }
+                    });
                 }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
+
+                // remove loading animation
+                $(".local-search-pop-overlay").remove();
+                $('body').css('overflow', '');
+
+                proceedsearch();
             }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
+        });
     }
 
     // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
+    $('.popup-trigger').click(function (e) {
+        e.stopPropagation();
+        if (isfetched === false) {
+            searchFunc(path, 'local-search-input', 'local-search-result');
+        } else {
+            proceedsearch();
+        };
     });
 
     $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
+    $('.popup').click(function (e) {
+        e.stopPropagation();
     });
     $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
+        var shouldDismissSearchPopup = event.which === 27 &&
+            $('.search-popup').is(':visible');
+        if (shouldDismissSearchPopup) {
+            onPopupClose();
+        }
     });
-  </script>
-
-
+</script>
 
 
 
