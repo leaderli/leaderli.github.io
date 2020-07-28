@@ -135,7 +135,7 @@
 
 
   <meta name="description" content="&amp;#x5B89;&amp;#x88C5; &amp;#x4F7F;&amp;#x7528;centos 7&amp;#x7CFB;&amp;#x7EDF;&amp;#x5B89;&amp;#x88C5;&amp;#x7684;jenkins&amp;#x670D;&amp;#x52A1;&amp;#xFF0C; &amp;#x4F7F;&amp;#x7528;&amp;#x5B89;&amp;#x88C5;&amp;#x5305;&amp;#x8FDB;&amp;#x884C;&amp;#x5B89;&amp;#x88C5;&amp;#x3002; 12wget">
-<meta name="keywords" content="jenkins,centos">
+<meta name="keywords" content="centos,jenkins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jenkins">
 <meta property="og:url" content="https://leaderli.github.io/2019/12/16/jenkins/index.html">
@@ -373,7 +373,6 @@
      	search_path = "search.json";
      }
      var path = "<%= config.root %>" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
  </script>
 </div>
 
@@ -594,9 +593,9 @@
         
         <div class="post-tags">
           
-            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
-          
             <a href="/tags/centos/" rel="tag"># centos</a>
+          
+            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
           
         </div>
       
@@ -749,7 +748,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -818,7 +817,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1067,7 +1068,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1426,6 +1429,10 @@
                         var searchTextCount = 0;
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
                         var content = data.content.trim();
                         var contentInLowerCase = content.toLowerCase();
                         var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
@@ -1440,10 +1447,7 @@
                                 keywords = []
                             }
                             keywords.forEach(function (keyword) {
-                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
-
-                                  console.log(contentInLowerCase)
-                                }
+                            
                                 function getIndexByWord(word, text, caseSensitive) {
                                     var wordLen = word.length;
                                     if (wordLen === 0) {
@@ -1562,7 +1566,6 @@
                             });
 
                             // select top N slices in content
-
                             var upperBound = parseInt('1');
                             if (upperBound >= 0) {
                                 slicesOfContent = slicesOfContent.slice(0, upperBound);
@@ -1580,6 +1583,7 @@
                                     prevEnd = end;
                                 });
                                 result += text.substring(prevEnd, slice.end);
+                                
                                 return result;
                             }
 

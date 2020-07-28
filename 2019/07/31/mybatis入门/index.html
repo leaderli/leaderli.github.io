@@ -373,7 +373,6 @@
      	search_path = "search.json";
      }
      var path = "<%= config.root %>" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
  </script>
 </div>
 
@@ -1262,7 +1261,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1331,7 +1330,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1580,7 +1581,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1939,6 +1942,10 @@
                         var searchTextCount = 0;
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
                         var content = data.content.trim();
                         var contentInLowerCase = content.toLowerCase();
                         var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
@@ -1953,10 +1960,7 @@
                                 keywords = []
                             }
                             keywords.forEach(function (keyword) {
-                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
-
-                                  console.log(contentInLowerCase)
-                                }
+                            
                                 function getIndexByWord(word, text, caseSensitive) {
                                     var wordLen = word.length;
                                     if (wordLen === 0) {
@@ -2075,7 +2079,6 @@
                             });
 
                             // select top N slices in content
-
                             var upperBound = parseInt('1');
                             if (upperBound >= 0) {
                                 slicesOfContent = slicesOfContent.slice(0, upperBound);
@@ -2093,6 +2096,7 @@
                                     prevEnd = end;
                                 });
                                 result += text.substring(prevEnd, slice.end);
+                                
                                 return result;
                             }
 

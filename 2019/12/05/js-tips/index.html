@@ -143,7 +143,8 @@
 <meta property="og:description" content="&amp;#x683C;&amp;#x5F0F;&amp;#x5316;&amp;#x8F93;&amp;#x51FA; json 12var json = JSON.stringify(jsonObj, null, 4);consol.log(json); &amp;#x540D;&amp;#x5B57;&amp;#x7A7A;&amp;#x95F4; &amp;#x5168;&amp;#x5C40;&amp;#x53D8;&amp;#x91CF;&amp;#x4F1A;&amp;#x7ED1;&amp;#x5B9A;&amp;">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leaderli.github.io/images/js-tips_2020-04-25-13-18-14.png">
-<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta property="og:image" content="https://leaderli.github.io/images/js-tips_table.png">
+<meta property="og:updated_time" content="2020-07-09T03:10:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js-tips">
 <meta name="twitter:description" content="&amp;#x683C;&amp;#x5F0F;&amp;#x5316;&amp;#x8F93;&amp;#x51FA; json 12var json = JSON.stringify(jsonObj, null, 4);consol.log(json); &amp;#x540D;&amp;#x5B57;&amp;#x7A7A;&amp;#x95F4; &amp;#x5168;&amp;#x5C40;&amp;#x53D8;&amp;#x91CF;&amp;#x4F1A;&amp;#x7ED1;&amp;#x5B9A;&amp;">
@@ -375,7 +376,6 @@
      	search_path = "search.json";
      }
      var path = "<%= config.root %>" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
  </script>
 </div>
 
@@ -481,7 +481,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-09 11:10:09" itemprop="dateModified" datetime="2020-07-09T11:10:09+08:00">2020-07-09</time>
               </span>
             
           
@@ -594,6 +594,14 @@
 <figure>
 <img src="/images/js-tips_2020-04-25-13-18-14.png" alt="js-tips_2020-04-25-13-18-14.png"><figcaption>js-tips_2020-04-25-13-18-14.png</figcaption>
 </figure>
+<h2 id="this">this</h2>
+<p>this &#x5230;&#x5E95;&#x53D6;&#x4F55;&#x503C;&#xFF0C;&#x662F;&#x5728;&#x51FD;&#x6570;&#x771F;&#x6B63;&#x88AB;&#x8C03;&#x7528;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x786E;&#x5B9A;&#x7684;&#xFF0C;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x7684;&#x65F6;&#x5019;&#x786E;&#x5B9A;&#x4E0D;&#x4E86;</p>
+<ol type="1">
+<li>&#x5728;&#x5168;&#x5C40;&#x73AF;&#x5883;&#x4E0B;&#xFF0C;this &#x6C38;&#x8FDC;&#x662F; window</li>
+<li>&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4E2D;&#x7684; this &#x5C31;&#x4EE3;&#x8868;&#x5B83;&#x5373;&#x5C06; new &#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;</li>
+<li>&#x5982;&#x679C;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5E76;&#x4E14;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x51FD;&#x6570;&#x4E2D;&#x7684; this &#x6307;&#x5411;&#x8BE5;&#x5BF9;&#x8C61;</li>
+<li>&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x88AB; call &#x548C; apply &#x8C03;&#x7528;&#x65F6;&#xFF0C;this &#x7684;&#x503C;&#x5C31;&#x53D6;&#x4F20;&#x5165;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x503C;</li>
+</ol>
 <h2 id="&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;">&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;</h2>
 <p>&#x51FD;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#x201D;&#x548C;&#x201C;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x201D;&#x3002;&#x867D;&#x7136;&#x4E24;&#x8005;&#x90FD;&#x5F88;&#x5E38;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E24;&#x8005;&#x5728;&#x201C;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x201D;&#x65F6;&#xFF0C;&#x5374;&#x662F;&#x4E24;&#x79CD;&#x5F85;&#x9047;&#x3002;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(f1); <span class="comment">// function f1(){};</span></span><br><span class="line"><span class="built_in">console</span>.log(f2); <span class="comment">//undefined</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>{}</span><br><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{};</span><br></pre></td></tr></table></figure>
@@ -625,6 +633,17 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str.trim().split(<span class="regexp">/\s+/</span>));</span><br></pre></td></tr></table></figure>
 <h2 id="js-&#x8FDB;&#x5236;">js &#x8FDB;&#x5236;</h2>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x4E8C;&#x8FDB;&#x5236;0b&#x5F00;&#x5934;</span></span><br><span class="line"><span class="comment">//&#x516B;&#x8FDB;&#x5236;0&#x5F00;&#x5934;</span></span><br><span class="line"><span class="comment">//&#x5341;&#x516D;&#x8FDB;&#x5236;0x&#x5F00;&#x5934;</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">0b10</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">070</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="number">0x36</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="&#x5C5E;&#x6027;&#x4F9D;&#x8D56;&#x8D4B;&#x503C;">&#x5C5E;&#x6027;&#x4F9D;&#x8D56;&#x8D4B;&#x503C;</h2>
+<p>js &#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x503C;&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app = {};</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(app, <span class="string">&quot;config&quot;</span>, {</span><br><span class="line">  <span class="keyword">get</span>: (function () {</span><br><span class="line">    <span class="keyword">var</span> inner = {};</span><br><span class="line">    inner.get = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">      <span class="keyword">return</span> inner.config || (inner.config = <span class="number">1234</span>);</span><br><span class="line">    };</span><br><span class="line">    <span class="keyword">return</span> inner.get;</span><br><span class="line">  })(),</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h3 id="console">console</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = [</span><br><span class="line">  {</span><br><span class="line">    name: <span class="number">1</span>,</span><br><span class="line">    age: <span class="number">1</span>,</span><br><span class="line">  },</span><br><span class="line">  {</span><br><span class="line">    name: <span class="number">2</span>,</span><br><span class="line">    age: <span class="number">2</span>,</span><br><span class="line">  },</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.table(obj);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/js-tips_table.png" alt="js-tips_table.png"><figcaption>js-tips_table.png</figcaption>
+</figure>
+<h3 id="object">object</h3>
+<p>&#x67E5;&#x770B; obj &#x7684;&#x6240;&#x6709; key &#x4EE5;&#x53CA; values</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(obj);</span><br><span class="line"><span class="built_in">Object</span>.values(obj);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -806,7 +825,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -875,7 +894,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1124,7 +1145,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1162,7 +1185,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化输出-json"><span class="nav-number">1.</span> <span class="nav-text">格式化输出 json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名字空间"><span class="nav-number">2.</span> <span class="nav-text">名字空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准对象"><span class="nav-number">3.</span> <span class="nav-text">标准对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json"><span class="nav-number">4.</span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">5.</span> <span class="nav-text">COOKIE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">6.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">7.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行上下文"><span class="nav-number">8.</span> <span class="nav-text">执行上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-可变参数"><span class="nav-number">9.</span> <span class="nav-text">js 可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据空行分割字符串"><span class="nav-number">10.</span> <span class="nav-text">根据空行分割字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-进制"><span class="nav-number">11.</span> <span class="nav-text">js 进制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化输出-json"><span class="nav-number">1.</span> <span class="nav-text">格式化输出 json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名字空间"><span class="nav-number">2.</span> <span class="nav-text">名字空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准对象"><span class="nav-number">3.</span> <span class="nav-text">标准对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json"><span class="nav-number">4.</span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">5.</span> <span class="nav-text">COOKIE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">6.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">7.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this"><span class="nav-number">8.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行上下文"><span class="nav-number">9.</span> <span class="nav-text">执行上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-可变参数"><span class="nav-number">10.</span> <span class="nav-text">js 可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据空行分割字符串"><span class="nav-number">11.</span> <span class="nav-text">根据空行分割字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-进制"><span class="nav-number">12.</span> <span class="nav-text">js 进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性依赖赋值"><span class="nav-number">13.</span> <span class="nav-text">属性依赖赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#console"><span class="nav-number">13.1.</span> <span class="nav-text">console</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object"><span class="nav-number">13.2.</span> <span class="nav-text">object</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1483,6 +1506,10 @@
                         var searchTextCount = 0;
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
                         var content = data.content.trim();
                         var contentInLowerCase = content.toLowerCase();
                         var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
@@ -1497,10 +1524,7 @@
                                 keywords = []
                             }
                             keywords.forEach(function (keyword) {
-                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
-
-                                  console.log(contentInLowerCase)
-                                }
+                            
                                 function getIndexByWord(word, text, caseSensitive) {
                                     var wordLen = word.length;
                                     if (wordLen === 0) {
@@ -1619,7 +1643,6 @@
                             });
 
                             // select top N slices in content
-
                             var upperBound = parseInt('1');
                             if (upperBound >= 0) {
                                 slicesOfContent = slicesOfContent.slice(0, upperBound);
@@ -1637,6 +1660,7 @@
                                     prevEnd = end;
                                 });
                                 result += text.substring(prevEnd, slice.end);
+                                
                                 return result;
                             }
 

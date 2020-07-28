@@ -373,7 +373,6 @@
      	search_path = "search.json";
      }
      var path = "<%= config.root %>" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
  </script>
 </div>
 
@@ -663,7 +662,7 @@ spotlight &#x641C;&#x7D22;<br>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/15/bash-md/" rel="next" title="bash.md">
+              <a href="/2019/10/15/bash/" rel="next" title="bash.md">
                 <i class="fa fa-chevron-left"></i> bash.md
               </a>
             
@@ -748,7 +747,7 @@ spotlight &#x641C;&#x7D22;<br>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -817,7 +816,9 @@ spotlight &#x641C;&#x7D22;<br>
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1066,7 +1067,9 @@ spotlight &#x641C;&#x7D22;<br>
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1425,6 +1428,10 @@ spotlight &#x641C;&#x7D22;<br>
                         var searchTextCount = 0;
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
                         var content = data.content.trim();
                         var contentInLowerCase = content.toLowerCase();
                         var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
@@ -1439,10 +1446,7 @@ spotlight &#x641C;&#x7D22;<br>
                                 keywords = []
                             }
                             keywords.forEach(function (keyword) {
-                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
-
-                                  console.log(contentInLowerCase)
-                                }
+                            
                                 function getIndexByWord(word, text, caseSensitive) {
                                     var wordLen = word.length;
                                     if (wordLen === 0) {
@@ -1561,7 +1565,6 @@ spotlight &#x641C;&#x7D22;<br>
                             });
 
                             // select top N slices in content
-
                             var upperBound = parseInt('1');
                             if (upperBound >= 0) {
                                 slicesOfContent = slicesOfContent.slice(0, upperBound);
@@ -1579,6 +1582,7 @@ spotlight &#x641C;&#x7D22;<br>
                                     prevEnd = end;
                                 });
                                 result += text.substring(prevEnd, slice.end);
+                                
                                 return result;
                             }
 

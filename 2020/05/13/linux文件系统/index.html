@@ -141,7 +141,7 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x94FE;&amp;#x63A5; &amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#xFF0C;&amp;#x5168;&amp;#x79F0;&amp;#x662F;&amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x82F1;&amp;#x6587;&amp;#x53EB;&amp;#x4F5C; symbolic link&amp;#x3002;&amp;#x8FD9;&amp;#x7C7B;&amp;#x6587;&amp;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta property="og:updated_time" content="2020-07-03T17:50:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux文件系统">
 <meta name="twitter:description" content="&amp;#x94FE;&amp;#x63A5; &amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#xFF0C;&amp;#x5168;&amp;#x79F0;&amp;#x662F;&amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x82F1;&amp;#x6587;&amp;#x53EB;&amp;#x4F5C; symbolic link&amp;#x3002;&amp;#x8FD9;&amp;#x7C7B;&amp;#x6587;&amp;">
@@ -372,7 +372,6 @@
      	search_path = "search.json";
      }
      var path = "<%= config.root %>" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
  </script>
 </div>
 
@@ -478,7 +477,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-04 01:50:19" itemprop="dateModified" datetime="2020-07-04T01:50:19+08:00">2020-07-04</time>
               </span>
             
           
@@ -532,9 +531,9 @@
       
         <h2 id="&#x94FE;&#x63A5;">&#x94FE;&#x63A5;</h2>
 <p>&#x8F6F;&#x94FE;&#x63A5;&#xFF0C;&#x5168;&#x79F0;&#x662F;&#x8F6F;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x82F1;&#x6587;&#x53EB;&#x4F5C; symbolic link&#x3002;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#x5176;&#x5B9E;&#x975E;&#x5E38;&#x7C7B;&#x4F3C;&#x4E8E; Windows &#x91CC;&#x7684;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#xFF0C;&#x8FD9;&#x4E2A;&#x8F6F;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; VA&#xFF09;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; B&#xFF09;&#x7684;&#x8DEF;&#x5F84;&#x548C;&#x540D;&#x79F0;&#xFF0C;&#x5F53;&#x6253;&#x5F00; A &#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x7CFB;&#x7EDF;&#x4F1A;&#x6839;&#x636E;&#x5176;&#x5185;&#x5BB9;&#x627E;&#x5230;&#x5E76;&#x6253;&#x5F00; B &#x6587;&#x4EF6;&#x3002;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -n [source] [link]</span><br></pre></td></tr></table></figure>
-<p>&#x800C;&#x786C;&#x94FE;&#x63A5;&#xFF0C;&#x5168;&#x79F0;&#x53EB;&#x4F5C;&#x786C;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x82F1;&#x6587;&#x540D;&#x79F0;&#x662F; hard link&#x3002;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#xFF0C;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; A&#xFF09;&#x4F1A;&#x62E5;&#x6709;&#x81EA;&#x5DF1;&#x7684; inode &#x8282;&#x70B9;&#x548C;&#x540D;&#x79F0;&#xFF0C;&#x5176; inode &#x4F1A;&#x6307;&#x5411;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x5757;&#x3002;&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#xFF0C;&#x8BE5;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4F1A;&#x52A0; 1&#x3002;&#x5F53;&#x6B64;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x5927;&#x4E8E;&#x7B49;&#x4E8E; 2 &#x65F6;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6709;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x540C;&#x65F6;&#x6307;&#x5411;&#x4E86;&#x8FD9;&#x4E00;&#x6570;&#x636E;&#x5757;&#x3002;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#xFF0C;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x4F1A;&#x751F;&#x6548;&#x3002;&#x5F53;&#x5220;&#x9664;&#x5176;&#x4E2D;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x5BF9;&#x53E6;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E0D;&#x4F1A;&#x6709;&#x5F71;&#x54CD;&#xFF0C;&#x4EC5;&#x4EC5;&#x662F;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x51CF; 1&#x3002;&#x5F53;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4E3A; 0 &#x65F6;&#xFF0C;&#x5219;&#x7CFB;&#x7EDF;&#x624D;&#x4F1A;&#x6E05;&#x9664;&#x6B64;&#x6570;&#x636E;&#x5757;&#x3002;</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x8F6F;&#x94FE;&#x63A5;</span></span><br><span class="line">ln  -s [source] [link]</span><br></pre></td></tr></table></figure>
+<p>&#x800C;&#x786C;&#x94FE;&#x63A5;&#xFF0C;&#x5168;&#x79F0;&#x53EB;&#x4F5C;&#x786C;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x82F1;&#x6587;&#x540D;&#x79F0;&#x662F; hard link&#x3002;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#xFF0C;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; A&#xFF09;&#x4F1A;&#x62E5;&#x6709;&#x81EA;&#x5DF1;&#x7684; inode &#x8282;&#x70B9;&#x548C;&#x540D;&#x79F0;&#xFF0C;&#x5176; inode &#x4F1A;&#x6307;&#x5411;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x5757;&#x3002;&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#xFF0C;&#x8BE5;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4F1A;&#x52A0; 1&#x3002;&#x5F53;&#x6B64;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x5927;&#x4E8E;&#x7B49;&#x4E8E; 2 &#x65F6;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6709;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x540C;&#x65F6;&#x6307;&#x5411;&#x4E86;&#x8FD9;&#x4E00;&#x6570;&#x636E;&#x5757;&#x3002;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#xFF0C;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x4F1A;&#x751F;&#x6548;&#x3002;&#x5F53;&#x5220;&#x9664;&#x5176;&#x4E2D;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x5BF9;&#x53E6;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E0D;&#x4F1A;&#x6709;&#x5F71;&#x54CD;&#xFF0C;&#x4EC5;&#x4EC5;&#x662F;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x51CF; 1&#x3002;&#x5F53;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4E3A; 0 &#x65F6;&#xFF0C;&#x5219;&#x7CFB;&#x7EDF;&#x624D;&#x4F1A;&#x6E05;&#x9664;&#x6B64;&#x6570;&#x636E;&#x5757;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -n [source] [link]</span><br></pre></td></tr></table></figure>
 <p><strong><em>&#x8F6F;&#x94FE;&#x63A5;&#x53EF;&#x4EE5;&#x6307;&#x5411;&#x76EE;&#x5F55;&#xFF0C;&#x800C;&#x786C;&#x94FE;&#x63A5;&#x4E0D;&#x53EF;&#x4EE5;</em></strong></p>
 <h2 id="df">df</h2>
 <p>&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4EE5;&#x53CA;&#x5B83;&#x4EEC;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;</p>
@@ -726,7 +725,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -795,7 +794,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1044,7 +1045,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1403,6 +1406,10 @@
                         var searchTextCount = 0;
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
                         var content = data.content.trim();
                         var contentInLowerCase = content.toLowerCase();
                         var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
@@ -1417,10 +1424,7 @@
                                 keywords = []
                             }
                             keywords.forEach(function (keyword) {
-                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
-
-                                  console.log(contentInLowerCase)
-                                }
+                            
                                 function getIndexByWord(word, text, caseSensitive) {
                                     var wordLen = word.length;
                                     if (wordLen === 0) {
@@ -1539,7 +1543,6 @@
                             });
 
                             // select top N slices in content
-
                             var upperBound = parseInt('1');
                             if (upperBound >= 0) {
                                 slicesOfContent = slicesOfContent.slice(0, upperBound);
@@ -1557,6 +1560,7 @@
                                     prevEnd = end;
                                 });
                                 result += text.substring(prevEnd, slice.end);
+                                
                                 return result;
                             }
 

@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x622A;&amp;#x53D6;&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;&amp;#x6216;&amp;#x6570;&amp;#x7EC4; w = &amp;apos;1&amp;apos; &amp;#x5F53;&amp;#x4F7F;&amp;#x7528; w[1:],&amp;#x4F1A;&amp;#x5F97;&amp;#x5230;&amp;#x4E00;&amp;#x4E2A;&amp;#x7A7A;&amp;#x4E32;&amp;#xFF0C;&amp;#x800C;&amp;#x4E0D;&amp;#x4F1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta property="og:updated_time" content="2020-07-06T02:59:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-tips">
 <meta name="twitter:description" content="&amp;#x622A;&amp;#x53D6;&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;&amp;#x6216;&amp;#x6570;&amp;#x7EC4; w = &amp;apos;1&amp;apos; &amp;#x5F53;&amp;#x4F7F;&amp;#x7528; w[1:],&amp;#x4F1A;&amp;#x5F97;&amp;#x5230;&amp;#x4E00;&amp;#x4E2A;&amp;#x7A7A;&amp;#x4E32;&amp;#xFF0C;&amp;#x800C;&amp;#x4E0D;&amp;#x4F1">
@@ -373,7 +373,6 @@
      	search_path = "search.json";
      }
      var path = "<%= config.root %>" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
  </script>
 </div>
 
@@ -479,7 +478,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-07-06 10:59:59" itemprop="dateModified" datetime="2020-07-06T10:59:59+08:00">2020-07-06</time>
               </span>
             
           
@@ -539,6 +538,9 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x540E;&#x53F0;&#x542F;&#x52A8;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python background_test.py &gt;log.txt 2&gt;&amp;1 &amp;</span></span><br></pre></td></tr></table></figure>
 <h2 id="&#x76D1;&#x542C;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x6709;&#x53D8;&#x52A8;">&#x76D1;&#x542C;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x6709;&#x53D8;&#x52A8;</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --coding:utf-8--</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">filename = <span class="string">&apos;.&apos;</span>  <span class="comment"># &#x5F53;&#x524D;&#x8DEF;&#x5F84;</span></span><br><span class="line">last = time.localtime(os.stat(filename).st_mtime)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    new_filemt = time.localtime(os.stat(filename).st_mtime)</span><br><span class="line">    <span class="keyword">if</span> last != new_filemt:</span><br><span class="line">        last = new_filemt</span><br><span class="line">        print(<span class="string">&apos;change&apos;</span>)</span><br><span class="line">        <span class="comment">#os.system(&apos;nginx -s reload&apos;)</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="&#x66FF;&#x6362;&#x5B57;&#x7B26;&#x4E32;">&#x66FF;&#x6362;&#x5B57;&#x7B26;&#x4E32;</h2>
+<p>&#x7C7B;&#x4F3C; java &#x7684; replace</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">origin=<span class="string">&apos;/1/2&apos;</span></span><br><span class="line">re.sub(<span class="string">&apos;^/&apos;</span>,<span class="string">&apos;&apos;</span>,origin)</span><br><span class="line"><span class="comment"># 1/2</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -718,7 +720,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -787,7 +789,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1036,7 +1040,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1074,7 +1080,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#截取字符串或数组"><span class="nav-number">1.</span> <span class="nav-text">截取字符串或数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-dict-根据-value-找对应的-key"><span class="nav-number">2.</span> <span class="nav-text">python dict 根据 value 找对应的 key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用守护进程的方式后台启动"><span class="nav-number">3.</span> <span class="nav-text">使用守护进程的方式后台启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监听文件是否有变动"><span class="nav-number">4.</span> <span class="nav-text">监听文件是否有变动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#截取字符串或数组"><span class="nav-number">1.</span> <span class="nav-text">截取字符串或数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-dict-根据-value-找对应的-key"><span class="nav-number">2.</span> <span class="nav-text">python dict 根据 value 找对应的 key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用守护进程的方式后台启动"><span class="nav-number">3.</span> <span class="nav-text">使用守护进程的方式后台启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监听文件是否有变动"><span class="nav-number">4.</span> <span class="nav-text">监听文件是否有变动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换字符串"><span class="nav-number">5.</span> <span class="nav-text">替换字符串</span></a></li></ol></div>
             
 
           </div>
@@ -1395,6 +1401,10 @@
                         var searchTextCount = 0;
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
                         var content = data.content.trim();
                         var contentInLowerCase = content.toLowerCase();
                         var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
@@ -1409,10 +1419,7 @@
                                 keywords = []
                             }
                             keywords.forEach(function (keyword) {
-                                if(keyword === 'test' && titleInLowerCase.indexOf('bash')>-1){
-
-                                  console.log(contentInLowerCase)
-                                }
+                            
                                 function getIndexByWord(word, text, caseSensitive) {
                                     var wordLen = word.length;
                                     if (wordLen === 0) {
@@ -1531,7 +1538,6 @@
                             });
 
                             // select top N slices in content
-
                             var upperBound = parseInt('1');
                             if (upperBound >= 0) {
                                 slicesOfContent = slicesOfContent.slice(0, upperBound);
@@ -1549,6 +1555,7 @@
                                     prevEnd = end;
                                 });
                                 result += text.substring(prevEnd, slice.end);
+                                
                                 return result;
                             }
 

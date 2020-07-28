@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9-iuFTrWxG-NMbBqeS359Y491i0G0HcZ44NiICCEs7s">
+<meta name="baidu-site-verification" content="eQr4ptzetx">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;#x6982;&amp;#x8FF0; &amp;#x6BCF;&amp;#x6761;shell&amp;#x547D;&amp;#x4EE4;&amp;#x6267;&amp;#x884C;&amp;#x90FD;&amp;#x4F1A;&amp;#x6709;&amp;#x4E2A;&amp;#x72B6;&amp;#x6001;&amp;#x7801;0&amp;#x8868;&amp;#x793A;&amp;#x6210;&amp;#x529F;&amp;#xFF0C;1&amp;#x8868;&amp;#x793A;&amp;#x5931;&amp;#x8D25;">
+<meta name="keywords" content="bash,shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bash.md">
+<meta property="og:url" content="https://leaderli.github.io/2019/10/15/bash/index.html">
+<meta property="og:site_name" content="大狗哥传奇">
+<meta property="og:description" content="&amp;#x6982;&amp;#x8FF0; &amp;#x6BCF;&amp;#x6761;shell&amp;#x547D;&amp;#x4EE4;&amp;#x6267;&amp;#x884C;&amp;#x90FD;&amp;#x4F1A;&amp;#x6709;&amp;#x4E2A;&amp;#x72B6;&amp;#x6001;&amp;#x7801;0&amp;#x8868;&amp;#x793A;&amp;#x6210;&amp;#x529F;&amp;#xFF0C;1&amp;#x8868;&amp;#x793A;&amp;#x5931;&amp;#x8D25;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-06T05:32:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bash.md">
+<meta name="twitter:description" content="&amp;#x6982;&amp;#x8FF0; &amp;#x6BCF;&amp;#x6761;shell&amp;#x547D;&amp;#x4EE4;&amp;#x6267;&amp;#x884C;&amp;#x90FD;&amp;#x4F1A;&amp;#x6709;&amp;#x4E2A;&amp;#x72B6;&amp;#x6001;&amp;#x7801;0&amp;#x8868;&amp;#x793A;&amp;#x6210;&amp;#x529F;&amp;#xFF0C;1&amp;#x8868;&amp;#x793A;&amp;#x5931;&amp;#x8D25;">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://leaderli.github.io/2019/10/15/bash/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>bash.md | 大狗哥传奇</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eQr4ptzetx";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大狗哥传奇</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+  <script type="text/javascript">
+     var search_path = "<%= config.search.path %>";
+     if (search_path.length == 0) {
+     	search_path = "search.json";
+     }
+     var path = "<%= config.root %>" + search_path;
+ </script>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/10/15/bash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">bash.md
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-15 20:38:27" itemprop="dateCreated datePublished" datetime="2019-10-15T20:38:27+08:00">2019-10-15</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-06 13:32:07" itemprop="dateModified" datetime="2020-07-06T13:32:07+08:00">2020-07-06</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h2>
+<p>&#x6BCF;&#x6761;<code>shell</code>&#x547D;&#x4EE4;&#x6267;&#x884C;&#x90FD;&#x4F1A;&#x6709;&#x4E2A;&#x72B6;&#x6001;&#x7801;<code>0</code>&#x8868;&#x793A;&#x6210;&#x529F;&#xFF0C;<code>1</code>&#x8868;&#x793A;&#x5931;&#x8D25;&#x3002;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>$?</code>&#x5F97;&#x5230;&#x4E0A;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#x7684;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x6765;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x6267;&#x884C;&#x540E;&#x7EED;&#x547D;&#x4EE4;&#xFF0C;&#x5FEB;&#x901F;&#x7684;&#x7528;&#x6CD5;&#x662F;&#x4F7F;&#x7528;<code>&amp;&amp;</code>,<code>||</code></p>
+<a href="/2020/05/26/shell-&#x53D8;&#x91CF;/" title="shell-&#x53D8;&#x91CF;">shell-&#x53D8;&#x91CF;</a>
+<h2 id="&#x91CD;&#x5B9A;&#x5411;&#x7B26;">&#x91CD;&#x5B9A;&#x5411;&#x7B26;</h2>
+<p>&#x5BF9;&#x4E8E;&#x5185;&#x6838;&#x800C;&#x8A00;&#xFF0C;&#x6240;&#x6709;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x5F15;&#x7528;&#x7684;</p>
+<p>&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x5C31;&#x662F;&#x4ECE; 0 &#x5F00;&#x59CB;&#x7684;&#x5C0F;&#x7684;&#x975E;&#x8D1F;&#x6574;&#x6570;&#xFF0C;&#x5185;&#x6838;&#x7528;&#x4EE5;&#x6807;&#x8BC6;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x6B63;&#x5728;&#x8BBF;&#x95EE;&#x7684;&#x6587;&#x4EF6;&#x3002;&#x5F53;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x6216;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x5185;&#x6838;&#x5411;&#x8FDB;&#x7A0B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</p>
+<p>Linux &#x8FDB;&#x7A0B;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x6709;&#x4E09;&#x4E2A;&#x7F3A;&#x7701;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</p>
+<ul>
+<li>0&#xFF08;&#x6807;&#x51C6;&#x8F93;&#x5165;&#xFF09;<code>stdin</code></li>
+<li>1&#xFF08;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#xFF09;<code>stdout</code></li>
+<li>2&#xFF08;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#xFF09;<code>stderr</code></li>
+</ul>
+<p>&#x6240;&#x4EE5;<code>2&gt;&amp;1</code> &#x7684;&#x610F;&#x601D;&#x5C31;&#x662F;&#x5C06;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#x4E5F;&#x8F93;&#x51FA;&#x5230;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x5F53;&#x4E2D;&#x3002;</p>
+<p><code>shell</code>&#x4E2D;&#x53EF;&#x80FD;&#x7ECF;&#x5E38;&#x80FD;&#x770B;&#x5230;&#xFF1A;<code>echo log &gt; /dev/null 2&gt;&amp;1</code>,&#x547D;&#x4EE4;&#x7684;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>%&gt;</code>&#x7684;&#x5F62;&#x5F0F;&#x6765;&#x5B9A;&#x4E49;&#x8F93;&#x51FA;,<code>/dev/null</code> &#xFF1A;&#x4EE3;&#x8868;&#x7A7A;&#x8BBE;&#x5907;&#x6587;&#x4EF6;</p>
+<p><em><code>1 &gt; /dev/null 2&gt;&amp;1</code> &#x8BED;&#x53E5;&#x542B;&#x4E49;,</em></p>
+<ol type="1">
+<li><code>1 &gt; /dev/null</code> &#xFF1A; &#x9996;&#x5148;&#x8868;&#x793A;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x7A7A;&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E0D;&#x8F93;&#x51FA;&#x4EFB;&#x4F55;&#x4FE1;&#x606F;&#x5230;&#x7EC8;&#x7AEF;&#xFF0C;&#x8BF4;&#x767D;&#x4E86;&#x5C31;&#x662F;&#x4E0D;&#x663E;&#x793A;&#x4EFB;&#x4F55;&#x4FE1;&#x606F;&#x3002;</li>
+<li>2&gt;&amp;1 &#xFF1A;&#x63A5;&#x7740;&#xFF0C;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#xFF08;&#x7B49;&#x540C;&#x4E8E;&#xFF09;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#xFF0C;&#x56E0;&#x4E3A;&#x4E4B;&#x524D;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x5DF2;&#x7ECF;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x4E86;&#x7A7A;&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#x8F93;&#x51FA;&#x4E5F;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x7A7A;&#x8BBE;&#x5907;&#x6587;&#x4EF6;&#x3002;</li>
+</ol>
+<p><em><code>cmd &gt;a 2&gt;a</code> &#x548C; <code>cmd &gt;a 2&gt;&amp;1</code> &#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x540C;&#xFF1F;</em></p>
+<ol type="1">
+<li><code>cmd &gt;a 2&gt;a</code> &#xFF1A;<code>stdout</code>&#x548C;<code>stderr</code>&#x90FD;&#x76F4;&#x63A5;&#x9001;&#x5F80;&#x6587;&#x4EF6; <code>a</code> &#xFF0C;<code>a</code>&#x6587;&#x4EF6;&#x4F1A;&#x88AB;&#x6253;&#x5F00;&#x4E24;&#x904D;&#xFF0C;&#x7531;&#x6B64;&#x5BFC;&#x81F4;<code>stdout</code>&#x548C;<code>stderr</code>&#x4E92;&#x76F8;&#x8986;&#x76D6;&#x3002;<code>cmd &gt;a 2&gt;a</code> &#x76F8;&#x5F53;&#x4E8E;&#x4F7F;&#x7528;&#x4E86;<code>FD1</code>&#x3001;<code>FD2</code>&#x4E24;&#x4E2A;&#x4E92;&#x76F8;&#x7ADE;&#x4E89;&#x4F7F;&#x7528;&#x6587;&#x4EF6; <code>a</code> &#x7684;&#x7BA1;&#x9053;&#xFF1B;</li>
+<li><code>cmd &gt;a 2&gt;&amp;1</code> &#xFF1A;<code>stdout</code>&#x76F4;&#x63A5;&#x9001;&#x5F80;&#x6587;&#x4EF6;<code>a</code>&#xFF0C;<code>stderr</code>&#x662F;&#x7EE7;&#x627F;&#x4E86;<code>FD1</code>&#x7684;&#x7BA1;&#x9053;&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x88AB;&#x9001;&#x5F80;&#x6587;&#x4EF6;<code>a</code> &#x3002;<code>a</code>&#x6587;&#x4EF6;&#x53EA;&#x88AB;&#x6253;&#x5F00;&#x4E00;&#x904D;&#xFF0C;&#x5C31;&#x662F;<code>FD1</code>&#x5C06;&#x5176;&#x6253;&#x5F00;&#x3002;<code>cmd &gt;a 2&gt;&amp;1</code> &#x53EA;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x7BA1;&#x9053;<code>FD1</code>&#xFF0C;&#x4F46;&#x5DF2;&#x7ECF;&#x5305;&#x62EC;&#x4E86;<code>stdout</code>&#x548C;<code>stderr</code>&#x3002;&#x4ECE;<code>IO</code>&#x6548;&#x7387;&#x4E0A;&#x6765;&#x8BB2;&#xFF0C;<code>cmd &gt;a 2&gt;&amp;1</code>&#x7684;&#x6548;&#x7387;&#x66F4;&#x9AD8;&#x3002;</li>
+</ol>
+<h3 id="&#x4F7F;&#x9519;&#x8BEF;&#x65E5;&#x5FD7;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x6B63;&#x5E38;&#x8F93;&#x51FA;">&#x4F7F;&#x9519;&#x8BEF;&#x65E5;&#x5FD7;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x6B63;&#x5E38;&#x8F93;&#x51FA;</h3>
+<p>sh error.sh &gt; messge.log 2&gt;&amp;1</p>
+<h2 id="&#x7EC4;&#x5408;&#x547D;&#x4EE4;">&#x7EC4;&#x5408;&#x547D;&#x4EE4;</h2>
+<p>&#x53EF;&#x901A;&#x8FC7;<code>&amp;&amp;</code>,&#x8BA9;&#x591A;&#x4E2A;&#x547D;&#x4EE4;&#x987A;&#x5E8F;&#x6267;&#x884C;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>;</code>,&#x4E0D;&#x540C;&#x7684;&#x5730;&#x65B9;&#x4E3A;<code>&amp;&amp;</code>&#xFF0C;&#x5F53;&#x524D;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x7684;&#x8FD4;&#x56DE;&#x7801;&#x4E3A; 0 &#x65F6;&#xFF0C;&#x624D;&#x4F1A;&#x6267;&#x884C;&#x540E;&#x4E00;&#x4E2A;&#x547D;&#x4EE4; &#x4F8B;&#x5982;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/Downloads/ &amp;&amp; rm -rf temp`</span><br></pre></td></tr></table></figure>
+<p><code>||</code>,&#x4E0E;<code>&amp;&amp;</code>&#x76F8;&#x53CD;&#xFF0C;&#x5F53;&#x524D;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x7684;&#x8FD4;&#x56DE;&#x7801;&#x5927;&#x4E8E; 0 &#x624D;&#x6267;&#x884C;&#x7B2C;&#x4E8C;&#x6761;</p>
+<h2 id="&#x51FD;&#x6570;">&#x51FD;&#x6570;</h2>
+<p>shell &#x4E2D;&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[ function ] funname [()]</span><br><span class="line"></span><br><span class="line">{</span><br><span class="line"></span><br><span class="line">    action;</span><br><span class="line"></span><br><span class="line">    [return int;]</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>&#x53C2;&#x6570;&#x8FD4;&#x56DE;&#xFF0C;&#x53EF;&#x4EE5;&#x663E;&#x793A;&#x52A0;&#xFF1A;return &#x8FD4;&#x56DE;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x52A0;&#xFF0C;&#x5C06;&#x4EE5;&#x6700;&#x540E;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF0C;&#x4F5C;&#x4E3A;&#x8FD4;&#x56DE;&#x503C;&#x3002; return &#x540E;&#x8DDF;&#x6570;&#x503C; n(0-255</li>
+<li>&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x503C;&#x5728;&#x8C03;&#x7528;&#x8BE5;&#x51FD;&#x6570;&#x540E;&#x901A;&#x8FC7; $? &#x6765;&#x83B7;&#x5F97;&#x3002;</li>
+<li>&#x8C03;&#x7528;&#x51FD;&#x6570;&#x65F6;&#x53EF;&#x4EE5;&#x5411;&#x5176;&#x4F20;&#x9012;&#x53C2;&#x6570;&#x3002;&#x5728;&#x51FD;&#x6570;&#x4F53;&#x5185;&#x90E8;&#xFF0C;&#x901A;&#x8FC7; $n &#x7684;&#x5F62;&#x5F0F;&#x6765;&#x83B7;&#x53D6;&#x53C2;&#x6570;&#x7684;&#x503C;&#xFF0C;&#x4F8B;&#x5982;&#xFF0C;$1 &#x8868;&#x793A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;$2 &#x8868;&#x793A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;</li>
+</ol>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun(){</span><br><span class="line">   echo $1</span><br><span class="line">   return 1</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">fun &apos;hello&apos;</span><br><span class="line">echo $?</span><br></pre></td></tr></table></figure>
+<h2 id="&#x641C;&#x7D22;">&#x641C;&#x7D22;</h2>
+<p>&#x4F7F;&#x7528;<code>**/</code>&#x6765;&#x9012;&#x5F52;&#x641C;&#x7D22;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -a **/*.log</span><br></pre></td></tr></table></figure>
+<p>&#x5168;&#x5C40;&#x641C;&#x7D22;<code>locate</code></p>
+<p>&#x9012;&#x5F52;&#x67E5;&#x627E;&#x6307;&#x5B9A;&#x6587;&#x4EF6;&#x7684;&#x5236;&#x5B9A;&#x5185;&#x5BB9;&#xFF0C;&#x663E;&#x793A;&#x6587;&#x4EF6;&#x540D;&#x884C;&#x53F7;&#x5185;&#x5BB9;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -rn &apos;stream&apos; . --include=&apos;*.cpp&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="&#x811A;&#x672C;&#x53C2;&#x6570;">&#x811A;&#x672C;&#x53C2;&#x6570;</h2>
+<p>&#x5728;&#x5199;&#x811A;&#x672C;&#x7684;&#x4E00;&#x5F00;&#x59CB;&#x52A0;&#x4E0A;<code>set -xeuo pipefail</code>&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x8C03;&#x8BD5;&#x811A;&#x672C;</p>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">set -x</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>-x: &#x5728;&#x6267;&#x884C;&#x6BCF;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x4E4B;&#x524D;&#x628A;&#x7ECF;&#x8FC7;&#x53D8;&#x91CF;&#x5C55;&#x5F00;&#x4E4B;&#x540E;&#x7684;&#x547D;&#x4EE4;&#x6253;&#x5370;&#x51FA;&#x6765; -e: &#x5728;&#x9047;&#x5230;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x5931;&#x8D25;&#x65F6;&#xFF0C;&#x7ACB;&#x5373;&#x9000;&#x51FA; -u: &#x8BD5;&#x56FE;&#x4F7F;&#x7528;&#x672A;&#x7ECF;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x7ACB;&#x5373;&#x9000;&#x51FA; -o pipefail: &#x53EA;&#x8981;&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5B50;&#x547D;&#x4EE4;&#x5931;&#x8D25;&#xFF0C;&#x6574;&#x4E2A;&#x7BA1;&#x9053;&#x547D;&#x4EE4;&#x5C31;&#x5931;&#x8D25;&#x3002;</p>
+</blockquote>
+<h2 id="&#x8BFB;&#x53D6;&#x7528;&#x6237;&#x8F93;&#x5165;">&#x8BFB;&#x53D6;&#x7528;&#x6237;&#x8F93;&#x5165;</h2>
+<p>while read line</p>
+<p>read &#x901A;&#x8FC7;&#x8F93;&#x5165;&#x91CD;&#x5B9A;&#x5411;&#xFF0C;&#x628A; file &#x7684;&#x7B2C;&#x4E00;&#x884C;&#x6240;&#x6709;&#x7684;&#x5185;&#x5BB9;&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF; line&#xFF0C;&#x5FAA;&#x73AF;&#x4F53;&#x5185;&#x7684;&#x547D;&#x4EE4;&#x4E00;&#x822C;&#x5305;&#x542B;&#x5BF9;&#x53D8;&#x91CF; line &#x7684;&#x5904;&#x7406;&#xFF1B;&#x7136;&#x540E;&#x5FAA;&#x73AF;&#x5904;&#x7406; file &#x7684;&#x7B2C;&#x4E8C;&#x884C;&#x3001;&#x7B2C;&#x4E09;&#x884C;&#x3002;&#x3002;&#x3002;&#x4E00;&#x76F4;&#x5230; file &#x7684;&#x6700;&#x540E;&#x4E00;&#x884C;&#x3002;&#x8FD8;&#x8BB0;&#x5F97; while &#x6839;&#x636E;&#x5176;&#x540E;&#x7684;&#x547D;&#x4EE4;&#x9000;&#x51FA;&#x72B6;&#x6001;&#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x6267;&#x884C;&#x5FAA;&#x73AF;&#x4F53;&#x5417;&#xFF1F;&#x662F;&#x7684;&#xFF0C;read &#x547D;&#x4EE4;&#x4E5F;&#x6709;&#x9000;&#x51FA;&#x72B6;&#x6001;&#xFF0C;&#x5F53;&#x5B83;&#x4ECE;&#x6587;&#x4EF6; file &#x4E2D;&#x8BFB;&#x5230;&#x5185;&#x5BB9;&#x65F6;&#xFF0C;&#x9000;&#x51FA;&#x72B6;&#x6001;&#x4E3A; 0&#xFF0C;&#x5FAA;&#x73AF;&#x7EE7;&#x7EED;&#x60CA;&#x9192;&#xFF1B;&#x5F53; read &#x4ECE;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x5B8C;&#x6700;&#x540E;&#x4E00;&#x884C;&#x540E;&#xFF0C;&#x4E0B;&#x6B21;&#x4FBF;&#x6CA1;&#x6709;&#x5185;&#x5BB9;&#x53EF;&#x8BFB;&#x4E86;&#xFF0C;&#x6B64;&#x65F6; read &#x7684;&#x9000;&#x51FA;&#x72B6;&#x6001;&#x4E3A;&#x975E; 0&#xFF0C;&#x6240;&#x4EE5;&#x5FAA;&#x73AF;&#x624D;&#x4F1A;&#x9000;&#x51FA;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> line &#x4EC5;&#x4EC5;&#x662F;&#x4E2A;&#x53D8;&#x91CF;&#x540D;</span></span><br><span class="line">while read line</span><br><span class="line">do</span><br><span class="line">   echo $line</span><br><span class="line">done &lt; file</span><br></pre></td></tr></table></figure>
+<p>&#x53E6;&#x4E00;&#x79CD;&#x4E5F;&#x5F88;&#x5E38;&#x89C1;&#x7684;&#x7528;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">command | while read line</span><br><span class="line">do</span><br><span class="line">   echo $line</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>&#x5982;&#x679C;&#x4F60;&#x8FD8;&#x8BB0;&#x5F97;&#x7BA1;&#x9053;&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x5E94;&#x8BE5;&#x4E0D;&#x96BE;&#x7406;&#x89E3;&#x5427;&#x3002;command &#x547D;&#x4EE4;&#x7684;&#x8F93;&#x51FA;&#x4F5C;&#x4E3A; read &#x5FAA;&#x73AF;&#x7684;&#x8F93;&#x5165;&#xFF0C;&#x8FD9;&#x79CD;&#x7ED3;&#x6784;&#x957F;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x8D85;&#x8FC7;&#x4E00;&#x884C;&#x7684;&#x8F93;&#x51FA;&#xFF0C;&#x5F53;&#x7136; awk &#x4E5F;&#x5F88;&#x64C5;&#x957F;&#x505A;&#x8FD9;&#x79CD;&#x4E8B;&#x3002;</p>
+<h2 id="&#x5224;&#x65AD;&#x6587;&#x4EF6;&#x5C5E;&#x6027;">&#x5224;&#x65AD;&#x6587;&#x4EF6;&#x5C5E;&#x6027;</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">&#x64CD;&#x4F5C;&#x7B26;</th>
+<th style="text-align: left;">&#x542B;&#x4E49;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-a</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-b</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x662F;&#x5426;&#x4E3A;&#x5757;&#x7279;&#x6B8A;&#x6587;&#x4EF6;[1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-c</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x662F;&#x5426;&#x4E3A;&#x5B57;&#x7B26;&#x7279;&#x6B8A;&#x6587;&#x4EF6;[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-d</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x662F;&#x5426;&#x4E3A;&#x6587;&#x4EF6;&#x5939;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-e</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-f</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x662F;&#x5426;&#x4E3A;&#x5E38;&#x89C4;&#x6587;&#x4EF6;[3]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-g</td>
+<td style="text-align: left;">&#x68C0;&#x67E5; gid[4]&#x662F;&#x5426;&#x88AB;&#x7F6E;&#x4F4D;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-G</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6709;&#x76F8;&#x540C;&#x7684;&#x7EC4; ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-k</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x9632;&#x5220;&#x9664;&#x4F4D;&#x662F;&#x5426;&#x88AB;&#x7F6E;&#x4F4D;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-L</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x662F;&#x5426;&#x4E3A;&#x7B26;&#x53F7;&#x94FE;&#x63A5;[5]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-n</td>
+<td style="text-align: left;">&#x5224;&#x65AD;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x662F;&#x5426;&#x4E0D;&#x4E3A; 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-O</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x88AB;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684; user ID &#x62E5;&#x6709;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-p</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4E3A; FIFO[6]&#x7279;&#x6B8A;&#x6587;&#x4EF6;&#x6216;&#x547D;&#x540D;&#x7BA1;&#x9053;[7]</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-r</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53EF;&#x8BFB;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-s</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x5927;&#x5C0F;&#x662F;&#x5426;&#x5927;&#x4E8E; 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-S</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4E3A; socket &#x6587;&#x4EF6;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-t</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x662F;&#x5426;&#x6253;&#x5F00;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-u</td>
+<td style="text-align: left;">&#x68C0;&#x67E5; uid[8]&#x662F;&#x5426;&#x88AB;&#x7F6E;&#x4F4D;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-w</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53EF;&#x5199;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-x</td>
+<td style="text-align: left;">&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53EF;&#x6267;&#x884C;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-z</td>
+<td style="text-align: left;">&#x5224;&#x65AD;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x662F;&#x5426;&#x4E3A; 0</td>
+</tr>
+</tbody>
+</table>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [  -e &quot;$myPath&quot;]; then</span><br><span class="line">   echo &apos;ok&apos;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h2 id="&#x903B;&#x8F91;&#x5224;&#x65AD;">&#x903B;&#x8F91;&#x5224;&#x65AD;</h2>
+<p>&#x5728; linux &#x4E2D; &#x547D;&#x4EE4;&#x6267;&#x884C;&#x72B6;&#x6001;&#xFF1A;0 &#x4E3A;&#x771F;&#xFF0C;&#x5176;&#x4ED6;&#x4E3A;&#x5047;</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">&#x64CD;&#x4F5C;&#x7B26;</th>
+<th style="text-align: left;">&#x89E3;&#x91CA;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-eq</td>
+<td style="text-align: left;">&#x7B49;&#x4E8E;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-ne</td>
+<td style="text-align: left;">&#x4E0D;&#x7B49;&#x4E8E;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-gt</td>
+<td style="text-align: left;">&#x5927;&#x4E8E; &#xFF08;greater &#xFF09;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-lt</td>
+<td style="text-align: left;">&#x5C0F;&#x4E8E; &#xFF08;less&#xFF09;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-ge</td>
+<td style="text-align: left;">&#x5927;&#x4E8E;&#x7B49;&#x4E8E;</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-le</td>
+<td style="text-align: left;">&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="switch">switch</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">case &#x503C; in</span><br><span class="line">&#x6A21;&#x5F0F;1)</span><br><span class="line">    command1</span><br><span class="line">    command2</span><br><span class="line">    command3</span><br><span class="line">    ;;</span><br><span class="line">&#x6A21;&#x5F0F;2&#xFF09;</span><br><span class="line">    command1</span><br><span class="line">    command2</span><br><span class="line">    command3</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    command1</span><br><span class="line">    command2</span><br><span class="line">    command3</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<p>&#x5728; shell &#x4E2D;&#x8BBE;&#x5B9A;<code>set -u</code></p>
+<h2 id="&#x83DC;&#x5355;">&#x83DC;&#x5355;</h2>
+<p>select &#x547D;&#x4EE4;&#x53EA;&#x9700;&#x8981;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#x5C31;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x51FA;&#x83DC;&#x5355;&#xFF0C;&#x7136;&#x540E;&#x83B7;&#x53D6;&#x8F93;&#x5165;&#x7684;&#x7B54;&#x6848;&#x5E76;&#x81EA;&#x52A8;&#x5904;&#x7406;&#x3002; &#x547D;&#x4EE4;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select variable in list</span><br><span class="line">do</span><br><span class="line">commands</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>list &#x53C2;&#x6570;&#x662F;&#x7531;&#x7A7A;&#x683C;&#x5206;&#x9694;&#x7684;&#x6587;&#x672C;&#x9009;&#x9879;&#x5217;&#x8868;&#xFF0C;&#x8FD9;&#x4E9B;&#x5217;&#x8868;&#x6784;&#x6210;&#x4E86;&#x6574;&#x4E2A;&#x83DC;&#x5355;&#x3002;select &#x547D;&#x4EE4;&#x4F1A;&#x5C06;&#x6BCF;&#x4E2A;&#x5217;&#x8868;&#x9879;&#x663E;&#x793A;&#x6210;&#x4E00;&#x4E2A;&#x5E26;&#x7F16;&#x53F7;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x7136;&#x540E;&#x4E3A;&#x9009;&#x9879;&#x663E;&#x793A;&#x4E00;&#x4E2A;&#x7531; PS3 &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x7684;&#x7279;&#x6B8A;&#x63D0;&#x793A;&#x7B26;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> using select <span class="keyword">in</span> the menu</span></span><br><span class="line"></span><br><span class="line">function diskspace {</span><br><span class="line"> clear</span><br><span class="line"> df -k</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">function whoseon {</span><br><span class="line"> clear</span><br><span class="line"> who</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">function memusage {</span><br><span class="line"> clear</span><br><span class="line"> cat /proc/meminfo</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">PS3=&quot;Enter an option: &quot;</span><br><span class="line">select option in &quot;Display disk space&quot; &quot;Display logged on users&quot; &quot;Display memory usage&quot; &quot;Exit program&quot;</span><br><span class="line">do</span><br><span class="line"> case $option in</span><br><span class="line"> &quot;Exit program&quot;)</span><br><span class="line"> break ;;</span><br><span class="line"> &quot;Display disk space&quot;)</span><br><span class="line"> diskspace ;;</span><br><span class="line"> &quot;Display logged on users&quot;)</span><br><span class="line"> memusage ;;</span><br><span class="line"> &quot;Display memory usage&quot;&#xFF09;</span><br><span class="line"> memusage ;;</span><br><span class="line"> *)</span><br><span class="line"> clear</span><br><span class="line"> echo &quot;Sorry, wrong selection&quot;;;</span><br><span class="line"> esac</span><br><span class="line">done</span><br><span class="line">clear</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>wsx@wsx:~/tmp$ ./smenu1</p>
+<ol type="1">
+<li>Display disk space 3) Display memory usage</li>
+<li>Display logged on users 4) Exit program Enter an option:</li>
+</ol>
+</blockquote>
+<h2 id="&#x9519;&#x8BEF;&#x95EE;&#x9898;">&#x9519;&#x8BEF;&#x95EE;&#x9898;</h2>
+<p>&#x6267;&#x884C; sh &#x811A;&#x672C;&#x65F6;&#x62A5;&#x9519;</p>
+<blockquote>
+<p>&apos;:command not found</p>
+</blockquote>
+<p>&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x5728; win &#x4E0A;&#x7684;&#x683C;&#x5F0F;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x4F7F;&#x7528; dos2unix &#x547D;&#x4EE4;&#x8F6C;&#x6362;&#x4E00;&#x4E0B;&#x811A;&#x672C;&#x5373;&#x53EF;</p>
+<h2 id="sudo-&#x6267;&#x884C;&#x4E0D;&#x8F93;&#x5BC6;&#x7801;">sudo &#x6267;&#x884C;&#x4E0D;&#x8F93;&#x5BC6;&#x7801;</h2>
+<p>&#x5728;<code>/etc/sudoers</code>&#x6700;&#x540E;&#x4E00;&#x884C;&#x65B0;&#x589E;&#x89C4;&#x5219;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> li &#x4E3A;&#x767B;&#x9646;&#x7528;&#x6237;</span></span><br><span class="line">li ALL=(root) NOPASSWD: /root/dhclient.sh</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/bash/" rel="tag"># bash</a>
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+            
+              <div>
+                
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+              </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/10/python入门/" rel="next" title="python入门">
+                <i class="fa fa-chevron-left"></i> python入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/17/mac/" rel="prev" title="mac">
+                mac <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lijun</p>
+              <div class="site-description motion-element" itemprop="description">与其感慨路难行，不如马上就出发</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向符"><span class="nav-number">2.</span> <span class="nav-text">重定向符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使错误日志重定向到正常输出"><span class="nav-number">2.1.</span> <span class="nav-text">使错误日志重定向到正常输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合命令"><span class="nav-number">3.</span> <span class="nav-text">组合命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索"><span class="nav-number">5.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本参数"><span class="nav-number">6.</span> <span class="nav-text">脚本参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取用户输入"><span class="nav-number">7.</span> <span class="nav-text">读取用户输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断文件属性"><span class="nav-number">8.</span> <span class="nav-text">判断文件属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑判断"><span class="nav-number">9.</span> <span class="nav-text">逻辑判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch"><span class="nav-number">10.</span> <span class="nav-text">switch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单"><span class="nav-number">11.</span> <span class="nav-text">菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误问题"><span class="nav-number">12.</span> <span class="nav-text">错误问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sudo-执行不输密码"><span class="nav-number">13.</span> <span class="nav-text">sudo 执行不输密码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lijun</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '0c587ba925564ae382e7',
+    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
+    repo: 'comment',
+    owner: 'leaderli',
+    admin: ['leaderli'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'false# Facebook-like distraction free mode'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '0c587ba925564ae382e7',
+    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
+    repo: 'comment',
+    owner: 'leaderli',
+    admin: ['leaderli'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'false# Facebook-like distraction free mode'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+
+
+  
+
+
+
+  
+<script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+        search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+        isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+        $('.popup').hide();
+        $('#local-search-input').val('');
+        $('.search-result-list').remove();
+        $('#no-result').remove();
+        $(".local-search-pop-overlay").remove();
+        $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+            .css('overflow', 'hidden');
+        $('.search-popup-overlay').click(onPopupClose);
+        $('.popup').toggle();
+        var $localSearchInput = $('#local-search-input');
+        $localSearchInput.attr("autocapitalize", "none");
+        $localSearchInput.attr("autocorrect", "off");
+        $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+
+        // start loading animation
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                '<div id="search-loading-icon">' +
+                '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                '</div>' +
+                '</div>')
+            .css('overflow', 'hidden');
+        $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+        $.ajax({
+            url: path,
+            dataType: isXml ? "xml" : "json",
+            async: true,
+            success: function (res) {
+                // get the contents from search data
+                isfetched = true;
+                $('.popup').detach().appendTo('.header-inner');
+                var datas = isXml ? $("entry", res).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get() : res;
+                var input = document.getElementById(search_id);
+                var resultContent = document.getElementById(content_id);
+                var inputEventFunction = function () {
+                    var searchText = input.value.toLowerCase();
+                    if (searchText.length < 1) {
+                        return
+                    }
+                    var keywords = []
+                    var first_keyword;
+                    if (searchText.charAt(0) === '/') {
+                        if (searchText.indexOf('/', 1) == 1) {
+                            keywords.push(searchText.substring(1))
+                        } else if (searchText.length > 2 && searchText.charAt(searchText.length - 1) === '/') {
+                            keywords.push('$$')
+                            try {
+                                eval('first_keyword = ' + searchText + 'g');
+                            } catch (err) {
+                                console.error(err)
+                                return
+                            }
+                            input.value = searchText.substring(0,searchText.length-1)
+                        } else {
+                            return
+                        }
+                    } else {
+                        keywords.push(searchText);
+                    }
+                    var resultItems = [];
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = false;
+                        var hitCount = 0;
+                        var searchTextCount = 0;
+                        var title = data.title.trim();
+                        var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
+                        var content = data.content.trim();
+                        var contentInLowerCase = content.toLowerCase();
+                        var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                        var indexOfTitle = [];
+                        var indexOfContent = [];
+                        // only match articles with not empty titles
+                        if (title != '') {
+                            if (first_keyword) {
+                                keywords = contentInLowerCase.match(first_keyword)
+                            }
+                            if (!keywords) {
+                                keywords = []
+                            }
+                            keywords.forEach(function (keyword) {
+                            
+                                function getIndexByWord(word, text, caseSensitive) {
+                                    var wordLen = word.length;
+                                    if (wordLen === 0) {
+                                        return [];
+                                    }
+                                    var startPosition = 0, position = [], index = [];
+                                    if (!caseSensitive) {
+                                        text = text.toLowerCase();
+                                        word = word.toLowerCase();
+                                    }
+                                    while ((position = text.indexOf(word, startPosition)) > -1) {
+
+                                        index.push({ position: position, word: word });
+                                        startPosition = position + wordLen;
+                                    }
+                                    return index;
+                                }
+
+                                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                            });
+                            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                isMatch = true;
+                                hitCount = indexOfTitle.length + indexOfContent.length;
+                            }
+                        }
+
+                        // show search results
+
+                        if (isMatch) {
+                            // sort index by position of keyword
+
+                            [indexOfTitle, indexOfContent].forEach(function (index) {
+                                index.sort(function (itemLeft, itemRight) {
+                                    if (itemRight.position !== itemLeft.position) {
+                                        return itemRight.position - itemLeft.position;
+                                    } else {
+                                        return itemLeft.word.length - itemRight.word.length;
+                                    }
+                                });
+                            });
+
+                            // merge hits into slices
+
+                            function mergeIntoSlice(text, start, end, index) {
+                                var item = index[index.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                var hits = [];
+                                var searchTextCountInSlice = 0;
+                                while (position + word.length <= end && index.length != 0) {
+                                    if (word === searchText) {
+                                        searchTextCountInSlice++;
+                                    }
+                                    hits.push({ position: position, length: word.length });
+                                    var wordEnd = position + word.length;
+
+                                    // move to next position of hit
+
+                                    index.pop();
+                                    while (index.length != 0) {
+                                        item = index[index.length - 1];
+                                        position = item.position;
+                                        word = item.word;
+                                        if (wordEnd > position) {
+                                            index.pop();
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+                                searchTextCount += searchTextCountInSlice;
+                                return {
+                                    hits: hits,
+                                    start: start,
+                                    end: end,
+                                    searchTextCount: searchTextCountInSlice
+                                };
+                            }
+
+                            var slicesOfTitle = [];
+                            if (indexOfTitle.length != 0) {
+                                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                            }
+
+                            var slicesOfContent = [];
+                            while (indexOfContent.length != 0) {
+                                var item = indexOfContent[indexOfContent.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                // cut out 100 characters
+                                var start = position - 20;
+                                var end = position + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (end < position + word.length) {
+                                    end = position + word.length;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                            }
+
+                            // sort slices in content by search text's count and hits' count
+
+                            slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                    return sliceRight.hits.length - sliceLeft.hits.length;
+                                } else {
+                                    return sliceLeft.start - sliceRight.start;
+                                }
+                            });
+
+                            // select top N slices in content
+                            var upperBound = parseInt('1');
+                            if (upperBound >= 0) {
+                                slicesOfContent = slicesOfContent.slice(0, upperBound);
+                            }
+
+                            // highlight title and content
+
+                            function highlightKeyword(text, slice) {
+                                var result = '';
+                                var prevEnd = slice.start;
+                                slice.hits.forEach(function (hit) {
+                                    result += text.substring(prevEnd, hit.position);
+                                    var end = hit.position + hit.length;
+                                    result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                    prevEnd = end;
+                                });
+                                result += text.substring(prevEnd, slice.end);
+                                
+                                return result;
+                            }
+
+                            var resultItem = '';
+
+                            if (slicesOfTitle.length != 0) {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                            } else {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                            }
+
+                            slicesOfContent.forEach(function (slice) {
+                                resultItem += "<a href='" + articleUrl + "'>" +
+                                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                    "...</p>" + "</a>";
+                            });
+
+                            resultItem += "</li>";
+                            resultItems.push({
+                                item: resultItem,
+                                searchTextCount: searchTextCount,
+                                hitCount: hitCount,
+                                id: resultItems.length
+                            });
+                        }
+                    })
+                    if (keywords.length === 1 && keywords[0] === "") {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+                    } else if (resultItems.length === 0) {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+                    } else {
+                        resultItems.sort(function (resultLeft, resultRight) {
+                            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                return resultRight.searchTextCount - resultLeft.searchTextCount;
+                            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                return resultRight.hitCount - resultLeft.hitCount;
+                            } else {
+                                return resultRight.id - resultLeft.id;
+                            }
+                        });
+                        var searchResultList = '<ul class=\"search-result-list\">';
+                        resultItems.forEach(function (result) {
+                            searchResultList += result.item;
+                        })
+                        searchResultList += "</ul>";
+                        resultContent.innerHTML = searchResultList;
+                    }
+                }
+
+                if ('auto' === 'auto') {
+                    input.addEventListener('input', inputEventFunction);
+                } else {
+                    $('.search-icon').click(inputEventFunction);
+                    input.addEventListener('keypress', function (event) {
+                        if (event.keyCode === 13) {
+                            inputEventFunction();
+                        }
+                    });
+                }
+
+                // remove loading animation
+                $(".local-search-pop-overlay").remove();
+                $('body').css('overflow', '');
+
+                proceedsearch();
+            }
+        });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+        e.stopPropagation();
+        if (isfetched === false) {
+            searchFunc(path, 'local-search-input', 'local-search-result');
+        } else {
+            proceedsearch();
+        };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+        e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+        var shouldDismissSearchPopup = event.which === 27 &&
+            $('.search-popup').is(':visible');
+        if (shouldDismissSearchPopup) {
+            onPopupClose();
+        }
+    });
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+   <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>
