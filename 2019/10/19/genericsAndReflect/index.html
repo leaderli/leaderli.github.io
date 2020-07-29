@@ -544,7 +544,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x4E0D;&#x7BA1;&#x662F;extends&#x6216;&#x662F;super&#xFF0C;&#x53EA;&#x80FD;&#x4F7F;&#x7528;&#x5728;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x4E0A;&#xFF0C;&#x5B9E;&#x9645;&#x8D4B;&#x503C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E00;&#x5B9A;&#x662F;&#x6307;&#x5B9A;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x3002;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x90A3;&#x4E48;&#x5BF9;&#x4E8E;&lt;? extends T&gt;&#x6765;&#x8BF4;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x6CDB;&#x578B;A&#x53EA;&#x662F;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x7684;&#x6CDB;&#x578B;T&#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x5982;&#x679C;&#x4EE5;T&#x8FDB;&#x884C;&#x63D2;&#x5165;&#x65F6;&#xFF0C;&#x662F;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x63D2;&#x5165;&#x7684;class&#x7C7B;&#x578B;&#xFF0C;&#x4E00;&#x5B9A;&#x662F;A&#xFF0C;&#x6240;&#x4EE5;extends&#x7981;&#x7528;&#x63D2;&#x5165;&#x52A8;&#x4F5C;</span></span><br><span class="line">List&lt;Apple&gt; apples = <span class="keyword">new</span> ArrayList&lt;Apple&gt;();</span><br><span class="line">List&lt;? extends Fruit&gt; fruits = apples;</span><br><span class="line"><span class="comment">// &#x5BF9;&#x4E8E;&lt;? super T&gt;&#x6765;&#x8BF4;&#xFF0C;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x6CDB;&#x578B;A&#x4E00;&#x5B9A;&#x662F;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x7684;&#x6CDB;&#x578B;T&#x7684;&#x7236;&#x7C7B;&#xFF0C;&#x5982;&#x679C;&#x4EE5;T&#x7C7B;&#x578B;&#x8FDB;&#x5165;&#x53D6;&#x503C;&#x64CD;&#x4F5C;&#xFF0C;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x53D6;&#x51FA;&#x7684;&#x503C;&#x4E00;&#x5B9A;&#x662F;T&#x7C7B;&#x578B;&#xFF0C;&#x56E0;&#x4E3A;A&#x4E00;&#x5B9A;&#x662F;T&#x7684;&#x7236;&#x7C7B;&#xFF0C;&#x6240;&#x4EE5;&#x63D2;&#x5165;&#x7684;&#x6240;&#x6709;&#x5B9E;&#x4F8B;&#x4E00;&#x5B9A;&#x4E5F;&#x662F;A&#x7684;&#x591A;&#x6001;</span></span><br><span class="line"></span><br><span class="line">List&lt;Fruit&gt; fruits = <span class="keyword">new</span> ArrayList&lt;Fruit&gt;();</span><br><span class="line">List&lt;? <span class="keyword">super</span> Apple&gt; = fruits;</span><br></pre></td></tr></table></figure>
 <h2 id="&#x5982;&#x4F55;&#x4FEE;&#x6539;-final-&#x4FEE;&#x9970;&#x7B26;&#x7684;&#x503C;">&#x5982;&#x4F55;&#x4FEE;&#x6539; final &#x4FEE;&#x9970;&#x7B26;&#x7684;&#x503C;</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">&quot;fuck&quot;</span>;</span><br><span class="line"></span><br><span class="line">Field value = String.class.getDeclaredField(<span class="string">&quot;value&quot;</span>);</span><br><span class="line"><span class="comment">//Field&#x4E2D;&#x5305;&#x542B;&#x5F53;&#x524D;&#x5C5E;&#x6027;&#x7684;&#x4FEE;&#x9970;&#x7B26;&#xFF0C;&#x901A;&#x8FC7;&#x6539;&#x53D8;&#x4FEE;&#x9970;&#x7B26;&#x7684;final&#x5C5E;&#x6027;&#xFF0C;&#x8FBE;&#x5230;&#x91CD;&#x65B0;&#x8D4B;&#x503C;&#x7684;&#x529F;&#x80FD;</span></span><br><span class="line">Field modifier = Field.class.getDeclaredField(<span class="string">&quot;modifiers&quot;</span>);</span><br><span class="line">modifier.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">modifier.set(value, value.getModifiers() &amp; ~Modifier.FINAL);</span><br><span class="line"></span><br><span class="line">value.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">value.set(str, <span class="string">&quot;notfuck&quot;</span>.toCharArray());</span><br><span class="line"><span class="comment">//&#x4FEE;&#x6539;&#x6210;&#x529F;&#x540E;&#x91CD;&#x65B0;&#x52A0;&#x4E0A;final&#x4FEE;&#x9970;&#x7B26;</span></span><br><span class="line">modifier.set(value, value.getModifiers() | Modifier.FINAL);}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -725,7 +725,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -796,7 +796,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1045,9 +1047,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

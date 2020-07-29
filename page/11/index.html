@@ -419,6 +419,408 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/05/Spring自定义ReturnValueHandlers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/05/Spring自定义ReturnValueHandlers/" class="post-title-link" itemprop="url">Spring自定义ReturnValueHandlers</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-05 21:38:39" itemprop="dateCreated datePublished" datetime="2019-08-05T21:38:39+08:00">2019-08-05</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x7248;&#x672C;&#x8BF4;&#x660E;">&#x7248;&#x672C;&#x8BF4;&#x660E;</h2>
+<p><code>jdk</code>:1.8.0_131<br>
+<code>springboot</code>:2.1.6.RELEAS<br>
+<code>maven</code>:3.6.1<br>
+<code>database</code>:mysql-5.7.14<br>
+<code>lombok&#x63D2;&#x4EF6;</code></p>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;">&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<p>&#x7701;&#x7565;&#x6784;&#x5EFA;&#x9879;&#x76EE;&#xFF0C;junit &#x6D4B;&#x8BD5;&#x7B49;&#x6B65;&#x9AA4;&#xFF0C;&#x53EA;&#x5206;&#x6790;&#x4EE3;&#x7801;&#x4E0E;&#x5B9E;&#x73B0;&#x3002; &#x6839;&#x636E;<a href="/2019/08/04/spring&#x9759;&#x6001;&#x8D44;&#x6E90;&#x52A0;&#x8F7D;&#x6E90;&#x7801;&#x6D45;&#x6790;/" title="spring&#x9759;&#x6001;&#x8D44;&#x6E90;&#x52A0;&#x8F7D;&#x6E90;&#x7801;&#x6D45;&#x6790;">spring&#x9759;&#x6001;&#x8D44;&#x6E90;&#x52A0;&#x8F7D;&#x6E90;&#x7801;&#x6D45;&#x6790;</a>&#x4E2D;&#x7684;&#x5206;&#x6790;,&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x77E5;&#x9053; <code>DispatcherServlet</code>&#x4F1A;&#x62E6;&#x622A;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x5BFB;&#x627E;&#x5408;&#x9002;&#x7684;<code>mappedHandler</code>&#x53BB;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x6839;&#x636E;<code>mappedHandler</code>&#x53BB;&#x627E;&#x5BF9;&#x5E94;&#x7684;&#x9002;&#x914D;&#x5668;<code>HandlerAdapter</code>&#x6765;&#x5B9E;&#x9645;&#x8BF7;&#x6C42;<code>controller</code>&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x9488;&#x5BF9;&#x63A5;&#x53E3;&#x6765;&#x8BF4;&#x4E00;&#x822C;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>RequestMappingHandlerAdapter</code></p>
+<p>&#x5177;&#x4F53;&#x8C03;&#x7528;<code>controller</code>&#x65B9;&#x6CD5;&#x7684;&#x7EC6;&#x8282;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x5173;&#x6CE8;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x4EC5;&#x4EC5;&#x5173;&#x6CE8;<code>RequestMappingHandlerAdapter</code>&#x662F;&#x5982;&#x4F55;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x3002; &#x8282;&#x9009;&#x90E8;&#x5206;<code>DispatcherServlet</code>&#x7684;<code>doDispatch</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x6839;&#x636E;mappedHandler&#x67E5;&#x627E;&#x5408;&#x9002;&#x7684;&#x9002;&#x914D;&#x5668;</span></span><br><span class="line">HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Process last-modified header, if supported by the handler.</span></span><br><span class="line">String method = request.getMethod();</span><br><span class="line"><span class="keyword">boolean</span> isGet = <span class="string">&quot;GET&quot;</span>.equals(method);</span><br><span class="line"><span class="keyword">if</span> (isGet || <span class="string">&quot;HEAD&quot;</span>.equals(method)) {</span><br><span class="line">    <span class="keyword">long</span> lastModified = ha.getLastModified(request, mappedHandler.getHandler());</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span> ServletWebRequest(request, response).checkNotModified(lastModified) &amp;&amp; isGet) {</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!mappedHandler.applyPreHandle(processedRequest, response)) {</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5B9E;&#x9645;&#x8C03;&#x7528;controller&#x65B9;&#x6CD5;&#x7684;&#x5730;&#x65B9;</span></span><br><span class="line">mv = ha.handle(processedRequest, response, mappedHandler.getHandler());</span><br></pre></td></tr></table></figure>
+<p><code>RequestMappingHandlerAdapter</code>&#x7684;<code>handle</code>&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x4E86;&#x5185;&#x90E8;&#x7684;<code>handleInternal</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> ModelAndView <span class="title">handleInternal</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">        HttpServletResponse response, HandlerMethod handlerMethod)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line"></span><br><span class="line">    ModelAndView mav;</span><br><span class="line">    checkRequest(request);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Execute invokeHandlerMethod in synchronized block if required.</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.synchronizeOnSession) {</span><br><span class="line">        HttpSession session = request.getSession(<span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (session != <span class="keyword">null</span>) {</span><br><span class="line">            Object mutex = WebUtils.getSessionMutex(session);</span><br><span class="line">            <span class="keyword">synchronized</span> (mutex) {</span><br><span class="line">                mav = invokeHandlerMethod(request, response, handlerMethod);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            <span class="comment">// No HttpSession available -&gt; no mutex necessary</span></span><br><span class="line">            mav = invokeHandlerMethod(request, response, handlerMethod);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">// No synchronization on session demanded at all...</span></span><br><span class="line">        mav = invokeHandlerMethod(request, response, handlerMethod);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!response.containsHeader(HEADER_CACHE_CONTROL)) {</span><br><span class="line">        <span class="keyword">if</span> (getSessionAttributesHandler(handlerMethod).hasSessionAttributes()) {</span><br><span class="line">            applyCacheSeconds(response, <span class="keyword">this</span>.cacheSecondsForSessionAttributeHandlers);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            prepareResponse(response);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mav;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x518D;&#x67E5;&#x770B;<code>invokeHandlerMethod</code>&#x5B9E;&#x73B0;&#x7EC6;&#x8282;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> ModelAndView <span class="title">invokeHandlerMethod</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">        HttpServletResponse response, HandlerMethod handlerMethod)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line"></span><br><span class="line">    ServletWebRequest webRequest = <span class="keyword">new</span> ServletWebRequest(request, response);</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);</span><br><span class="line">        ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);</span><br><span class="line"></span><br><span class="line">        ServletInvocableHandlerMethod invocableMethod = createInvocableHandlerMethod(handlerMethod);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.argumentResolvers != <span class="keyword">null</span>) {</span><br><span class="line">            invocableMethod.setHandlerMethodArgumentResolvers(<span class="keyword">this</span>.argumentResolvers);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x8981;&#x6CE8;&#x610F;&#x4E0B;&#xFF0C;&#x540E;&#x9762;&#x5B9E;&#x73B0;&#x7684;&#x81EA;&#x5B9A;&#x4E49;MyResponseType&#x6CE8;&#x89E3;&#x5C31;&#x548C;&#x8FD9;&#x91CC;&#x6709;&#x5173;</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.returnValueHandlers != <span class="keyword">null</span>) {</span><br><span class="line">            invocableMethod.setHandlerMethodReturnValueHandlers(<span class="keyword">this</span>.returnValueHandlers);</span><br><span class="line">        }</span><br><span class="line">        invocableMethod.setDataBinderFactory(binderFactory);</span><br><span class="line">        invocableMethod.setParameterNameDiscoverer(<span class="keyword">this</span>.parameterNameDiscoverer);</span><br><span class="line"></span><br><span class="line">        ModelAndViewContainer mavContainer = <span class="keyword">new</span> ModelAndViewContainer();</span><br><span class="line">        mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));</span><br><span class="line">        modelFactory.initModel(webRequest, mavContainer, invocableMethod);</span><br><span class="line">        mavContainer.setIgnoreDefaultModelOnRedirect(<span class="keyword">this</span>.ignoreDefaultModelOnRedirect);</span><br><span class="line"></span><br><span class="line">        AsyncWebRequest asyncWebRequest = WebAsyncUtils.createAsyncWebRequest(request, response);</span><br><span class="line">        asyncWebRequest.setTimeout(<span class="keyword">this</span>.asyncRequestTimeout);</span><br><span class="line"></span><br><span class="line">        WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);</span><br><span class="line">        asyncManager.setTaskExecutor(<span class="keyword">this</span>.taskExecutor);</span><br><span class="line">        asyncManager.setAsyncWebRequest(asyncWebRequest);</span><br><span class="line">        asyncManager.registerCallableInterceptors(<span class="keyword">this</span>.callableInterceptors);</span><br><span class="line">        asyncManager.registerDeferredResultInterceptors(<span class="keyword">this</span>.deferredResultInterceptors);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (asyncManager.hasConcurrentResult()) {</span><br><span class="line">            Object result = asyncManager.getConcurrentResult();</span><br><span class="line">            mavContainer = (ModelAndViewContainer) asyncManager.getConcurrentResultContext()[<span class="number">0</span>];</span><br><span class="line">            asyncManager.clearConcurrentResult();</span><br><span class="line">            LogFormatUtils.traceDebug(logger, traceOn -&gt; {</span><br><span class="line">                String formatted = LogFormatUtils.formatValue(result, !traceOn);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;Resume with async result [&quot;</span> + formatted + <span class="string">&quot;]&quot;</span>;</span><br><span class="line">            });</span><br><span class="line">            invocableMethod = invocableMethod.wrapConcurrentResult(result);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//&#x5B9E;&#x9645;&#x8C03;&#x7528;&#x7684;&#x5730;&#x65B9;</span></span><br><span class="line">        invocableMethod.invokeAndHandle(webRequest, mavContainer);</span><br><span class="line">        <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) {</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> getModelAndView(mavContainer, modelFactory, webRequest);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">finally</span> {</span><br><span class="line">        webRequest.requestCompleted();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x4E0B;<code>invocableMethod.invokeAndHandle</code>&#x7684;&#x7EC6;&#x8282;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invokeAndHandle</span><span class="params">(ServletWebRequest webRequest, ModelAndViewContainer mavContainer,</span></span></span><br><span class="line"><span class="function"><span class="params">        Object... providedArgs)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line"></span><br><span class="line">    Object returnValue = invokeForRequest(webRequest, mavContainer, providedArgs);</span><br><span class="line">    setResponseStatus(webRequest);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (returnValue == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">if</span> (isRequestNotModified(webRequest) || getResponseStatus() != <span class="keyword">null</span> || mavContainer.isRequestHandled()) {</span><br><span class="line">            disableContentCachingIfNecessary(webRequest);</span><br><span class="line">            mavContainer.setRequestHandled(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (StringUtils.hasText(getResponseStatusReason())) {</span><br><span class="line">        mavContainer.setRequestHandled(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    mavContainer.setRequestHandled(<span class="keyword">false</span>);</span><br><span class="line">    Assert.state(<span class="keyword">this</span>.returnValueHandlers != <span class="keyword">null</span>, <span class="string">&quot;No return value handlers&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        <span class="comment">//&#x5904;&#x7406;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;</span></span><br><span class="line">        <span class="keyword">this</span>.returnValueHandlers.handleReturnValue(</span><br><span class="line">                returnValue, getReturnValueType(returnValue), mavContainer, webRequest);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">        <span class="keyword">if</span> (logger.isTraceEnabled()) {</span><br><span class="line">            logger.trace(formatErrorForReturnValue(returnValue), ex);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>this.returnValueHandlers.handleReturnValue</code>&#x7684;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#x7C7B;<code>HandlerMethodReturnValueHandlerComposite</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleReturnValue</span><span class="params">(@Nullable Object returnValue, MethodParameter returnType,</span></span></span><br><span class="line"><span class="function"><span class="params">        ModelAndViewContainer mavContainer, NativeWebRequest webRequest)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">    <span class="comment">//&#x67E5;&#x627E;&#x5408;&#x9002;&#x7684;&#x5904;&#x7406;&#x5668;</span></span><br><span class="line">    HandlerMethodReturnValueHandler handler = selectHandler(returnValue, returnType);</span><br><span class="line">    <span class="keyword">if</span> (handler == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Unknown return value type: &quot;</span> + returnType.getParameterType().getName());</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//&#x5904;&#x7406;&#x5668;&#x6267;&#x884C;</span></span><br><span class="line">    handler.handleReturnValue(returnValue, returnType, mavContainer, webRequest);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> HandlerMethodReturnValueHandler <span class="title">selectHandler</span><span class="params">(@Nullable Object value, MethodParameter returnType)</span> </span>{</span><br><span class="line">    <span class="keyword">boolean</span> isAsyncValue = isAsyncReturnValue(value, returnType);</span><br><span class="line">    <span class="comment">//&#x904D;&#x5386;&#x6240;&#x6709;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x53EA;&#x8981;&#x627E;&#x5230;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x6240;&#x4EE5;&#x5F97;&#x8003;&#x8651;&#x4E0B;&#x4F18;&#x5148;&#x7EA7;&#x5173;&#x7CFB;</span></span><br><span class="line">    <span class="keyword">for</span> (HandlerMethodReturnValueHandler handler : <span class="keyword">this</span>.returnValueHandlers) {</span><br><span class="line">        <span class="keyword">if</span> (isAsyncValue &amp;&amp; !(handler <span class="keyword">instanceof</span> AsyncHandlerMethodReturnValueHandler)) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (handler.supportsReturnType(returnType)) {</span><br><span class="line">            <span class="keyword">return</span> handler;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x9ED8;&#x8BA4;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;&#x6709;&#x4EE5;&#x4E0B;</p>
+<figure>
+<img src="./images/Spring&#x81EA;&#x5B9A;&#x4E49;ReturnValueHandlers_&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;.jpg" alt="&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;"><figcaption>&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;</figcaption>
+</figure>
+<p>&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x4E0B;&#x5178;&#x578B;&#x7684;<code>@ResponseBody</code>&#x7684;&#x5904;&#x7406;&#x5668;<code>RequestResponseBodyMethodProcessor</code>&#x7684;&#x65B9;&#x6CD5;<code>supportsReturnType</code>&#x5C31;&#x660E;&#x767D;<code>selectHandler</code>&#x662F;&#x5982;&#x4F55;&#x8D77;&#x4F5C;&#x7528;&#x7684;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supportsReturnType</span><span class="params">(MethodParameter returnType)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> (AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBody.class) ||</span><br><span class="line">            returnType.hasMethodAnnotation(ResponseBody.class));</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5904;&#x7406;&#x5668;&#x662F;&#x6A21;&#x4EFF;<code>@ResponseBody</code>,&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5728;<code>returnValueHandlers</code>&#x4E2D;<code>RequestResponseBodyMethodProcessor</code>&#x4F4D;&#x7F6E;&#x5904;&#x63D2;&#x5165;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5904;&#x7406;&#x5668;&#x5373;&#x53EF;</p>
+<p>&#x90A3;&#x4E48;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E86;&#x89E3;&#x4E0B;<code>HandlerMethodReturnValueHandlerComposite</code>&#x7684;&#x5C5E;&#x6027;<code>returnValueHandlers</code>&#x662F;&#x5982;&#x4F55;&#x88AB;&#x52A0;&#x8F7D;&#x8D4B;&#x503C;&#x7684;&#xFF0C;&#x901A;&#x8FC7;&#x67E5;&#x770B;&#x8C03;&#x7528;&#x5173;&#x7CFB;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0; returnValueHandlers &#x8D4B;&#x503C;&#x7684;&#x65B9;&#x6CD5;&#x4E3A;<code>addHandlers</code>,&#x6B64;&#x65B9;&#x6CD5;&#x88AB;&#x4E24;&#x5904;&#x8C03;&#x7528;</p>
+<p>&#x7B2C;&#x4E00;&#x5904;,&#x8FD9;&#x91CC;&#x662F;&#x52A0;&#x8F7D; bean &#x65F6;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#xFF0C;&#x5373;&#x9ED8;&#x8BA4;<code>returnValueHandlers</code>&#x4E3A;<code>getDefaultReturnValueHandlers</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">// Do this first, it may add ResponseBody advice beans</span></span><br><span class="line">    initControllerAdviceCache();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.argumentResolvers == <span class="keyword">null</span>) {</span><br><span class="line">        List&lt;HandlerMethodArgumentResolver&gt; resolvers = getDefaultArgumentResolvers();</span><br><span class="line">        <span class="keyword">this</span>.argumentResolvers = <span class="keyword">new</span> HandlerMethodArgumentResolverComposite().addResolvers(resolvers);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.initBinderArgumentResolvers == <span class="keyword">null</span>) {</span><br><span class="line">        List&lt;HandlerMethodArgumentResolver&gt; resolvers = getDefaultInitBinderArgumentResolvers();</span><br><span class="line">        <span class="keyword">this</span>.initBinderArgumentResolvers = <span class="keyword">new</span> HandlerMethodArgumentResolverComposite().addResolvers(resolvers);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.returnValueHandlers == <span class="keyword">null</span>) {</span><br><span class="line">        List&lt;HandlerMethodReturnValueHandler&gt; handlers = getDefaultReturnValueHandlers();</span><br><span class="line">        <span class="keyword">this</span>.returnValueHandlers = <span class="keyword">new</span> HandlerMethodReturnValueHandlerComposite().addHandlers(handlers);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x7B2C;&#x4E8C;&#x5904;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReturnValueHandlers</span><span class="params">(@Nullable List&lt;HandlerMethodReturnValueHandler&gt; returnValueHandlers)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (returnValueHandlers == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">this</span>.returnValueHandlers = <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        <span class="keyword">this</span>.returnValueHandlers = <span class="keyword">new</span> HandlerMethodReturnValueHandlerComposite();</span><br><span class="line">        <span class="keyword">this</span>.returnValueHandlers.addHandlers(returnValueHandlers);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x660E;&#x663E;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x6539;&#x53D8;<code>afterPropertiesSet</code>&#x7684;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#xFF0C;&#x90A3;&#x4E48;&#x7EE7;&#x627F;<code>WebMvcConfigurationSupport</code>,&#x91CD;&#x5199;<code>RequestMappingHandlerAdapter</code>&#x65B9;&#x6CD5;&#xFF0C;&#x624B;&#x52A8;&#x8C03;&#x7528;<code>setReturnValueHandlers</code>&#x65B9;&#x6CD5;&#x5373;&#x53EF;&#x6CE8;&#x5165;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5904;&#x7406;&#x5668;&#x3002; &#x4F46;&#x662F;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x53D6;&#x51FA;&#x9ED8;&#x8BA4;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x907F;&#x514D;&#x5176;&#x4ED6;&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;&#x4E0D;&#x8D77;&#x4F5C;&#x7528;&#xFF0C;<code>getDefaultReturnValueHandlers</code>&#x662F;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x53D6;&#x503C;&#x3002;&#x7136;&#x540E;&#x5C06;&#x81EA;&#x5B9A;&#x4E49;&#x5904;&#x7406;&#x5668;&#x63D2;&#x5165;&#x5230;<code>RequestResponseBodyMethodProcessor</code>&#x4E4B;&#x524D;&#x5373;&#x53EF;, &#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4F1A;&#x4F7F;<code>@ControllerAdvice</code>&#x5931;&#x6548;&#xFF0C;&#x614E;&#x7528;&#xFF0C;&#x66F4;&#x597D;&#x7684;&#x65B9;&#x5F0F;&#x901A;&#x8FC7;<code>@ControllerAdvice</code>&#x5B9E;&#x73B0;&#x540C;&#x6837;&#x7684;&#x6548;&#x679C;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.support.HandlerMethodReturnValueHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvc</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RequestMappingHandlerAdapter <span class="title">requestMappingHandlerAdapter</span><span class="params">()</span> </span>{</span><br><span class="line">        RequestMappingHandlerAdapter requestMappingHandlerAdapter = <span class="keyword">super</span>.requestMappingHandlerAdapter();</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            Method method = RequestMappingHandlerAdapter.class.getDeclaredMethod(<span class="string">&quot;getDefaultReturnValueHandlers&quot;</span>);</span><br><span class="line">            method.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            List&lt;HandlerMethodReturnValueHandler&gt; returnValueHandlers = (List&lt;HandlerMethodReturnValueHandler&gt;) method.invoke(requestMappingHandlerAdapter);</span><br><span class="line">            System.out.println(<span class="string">&quot;invoke &quot;</span> + returnValueHandlers);</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (HandlerMethodReturnValueHandler handlerMethodReturnValueHandler : returnValueHandlers) {</span><br><span class="line">                <span class="keyword">if</span> (handlerMethodReturnValueHandler <span class="keyword">instanceof</span> RequestResponseBodyMethodProcessor) {</span><br><span class="line">                    returnValueHandlers.add(i, <span class="keyword">new</span> MyReturnValueHandler(getMessageConverters()));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                i++;</span><br><span class="line">            }</span><br><span class="line">            requestMappingHandlerAdapter.setReturnValueHandlers(returnValueHandlers);</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> requestMappingHandlerAdapter;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.li.springboot.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.li.springboot.annotation.MyResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.MethodParameter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.converter.HttpMessageConverter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.support.WebDataBinderFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.NativeWebRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.support.ModelAndViewContainer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReturnValueHandler</span> <span class="keyword">extends</span> <span class="title">AbstractMessageConverterMethodProcessor</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">MyReturnValueHandler</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(converters);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supportsParameter</span><span class="params">(MethodParameter parameter)</span> </span>{</span><br><span class="line">        <span class="comment">//&#x4E0D;&#x9700;&#x8981;&#x652F;&#x6301;&#x8BF7;&#x6C42;&#x53C2;&#x6570;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">resolveArgument</span><span class="params">(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supportsReturnType</span><span class="params">(MethodParameter returnType)</span> </span>{</span><br><span class="line">        <span class="comment">//&#x6709;&#x6CE8;&#x89E3;@MyResponseBody&#x7684;&#x4F7F;&#x7528;&#x8BE5;&#x5904;&#x7406;&#x5668;</span></span><br><span class="line">        <span class="keyword">return</span> returnType.getMethodAnnotation(MyResponseBody.class) != <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleReturnValue</span><span class="params">(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        mavContainer.setRequestHandled(<span class="keyword">true</span>);</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="string">&quot;data&quot;</span>,returnValue);</span><br><span class="line">        <span class="comment">//&#x66FF;&#x6362;&#x8FD4;&#x56DE;&#x503C;</span></span><br><span class="line">        writeWithMessageConverters(map, returnType, webRequest);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5B9E;&#x73B0;&#x540E;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;&#x7684;&#x96C6;&#x5408;&#x53D8;&#x5316; <img src="./images/Spring&#x81EA;&#x5B9A;&#x4E49;ReturnValueHandlers_&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;2.jpg" alt="&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x5668;2"></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/04/spring静态资源加载源码浅析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/04/spring静态资源加载源码浅析/" class="post-title-link" itemprop="url">spring静态资源加载源码浅析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-04 01:28:59" itemprop="dateCreated datePublished" datetime="2019-08-04T01:28:59+08:00">2019-08-04</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x81EA;&#x5B9A;&#x4E49;&#x8D44;&#x6E90;&#x5904;&#x7406;&#x5668;">&#x81EA;&#x5B9A;&#x4E49;&#x8D44;&#x6E90;&#x5904;&#x7406;&#x5668;</h2>
+<p><code>DispatcherServlet</code>&#x4F1A;&#x62E6;&#x622A;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x9488;&#x5BF9;<code>js</code>,<code>css</code>&#x7B49;&#x9759;&#x6001;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x671F;&#x671B;&#x88AB;<code>controller</code>&#x62E6;&#x622A;&#xFF0C;&#x901A;&#x8FC7;&#x91CD;&#x5199;<code>WebMvcConfigurationSupport</code>&#x7684;<code>addResourceHandlers</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7531;&#x62E6;&#x622A;&#x6307;&#x5B9A;&#x89C4;&#x5219;&#x7684;&#x8BF7;&#x6C42; url&#x3002;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.EnableWebMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvc</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>{</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>{</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/static&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/static&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;">&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<p><code>SpringBoot</code>&#x62E6;&#x622A; url&#xFF0C;&#x6839;&#x636E;<code>HandlerMapping</code>&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;<code>Handler</code>&#x53BB;&#x6267;&#x884C;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#x3002;</p>
+<p><code>DispatcherServlet</code>&#x521D;&#x59CB;&#x5316;&#x65F6;&#x4F1A;&#x8C03;&#x7528;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x65F6;&#x4F1A;&#x52A0;&#x8F7D;<code>HandlerMapping</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initHandlerMappings</span><span class="params">(ApplicationContext context)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.handlerMappings = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.detectAllHandlerMappings) {</span><br><span class="line">        <span class="comment">// &#x67E5;&#x627E;&#x6240;&#x6709;HandlerMapping&#x5B9E;&#x73B0;&#x7C7B;</span></span><br><span class="line">        Map&lt;String, HandlerMapping&gt; matchingBeans =</span><br><span class="line">                BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (!matchingBeans.isEmpty()) {</span><br><span class="line">            <span class="keyword">this</span>.handlerMappings = <span class="keyword">new</span> ArrayList&lt;&gt;(matchingBeans.values());</span><br><span class="line">            <span class="comment">// We keep HandlerMappings in sorted order.</span></span><br><span class="line">            AnnotationAwareOrderComparator.sort(<span class="keyword">this</span>.handlerMappings);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><code>WebMvcConfigurationSupport</code>&#x7684;&#x65B9;&#x6CD5;<code>resourceHandlerMapping</code>&#x4E2D;&#x6CE8;&#x89E3;&#x4E86;<code>@Bean</code>&#xFF0C;&#x6240;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x8D44;&#x6E90;&#x5904;&#x7406;&#x5668;&#x7C7B;&#x5F97;&#x4EE5;&#x88AB;&#x52A0;&#x8F7D;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> HandlerMapping <span class="title">resourceHandlerMapping</span><span class="params">()</span> </span>{</span><br><span class="line">    Assert.state(<span class="keyword">this</span>.applicationContext != <span class="keyword">null</span>, <span class="string">&quot;No ApplicationContext set&quot;</span>);</span><br><span class="line">    Assert.state(<span class="keyword">this</span>.servletContext != <span class="keyword">null</span>, <span class="string">&quot;No ServletContext set&quot;</span>);</span><br><span class="line"></span><br><span class="line">    ResourceHandlerRegistry registry = <span class="keyword">new</span> ResourceHandlerRegistry(<span class="keyword">this</span>.applicationContext,</span><br><span class="line">            <span class="keyword">this</span>.servletContext, mvcContentNegotiationManager(), mvcUrlPathHelper());</span><br><span class="line">    <span class="comment">// &#x6211;&#x4EEC;&#x91CD;&#x5199;&#x7684;&#x65B9;&#x6CD5;</span></span><br><span class="line">    addResourceHandlers(registry);</span><br><span class="line"></span><br><span class="line">    AbstractHandlerMapping handlerMapping = registry.getHandlerMapping();</span><br><span class="line">    <span class="keyword">if</span> (handlerMapping == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">    handlerMapping.setPathMatcher(mvcPathMatcher());</span><br><span class="line">    handlerMapping.setUrlPathHelper(mvcUrlPathHelper());</span><br><span class="line">    handlerMapping.setInterceptors(getInterceptors());</span><br><span class="line">    handlerMapping.setCorsConfigurations(getCorsConfigurations());</span><br><span class="line">    <span class="keyword">return</span> handlerMapping;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x91CD;&#x5199;&#x7684;&#x65B9;&#x6CD5;<code>new</code>&#x4E86;<code>ResourceHandlerRegistration</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResourceHandlerRegistration <span class="title">addResourceHandler</span><span class="params">(String... pathPatterns)</span> </span>{</span><br><span class="line">    ResourceHandlerRegistration registration = <span class="keyword">new</span> ResourceHandlerRegistration(pathPatterns);</span><br><span class="line">    <span class="keyword">this</span>.registrations.add(registration);</span><br><span class="line">    <span class="keyword">return</span> registration;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8FD4;&#x56DE;&#x5230;<code>WebMvcConfigurationSupport</code>&#x65B9;&#x6CD5;<code>resourceHandlerMapping</code>&#x7684;<code>registry.getHandlerMapping()</code>&#x4E2D;&#xFF0C;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> AbstractHandlerMapping <span class="title">getHandlerMapping</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.registrations.isEmpty()) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    Map&lt;String, HttpRequestHandler&gt; urlMap = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (ResourceHandlerRegistration registration : <span class="keyword">this</span>.registrations) {</span><br><span class="line">        <span class="keyword">for</span> (String pathPattern : registration.getPathPatterns()) {</span><br><span class="line">            <span class="comment">//&#x627E;&#x5230;&#x5B9E;&#x9645;handler</span></span><br><span class="line">            ResourceHttpRequestHandler handler = registration.getRequestHandler();</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.pathHelper != <span class="keyword">null</span>) {</span><br><span class="line">                handler.setUrlPathHelper(<span class="keyword">this</span>.pathHelper);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.contentNegotiationManager != <span class="keyword">null</span>) {</span><br><span class="line">                handler.setContentNegotiationManager(<span class="keyword">this</span>.contentNegotiationManager);</span><br><span class="line">            }</span><br><span class="line">            handler.setServletContext(<span class="keyword">this</span>.servletContext);</span><br><span class="line">            handler.setApplicationContext(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                handler.afterPropertiesSet();</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">catch</span> (Throwable ex) {</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> BeanInitializationException(<span class="string">&quot;Failed to init ResourceHttpRequestHandler&quot;</span>, ex);</span><br><span class="line">            }</span><br><span class="line">            urlMap.put(pathPattern, handler);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    SimpleUrlHandlerMapping handlerMapping = <span class="keyword">new</span> SimpleUrlHandlerMapping();</span><br><span class="line">    handlerMapping.setOrder(<span class="keyword">this</span>.order);</span><br><span class="line">    handlerMapping.setUrlMap(urlMap);</span><br><span class="line">    <span class="keyword">return</span> handlerMapping;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>ResourceHandlerRegistration</code>&#x7684;<code>getRequestHandler</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> ResourceHttpRequestHandler <span class="title">getRequestHandler</span><span class="params">()</span> </span>{</span><br><span class="line">    ResourceHttpRequestHandler handler = <span class="keyword">new</span> ResourceHttpRequestHandler();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.resourceChainRegistration != <span class="keyword">null</span>) {</span><br><span class="line">        handler.setResourceResolvers(<span class="keyword">this</span>.resourceChainRegistration.getResourceResolvers());</span><br><span class="line">        handler.setResourceTransformers(<span class="keyword">this</span>.resourceChainRegistration.getResourceTransformers());</span><br><span class="line">    }</span><br><span class="line">    handler.setLocationValues(<span class="keyword">this</span>.locationValues);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.cacheControl != <span class="keyword">null</span>) {</span><br><span class="line">        handler.setCacheControl(<span class="keyword">this</span>.cacheControl);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.cachePeriod != <span class="keyword">null</span>) {</span><br><span class="line">        handler.setCacheSeconds(<span class="keyword">this</span>.cachePeriod);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> handler;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x53EA;&#x9700;&#x8981;&#x641E;&#x6E05;&#x695A;<code>ResourceHttpRequestHandler</code>&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x5982;&#x4F55;&#x88AB;&#x8C03;&#x7528;&#x5373;&#x53EF;&#x3002;</p>
+<p><code>SpringBoot</code>&#x6216;&#x8005;<code>SpringMVC</code>&#x7684;&#x8BF7;&#x6C42;&#x7531;<code>DispatcherServlet</code>&#x62E6;&#x622A;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;<code>Servlet</code>&#x6807;&#x51C6;&#x3002;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x4ECE;<code>service</code>&#x65B9;&#x6CD5;&#x5165;&#x53E3;&#x5373;&#x53EF;</p>
+<p><code>DispatcherServlet</code>&#x7684;&#x7236;&#x7C7B;<code>FrameworkServlet</code>&#x91CD;&#x5199;&#x4E86;<code>service</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> ServletException, IOException </span>{</span><br><span class="line"></span><br><span class="line">    HttpMethod httpMethod = HttpMethod.resolve(request.getMethod());</span><br><span class="line">    <span class="keyword">if</span> (httpMethod == HttpMethod.PATCH || httpMethod == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        processRequest(request, response);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        <span class="keyword">super</span>.service(request, response);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>processRequest</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x5B9E;&#x9645;&#x7531;<code>DispatcherServlet</code>&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;<code>doService</code>&#x53BB;&#x5904;&#x7406;&#x3002;&#x800C;<code>doService</code>&#x6700;&#x7EC8;&#x8C03;&#x7528;<code>doDispatch</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doDispatch</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">    HttpServletRequest processedRequest = request;</span><br><span class="line">    HandlerExecutionChain mappedHandler = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">boolean</span> multipartRequestParsed = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        ModelAndView mv = <span class="keyword">null</span>;</span><br><span class="line">        Exception dispatchException = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            processedRequest = checkMultipart(request);</span><br><span class="line">            multipartRequestParsed = (processedRequest != request);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//&#x67E5;&#x627E;&#x5408;&#x9002;&#x7684;handlerMapping</span></span><br><span class="line">            mappedHandler = getHandler(processedRequest);</span><br><span class="line">            <span class="keyword">if</span> (mappedHandler == <span class="keyword">null</span>) {</span><br><span class="line">                noHandlerFound(processedRequest, response);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Determine handler adapter for the current request.</span></span><br><span class="line">            HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Process last-modified header, if supported by the handler.</span></span><br><span class="line">            String method = request.getMethod();</span><br><span class="line">            <span class="keyword">boolean</span> isGet = <span class="string">&quot;GET&quot;</span>.equals(method);</span><br><span class="line">            <span class="keyword">if</span> (isGet || <span class="string">&quot;HEAD&quot;</span>.equals(method)) {</span><br><span class="line">                <span class="keyword">long</span> lastModified = ha.getLastModified(request, mappedHandler.getHandler());</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">new</span> ServletWebRequest(request, response).checkNotModified(lastModified) &amp;&amp; isGet) {</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!mappedHandler.applyPreHandle(processedRequest, response)) {</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="comment">// ha&#x5B9E;&#x9645;&#x4F7F;&#x7528;HttpRequestHandlerAdapter&#xFF0C;mappedHandler.getHandler()&#x5219;&#x4E3A;ResourceHttpRequestHandler</span></span><br><span class="line">            mv = ha.handle(processedRequest, response, mappedHandler.getHandler());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) {</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            applyDefaultViewName(processedRequest, mv);</span><br><span class="line">            mappedHandler.applyPostHandle(processedRequest, response, mv);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">            dispatchException = ex;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (Throwable err) {</span><br><span class="line">            <span class="comment">// As of 4.3, we&apos;re processing Errors thrown from handler methods as well,</span></span><br><span class="line">            <span class="comment">// making them available for @ExceptionHandler methods and other scenarios.</span></span><br><span class="line">            dispatchException = <span class="keyword">new</span> NestedServletException(<span class="string">&quot;Handler dispatch failed&quot;</span>, err);</span><br><span class="line">        }</span><br><span class="line">        processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex) {</span><br><span class="line">        triggerAfterCompletion(processedRequest, response, mappedHandler, ex);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">catch</span> (Throwable err) {</span><br><span class="line">        triggerAfterCompletion(processedRequest, response, mappedHandler,</span><br><span class="line">                <span class="keyword">new</span> NestedServletException(<span class="string">&quot;Handler processing failed&quot;</span>, err));</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">finally</span> {</span><br><span class="line">        <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) {</span><br><span class="line">            <span class="comment">// Instead of postHandle and afterCompletion</span></span><br><span class="line">            <span class="keyword">if</span> (mappedHandler != <span class="keyword">null</span>) {</span><br><span class="line">                mappedHandler.applyAfterConcurrentHandlingStarted(processedRequest, response);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            <span class="comment">// Clean up any resources used by a multipart request.</span></span><br><span class="line">            <span class="keyword">if</span> (multipartRequestParsed) {</span><br><span class="line">                cleanupMultipart(processedRequest);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x5177;&#x4F53;&#x67E5;&#x627E;<code>mappedHandler</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> HandlerExecutionChain <span class="title">getHandler</span><span class="params">(HttpServletRequest request)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">    <span class="comment">//handlerMappings&#x7684;&#x52A0;&#x8F7D;&#x5728;&#x4E0A;&#x6587;&#x4E2D;&#x6709;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x52A0;&#x8F7D;&#x4E86;ResourceHttpRequestHandler</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.handlerMappings != <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">for</span> (HandlerMapping mapping : <span class="keyword">this</span>.handlerMappings) {</span><br><span class="line">            HandlerExecutionChain handler = mapping.getHandler(request);</span><br><span class="line">            <span class="keyword">if</span> (handler != <span class="keyword">null</span>) {</span><br><span class="line">                <span class="keyword">return</span> handler;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x63A5;&#x7740;&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x67E5;&#x627E;&#x5177;&#x4F53;<code>handlerAdapter</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> HandlerAdapter <span class="title">getHandlerAdapter</span><span class="params">(Object handler)</span> <span class="keyword">throws</span> ServletException </span>{</span><br><span class="line">    <span class="comment">//&#x548C;handlerMappings&#x7684;&#x52A0;&#x8F7D;&#x4EE3;&#x7801;&#x7EC6;&#x8282;&#x4E00;&#x6837;&#xFF0C;&#x8FD9;&#x91CC;&#x52A0;&#x8F7D;&#x4E86;HttpRequestHandlerAdapter</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.handlerAdapters != <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">for</span> (HandlerAdapter adapter : <span class="keyword">this</span>.handlerAdapters) {</span><br><span class="line">            <span class="keyword">if</span> (adapter.supports(handler)) {</span><br><span class="line">                <span class="keyword">return</span> adapter;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ServletException(<span class="string">&quot;No adapter for handler [&quot;</span> + handler +</span><br><span class="line">            <span class="string">&quot;]: The DispatcherServlet configuration needs to include a HandlerAdapter that supports this handler&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>handlerAdapter</code>&#x8C03;&#x7528;<code>handle</code>,&#x5BF9;&#x4E8E;<code>HttpRequestHandlerAdapter</code>&#x6765;&#x8BF4;&#xFF0C;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> Exception </span>{</span><br><span class="line"></span><br><span class="line">    ((HttpRequestHandler) handler).handleRequest(request, response);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x90A3;&#x4E48;&#x6839;&#x636E;<code>doDispatch</code>&#x4E2D;&#x4F20;&#x5165;&#x7684;<code>handler</code>&#x5373;&#x5219;&#x4E3A;<code>ResourceHttpRequestHandler</code>,&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x7684;&#x5177;&#x4F53;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> ServletException, IOException </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For very general mappings (e.g. &quot;/&quot;) we need to check 404 first</span></span><br><span class="line">    Resource resource = getResource(request);</span><br><span class="line">    <span class="keyword">if</span> (resource == <span class="keyword">null</span>) {</span><br><span class="line">        logger.debug(<span class="string">&quot;Resource not found&quot;</span>);</span><br><span class="line">        response.sendError(HttpServletResponse.SC_NOT_FOUND);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (HttpMethod.OPTIONS.matches(request.getMethod())) {</span><br><span class="line">        response.setHeader(<span class="string">&quot;Allow&quot;</span>, getAllowHeader());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Supported methods and required session</span></span><br><span class="line">    checkRequest(request);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Header phase</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span> ServletWebRequest(request, response).checkNotModified(resource.lastModified())) {</span><br><span class="line">        logger.trace(<span class="string">&quot;Resource not modified&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Apply cache settings, if any</span></span><br><span class="line">    prepareResponse(response);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check the media type for the resource</span></span><br><span class="line">    MediaType mediaType = getMediaType(request, resource);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Content phase</span></span><br><span class="line">    <span class="keyword">if</span> (METHOD_HEAD.equals(request.getMethod())) {</span><br><span class="line">        setHeaders(response, resource, mediaType);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    ServletServerHttpResponse outputMessage = <span class="keyword">new</span> ServletServerHttpResponse(response);</span><br><span class="line">    <span class="keyword">if</span> (request.getHeader(HttpHeaders.RANGE) == <span class="keyword">null</span>) {</span><br><span class="line">        Assert.state(<span class="keyword">this</span>.resourceHttpMessageConverter != <span class="keyword">null</span>, <span class="string">&quot;Not initialized&quot;</span>);</span><br><span class="line">        setHeaders(response, resource, mediaType);</span><br><span class="line">        <span class="keyword">this</span>.resourceHttpMessageConverter.write(resource, mediaType, outputMessage);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        Assert.state(<span class="keyword">this</span>.resourceRegionHttpMessageConverter != <span class="keyword">null</span>, <span class="string">&quot;Not initialized&quot;</span>);</span><br><span class="line">        response.setHeader(HttpHeaders.ACCEPT_RANGES, <span class="string">&quot;bytes&quot;</span>);</span><br><span class="line">        ServletServerHttpRequest inputMessage = <span class="keyword">new</span> ServletServerHttpRequest(request);</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            List&lt;HttpRange&gt; httpRanges = inputMessage.getHeaders().getRange();</span><br><span class="line">            response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);</span><br><span class="line">            <span class="keyword">this</span>.resourceRegionHttpMessageConverter.write(</span><br><span class="line">                    HttpRange.toResourceRegions(httpRanges, resource), mediaType, outputMessage);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (IllegalArgumentException ex) {</span><br><span class="line">            response.setHeader(<span class="string">&quot;Content-Range&quot;</span>, <span class="string">&quot;bytes */&quot;</span> + resource.contentLength());</span><br><span class="line">            response.sendError(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/02/springboot静态资源定义mime类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -566,7 +968,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getMimeType</span><span class="params">(String file)</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (file == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> period = file.lastIndexOf(<span class="string">&apos;.&apos;</span>);</span><br><span class="line">    <span class="keyword">if</span> (period &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    String extension = file.substring(period + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (extension.length() &lt; <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">//&#x6B64;&#x5904;context&#x65E2;&#x662F;&#x4E00;&#x5F00;&#x59CB;&#x63D0;&#x5230;&#x7684;StandardContext&#xFF0C;&#x5373;&#x53EF;&#x5F97;&#x5230;&#x4E0A;&#x6587;&#x4E2D;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x6DFB;&#x52A0;&#x7684;mimetype</span></span><br><span class="line">    <span class="keyword">return</span> context.findMimeMapping(extension);</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>&#x6700;&#x540E;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>response</code>&#x7684;<code>ContentType</code>&#x548C;<code>mediaType</code>&#x606F;&#x606F;&#x76F8;&#x5173;&#x3002;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setHeaders</span><span class="params">(HttpServletResponse response, Resource resource, @Nullable MediaType mediaType)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IOException </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> length = resource.contentLength();</span><br><span class="line">    <span class="keyword">if</span> (length &gt; Integer.MAX_VALUE) {</span><br><span class="line">        response.setContentLengthLong(length);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        response.setContentLength((<span class="keyword">int</span>) length);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mediaType != <span class="keyword">null</span>) {</span><br><span class="line">        <span class="comment">//&#x5B9E;&#x9645;&#x8FD4;&#x56DE;content-Type&#x548C;MediaType&#x6709;&#x5173;</span></span><br><span class="line">        response.setContentType(mediaType.toString());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (resource <span class="keyword">instanceof</span> HttpResource) {</span><br><span class="line">        HttpHeaders resourceHeaders = ((HttpResource) resource).getResponseHeaders();</span><br><span class="line">        resourceHeaders.forEach((headerName, headerValues) -&gt; {</span><br><span class="line">            <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (String headerValue : headerValues) {</span><br><span class="line">                <span class="keyword">if</span> (first) {</span><br><span class="line">                    response.setHeader(headerName, headerValue);</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">else</span> {</span><br><span class="line">                    response.addHeader(headerName, headerValue);</span><br><span class="line">                }</span><br><span class="line">                first = <span class="keyword">false</span>;</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line">    response.setHeader(HttpHeaders.ACCEPT_RANGES, <span class="string">&quot;bytes&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -682,7 +1084,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-07-02 08:37:57" itemprop="dateModified" datetime="2020-07-02T08:37:57+08:00">2020-07-02</time>
+                <time title="修改时间：2020-07-17 11:50:38" itemprop="dateModified" datetime="2020-07-17T11:50:38+08:00">2020-07-17</time>
               </span>
             
           
@@ -889,7 +1291,11 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//&#x56FE;&#x7247;&#x7684;&#x9ED8;&#x8BA4;&#x540D;&#x79F0;&#xFF0C;&#x5F53;&#x9009;&#x4E2D;&#x6587;&#x5B57;&#x65F6;&#xFF0C;&#x6587;&#x5B57;&#x4F1A;&#x4F5C;&#x4E3A;&#x9ED8;&#x8BA4;&#x7684;&#x540D;&#x79F0;</span><br><span class="line">&quot;pasteImage.defaultName&quot;: &quot;${currentFileNameWithoutExt}&quot;,</span><br><span class="line">&quot;pasteImage.namePrefix&quot;: &quot;${currentFileNameWithoutExt}_&quot;,</span><br><span class="line">&quot;pasteImage.path&quot;: &quot;${projectRoot}/source/images&quot;,</span><br><span class="line">&quot;pasteImage.basePath&quot;: &quot;${projectRoot}/source&quot;,</span><br><span class="line">&quot;pasteImage.forceUnixStyleSeparator&quot;: true,</span><br><span class="line">&quot;pasteImage.prefix&quot;: &quot;/&quot;,</span><br><span class="line">//&#x63D2;&#x5165;markdown&#x7684;&#x8BED;&#x6CD5;</span><br><span class="line">&quot;pasteImage.insertPattern&quot;: &quot;![${imageFileName}](./images/${imageFileName})&quot;</span><br></pre></td></tr></table></figure>
 <h2 id="&#x5FEB;&#x6377;&#x952E;">&#x5FEB;&#x6377;&#x952E;</h2>
 <p><code>ctrl + tab</code>&#x5207;&#x6362;&#x7A97;&#x53E3;</p>
-
+<h2 id="css-&#x989C;&#x8272;&#x9009;&#x62E9;&#x5668;">css &#x989C;&#x8272;&#x9009;&#x62E9;&#x5668;</h2>
+<p>&#x9F20;&#x6807;&#x60AC;&#x505C;&#x5728;&#x989C;&#x8272;&#x4EE3;&#x7801;&#x5757;&#x4E0A;&#x5373;&#x53EF;</p>
+<h2 id="&#x4FEE;&#x6539;-statusbar-&#x989C;&#x8272;">&#x4FEE;&#x6539; statusbar &#x989C;&#x8272;</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&quot;workbench.colorCustomizations&quot;: {</span><br><span class="line">    &quot;statusBar.background&quot; : &quot;#1A1A1A&quot;,</span><br><span class="line">    &quot;statusBar.noFolderBackground&quot; : &quot;#0A0A0D&quot;,</span><br><span class="line">    &quot;statusBar.debuggingBackground&quot;: &quot;#511f1f&quot;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -1098,7 +1504,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder().setPrettyPrinting().create();</span><br><span class="line">Person person= <span class="keyword">new</span> Person();</span><br><span class="line">person.setAge(<span class="number">1</span>);</span><br><span class="line">person.setName(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">System.out.println(gson.toJson(person))</span><br></pre></td></tr></table></figure>
 <p>&#x6253;&#x5370;&#x7ED3;&#x679C;&#x5982;&#x4E0B;</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;age&quot;</span>: <span class="number">1</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -1818,7 +2224,7 @@
 <code>LanguageDriver (Requires to use together with mybatis-spring 2.0.2+)</code><br>
 <code>DatabaseIdProvider</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisConfig</span> </span>{</span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">MyInterceptor <span class="title">myInterceptor</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> MyInterceptor();</span><br><span class="line">  }</span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">MyTypeHandler <span class="title">myTypeHandler</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> MyTypeHandler();</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -2008,7 +2414,7 @@
 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n-1)+F(n-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></p>
 <p>&#x6839;&#x636E;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x5F97;&#x51FA;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">3</span>) {</span><br><span class="line">      <span class="keyword">return</span> n;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">int</span> f1 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> f2 = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;=n; i++) {</span><br><span class="line">      <span class="keyword">int</span> t = f2;</span><br><span class="line">      f2 = f2 + f1;</span><br><span class="line">      f1 = t;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> f2;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -2196,7 +2602,7 @@
 <p>&#x5176;&#x4ED6;&#xFF0C;&#x7565;</p>
 <p>&#x6D4B;&#x8BD5;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"><span class="keyword">import</span> com.li.springboot.bean.Log;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@AutoConfigureMockMvc</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogControllerTest</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        mockMvc.perform(get(<span class="string">&quot;/1&quot;</span>)).andDo(print()).andExpect(result -&gt; {</span><br><span class="line">            Log log = <span class="keyword">new</span> Gson().fromJson(result.getResponse().getContentAsString(), Log.class);</span><br><span class="line">            <span class="keyword">assert</span> log !=<span class="keyword">null</span>;</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -2405,7 +2811,7 @@
 <li><p>&#x7528;&#x660E;&#x786E;&#x7684;&#x80AF;&#x5B9A;&#x7684;&#x8BED;&#x8A00;&#x63CF;&#x8FF0;</p></li>
 <li><p>&#x62BD;&#x8C61;&#x6982;&#x62EC;&#x89C2;&#x70B9;</p></li>
 </ol>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -2651,533 +3057,7 @@
 <li>&#x542F;&#x52A8;<code>ssh</code>&#x670D;&#x52A1;,&#x4F7F;&#x7528;&#x547D;&#x4EE4;<code>service ssh start</code>&#x6216;&#x8005;<code>/ect/init.d/ssh start</code></li>
 <li>&#x5173;&#x95ED;<code>ssh</code>&#x670D;&#x52A1;&#xFF0C;<code>service ssh stop</code></li>
 </ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/22/jenkins远程发布/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/22/jenkins远程发布/" class="post-title-link" itemprop="url">jenkins远程发布</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-22 20:45:38" itemprop="dateCreated datePublished" datetime="2019-07-22T20:45:38+08:00">2019-07-22</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x7248;&#x672C;&#x8BF4;&#x660E;">&#x7248;&#x672C;&#x8BF4;&#x660E;</h2>
-<p>&#x7701;&#x7565; docker &#x5B89;&#x88C5;&#x8FC7;&#x7A0B;</p>
-<p><code>docker version</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Client:</span><br><span class="line"> Version:           18.06.1-ce</span><br><span class="line"> API version:       1.38</span><br><span class="line"> Go version:        go1.10.3</span><br><span class="line"> Git commit:        e68fc7a</span><br><span class="line"> Built:             Tue Aug 21 17:21:31 2018</span><br><span class="line"> OS/Arch:           darwin/amd64</span><br><span class="line"> Experimental:      false</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          18.06.1-ce</span><br><span class="line">  API version:      1.38 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.10.3</span><br><span class="line">  Git commit:       e68fc7a</span><br><span class="line">  Built:            Tue Aug 21 17:29:02 2018</span><br><span class="line">  OS/Arch:          linux/amd64</span><br><span class="line">  Experimental:     true</span><br></pre></td></tr></table></figure>
-<p><code>java -version</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_131&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_131-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)</span><br></pre></td></tr></table></figure>
-<h2 id="&#x5B89;&#x88C5;-jenkins-&#x955C;&#x50CF;">&#x5B89;&#x88C5; Jenkins &#x955C;&#x50CF;</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull jenkins/jenkins:2.138.1-slim</span><br></pre></td></tr></table></figure>
-<p>&#x62C9;&#x53D6;&#x7684;&#x662F; 2.138.1-slim &#x7248;&#x672C;&#x7684; jenkins&#xFF0C;&#x53EF;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x4E0B;&#x8F7D;&#x7684;&#x7248;&#x672C;</p>
-<p><code>docker images</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                                             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">jenkins                                                latest              cd14cecfdb3a        12 months ago       696MB</span><br></pre></td></tr></table></figure>
-<h2 id="&#x542F;&#x52A8;-jenkins">&#x542F;&#x52A8; Jenkins</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8002:8080 -v ~/jenkins:/var/jenkins_home -v /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home:/mnt/java -v /usr/local/Cellar/maven/3.6.1:/mnt/maven --name jenkins --restart=always jenkins/jenkins:2.138</span><br></pre></td></tr></table></figure>
-<p><code>8002:8080</code> &#x672C;&#x5730; 8002 &#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x5BB9;&#x5668; 8080 &#x7AEF;&#x53E3;</p>
-<p>&#x67E5;&#x770B;&#x542F;&#x52A8;&#x65E5;&#x5FD7; <code>docker logs -f jenkins</code> &#x53EF;&#x4EE5;&#x770B;&#x5230;<code>jenkins</code>&#x7684;&#x9ED8;&#x8BA4;<code>admin</code>&#x5BC6;&#x7801;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Jenkins initial setup is required. An admin user has been created and a password generated.</span><br><span class="line">Please use the following password to proceed to installation:</span><br><span class="line"></span><br><span class="line">8b34af422fa24794bdb86d3e299162bd</span><br><span class="line"></span><br><span class="line">This may also be found at: /var/jenkins_home/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
-<p>&#x754C;&#x9762;&#x8BBF;&#x95EE;<a href="http://127.0.0.1:8002" target="_blank" rel="noopener"><code>127.0.0.1:8002</code></a>,&#x81EA;&#x52A8;&#x8DF3;&#x8F6C;&#x81F3;&#x767B;&#x5F55;&#x754C;&#x9762;,&#x9996;&#x6B21;&#x8FDB;&#x7EBF;&#x8F93;&#x5165;&#x9ED8;&#x8BA4;&#x5BC6;&#x7801;&#xFF0C;&#x767B;&#x5F55;&#x540E;&#x5B89;&#x88C5;&#x63A8;&#x8350;&#x63D2;&#x4EF6;&#x3002;</p>
-<p>jenkins &#x63D2;&#x4EF6;&#x955C;&#x50CF;</p>
-<p>&#x9875;&#x9762;&#x4F9D;&#x6B21;&#x70B9;&#x51FB;/Manage Jenkins/Manage Plugins/Advanced &#x955C;&#x50CF;&#x5730;&#x5740;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="jenkins&#x8FDC;&#x7A0B;&#x53D1;&#x5E03;/jenkins&#x63D2;&#x4EF6;&#x955C;&#x50CF;.jpg" alt="jenkins&#x63D2;&#x4EF6;&#x955C;&#x50CF;"><figcaption>jenkins&#x63D2;&#x4EF6;&#x955C;&#x50CF;</figcaption>
-</figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/21/idea技巧/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/21/idea技巧/" class="post-title-link" itemprop="url">idea技巧</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-21 19:57:47" itemprop="dateCreated datePublished" datetime="2019-07-21T19:57:47+08:00">2019-07-21</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-07 10:03:48" itemprop="dateModified" datetime="2020-07-07T10:03:48+08:00">2020-07-07</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x8C03;&#x8BD5;">&#x8C03;&#x8BD5;</h2>
-<ol type="1">
-<li><p><code>Evaluate Expression</code>,&#x5728;<code>Debug</code>&#x6A21;&#x5F0F;&#x4E0B;&#x4F7F;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x8C03;&#x8BD5;</p></li>
-<li><p>&#x53F3;&#x952E;<code>BreakPoint</code>&#x53EF;&#x8BBE;&#x7F6E;<code>condition</code>&#xFF0C;&#x5373;&#x5728;&#x6307;&#x5B9A;&#x6761;&#x4EF6;&#x4E0B;&#x65AD;&#x70B9;&#x751F;&#x6548;</p></li>
-</ol>
-<h2 id="&#x8F93;&#x5165;">&#x8F93;&#x5165;</h2>
-<p>&#x591A;&#x5C1D;&#x8BD5;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x6A21;&#x677F;<a href="https://www.jetbrains.com/help/idea/template-variables.html" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x81EA;&#x5B9A;&#x4E49;&#x6A21;&#x677F;&#x5185;&#x5BB9;&#x51FD;&#x6570;</a></p>
-<h2 id="&#x5FEB;&#x6377;&#x952E;">&#x5FEB;&#x6377;&#x952E;</h2>
-<p>==&#x21E7;&#x2318;F12== &#x6700;&#x5C0F;&#x5316;&#x5DE5;&#x5177;&#x7A97;&#x53E3;</p>
-<h2 id="gradle"><code>gradle</code></h2>
-<p><code>gradle</code>&#x7F16;&#x8BD1;&#x7279;&#x522B;&#x6162;&#xFF0C;&#x9700;&#x8981;&#x5728;<code>idea</code>&#x8BBE;&#x7F6E;&#x4E2D;&#x8BBE;&#x7F6E;<code>HTTP Proxy</code></p>
-<h2 id="&#x8DF3;&#x8F6C;&#x6E90;&#x7801;">&#x8DF3;&#x8F6C;&#x6E90;&#x7801;</h2>
-<p><code>jump to source</code>&#x5FEB;&#x6377;&#x952E;&#x4E3A;<code>&#x238B;(esc)</code>&#x6216;<code>&#x2318;+&#x2193;</code></p>
-<h2 id="&#x56DE;&#x5230;project&#x89C6;&#x56FE;&#x6E90;&#x7801;&#x5904;">&#x56DE;&#x5230;<code>Project</code>&#x89C6;&#x56FE;&#x6E90;&#x7801;&#x5904;</h2>
-<p><code>select in project view</code>&#x9ED8;&#x8BA4;&#x6CA1;&#x6709;&#x5FEB;&#x6377;&#x952E;</p>
-<h2 id="&#x81EA;&#x52A8;&#x5206;&#x5C4F;&#x5230;&#x53F3;&#x8FB9;">&#x81EA;&#x52A8;&#x5206;&#x5C4F;&#x5230;&#x53F3;&#x8FB9;</h2>
-<p><code>move right</code></p>
-<h2 id="&#x5728;&#x5206;&#x5C4F;&#x4E2D;&#x5207;&#x6362;">&#x5728;&#x5206;&#x5C4F;&#x4E2D;&#x5207;&#x6362;</h2>
-<p><code>&#x2325;tab</code></p>
-<h2 id="&#x5207;&#x6362;-tab">&#x5207;&#x6362; tab</h2>
-<p><code>switcher</code> &#x5FEB;&#x6377;&#x952E;&#x4E3A;<code>&#x2303;&#x21E5;</code></p>
-<p><code>&#x21E7;&#x2318;[</code>&#x4E0A;&#x4E2A; tab <code>&#x21E7;&#x2318;]</code>&#x4E0B;&#x4E2A; tab</p>
-<h2 id="debug-&#x6A21;&#x5F0F;&#x4E0B;&#x5F00;&#x542F;&#x53D8;&#x91CF;&#x63D0;&#x793A;">debug &#x6A21;&#x5F0F;&#x4E0B;,&#x5F00;&#x542F;&#x53D8;&#x91CF;&#x63D0;&#x793A;</h2>
-<p><code>show values inline</code></p>
-<h2 id="&#x5F53;&#x524D;&#x884C;&#x884C;&#x6570;&#x9AD8;&#x4EAE;">&#x5F53;&#x524D;&#x884C;&#x884C;&#x6570;&#x9AD8;&#x4EAE;</h2>
-<p><code>line number on caret row</code></p>
-<h2 id="live-templates"><code>live templates</code></h2>
-<p><code>ifn</code>&#x5FEB;&#x901F;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x884C;&#x6570;&#x53D8;&#x91CF;&#x662F;&#x5426;&#x4E3A; null</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">var</span> == <span class="keyword">null</span>) {</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="hippie-completion"><code>Hippie completion</code></h2>
-<p>&#x81EA;&#x52A8;&#x8F93;&#x5165;&#x524D;&#x9762;&#x6216;&#x540E;&#x9762;&#x7684;&#x5355;&#x8BCD;<code>&#x2325;/</code> <code>&#x2325;&#x21E7;/</code></p>
-<h2 id="smart-type"><code>Smart Type</code></h2>
-<p>&#x667A;&#x80FD;&#x8865;&#x5168;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x63D0;&#x793A;&#x4F7F;&#x7528;&#x4F55;&#x79CD;<code>lambda</code> <code>&#x21E7; space</code></p>
-<h2 id="&#x81EA;&#x52A8;&#x8865;&#x5168;&#x6839;&#x636E;&#x4F7F;&#x7528;&#x9891;&#x7387;">&#x81EA;&#x52A8;&#x8865;&#x5168;&#x6839;&#x636E;&#x4F7F;&#x7528;&#x9891;&#x7387;</h2>
-<p><code>sort suggestions alphabetically</code></p>
-<h2 id="quick-definitions"><code>quick Definitions</code></h2>
-<p>&#x5F39;&#x51FA;&#x7A97;&#x53E3;&#x5FEB;&#x901F;&#x67E5;&#x770B;&#x4EE3;&#x7801;<code>&#x2325;q</code></p>
-<h2 id="quick-documentation"><code>quick documentation</code></h2>
-<p>&#x5F39;&#x51FA;&#x7A97;&#x53E3;&#x5FEB;&#x901F;&#x67E5;&#x770B;&#x6587;&#x6863;<code>&#x2325;F1</code></p>
-<h2 id="&#x4E3A;&#x62A5;&#x9519;&#x6587;&#x4EF6;&#x8BBE;&#x7F6E;&#x63D0;&#x9192;&#x8272;">&#x4E3A;&#x62A5;&#x9519;&#x6587;&#x4EF6;&#x8BBE;&#x7F6E;&#x63D0;&#x9192;&#x8272;</h2>
-<p><code>File Color</code></p>
-<h2 id="&#x4F7F;&#x7528;favorite">&#x4F7F;&#x7528;<code>favorite</code></h2>
-<h2 id="custome-live-template"><code>custome live template</code></h2>
-<p>&#x53EF;&#x4EE5;&#x9009;&#x4E2D;&#x4EE3;&#x7801;&#x540E;&#xFF0C;&#x62BD;&#x53D6;&#x4E3A;<code>template</code></p>
-<h2 id="keymap-abbrevation"><code>keymap abbrevation</code></h2>
-<p>&#x6DFB;&#x52A0;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#x7684;&#x7F29;&#x5199;&#xFF0C;&#x65B9;&#x4FBF;&#x4F7F;&#x7528;<code>find action</code>&#x67E5;&#x627E;</p>
-<h2 id="recent-location"><code>recent location</code></h2>
-<p>&#x6700;&#x8FD1;&#x8BBF;&#x95EE;&#x7684;&#x8DEF;&#x5F84;<code>&#x2318;&#x21E7;e</code></p>
-<h2 id="paster-form-history"><code>paster form history</code></h2>
-<p><code>idea</code>&#x8BB0;&#x5F55;&#x4E86;&#x6700;&#x8FD1;&#x590D;&#x5236;&#x8FC7;(<code>&#x2318;c</code>)&#x7684;&#x6587;&#x672C;</p>
-<h2 id="adjust-code-style-setting"><code>adjust code style setting</code></h2>
-<p>&#x9009;&#x4E2D;&#x4EE3;&#x7801;&#x540E;&#xFF0C;&#x4F7F;&#x7528;&#x53EF;&#x4EE5;&#x67E5;&#x5361;&#x5230;&#x9009;&#x4E2D;&#x4EE3;&#x7801;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x683C;&#x5F0F;&#x9009;&#x9879;&#xFF0C;&#x53EF;&#x4EE5;&#x53BB;&#x8C03;&#x6574;&#x5B83;&#xFF0C;`<code>&#x2325;&#x23CE;</code></p>
-<h2 id="breadcrumbs"><code>breadcrumbs</code></h2>
-<p>&#x4F7F;&#x7528;&#x9762;&#x5305;&#x5C51;&#x5BFC;&#x822A;&#x663E;&#x793A;&#x4EE3;&#x7801;&#x7C7B;&#xFF0C;&#x65B9;&#x6CD5;</p>
-<h2 id="&#x9690;&#x85CF;&#x76EE;&#x5F55;"><code>&#x9690;&#x85CF;&#x76EE;&#x5F55;</code></h2>
-<p><code>Editor</code>|<code>File Types</code>|<code>Ignore files and folders</code></p>
-<h2 id="&#x76F8;&#x5173;&#x95EE;&#x9898;"><code>&#x76F8;&#x5173;&#x95EE;&#x9898;</code></h2>
-<blockquote>
-<p>objc[1474]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/bin/java (0x10b59a4c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x10b6764e0). One of the two will be used. Which one is undefined.</p>
-</blockquote>
-<p><code>IDEA</code>&#x83DC;&#x5355;<code>Help</code>&gt;&gt;<code>Edit Custom Properties</code> &#x5728;&#x6253;&#x5F00;&#x7684;<code>idea.properties</code>&#x91CC;&#x52A0;&#x4E0A;</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">idea.no.launcher</span>=<span class="string">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="&#x6587;&#x4EF6;&#x6253;&#x5F00;&#x65B9;&#x5F0F;">&#x6587;&#x4EF6;&#x6253;&#x5F00;&#x65B9;&#x5F0F;</h2>
-<p>idea &#x82E5;&#x4F7F;&#x7528;&#x67D0;&#x79CD;&#x65B9;&#x5F0F;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x540E;&#xFF0C;<code>file type</code>&#x4E2D;&#x7684;&#x7F16;&#x8F91;&#x5668;&#x7C7B;&#x578B;&#x4E0B;&#xFF0C;&#x4F1A;&#x6709;&#x76F8;&#x5173;&#x8054;&#x7684;&#x6587;&#x4EF6;&#x540E;&#x7F00;&#x3002;</p>
-<h2 id="&#x6807;&#x8BB0;&#x5F53;&#x524D;&#x6BB5;&#x843D;&#x4E0D;&#x683C;&#x5F0F;&#x5316;">&#x6807;&#x8BB0;&#x5F53;&#x524D;&#x6BB5;&#x843D;&#x4E0D;&#x683C;&#x5F0F;&#x5316;</h2>
-<p>code style|enable formatter markers in comments</p>
-<h2 id="&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x5728;&#x5404;&#x4E2A;&#x5E73;&#x53F0;&#x4F7F;&#x7528;&#x7EDF;&#x4E00;&#x5B9A;&#x4E49;&#x5FEB;&#x6377;&#x952E;">&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x5728;&#x5404;&#x4E2A;&#x5E73;&#x53F0;&#x4F7F;&#x7528;&#xFF0C;&#x7EDF;&#x4E00;&#x5B9A;&#x4E49;&#x5FEB;&#x6377;&#x952E;</h2>
-<p>mac &#x4E0A;&#x4F7F;&#x7528; command &#x952E;&#x66FF;&#x4EE3; alt</p>
-<p>&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x7EC4;&#x5FEB;&#x6377;&#x547D;&#x4EE4;&#xFF0C;<code>Quick List</code></p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">&#x5FEB;&#x6377;&#x952E;</th>
-<th style="text-align: left;">&#x89E3;&#x91CA;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">F1</td>
-<td style="text-align: left;">quick list</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">F2</td>
-<td style="text-align: left;">next highlight error</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F3</td>
-<td style="text-align: left;">toggle bookmark</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">F4</td>
-<td style="text-align: left;">run</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F5</td>
-<td style="text-align: left;">debug</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT 1</td>
-<td style="text-align: left;">project view</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT 2</td>
-<td style="text-align: left;">structure view</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT 3</td>
-<td style="text-align: left;">favorite view</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT 4</td>
-<td style="text-align: left;">run view</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT 5</td>
-<td style="text-align: left;">debug view</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT F3</td>
-<td style="text-align: left;">show bookmark</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT b</td>
-<td style="text-align: left;">goto to declration</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT e</td>
-<td style="text-align: left;">recent files</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT n</td>
-<td style="text-align: left;">generate ,new file</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT w</td>
-<td style="text-align: left;">close active tab</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT up</td>
-<td style="text-align: left;">jump to navigation bar</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT down</td>
-<td style="text-align: left;">jump to source</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALT left</td>
-<td style="text-align: left;">goto previous splitter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ALT right</td>
-<td style="text-align: left;">goto next splitter</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SHIFT F6</td>
-<td style="text-align: left;">rename</td>
-</tr>
-</tbody>
-</table>
-<p>&#x5176;&#x4ED6;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;</p>
-<ol type="1">
-<li>&#x7A97;&#x53E3;&#x89C6;&#x56FE;&#x56DE;&#x8F66;&#x952E;&#x8FDB;&#x5165;&#x4EE3;&#x7801;</li>
-</ol>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
           
         
       
@@ -3264,7 +3144,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3335,7 +3215,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3584,9 +3466,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

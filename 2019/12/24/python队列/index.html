@@ -135,7 +135,7 @@
 
 
   <meta name="description" content="&amp;#x6211;&amp;#x4EEC;&amp;#x76F4;&amp;#x63A5;&amp;#x4EE5;&amp;#x4EE3;&amp;#x7801;&amp;#x793A;&amp;#x4F8B;&amp;#x6765;&amp;#x5206;&amp;#x6790; 123456789101112131415161718192021222324252627282930313233343536373839import queueimport threadingimport">
-<meta name="keywords" content="queue,thread">
+<meta name="keywords" content="thread,queue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python队列">
 <meta property="og:url" content="https://leaderli.github.io/2019/12/24/python队列/index.html">
@@ -537,7 +537,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, item, block=True, timeout=None)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> self.not_full:</span><br><span class="line">        <span class="keyword">if</span> self.maxsize &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> block:</span><br><span class="line">                <span class="keyword">if</span> self._qsize() &gt;= self.maxsize:</span><br><span class="line">                    <span class="keyword">raise</span> Full</span><br><span class="line">            <span class="keyword">elif</span> timeout <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">while</span> self._qsize() &gt;= self.maxsize:</span><br><span class="line">                    self.not_full.wait()</span><br><span class="line">            <span class="keyword">elif</span> timeout &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">&quot;&apos;timeout&apos; must be a non-negative number&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                endtime = time() + timeout</span><br><span class="line">                <span class="keyword">while</span> self._qsize() &gt;= self.maxsize:</span><br><span class="line">                    remaining = endtime - time()</span><br><span class="line">                    <span class="keyword">if</span> remaining &lt;= <span class="number">0.0</span>:</span><br><span class="line">                        <span class="keyword">raise</span> Full</span><br><span class="line">                    self.not_full.wait(remaining)</span><br><span class="line">        self._put(item)</span><br><span class="line">        <span class="comment">#put&#x65F6;unfinished_tasks+1</span></span><br><span class="line">        self.unfinished_tasks += <span class="number">1</span></span><br><span class="line">        self.not_empty.notify()</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">task_done</span><span class="params">(self)</span>:</span></span><br><span class="line">       <span class="keyword">with</span> self.all_tasks_done:</span><br><span class="line">           <span class="comment">#task_done&#x65F6;unfinished_tasks-1</span></span><br><span class="line">           unfinished = self.unfinished_tasks - <span class="number">1</span></span><br><span class="line">           <span class="keyword">if</span> unfinished &lt;= <span class="number">0</span>:</span><br><span class="line">               <span class="keyword">if</span> unfinished &lt; <span class="number">0</span>:</span><br><span class="line">                   <span class="keyword">raise</span> ValueError(<span class="string">&apos;task_done() called too many times&apos;</span>)</span><br><span class="line">               self.all_tasks_done.notify_all()</span><br><span class="line">           self.unfinished_tasks = unfinished</span><br></pre></td></tr></table></figure>
 <p>&#x6839;&#x636E;&#x4E0A;&#x8FF0;&#x6E90;&#x7801;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x77E5;&#x9053;&#xFF0C;&#x5F53;&#x8C03;&#x7528;&#x4E86;&#x6307;&#x5B9A;&#x6B21;&#x6570;&#x7684;<code>task_done</code>&#x65F6;&#xFF0C;<code>join</code>&#x65B9;&#x6CD5;&#x6216;&#x91CD;&#x65B0;&#x83B7;&#x53D6;&#x5230;&#x9501;&#xFF0C;&#x4ECE;&#x800C;&#x79BB;&#x5F00;&#x963B;&#x585E;&#x72B6;&#x6001;&#xFF0C;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;<code>join(_queue, num)</code>,&#x4E2D;&#x5148;<code>_queue.joins</code>,&#x518D;<code>put(None)</code>&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x6D88;&#x8D39;&#x65F6;&#xFF0C;&#x5F53;<code>item</code>&#x4E3A;<code>None</code>&#x65F6;&#x76F4;&#x63A5;&#x7ED3;&#x675F;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#xFF0C;&#x800C;&#x6CA1;&#x6709;&#x518D;&#x8C03;&#x7528;&#x4E00;&#x6B21;<code>task_done</code>&#x3002; &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x4E0A;&#x8FF0;&#x793A;&#x4F8B;&#xFF0C;&#x6765;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;</p>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -563,9 +563,9 @@
         
         <div class="post-tags">
           
-            <a href="/tags/queue/" rel="tag"># queue</a>
-          
             <a href="/tags/thread/" rel="tag"># thread</a>
+          
+            <a href="/tags/queue/" rel="tag"># queue</a>
           
         </div>
       
@@ -709,7 +709,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -780,7 +780,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1029,9 +1031,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

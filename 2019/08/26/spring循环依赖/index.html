@@ -567,7 +567,7 @@
 <p>&#x5230;&#x8FD9;&#x91CC;<code>bean</code>&#x901A;&#x8FC7;&#x6784;&#x9020;&#x5668;&#x521B;&#x5EFA;&#x5B9E;&#x4F8B;&#x7684;&#x8FC7;&#x7A0B;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;&#x4F46;&#x662F;<code>bean</code>&#x5728;<code>spring</code>&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x8FD8;&#x672A;&#x7ED3;&#x675F;&#xFF0C;&#x540E;&#x7EED;&#x53D1;&#x73B0;<code>A</code>&#x4F9D;&#x8D56;<code>B</code>&#xFF0C;&#x5219;&#x4F1A;&#x53BB;&#x521B;&#x5EFA;<code>B</code>&#xFF0C;<code>B</code>&#x5728;&#x5B9E;&#x4F8B;&#x5316;&#x540E;&#x52A0;&#x8F7D;&#x4F9D;&#x8D56;&#x65F6;&#xFF0C;&#x4F1A;&#x53BB;&#x521B;&#x5EFA;<code>A</code>,&#x4E0D;&#x540C;&#x7684;&#x662F;&#x5728;&#x8C03;&#x7528;<code>DefaultSingletonBeanRegistry</code>&#x7684;<code>getSingleton</code>&#x65F6;&#x5224;&#x65AD;&#x6761;&#x4EF6;<code>isSingletonCurrentlyInCreation</code>&#x65F6;<code>A</code>&#x5DF2;&#x5728;&#x521B;&#x5EFA;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x53BB;&#x6267;&#x884C;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">getSingleton</span><span class="params">(String beanName, <span class="keyword">boolean</span> allowEarlyReference)</span> </span>{</span><br><span class="line">    <span class="comment">//&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x6E05;&#x6670;&#x7684;&#x770B;&#x5230;singleton&#x7684;bean&#x7B80;&#x5355;&#x7684;bean&#x5B58;&#x50A8;&#x5728;ConcurrentHashMap&#x4E2D;</span></span><br><span class="line">    Object singletonObject = <span class="keyword">this</span>.singletonObjects.get(beanName);</span><br><span class="line">    <span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; isSingletonCurrentlyInCreation(beanName)) {</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>.singletonObjects) {</span><br><span class="line">            singletonObject = <span class="keyword">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; allowEarlyReference) {</span><br><span class="line">                <span class="comment">//&#x6839;&#x636E;&#x524D;&#x9762;&#x7684;&#x5206;&#x6790;&#x6211;&#x4EEC;&#x77E5;&#x9053;A&#x7684;&#x5F15;&#x7528;&#x88AB;&#x7F13;&#x5B58;&#x5728;&#x6B64;&#x5904;&#x3002;</span></span><br><span class="line">                ObjectFactory&lt;?&gt; singletonFactory = <span class="keyword">this</span>.singletonFactories.get(beanName);</span><br><span class="line">                <span class="keyword">if</span> (singletonFactory != <span class="keyword">null</span>) {</span><br><span class="line">                    singletonObject = singletonFactory.getObject();</span><br><span class="line">                    <span class="keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">                    <span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> singletonObject;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>&#x6B64;&#x65F6;<code>B</code>&#x987A;&#x5229;&#x5B8C;&#x6210;&#x6574;&#x4E2A;<code>Spring</code>&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x4ECE;&#x800C;<code>A</code>&#x4E5F;&#x5B8C;&#x6210;&#x4E86;&#x6574;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;</p>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -748,7 +748,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -819,7 +819,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1068,9 +1070,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

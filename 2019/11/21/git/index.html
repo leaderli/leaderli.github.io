@@ -142,19 +142,19 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x5B89;&amp;#x88C5; git &amp;#x7CFB;&amp;#x7EDF;&amp;#x4F7F;&amp;#x7528; centos7 1234567891011$ cd /usr/local/src wget https://github.com/git/git/archive/master.zip$ unzip master.zip# &amp;#x7531;&amp;#x4E8E;&amp;#x7CFB;&amp;#x7EDF;&amp;#x">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://leaderli.github.io/images/深入git_reset细节.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2019-12-05-00-32-43.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2020-01-04-11-18-26.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2020-01-04-11-19-59.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2020-01-04-11-21-41.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2020-01-04-11-27-41.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2020-01-04-11-29-59.png">
-<meta property="og:image" content="https://leaderli.github.io/images/git_2020-01-04-11-30-56.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/深入git_reset细节.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2019-12-05-00-32-43.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2020-01-04-11-18-26.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2020-01-04-11-19-59.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2020-01-04-11-21-41.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2020-01-04-11-27-41.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2020-01-04-11-29-59.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/21/git/images/git_2020-01-04-11-30-56.png">
 <meta property="og:updated_time" content="2020-07-02T16:37:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git">
 <meta name="twitter:description" content="&amp;#x5B89;&amp;#x88C5; git &amp;#x7CFB;&amp;#x7EDF;&amp;#x4F7F;&amp;#x7528; centos7 1234567891011$ cd /usr/local/src wget https://github.com/git/git/archive/master.zip$ unzip master.zip# &amp;#x7531;&amp;#x4E8E;&amp;#x7CFB;&amp;#x7EDF;&amp;#x">
-<meta name="twitter:image" content="https://leaderli.github.io/images/深入git_reset细节.png">
+<meta name="twitter:image" content="https://leaderli.github.io/2019/11/21/git/images/深入git_reset细节.png">
 
 
 
@@ -613,7 +613,7 @@
 </ol>
 <h3 id="reset"><code>reset</code></h3>
 <figure>
-<img src="/images/&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png" alt="&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png"><figcaption>&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png</figcaption>
+<img src="./images/&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png" alt="&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png"><figcaption>&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png</figcaption>
 </figure>
 <h3 id="revert"><code>revert</code></h3>
 <blockquote>
@@ -633,7 +633,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m new-name</span><br></pre></td></tr></table></figure>
 <h3 id="&#x5206;&#x652F;&#x7B56;&#x7565;">&#x5206;&#x652F;&#x7B56;&#x7565;</h3>
 <p>&#x9996;&#x5148;&#xFF0C;<code>master</code>&#x5206;&#x652F;&#x5E94;&#x8BE5;&#x662F;&#x975E;&#x5E38;&#x7A33;&#x5B9A;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4EC5;&#x7528;&#x6765;&#x53D1;&#x5E03;&#x65B0;&#x7248;&#x672C;&#xFF0C;&#x5E73;&#x65F6;&#x4E0D;&#x80FD;&#x5728;&#x4E0A;&#x9762;&#x5E72;&#x6D3B;&#xFF1B;&#x90A3;&#x5728;&#x54EA;&#x5E72;&#x6D3B;&#x5462;&#xFF1F;&#x5E72;&#x6D3B;&#x90FD;&#x5728;<code>dev</code>&#x5206;&#x652F;&#x4E0A;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;<code>dev</code>&#x5206;&#x652F;&#x662F;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;&#xFF0C;&#x5230;&#x67D0;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x6BD4;&#x5982;<code>1.0</code>&#x7248;&#x672C;&#x53D1;&#x5E03;&#x65F6;&#xFF0C;&#x518D;&#x628A;<code>dev</code>&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;<code>master</code>&#x4E0A;&#xFF0C;&#x5728;<code>master</code>&#x5206;&#x652F;&#x53D1;&#x5E03;<code>1.0</code>&#x7248;&#x672C;&#xFF1B;&#x4F60;&#x548C;&#x4F60;&#x7684;&#x5C0F;&#x4F19;&#x4F34;&#x4EEC;&#x6BCF;&#x4E2A;&#x4EBA;&#x90FD;&#x5728;<code>dev</code>&#x5206;&#x652F;&#x4E0A;&#x5E72;&#x6D3B;&#xFF0C;&#x6BCF;&#x4E2A;&#x4EBA;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x5206;&#x652F;&#xFF0C;&#x65F6;&#x4E0D;&#x65F6;&#x5730;&#x5F80;<code>dev</code>&#x5206;&#x652F;&#x4E0A;&#x5408;&#x5E76;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
-<p>&#x6240;&#x4EE5;&#xFF0C;&#x56E2;&#x961F;&#x5408;&#x4F5C;&#x7684;&#x5206;&#x652F;&#x770B;&#x8D77;&#x6765;&#x5C31;&#x50CF;&#x8FD9;&#x6837;&#xFF1A; <img src="/images/git_2019-12-05-00-32-43.png" alt="git_2019-12-05-00-32-43.png"></p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x56E2;&#x961F;&#x5408;&#x4F5C;&#x7684;&#x5206;&#x652F;&#x770B;&#x8D77;&#x6765;&#x5C31;&#x50CF;&#x8FD9;&#x6837;&#xFF1A; <img src="./images/git_2019-12-05-00-32-43.png" alt="git_2019-12-05-00-32-43.png"></p>
 <h3 id="&#x5408;&#x5E76;&#x5206;&#x652F;">&#x5408;&#x5E76;&#x5206;&#x652F;</h3>
 <p>&#x5408;&#x5E76;&#x5206;&#x652F;,&#x628A;<code>dev</code>&#x5206;&#x652F;&#x7684;&#x5DE5;&#x4F5C;&#x6210;&#x679C;&#x5408;&#x5E76;&#x5230;<code>master</code>&#x5206;&#x652F;&#x4E0A;&#xFF1A;</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
@@ -686,12 +686,12 @@
 </blockquote>
 <h3 id="&#x5408;&#x5E76;&#x7B2C;&#x4E00;&#x6761;&#x548C;&#x7B2C;&#x4E8C;&#x6761;&#x8BB0;&#x5F55;">&#x5408;&#x5E76;&#x7B2C;&#x4E00;&#x6761;&#x548C;&#x7B2C;&#x4E8C;&#x6761;&#x8BB0;&#x5F55;</h3>
 <ol type="1">
-<li>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x5F53;&#x524D;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55; <img src="/images/git_2020-01-04-11-18-26.png" alt="git_2020-01-04-11-18-26.png"></li>
-<li>&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>git rebase -i da0e80b</code> <img src="/images/git_2020-01-04-11-19-59.png" alt="git_2020-01-04-11-19-59.png"></li>
-<li>&#x5C06;<code>df060c5</code>&#x524D;&#x66F4;&#x6539;&#x4E3A;<code>edit</code>&#x72B6;&#x6001;&#x540E;&#x4FDD;&#x5B58;&#x9000;&#x51FA; <img src="/images/git_2020-01-04-11-21-41.png" alt="git_2020-01-04-11-21-41.png"></li>
-<li>&#x4F7F;&#x7528;<code>git reset --soft HEAD^</code>,&#x4FDD;&#x7559;&#x7B2C;&#x4E8C;&#x7248;&#x7684;&#x6539;&#x52A8;&#x56DE;&#x9000;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x7248;&#x672C; <img src="/images/git_2020-01-04-11-27-41.png" alt="git_2020-01-04-11-27-41.png"></li>
-<li>&#x5C06;&#x6539;&#x52A8;&#x8FFD;&#x52A0;&#x63D0;&#x4EA4;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x5373;&#x53EF;<code>git commmit --amend</code> <img src="/images/git_2020-01-04-11-29-59.png" alt="git_2020-01-04-11-29-59.png"></li>
-<li>&#x7EE7;&#x7EED;<code>rebase</code>,&#x4F7F;&#x7528;<code>git rebase --continue</code> <img src="/images/git_2020-01-04-11-30-56.png" alt="git_2020-01-04-11-30-56.png"></li>
+<li>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x5F53;&#x524D;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55; <img src="./images/git_2020-01-04-11-18-26.png" alt="git_2020-01-04-11-18-26.png"></li>
+<li>&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>git rebase -i da0e80b</code> <img src="./images/git_2020-01-04-11-19-59.png" alt="git_2020-01-04-11-19-59.png"></li>
+<li>&#x5C06;<code>df060c5</code>&#x524D;&#x66F4;&#x6539;&#x4E3A;<code>edit</code>&#x72B6;&#x6001;&#x540E;&#x4FDD;&#x5B58;&#x9000;&#x51FA; <img src="./images/git_2020-01-04-11-21-41.png" alt="git_2020-01-04-11-21-41.png"></li>
+<li>&#x4F7F;&#x7528;<code>git reset --soft HEAD^</code>,&#x4FDD;&#x7559;&#x7B2C;&#x4E8C;&#x7248;&#x7684;&#x6539;&#x52A8;&#x56DE;&#x9000;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x7248;&#x672C; <img src="./images/git_2020-01-04-11-27-41.png" alt="git_2020-01-04-11-27-41.png"></li>
+<li>&#x5C06;&#x6539;&#x52A8;&#x8FFD;&#x52A0;&#x63D0;&#x4EA4;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x5373;&#x53EF;<code>git commmit --amend</code> <img src="./images/git_2020-01-04-11-29-59.png" alt="git_2020-01-04-11-29-59.png"></li>
+<li>&#x7EE7;&#x7EED;<code>rebase</code>,&#x4F7F;&#x7528;<code>git rebase --continue</code> <img src="./images/git_2020-01-04-11-30-56.png" alt="git_2020-01-04-11-30-56.png"></li>
 </ol>
 <p>&#x5F53;&#x7136;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x66F4;&#x7B80;&#x5355;&#x7684;&#x547D;&#x4EE4;<code>git rebase -i --root</code></p>
 <h3 id="&#x5408;&#x5E76;&#x7B56;&#x7565;">&#x5408;&#x5E76;&#x7B56;&#x7565;</h3>
@@ -721,7 +721,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push #&#x63A8;&#x9001;&#x524D;&#x4F1A;&#x6821;&#x9A8C;&#x662F;&#x5426;&#x5728;&#x6700;&#x65B0;&#x72B6;&#x6001;</span><br><span class="line">git push -f #&#x5F3A;&#x5236;&#x63A8;&#x9001;</span><br></pre></td></tr></table></figure>
 <h2 id="git&#x539F;&#x7406;"><code>Git</code>&#x539F;&#x7406;</h2>
 <p>&#x53C2;&#x8003;<a href="/2020/06/28/&#x6DF1;&#x5165;git/" title="&#x6DF1;&#x5165;git">&#x6DF1;&#x5165;git</a></p>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -902,7 +902,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -973,7 +973,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1222,9 +1224,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

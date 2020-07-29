@@ -548,7 +548,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EncryptationAwarePropertyPlaceholderConfigurer <span class="title">enableEncryptablePropertySourcesPostProcessor</span><span class="params">(ConfigurableEnvironment environment)</span> </span>{</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">new</span> DecodeBeanFactoryPostProcessor(environment);</span><br><span class="line"> }</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecodeBeanFactoryPostProcessor</span> <span class="keyword">implements</span> <span class="title">BeanFactoryPostProcessor</span> </span>{</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> ConfigurableEnvironment environment;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">DecodeBeanFactoryPostProcessor</span><span class="params">(ConfigurableEnvironment environment)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.environment = environment;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">    MutablePropertySources propertySources = environment.getPropertySources();</span><br><span class="line">    StreamSupport.stream(propertySources.spliterator(), <span class="keyword">false</span>).forEach(ps -&gt; {</span><br><span class="line">      <span class="comment">//&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF0C;&#x4EC5;&#x4EC5;&#x5904;&#x7406;application.yml&#x76F8;&#x5173;&#x7684;&#x89E3;&#x7801;&#x64CD;&#x4F5C;</span></span><br><span class="line">      <span class="keyword">if</span> (ps.getName().equals(<span class="string">&quot;applicationConfig: [classpath:/application.yml]&quot;</span>)) {</span><br><span class="line">        Map&lt;Object, Object&gt; source = (Map) ps.getSource();</span><br><span class="line">        source.keySet().forEach(k -&gt; {</span><br><span class="line">          Object value = source.computeIfPresent(k, (key, v) -&gt; {</span><br><span class="line">            String cipher = v.toString();</span><br><span class="line">            <span class="keyword">if</span> (cipher.startsWith(<span class="string">&quot;{cipher}&quot;</span>)) {</span><br><span class="line">              <span class="keyword">return</span> <span class="keyword">new</span> String(Base64Utils.decode(cipher.substring(<span class="string">&quot;{cipher}&quot;</span>.length()).getBytes()));</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> v;</span><br><span class="line">          });</span><br><span class="line">        });</span><br><span class="line">      }</span><br><span class="line">    });</span><br><span class="line">  }</span><br></pre></td></tr></table></figure>
 <p>&#x5176;&#x4E2D;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;<code>DecodeBeanFactoryPostProcessor</code>&#x7684;&#x5B9E;&#x4F8B;&#x5316;&#x9700;&#x8981;&#x5728;<code>ApplicationContext</code>&#x52A0;&#x8F7D;&#x6210;&#x529F;&#x540E;&#x518D;&#x53BB;&#x5B9E;&#x4F8B;&#x5316;&#xFF0C;&#x786E;&#x4FDD;<code>ConfigurableEnvironment</code>&#x5DF2;&#x88AB;&#x6B63;&#x786E;&#x521D;&#x59CB;&#x5316;</p>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -656,8 +656,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/21/idea技巧/" rel="prev" title="idea技巧">
-                idea技巧 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/21/idea/" rel="prev" title="idea">
+                idea <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -731,7 +731,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -802,7 +802,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1051,9 +1053,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

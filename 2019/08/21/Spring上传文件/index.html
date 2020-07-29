@@ -562,7 +562,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>{</span><br><span class="line">    getTypes(metadata).forEach((type) -&gt; register(registry, (ConfigurableListableBeanFactory) registry, type));</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(BeanDefinitionRegistry registry, ConfigurableListableBeanFactory beanFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">            Class&lt;?&gt; type)</span> </span>{</span><br><span class="line">        String name = getName(type);</span><br><span class="line">        <span class="keyword">if</span> (!containsBeanDefinition(beanFactory, name)) {</span><br><span class="line">            registerBeanDefinition(registry, name, type);</span><br><span class="line">        }</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
 <p>&#x4E00;&#x6B65;&#x4E00;&#x6B65;&#x56DE;&#x6EAF;&#x53EF;&#x4EE5;&#x6700;&#x7EC8;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x88AB;<code>AbstractApplicationContext</code>&#x7684;<code>refresh</code>&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x3002;</p>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -745,7 +745,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -816,7 +816,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1065,9 +1067,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -563,7 +563,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getMimeType</span><span class="params">(String file)</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (file == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> period = file.lastIndexOf(<span class="string">&apos;.&apos;</span>);</span><br><span class="line">    <span class="keyword">if</span> (period &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    String extension = file.substring(period + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (extension.length() &lt; <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">//&#x6B64;&#x5904;context&#x65E2;&#x662F;&#x4E00;&#x5F00;&#x59CB;&#x63D0;&#x5230;&#x7684;StandardContext&#xFF0C;&#x5373;&#x53EF;&#x5F97;&#x5230;&#x4E0A;&#x6587;&#x4E2D;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x6DFB;&#x52A0;&#x7684;mimetype</span></span><br><span class="line">    <span class="keyword">return</span> context.findMimeMapping(extension);</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>&#x6700;&#x540E;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>response</code>&#x7684;<code>ContentType</code>&#x548C;<code>mediaType</code>&#x606F;&#x606F;&#x76F8;&#x5173;&#x3002;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setHeaders</span><span class="params">(HttpServletResponse response, Resource resource, @Nullable MediaType mediaType)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IOException </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> length = resource.contentLength();</span><br><span class="line">    <span class="keyword">if</span> (length &gt; Integer.MAX_VALUE) {</span><br><span class="line">        response.setContentLengthLong(length);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        response.setContentLength((<span class="keyword">int</span>) length);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mediaType != <span class="keyword">null</span>) {</span><br><span class="line">        <span class="comment">//&#x5B9E;&#x9645;&#x8FD4;&#x56DE;content-Type&#x548C;MediaType&#x6709;&#x5173;</span></span><br><span class="line">        response.setContentType(mediaType.toString());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (resource <span class="keyword">instanceof</span> HttpResource) {</span><br><span class="line">        HttpHeaders resourceHeaders = ((HttpResource) resource).getResponseHeaders();</span><br><span class="line">        resourceHeaders.forEach((headerName, headerValues) -&gt; {</span><br><span class="line">            <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (String headerValue : headerValues) {</span><br><span class="line">                <span class="keyword">if</span> (first) {</span><br><span class="line">                    response.setHeader(headerName, headerValue);</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">else</span> {</span><br><span class="line">                    response.addHeader(headerName, headerValue);</span><br><span class="line">                }</span><br><span class="line">                first = <span class="keyword">false</span>;</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line">    response.setHeader(HttpHeaders.ACCEPT_RANGES, <span class="string">&quot;bytes&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -746,7 +746,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -817,7 +817,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1066,9 +1068,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

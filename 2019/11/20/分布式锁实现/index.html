@@ -142,13 +142,13 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x4E34;&amp;#x754C;&amp;#x533A; &amp;#x4E34;&amp;#x754C;&amp;#x533A;&amp;#x6307;&amp;#x7684;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x8BBF;&amp;#x95EE;&amp;#x5171;&amp;#x7528;&amp;#x8D44;&amp;#x6E90;&amp;#xFF08;&amp;#x4F8B;&amp;#x5982;&amp;#xFF1A;&amp;#x5171;&amp;#x7528;&amp;#x8BBE;&amp;#x5907">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://leaderli.github.io/images/分布式锁实现_2019-11-20-01-13-39.png">
-<meta property="og:image" content="https://leaderli.github.io/images/分布式锁实现_2019-11-21-00-56-35.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/20/分布式锁实现/images/分布式锁实现_2019-11-20-01-13-39.png">
+<meta property="og:image" content="https://leaderli.github.io/2019/11/20/分布式锁实现/images/分布式锁实现_2019-11-21-00-56-35.png">
 <meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式锁实现">
 <meta name="twitter:description" content="&amp;#x4E34;&amp;#x754C;&amp;#x533A; &amp;#x4E34;&amp;#x754C;&amp;#x533A;&amp;#x6307;&amp;#x7684;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x8BBF;&amp;#x95EE;&amp;#x5171;&amp;#x7528;&amp;#x8D44;&amp;#x6E90;&amp;#xFF08;&amp;#x4F8B;&amp;#x5982;&amp;#xFF1A;&amp;#x5171;&amp;#x7528;&amp;#x8BBE;&amp;#x5907">
-<meta name="twitter:image" content="https://leaderli.github.io/images/分布式锁实现_2019-11-20-01-13-39.png">
+<meta name="twitter:image" content="https://leaderli.github.io/2019/11/20/分布式锁实现/images/分布式锁实现_2019-11-20-01-13-39.png">
 
 
 
@@ -553,7 +553,7 @@
 <p>&#x67E5;&#x770B;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x7684;&#x5B57;&#x8282;&#x7801;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">11</span>: monitorenter</span><br><span class="line"><span class="number">12</span>: aload_2</span><br><span class="line"><span class="number">13</span>: monitorexit</span><br></pre></td></tr></table></figure>
 <p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x89C2;&#x5BDF;&#x5230;&#x5728;&#x8FDB;&#x5165;<code>synchronized</code>&#x4EE3;&#x7801;&#x5757;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;<code>monitorenter</code>&#x6307;&#x5B9A;&#x83B7;&#x53D6;&#x9501;&#xFF0C;&#x5728;&#x7ED3;&#x675F;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x8BED;&#x53E5;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;<code>monitorexit</code>&#xFF0C;&#x91CA;&#x653E;&#x9501;&#x3002;</p>
-<p>&#x7B49;&#x5F85;&#x9501;&#x7684;&#x8FC7;&#x7A0B; <img src="/images/&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-20-01-13-39.png" alt="&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-20-01-13-39.png"></p>
+<p>&#x7B49;&#x5F85;&#x9501;&#x7684;&#x8FC7;&#x7A0B; <img src="./images/&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-20-01-13-39.png" alt="&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-20-01-13-39.png"></p>
 <p>&#x53C2;&#x8003;<a href="/2019/11/12/java&#x6570;&#x7EC4;/" title="java&#x6570;&#x7EC4;">java&#x6570;&#x7EC4;</a>&#x4E2D;&#x5173;&#x4E8E;&#x5BF9;&#x8C61;&#x5934;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x5BF9;&#x8C61;&#x5728;&#x6709;&#x9501;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;&#x4FDD;&#x5B58;&#x5360;&#x7528;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x6307;&#x9488;&#x3002;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;&#x4EC5;&#x5141;&#x8BB8;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x5360;&#x7528;<code>monitor</code>&#x9501;&#xFF0C;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;<code>monitor</code>&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x88AB;&#x963B;&#x585E;&#x76F4;&#x5230;&#x5BF9;&#x8C61;&#x91CA;&#x653E;&#x9501;&#x3002;</p>
 <h3 id="abstractqueuedsynchronizer"><code>AbstractQueuedSynchronizer</code></h3>
 <p>&#x4EE5;<code>ReentrantLock</code>&#x4E3A;&#x4EE3;&#x8868;&#x7684;&#x540C;&#x6B65;&#x9501;&#x6846;&#x67B6;&#x662F;&#x57FA;&#x4E8E;<code>AQS</code>&#xFF0C;<code>AQS</code>&#x4F9D;&#x8D56;<code>FIFO</code>&#x961F;&#x5217;&#x5B9E;&#x73B0;&#x3002;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x9501;&#x901A;&#x8FC7;<code>tryAcquire</code>&#x5411;<code>FIFO</code>&#x63D2;&#x5165;&#x5E76;&#x4F7F;&#x7528;&#x4E50;&#x89C2;&#x9501;<code>CAS</code>&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4E3A;<code>HEAD</code>&#x8282;&#x70B9;&#xFF0C;&#x82E5;&#x662F;<code>HEAD</code>&#x8282;&#x70B9;&#x5219;&#x8868;&#x793A;&#x83B7;&#x53D6;&#x5230;&#x9501;&#xFF0C;&#x91CA;&#x653E;&#x9501;&#x5219;&#x901A;&#x8FC7;<code>tryRelease</code>&#x8BE5;&#x961F;&#x5217;&#x7684;<code>HEAD</code>&#x8282;&#x70B9;&#xFF0C;&#x5E76;&#x5524;&#x9192;&#x7B49;&#x5F85;&#x8282;&#x70B9;&#x3002;</p>
@@ -577,7 +577,7 @@
 <p>&#x901A;&#x8FC7;&#x4F7F;&#x7528;<code>SpringBoot</code>&#x7684;&#x6CE8;&#x89E3;<code>ConditionalOnProperty</code>&#x6765;&#x65B9;&#x4FBF;&#x6D4B;&#x8BD5; &#x9996;&#x5148;&#x6211;&#x4EEC;&#x6D4B;&#x8BD5;&#x6CA1;&#x6709;&#x9501;&#x7684;&#x60C5;&#x51B5;&#x4E0B;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.demo.lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ConditionalOnProperty</span>(prefix = <span class="string">&quot;lock&quot;</span>, name = <span class="string">&quot;use&quot;</span>, havingValue = <span class="string">&quot;nolock&quot;</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope</span>(BeanDefinition.SCOPE_PROTOTYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoLock</span> <span class="keyword">implements</span> <span class="title">Lock</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">lock</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>{</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x5C06;<code>NoLock</code>&#x7C7B;&#x6FC0;&#x6D3B;&#xFF0C;&#x5373;<code>lock.use=nolock</code><br>
-<img src="/images/&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-21-00-56-35.png" alt="&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-21-00-56-35.png"> &#x6211;&#x4EEC;&#x5F88;&#x5BB9;&#x6613;&#x5C31;&#x89C2;&#x5BDF;&#x5230;&#x6CA1;&#x6709;&#x9501;&#x65F6;&#xFF0C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#xFF0C;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#x88AB;&#x4FEE;&#x6539;&#x4E86;</p>
+<img src="./images/&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-21-00-56-35.png" alt="&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-21-00-56-35.png"> &#x6211;&#x4EEC;&#x5F88;&#x5BB9;&#x6613;&#x5C31;&#x89C2;&#x5BDF;&#x5230;&#x6CA1;&#x6709;&#x9501;&#x65F6;&#xFF0C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#xFF0C;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#x88AB;&#x4FEE;&#x6539;&#x4E86;</p>
 <h3 id="&#x6570;&#x636E;&#x5E93;&#x9501;">&#x6570;&#x636E;&#x5E93;&#x9501;</h3>
 <p>&#x6839;&#x636E;&#x9501;&#x7684;&#x539F;&#x5219;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x5E93;&#x9501;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;:</p>
 <ol type="1">
@@ -590,7 +590,7 @@
 <p>--</p>
 <h3 id="zookeeper&#x9501;"><code>zookeeper</code>&#x9501;</h3>
 <p>--</p>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -779,7 +779,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -850,7 +850,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1099,9 +1101,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

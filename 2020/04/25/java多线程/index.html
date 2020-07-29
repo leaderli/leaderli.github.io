@@ -142,15 +142,15 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x7EBF;&amp;#x7A0B;&amp;#x72B6;&amp;#x6001; &amp;#x65B0;&amp;#x5EFA;(NEW) &amp;#x65B0;&amp;#x521B;&amp;#x5EFA;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5BF9;&amp;#x8C61;&amp;#x3002;&amp;#x5B9E;&amp;#x73B0; Runnable &amp;#x63A5;&amp;#x53E3;&amp;#x548C;&amp;#x7EE7">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://leaderli.github.io/images/线程状态及切换_2020-04-25-13-31-15.png">
-<meta property="og:image" content="https://leaderli.github.io/images/java多线程_2020-04-25-13-37-56.png">
-<meta property="og:image" content="https://leaderli.github.io/images/java多线程_2020-04-25-13-50-12.png">
-<meta property="og:image" content="https://leaderli.github.io/images/java多线程_2020-04-25-13-55-07.png">
+<meta property="og:image" content="https://leaderli.github.io/2020/04/25/java多线程/images/线程状态及切换_2020-04-25-13-31-15.png">
+<meta property="og:image" content="https://leaderli.github.io/2020/04/25/java多线程/images/java多线程_2020-04-25-13-37-56.png">
+<meta property="og:image" content="https://leaderli.github.io/2020/04/25/java多线程/images/java多线程_2020-04-25-13-50-12.png">
+<meta property="og:image" content="https://leaderli.github.io/2020/04/25/java多线程/images/java多线程_2020-04-25-13-55-07.png">
 <meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java多线程">
 <meta name="twitter:description" content="&amp;#x7EBF;&amp;#x7A0B;&amp;#x72B6;&amp;#x6001; &amp;#x65B0;&amp;#x5EFA;(NEW) &amp;#x65B0;&amp;#x521B;&amp;#x5EFA;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5BF9;&amp;#x8C61;&amp;#x3002;&amp;#x5B9E;&amp;#x73B0; Runnable &amp;#x63A5;&amp;#x53E3;&amp;#x548C;&amp;#x7EE7">
-<meta name="twitter:image" content="https://leaderli.github.io/images/线程状态及切换_2020-04-25-13-31-15.png">
+<meta name="twitter:image" content="https://leaderli.github.io/2020/04/25/java多线程/images/线程状态及切换_2020-04-25-13-31-15.png">
 
 
 
@@ -554,10 +554,10 @@
 3. &#x5176;&#x4ED6;&#x963B;&#x585E;:&#x8FD0;&#x884C;(RUNNING)&#x72B6;&#x6001;&#x7684;&#x7EBF;&#x7A0B;&#x6267;&#x884C; sleep &#x6216; join &#x65B9;&#x6CD5;&#xFF0C;JVM &#x4F1A;&#x628A;&#x8BE5;&#x7EBF;&#x7A0B;&#x8BBE;&#x7F6E;&#x4E3A;&#x963B;&#x585E;(BLOCKED)&#x72B6;&#x6001;&#xFF0C;&#x5F53; sleep &#x8D85;&#x65F6;&#xFF0C;join &#x7B49;&#x5F85;&#x7EBF;&#x7A0B;&#x7EC8;&#x6B62;&#x6216;&#x8D85;&#x65F6;&#xFF0C;&#x8BE5;&#x7EBF;&#x7A0B;&#x91CD;&#x65B0;&#x8F6C;&#x5165;&#x53EF;&#x8FD0;&#x884C;(RUNNABLE)&#x72B6;&#x6001;&#x3002;</code></pre>
 <h3 id="&#x6B7B;&#x4EA1;dead">&#x6B7B;&#x4EA1;(DEAD)</h3>
 <p>&#x7EBF;&#x7A0B; run &#x65B9;&#x6CD5;&#x7ED3;&#x675F;&#xFF0C;main &#x65B9;&#x6CD5;&#x7ED3;&#x675F;&#xFF0C;&#x6216;&#x8005;&#x5F02;&#x5E38;&#x539F;&#x56E0;&#x9000;&#x51FA;&#x4E86; run &#x65B9;&#x6CD5;&#xFF0C;&#x5219;&#x8BE5;&#x7EBF;&#x7A0B;&#x7ED3;&#x675F;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x6B7B;&#x4EA1;&#x7684;&#x7EBF;&#x7A0B;&#x4E0D;&#x53EF;&#x518D;&#x6B21;&#x590D;&#x751F;&#x3002;&#x5728;&#x4E00;&#x4E2A;&#x6B7B;&#x53BB;&#x7684;&#x7EBF;&#x7A0B;&#x4E0A;&#x8C03;&#x7528; start &#x65B9;&#x6CD5;&#xFF0C;&#x4F1A;&#x629B;&#x51FA; java.lang.IllegalThreadStateException &#x5F02;&#x5E38;&#x3002;</p>
-<p>&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x56FE; <img src="/images/&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x53CA;&#x5207;&#x6362;_2020-04-25-13-31-15.png" alt="&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x53CA;&#x5207;&#x6362;_2020-04-25-13-31-15.png"></p>
+<p>&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x56FE; <img src="./images/&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x53CA;&#x5207;&#x6362;_2020-04-25-13-31-15.png" alt="&#x7EBF;&#x7A0B;&#x72B6;&#x6001;&#x53CA;&#x5207;&#x6362;_2020-04-25-13-31-15.png"></p>
 <h2 id="&#x7EBF;&#x7A0B;&#x9501;&#x7ADE;&#x4E89;&#x8FC7;&#x7A0B;">&#x7EBF;&#x7A0B;&#x9501;&#x7ADE;&#x4E89;&#x8FC7;&#x7A0B;</h2>
 <h3 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h3>
-<p>&#x7EBF;&#x7A0B;&#x9501;&#x7ADE;&#x4E89;&#x8FC7;&#x7A0B;&#x5982;&#x56FE; <img src="/images/java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-37-56.png" alt="java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-37-56.png"></p>
+<p>&#x7EBF;&#x7A0B;&#x9501;&#x7ADE;&#x4E89;&#x8FC7;&#x7A0B;&#x5982;&#x56FE; <img src="./images/java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-37-56.png" alt="java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-37-56.png"></p>
 <ol type="1">
 <li>&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x60F3;&#x8C03;&#x7528; A &#x7684;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x53D1;&#x73B0;&#x5BF9;&#x8C61; A &#x88AB;&#x522B;&#x7684;&#x7EBF;&#x7A0B;&#x5360;&#x6709;&#xFF0C;&#x6B64;&#x65F6;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x4F1A;&#x8FDB;&#x5165;&#x9501;&#x6C60;&#x72B6;&#x6001;&#x3002;&#x9501;&#x6C60;&#x91CC;&#x9762;&#x5B58;&#x653E;&#x7684;&#x90FD;&#x662F;&#x60F3;&#x4E89;&#x593A;&#x5BF9;&#x8C61; A &#x7684;&#x7EBF;&#x7A0B;&#x3002;</li>
 <li>&#x5F53;&#x7EBF;&#x7A0B; 1 &#x88AB;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x65F6;&#xFF0C;&#x4F1A;&#x8FDB;&#x5165;&#x9501;&#x6C60;&#x4E89;&#x593A;&#x5BF9;&#x8C61; A &#x7684;&#x9501;&#x3002;</li>
@@ -608,8 +608,8 @@
 <p>&#x603B;&#x7ED3;&#xFF1A;</p>
 <p>&#x200B; wait()&#x65B9;&#x6CD5;&#x4E0E; notify()&#x5FC5;&#x987B;&#x8981;&#x4E0E; synchronized(resource)&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x3002;&#x4E5F;&#x5C31;&#x662F; wait &#x4E0E; notify &#x9488;&#x5BF9;&#x5DF2;&#x7ECF;&#x83B7;&#x53D6;&#x4E86; resource &#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x8BED;&#x6CD5;&#x89D2;&#x5EA6;&#x6765;&#x8BF4;&#x5C31;&#x662F; Obj.wait(),Obj.notify &#x5FC5;&#x987B;&#x5728; synchronized(Obj){...}&#x8BED;&#x53E5;&#x5757;&#x5185;&#x3002;&#x4ECE;&#x529F;&#x80FD;&#x4E0A;&#x6765;&#x8BF4; wait()&#x7EBF;&#x7A0B;&#x5728;&#x83B7;&#x53D6;&#x5BF9;&#x8C61;&#x9501;&#x540E;&#xFF0C;&#x4E3B;&#x52A8;&#x91CA;&#x653E; CPU &#x63A7;&#x5236;&#x6743;&#xFF0C;&#x4E3B;&#x52A8;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#x9501;&#xFF0C;&#x540C;&#x65F6;&#x672C;&#x7EBF;&#x7A0B;&#x4F11;&#x7720;&#x3002;&#x76F4;&#x5230;&#x6709;&#x5176;&#x5B83;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x7684; notify()&#x5524;&#x9192;&#x8BE5;&#x7EBF;&#x7A0B;&#xFF0C;&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x83B7;&#x53D6;&#x5BF9;&#x8C61;&#x9501;&#xFF0C;&#x5E76;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x3002;&#x76F8;&#x5E94;&#x7684; notify()&#x5C31;&#x662F;&#x5BF9;&#x5BF9;&#x8C61;&#x9501;&#x7684;&#x91CA;&#x653E;&#x64CD;&#x4F5C;&#x3002;&#x3010;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;wait &#x548C; notify &#x65B9;&#x6CD5;&#x5747;&#x53EF;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#x7684;&#x9501;&#xFF0C;&#x4F46; wait &#x540C;&#x65F6;&#x91CA;&#x653E; CPU &#x63A7;&#x5236;&#x6743;&#xFF0C;&#x5373;&#x5B83;&#x540E;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x505C;&#x6B62;&#x6267;&#x884C;&#xFF0C;&#x7EBF;&#x7A0B;&#x8FDB;&#x5165;&#x963B;&#x585E;&#x72B6;&#x6001;&#xFF0C;&#x800C; notify &#x65B9;&#x6CD5;&#x4E0D;&#x7ACB;&#x523B;&#x91CA;&#x653E; CPU &#x63A7;&#x5236;&#x6743;&#xFF0C;&#x800C;&#x662F;&#x5728;&#x76F8;&#x5E94;&#x7684; synchronized(){}&#x8BED;&#x53E5;&#x5757;&#x6267;&#x884C;&#x7ED3;&#x675F;&#xFF0C;&#x518D;&#x81EA;&#x52A8;&#x91CA;&#x653E;&#x9501;&#x3002;&#x3011;&#x91CA;&#x653E;&#x9501;&#x540E;&#xFF0C;JVM &#x4F1A;&#x5728;&#x7B49;&#x5F85; resoure &#x7684;&#x7EBF;&#x7A0B;&#x4E2D;&#x9009;&#x53D6;&#x4E00;&#x7EBF;&#x7A0B;&#xFF0C;&#x8D4B;&#x4E88;&#x5176;&#x5BF9;&#x8C61;&#x9501;&#xFF0C;&#x5524;&#x9192;&#x7EBF;&#x7A0B;&#xFF0C;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x63D0;&#x4F9B;&#x4E86;&#x5728;&#x7EBF;&#x7A0B;&#x95F4;&#x540C;&#x6B65;&#x3001;&#x5524;&#x9192;&#x7684;&#x64CD;&#x4F5C;&#x3002;Thread.sleep()&#x4E0E; Object.wait()&#x4E8C;&#x8005;&#x90FD;&#x53EF;&#x4EE5;&#x6682;&#x505C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#xFF0C;&#x91CA;&#x653E; CPU &#x63A7;&#x5236;&#x6743;&#xFF0C;&#x4E3B;&#x8981;&#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E; Object.wait()&#x5728;&#x91CA;&#x653E; CPU &#x540C;&#x65F6;&#xFF0C;&#x91CA;&#x653E;&#x4E86;&#x5BF9;&#x8C61;&#x9501;&#x7684;&#x63A7;&#x5236;&#xFF0C;&#x800C;&#x5728;&#x540C;&#x6B65;&#x5757;&#x4E2D;&#x7684; Thread.sleep()&#x65B9;&#x6CD5;&#x5E76;&#x4E0D;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x4EC5;&#x91CA;&#x653E; CPU &#x63A7;&#x5236;&#x6743;&#x3002;</p>
 <h2 id="volatile">volatile</h2>
-<p>&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x5185;&#x5B58;&#x6A21;&#x578B;&#xFF0C;main memory(&#x4E3B;&#x5B58;)&#xFF0C;working memory(&#x7EBF;&#x7A0B;&#x6808;)&#xFF0C;&#x5728;&#x5904;&#x7406;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#x4F1A;&#x628A;&#x503C;&#x4ECE;&#x4E3B;&#x5B58; load &#x5230;&#x672C;&#x5730;&#x6808;&#xFF0C;&#x5B8C;&#x6210;&#x64CD;&#x4F5C;&#x540E;&#xFF0C;&#x518D; save &#x56DE;&#x53BB;&#x3002;(volatile &#x5173;&#x952E;&#x5B57;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x5728;&#x4E00;&#x4E2A; CPU &#x65F6;&#x95F4;&#x7247;&#x5185;&#xFF0C;&#x9488;&#x5BF9;&#x53D8;&#x91CF;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#x5B8C;&#x6574;&#x7684; load &#x548C; save)&#x3002;&#x9488;&#x5BF9;&#x591A;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528;&#x7684;&#x53D8;&#x91CF;&#x5982;&#x679C;&#x4E0D;&#x662F; volatile &#x6216; final &#x4FEE;&#x9970;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x4E0D;&#x53EF;&#x9884;&#x6599;&#x7684;&#x540E;&#x679C;(&#x67D0;&#x4E2A;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;&#x4E86;&#x53D8;&#x91CF;&#xFF0C;&#x4F46;&#x4E4B;&#x540E;&#x7684;&#x7EBF;&#x7A0B; load &#x5230;&#x7684;&#x662F;&#x53D8;&#x91CF;&#x4FEE;&#x6539;&#x524D;&#x7684;&#x6570;&#x636E;)&#x3002;&#x5176;&#x5B9E;&#x672C;&#x8D28;&#x4E0A;&#x6765;&#x8BF4;&#xFF0C;&#x540C;&#x4E00;&#x5B9E;&#x4F8B;&#x7684;&#x540C;&#x4E00;&#x5C5E;&#x6027;&#x53EA;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x526F;&#x672C;&#xFF0C;&#x4F46;&#x591A;&#x7EBF;&#x7A0B;&#x4F1A;&#x7F13;&#x5B58;&#x503C;&#xFF0C;volatile &#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x4E0D;&#x53BB;&#x7F13;&#x5B58;&#x503C;&#x3002;&#x5728;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x7528; volatile &#x4F1A;&#x727A;&#x7272;&#x6027;&#x80FD;&#x3002; <img src="/images/java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-50-12.png" alt="java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-50-12.png"></p>
-<p>volatile &#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#x6700;&#x7EC8;&#x662F;&#x52A0;&#x4E86;&#x5185;&#x5B58;&#x5C4F;&#x969C; <img src="/images/java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-55-07.png" alt="java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-55-07.png"></p>
+<p>&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x5185;&#x5B58;&#x6A21;&#x578B;&#xFF0C;main memory(&#x4E3B;&#x5B58;)&#xFF0C;working memory(&#x7EBF;&#x7A0B;&#x6808;)&#xFF0C;&#x5728;&#x5904;&#x7406;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#x4F1A;&#x628A;&#x503C;&#x4ECE;&#x4E3B;&#x5B58; load &#x5230;&#x672C;&#x5730;&#x6808;&#xFF0C;&#x5B8C;&#x6210;&#x64CD;&#x4F5C;&#x540E;&#xFF0C;&#x518D; save &#x56DE;&#x53BB;&#x3002;(volatile &#x5173;&#x952E;&#x5B57;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x5728;&#x4E00;&#x4E2A; CPU &#x65F6;&#x95F4;&#x7247;&#x5185;&#xFF0C;&#x9488;&#x5BF9;&#x53D8;&#x91CF;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#x5B8C;&#x6574;&#x7684; load &#x548C; save)&#x3002;&#x9488;&#x5BF9;&#x591A;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528;&#x7684;&#x53D8;&#x91CF;&#x5982;&#x679C;&#x4E0D;&#x662F; volatile &#x6216; final &#x4FEE;&#x9970;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x4E0D;&#x53EF;&#x9884;&#x6599;&#x7684;&#x540E;&#x679C;(&#x67D0;&#x4E2A;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;&#x4E86;&#x53D8;&#x91CF;&#xFF0C;&#x4F46;&#x4E4B;&#x540E;&#x7684;&#x7EBF;&#x7A0B; load &#x5230;&#x7684;&#x662F;&#x53D8;&#x91CF;&#x4FEE;&#x6539;&#x524D;&#x7684;&#x6570;&#x636E;)&#x3002;&#x5176;&#x5B9E;&#x672C;&#x8D28;&#x4E0A;&#x6765;&#x8BF4;&#xFF0C;&#x540C;&#x4E00;&#x5B9E;&#x4F8B;&#x7684;&#x540C;&#x4E00;&#x5C5E;&#x6027;&#x53EA;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x526F;&#x672C;&#xFF0C;&#x4F46;&#x591A;&#x7EBF;&#x7A0B;&#x4F1A;&#x7F13;&#x5B58;&#x503C;&#xFF0C;volatile &#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x4E0D;&#x53BB;&#x7F13;&#x5B58;&#x503C;&#x3002;&#x5728;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x7528; volatile &#x4F1A;&#x727A;&#x7272;&#x6027;&#x80FD;&#x3002; <img src="./images/java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-50-12.png" alt="java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-50-12.png"></p>
+<p>volatile &#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#x6700;&#x7EC8;&#x662F;&#x52A0;&#x4E86;&#x5185;&#x5B58;&#x5C4F;&#x969C; <img src="./images/java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-55-07.png" alt="java&#x591A;&#x7EBF;&#x7A0B;_2020-04-25-13-55-07.png"></p>
 <pre><code>1. &#x4FDD;&#x8BC1;&#x5199; volatile &#x53D8;&#x91CF;&#x5F3A;&#x5236;&#x628A; CPU &#x5199;&#x7F13;&#x5B58;&#x533A;&#x7684;&#x6570;&#x636E;&#x5237;&#x65B0;&#x5230;&#x5185;&#x5B58;
 2. &#x8BFB; volatile &#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x4F7F;&#x7F13;&#x5B58;&#x5931;&#x6548;&#xFF0C;&#x5F3A;&#x5236;&#x4ECE;&#x5185;&#x5B58;&#x4E2D;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x3002;
 3. &#x7531;&#x4E8E;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x7684;&#x4F5C;&#x7528;&#xFF0C;volatile &#x53D8;&#x91CF;&#x8FD8;&#x80FD;&#x963B;&#x6B62;&#x91CD;&#x6392;&#x5E8F;&#x3002;</code></pre>
@@ -639,7 +639,7 @@
 <li>Unsafe.putOrderedObject &#x7C7B;&#x4F3C;&#x8FD9;&#x6837;&#x7684;&#x65B9;&#x6CD5;,&#x4F1A;&#x63D2;&#x5165; StoreStore &#x5185;&#x5B58;&#x5C4F;&#x969C;</li>
 <li>Unsafe.putVolatiObject &#x5219;&#x662F;&#x63D2;&#x5165;&#x4E86; StoreLoad &#x5C4F;&#x969C;</li>
 </ol>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
       
     </div>
 
@@ -818,7 +818,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">123</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -889,7 +889,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1138,9 +1140,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
