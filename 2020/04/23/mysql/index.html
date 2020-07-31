@@ -675,10 +675,6 @@
           
 
   
-    <div class="comments" id="gitalk-container">
-    </div>
-
-  
 
 
 
@@ -1092,102 +1088,13 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
-
-
-
-  <div class="footer-custom">Hosted by <a href="https://pages.coding.me" class="theme-link" rel="noopener" target="_blank">Coding Pages</a></div>
 
 
 
 
-<script src="/js/echarts.min.js"></script>
 
-<script>
-    function recursion_tree(dom, tree) {
-        tree = tree || {}
-        if (dom.tagName === 'UL') {
-            tree.children = []
-            Array.prototype.forEach.call(dom.children, child => {
-                tree.children.push(recursion_tree(child))
-            })
-            return tree;
-        } else if (dom.tagName === 'LI') {
-            html = dom.innerHTML
-            tree.name = html;
-            var ulIndex = html.indexOf('<')
-            if (ulIndex > 0) {
-                tree.name = html.substring(0, ulIndex).trim()
-                Array.prototype.forEach.call(dom.children, child => {
-                    console.log(child)
-                    console.log(recursion_tree(child, tree))
 
-                })
-            }
-            return tree
-        } else {
 
-        }
-    }
-    var title = document.querySelector('.post-title').innerText.trim()
-
-    Array.prototype.forEach.call(document.getElementsByClassName("li-echarts-tree"), function (dom) {
-        dom = dom.children[0]
-        data = recursion_tree(dom, { "name": title })
-        var div = document.createElement('div')
-        div.setAttribute('style', 'width: 600px;height:400px;')
-        dom.innerHTML=''
-        dom.appendChild(div);
-        var myChart = echarts.init(div);
-        myChart.setOption(option = {
-            tooltip: {
-                trigger: 'item',
-                triggerOn: 'mousemove'
-            },
-            series: [
-                {
-                    type: 'tree',
-
-                    data: [data],
-
-                    top: '1%',
-                    left: '7%',
-                    bottom: '1%',
-                    right: '20%',
-
-                    symbolSize: 7,
-
-                    label: {
-                        position: 'left',
-                        verticalAlign: 'middle',
-                        align: 'right',
-                        fontSize: 9
-                    },
-
-                    leaves: {
-                        label: {
-                            position: 'right',
-                            verticalAlign: 'middle',
-                            align: 'left'
-                        }
-                    },
-
-                    expandAndCollapse: false,
-                    animationDuration: 350,
-                    animationDurationUpdate: 450
-                }
-            ]
-        });
-    })
-</script>
 
 
         
@@ -1301,63 +1208,11 @@
 
 
   
-    
 
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+// gitalk
 
 
 
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: '0c587ba925564ae382e7',
-    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
-    repo: 'comment',
-    owner: 'leaderli',
-    admin: ['leaderli'],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: 'false# Facebook-like distraction free mode'
-  });
-  gitalk.render('gitalk-container');
-</script>
-
-  
-
-
-
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-
-
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: '0c587ba925564ae382e7',
-    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
-    repo: 'comment',
-    owner: 'leaderli',
-    admin: ['leaderli'],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: 'false# Facebook-like distraction free mode'
-  });
-  gitalk.render('gitalk-container');
-</script>
 
 
 
