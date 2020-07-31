@@ -1,0 +1,3532 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9-iuFTrWxG-NMbBqeS359Y491i0G0HcZ44NiICCEs7s">
+<meta name="baidu-site-verification" content="eQr4ptzetx">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+
+  <meta name="description" content="&amp;#x57FA;&amp;#x7840;&amp;#x6982;&amp;#x5FF5; JVM&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x57FA;&amp;#x4E8E;&amp;#x6808;&amp;#x7684;&amp;#x67B6;&amp;#x6784;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EBF;&amp;#x7A0B;&amp;#x90FD;&amp;#x6709;&amp;#x4E00;&amp;#x4E2A;&amp;#x7528;&amp;#x6">
+<meta name="keywords" content="jvm,字节码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java字节码">
+<meta property="og:url" content="https://leaderli.github.io/2020/04/23/java字节码/index.html">
+<meta property="og:site_name" content="大狗哥传奇">
+<meta property="og:description" content="&amp;#x57FA;&amp;#x7840;&amp;#x6982;&amp;#x5FF5; JVM&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x57FA;&amp;#x4E8E;&amp;#x6808;&amp;#x7684;&amp;#x67B6;&amp;#x6784;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EBF;&amp;#x7A0B;&amp;#x90FD;&amp;#x6709;&amp;#x4E00;&amp;#x4E2A;&amp;#x7528;&amp;#x6">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-25-12-51-54.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-46-50.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-47-55.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-48-09.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-48-26.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-48-45.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-50-00.png">
+<meta property="og:image" content="https://leaderli.github.io/images/java字节码_2020-04-23-10-50-44.png">
+<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java字节码">
+<meta name="twitter:description" content="&amp;#x57FA;&amp;#x7840;&amp;#x6982;&amp;#x5FF5; JVM&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x57FA;&amp;#x4E8E;&amp;#x6808;&amp;#x7684;&amp;#x67B6;&amp;#x6784;&amp;#xFF0C;&amp;#x6BCF;&amp;#x4E00;&amp;#x4E2A;&amp;#x7EBF;&amp;#x7A0B;&amp;#x90FD;&amp;#x6709;&amp;#x4E00;&amp;#x4E2A;&amp;#x7528;&amp;#x6">
+<meta name="twitter:image" content="https://leaderli.github.io/images/java字节码_2020-04-25-12-51-54.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://leaderli.github.io/2020/04/23/java字节码/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>java字节码 | 大狗哥传奇</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eQr4ptzetx";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大狗哥传奇</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+  <script type="text/javascript">
+     var search_path = "<%= config.search.path %>";
+     if (search_path.length == 0) {
+     	search_path = "search.json";
+     }
+     var path = "<%= config.root %>" + search_path;
+ </script>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/04/23/java字节码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java字节码
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-23 10:04:27" itemprop="dateCreated datePublished" datetime="2020-04-23T10:04:27+08:00">2020-04-23</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x57FA;&#x7840;&#x6982;&#x5FF5;">&#x57FA;&#x7840;&#x6982;&#x5FF5;</h2>
+<p><code>JVM</code>&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;&#x6808;&#x7684;&#x67B6;&#x6784;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5E27;&#x96C6;<code>(frames)</code>&#x7684;<code>JVM</code> &#x6808;&#xFF0C;&#x6BCF;&#x6B21;&#x65B9;&#x6CD5;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;(&#x5305;&#x542B;<code>main</code>&#x65B9;&#x6CD5;)&#xFF0C;&#x5728;&#x6808;&#x4E0A;&#x4F1A;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5E27;&#x3002;&#x8FD9;&#x4E2A;&#x5E27;&#x5305;&#x542B;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x6570;&#x7EC4;&#xFF0C;&#x64CD;&#x4F5C;&#x6570;&#x6808;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x6307;&#x9488;,&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#xFF0C;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x3002; &#x4ECE;&#x6982;&#x5FF5;&#x6765;&#x8BF4;&#xFF0C;&#x5E27;&#x7684;&#x60C5;&#x51B5;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A; <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-25-12-51-54.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-25-12-51-54.png"> <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-46-50.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-46-50.png"></p>
+<h2 id="&#x53D8;&#x91CF;">&#x53D8;&#x91CF;</h2>
+<h3 id="&#x5C40;&#x90E8;&#x53D8;&#x91CF;">&#x5C40;&#x90E8;&#x53D8;&#x91CF;</h3>
+<p>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7684;&#x6570;&#x7EC4;&#x4E5F;&#x79F0;&#x4E3A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#xFF0C;&#x5305;&#x62EC;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x5B83;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x3002;&#x9996;&#x5148;&#x5B58;&#x653E;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x4ECE;&#x5730;&#x5740; 0 &#x5F00;&#x59CB;&#x7F16;&#x7801;&#x3002;&#x5982;&#x679C;&#x5E27;&#x662F;&#x4E00;&#x4E2A;&#x6784;&#x9020;&#x5668;&#x6216;&#x8005;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#xFF0C;<code>this</code>&#x5F15;&#x7528;&#x8BB2;&#x5B58;&#x50A8;&#x5728;&#x5730;&#x5740; 0 &#x4E2D;&#xFF0C;&#x5730;&#x5740; 1 &#x5B58;&#x653E;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5730;&#x5740; 2 &#x5B58;&#x653E;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x4F9D;&#x6B21;&#x7C7B;&#x63A8;&#x3002;&#x5982;&#x679C;&#x5E27;&#x662F;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x4F1A;&#x5B58;&#x5728;&#x5730;&#x5740; 0 &#x4E2D;&#xFF0C;&#x5730;&#x5740; 1 &#x5B58;&#x653E;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x4F9D;&#x6B21;&#x7C7B;&#x63A8;&#x3002;</p>
+<p>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x6570;&#x7EC4;&#x7684;&#x5927;&#x5C0F;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x5B83;&#x53D6;&#x51B3;&#x4E8E;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x548C;&#x6B63;&#x5E38;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x7684;&#x6570;&#x91CF;&#x548C;&#x5927;&#x5C0F;&#x3002;&#x64CD;&#x4F5C;&#x6808;&#x662F;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;<code>push</code> &#x548C;<code>pop</code> &#x503C;&#x7684;&#x540E;&#x8FDB;&#x5148;&#x51FA;&#x7684;&#x6808;&#xFF0C;&#x5B83;&#x7684;&#x5927;&#x5C0F;&#x4E5F;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x5668;&#x51B3;&#x5B9A;&#x7684;&#x3002;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#x7801;&#x6307;&#x4EE4;&#x5C06;&#x503C;<code>push</code> &#x5230;&#x64CD;&#x4F5C;&#x6808;&#xFF0C;&#x5176;&#x5B83;&#x7684;&#x64CD;&#x4F5C;&#x7801;&#x4ECE;&#x6808;&#x4E0A;&#x83B7;&#x53D6;&#x64CD;&#x4F5C;&#x6570;&#xFF0C;&#x64CD;&#x4F5C;&#x5B83;&#x4EEC;&#xFF0C;&#x5E76;&#x5C06;&#x503C;<code>push</code> &#x56DE;&#x53BB;&#x3002;&#x64CD;&#x4F5C;&#x6808;&#x5E38;&#x7528;&#x6765;&#x63A5;&#x6536;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x3002;</p>
+<p>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x53EF;&#x4EE5;&#x662F;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x7C7B;&#x578B;&#xFF1A;</p>
+<blockquote>
+<p>char long short int double float &#x5F15;&#x7528; &#x8FD4;&#x56DE;&#x5730;&#x5740;</p>
+</blockquote>
+<p>&#x9664;&#x4E86;<code>long</code>&#x548C;<code>double</code>&#x7C7B;&#x578B;&#xFF0C;&#x6BCF;&#x4E2A;&#x53D8;&#x91CF;&#x90FD;&#x53EA;&#x5360;&#x7528;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x533A;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x69FD;(<code>slot</code>)&#xFF0C;&#x800C;<code>long</code>&#x548C; <code>double</code>&#x53EA;&#x6240;&#x4EE5;&#x4F1A;&#x5360;&#x7528;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x69FD;(<code>slot</code>)&#xFF0C;&#x56E0;&#x4E3A;<code>long</code>&#x548C;<code>double</code>&#x662F; 64 &#x4F4D;&#x7684;&#x3002;</p>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x53D8;&#x91CF;&#x521B;&#x5EFA;&#x65F6;&#xFF0C;&#x64CD;&#x4F5C;&#x6570;&#x6808;(<code>Operand stack</code>)&#x4F1A;&#x5B58;&#x50A8;&#x8FD9;&#x4E2A;&#x65B0;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x3002;&#x7136;&#x540E;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x4F1A;&#x88AB;&#x5B58;&#x50A8;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x4F4D;&#x7F6E;&#x4E0A;&#x3002;&#x5982;&#x679C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x4E0D;&#x662F;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#x7684;&#x8BDD;&#xFF0C;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x69FD;&#x5B58;&#x7684;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x6307;&#x5411;&#x5806;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x6BD4;&#x5982;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p>&#x7F16;&#x8BD1;&#x540E;&#x5C31;&#x53D8;&#x6210;&#x4E86;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>: bipush      <span class="number">5</span> <span class="comment">//&#x7528;&#x6765;&#x5C06;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x4F5C;&#x4E3A;&#x6574;&#x578B;&#x6570;&#x5B57;&#x538B;&#x5165;&#x64CD;&#x4F5C;&#x6570;&#x6808;&#x4E2D;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;5&#x5C31;&#x4F1A;&#x88AB;&#x538B;&#x5165;&#x64CD;&#x4F5C;&#x6570;&#x6808;&#x4E0A;&#x3002;</span></span><br><span class="line"><span class="number">2</span>: istore_0 <span class="comment">//&#x8FD9;&#x662F;istore_&#x8FD9;&#x7EC4;&#x6307;&#x4EE4;&#x96C6;&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E2A;&#x5E94;&#x8BE5;&#x53EB;&#x505A;&#x64CD;&#x4F5C;&#x7801;&#xFF0C;opcode ,&#x6307;&#x4EE4;&#x662F;&#x6307;&#x64CD;&#x4F5C;&#x7801;&#x52A0;&#x4E0A;&#x5BF9;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x6570;&#xFF0C;oprand&#x3002;&#x4E0D;&#x8FC7;&#x64CD;&#x4F5C;&#x7801;&#x4E00;&#x822C;&#x4F5C;&#x4E3A;&#x6307;&#x4EE4;&#x7684;&#x52A9;&#x8BB0;&#x7B26;&#xFF0C;&#x8FD9;&#x91CC;&#x7EDF;&#x79F0;&#x4E3A;&#x6307;&#x4EE4;&#xFF09;&#x4E2D;&#x7684;&#x4E00;&#x6761;&#xFF0C;&#x8FD9;&#x7EC4;&#x6307;&#x4EE4;&#x662F;&#x5C06;&#x4E00;&#x4E2A;&#x6574;&#x578B;&#x6570;&#x5B57;&#x5B58;&#x50A8;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4E2D;&#x3002;n&#x4EE3;&#x8868;&#x7684;&#x662F;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x533A;&#x4E2D;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x4E14;&#x53EA;&#x80FD;&#x662F;0,1,2,3&#x3002;&#x518D;&#x591A;&#x7684;&#x8BDD;&#x53EA;&#x80FD;&#x7528;&#x53E6;&#x4E00;&#x6761;&#x6307;&#x4EE4;istore&#x4E86;&#xFF0C;&#x8FD9;&#x6761;&#x6307;&#x4EE4;&#x4F1A;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x6570;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x533A;&#x4E2D;&#x7684;&#x4F4D;&#x7F6E;&#x4FE1;&#x606F;&#x3002;</span></span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6761;&#x6307;&#x4EE4;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5185;&#x5B58;&#x5E03;&#x5C40;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A; <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-47-55.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-47-55.png"></p>
+<p>&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x5728;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x7684;&#x8BDD;&#xFF0C;&#x4F60;&#x4F1A;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x53D1;&#x73B0;&#x5982;&#x4E0B;&#x4FE1;&#x606F; <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-09.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-09.png"></p>
+<h3 id="&#x7C7B;&#x5B57;&#x6BB5;">&#x7C7B;&#x5B57;&#x6BB5;</h3>
+<p>java &#x7C7B;&#x91CC;&#x9762;&#x7684;&#x5B57;&#x6BB5;&#x4F5C;&#x4E3A;&#x7C7B;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x5B58;&#x50A8;&#x5728;&#x5806;&#x91CC;(&#x7C7B;&#x53D8;&#x91CF;&#x5B58;&#x50A8;&#x5728;&#x5BF9;&#x5E94;&#x7C7B;&#x5BF9;&#x8C61;&#x91CC;)&#x3002;&#x5173;&#x4E8E;&#x5B57;&#x6BB5;&#x7684;&#x4FE1;&#x606F;&#x4F1A;&#x6DFB;&#x52A0;&#x5230;&#x7C7B;&#x7684;<code>field_info</code> &#x6570;&#x7EC4;&#x91CC;&#xFF0C;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;</p>
+<figure>
+<img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-26.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-26.png"><figcaption>java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-26.png</figcaption>
+</figure>
+<p>&#x53E6;&#x5916;&#x5982;&#x679C;&#x53D8;&#x91CF;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5B57;&#x8282;&#x7801;&#x4F1A;&#x6DFB;&#x52A0;&#x5230;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x91CC;&#x3002; &#x4E0B;&#x9762;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x4E4B;&#x540E;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleClass</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> simpleField = <span class="number">100</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5982;&#x679C;&#x4F60;&#x7528; javap &#x8FDB;&#x884C;&#x53CD;&#x7F16;&#x8BD1;&#xFF0C;&#x8FD9;&#x4E2A;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x4E86; field_info &#x6570;&#x7EC4;&#x91CC;&#x7684;&#x5B57;&#x6BB5;&#x5C31;&#x4F1A;&#x591A;&#x4E86;&#x4E00;&#x6BB5;&#x63CF;&#x8FF0;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> simpleField;</span><br><span class="line">    Signature: I</span><br><span class="line">    flags: ACC_PUBLIC</span><br></pre></td></tr></table></figure>
+<p>&#x521D;&#x59CB;&#x5316;&#x53D8;&#x91CF;&#x7684;&#x5B57;&#x8282;&#x7801;&#x4F1A;&#x88AB;&#x52A0;&#x5230;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x91CC;&#xFF0C;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SimpleClass</span><span class="params">()</span></span>;</span><br><span class="line">  Signature: ()V</span><br><span class="line">  flags: ACC_PUBLIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=<span class="number">2</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">       <span class="number">0</span>: aload_0</span><br><span class="line">       1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">       <span class="number">4</span>: aload_0</span><br><span class="line">       <span class="number">5</span>: bipush        <span class="number">100</span></span><br><span class="line">       7: putfield      #2                  // Field simpleField:I</span><br><span class="line">      <span class="number">10</span>: <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x5185;&#x5B58;&#x91CC;&#x9762;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A; <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-45.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-48-45.png"></p>
+<p>&#x8FD9;&#x91CC;&#x7684; putfield &#x6307;&#x4EE4;&#x7684;&#x64CD;&#x4F5C;&#x6570;&#x5F15;&#x7528;&#x7684;&#x5E38;&#x91CF;&#x6C60;&#x91CC;&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;JVM &#x4F1A;&#x4E3A;&#x6BCF;&#x4E2A;&#x7C7B;&#x578B;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x5E38;&#x91CF;&#x6C60;&#xFF0C;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6709;&#x70B9;&#x7C7B;&#x4F3C;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x8868;&#xFF0C;&#x5C3D;&#x7BA1;&#x5B83;&#x5305;&#x542B;&#x7684;&#x4FE1;&#x606F;&#x66F4;&#x591A;&#x3002;java &#x7684;&#x5B57;&#x8282;&#x7801;&#x64CD;&#x4F5C;&#x9700;&#x8981;&#x5BF9;&#x5E94;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x592A;&#x5927;&#x4E86;&#xFF0C;&#x5B58;&#x50A8;&#x5728;&#x5B57;&#x8282;&#x7801;&#x91CC;&#x4E0D;&#x5408;&#x9002;&#xFF0C;&#x5B83;&#x4EEC;&#x90FD;&#x88AB;&#x5B58;&#x50A8;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x91CC;&#xFF0C;&#x800C;&#x5B57;&#x8282;&#x7801;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x5E38;&#x91CF;&#x6C60;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x5F53;&#x7C7B;&#x6587;&#x4EF6;&#x751F;&#x6210;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x5757;&#x5C31;&#x662F;&#x5E38;&#x91CF;&#x6C60;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #4.#16         //  java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">   #2 = Fieldref           #3.#17         //  SimpleClass.simpleField:I</span><br><span class="line">   #3 = Class              #13            //  SimpleClass</span><br><span class="line">   #4 = Class              #19            //  java/lang/Object</span><br><span class="line">   #5 = Utf8               simpleField</span><br><span class="line">   #6 = Utf8               I</span><br><span class="line">   #7 = Utf8               &lt;init&gt;</span><br><span class="line">   #8 = Utf8               ()V</span><br><span class="line">   #9 = Utf8               Code</span><br><span class="line">  #10 = Utf8               LineNumberTable</span><br><span class="line">  #11 = Utf8               LocalVariableTable</span><br><span class="line">  #12 = Utf8               this</span><br><span class="line">  #13 = Utf8               SimpleClass</span><br><span class="line">  #14 = Utf8               SourceFile</span><br><span class="line">  #15 = Utf8               SimpleClass.java</span><br><span class="line">  #16 = NameAndType        #7:#8          //  &quot;&lt;init&gt;&quot;:()V</span><br><span class="line">  #17 = NameAndType        #5:#6          //  simpleField:I</span><br><span class="line">  #18 = Utf8               LSimpleClass;</span><br><span class="line">  #19 = Utf8               java/lang/Object</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5E38;&#x91CF;&#x5B57;&#x6BB5;&#x7C7B;&#x5E38;&#x91CF;">&#x5E38;&#x91CF;&#x5B57;&#x6BB5;&#xFF08;&#x7C7B;&#x5E38;&#x91CF;&#xFF09;</h3>
+<p>&#x5E26;&#x6709;<code>final</code>&#x6807;&#x8BB0;&#x7684;&#x5E38;&#x91CF;&#x5B57;&#x6BB5;&#x5728;<code>class</code>&#x6587;&#x4EF6;&#x91CC;&#x4F1A;&#x88AB;&#x6807;&#x8BB0;&#x6210;<code>ACC_FINAL</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleClass</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> simpleField = <span class="number">100</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x5B57;&#x6BB5;&#x7684;&#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#x4F1A;&#x6807;&#x8BB0;&#x6210;<code>ACC_FINAL</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> simpleField = <span class="number">100</span>;</span><br><span class="line">    Signature: I</span><br><span class="line">    flags: ACC_PUBLIC, ACC_FINAL</span><br><span class="line">    ConstantValue: <span class="keyword">int</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<p>&#x5BF9;&#x5E94;&#x7684;&#x521D;&#x59CB;&#x5316;&#x4EE3;&#x7801;&#x5E76;&#x4E0D;&#x53D8;&#xFF1A;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span>: aload_0</span><br><span class="line"><span class="number">5</span>: bipush        <span class="number">100</span></span><br><span class="line">7: putfield      #2                  // Field simpleField:I</span><br></pre></td></tr></table></figure>
+<h3 id="&#x9759;&#x6001;&#x53D8;&#x91CF;">&#x9759;&#x6001;&#x53D8;&#x91CF;</h3>
+<p>&#x5E26;&#x6709;<code>static</code>&#x4FEE;&#x9970;&#x7B26;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x5219;&#x4F1A;&#x88AB;&#x6807;&#x8BB0;&#x6210;<code>ACC_STATIC</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> simpleField;</span><br><span class="line">    Signature: I</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br></pre></td></tr></table></figure>
+<p>&#x4E0D;&#x8FC7;&#x5728;&#x5B9E;&#x4F8B;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;&#x5374;&#x518D;&#x4E5F;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x521D;&#x59CB;&#x5316;&#x4EE3;&#x7801;&#x4E86;&#x3002;&#x56E0;&#x4E3A;<code>static</code>&#x53D8;&#x91CF;&#x4F1A;&#x5728;&#x7C7B;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5E76;&#x4E14;&#x5B83;&#x7528;&#x7684;&#x662F;<code>putstatic</code>&#x6307;&#x4EE4;&#x800C;&#x4E0D;&#x662F;<code>putfiled</code>&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> {};</span><br><span class="line">  Signature: ()V</span><br><span class="line">  flags: ACC_STATIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=<span class="number">1</span>, locals=<span class="number">0</span>, args_size=<span class="number">0</span></span><br><span class="line">       <span class="number">0</span>: bipush         <span class="number">100</span></span><br><span class="line">       2: putstatic      #2                  // Field simpleField:I</span><br><span class="line">       <span class="number">5</span>: <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x52A8;&#x6001;&#x94FE;&#x63A5;">&#x52A8;&#x6001;&#x94FE;&#x63A5;</h3>
+<p>&#x6BCF;&#x4E2A;&#x6808;&#x5E27;&#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x8BE5;&#x6808;&#x5E27;&#x6240;&#x5C5E;&#x65B9;&#x6CD5;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x6301;&#x6709;&#x8BE5;&#x5F15;&#x7528;&#x662F;&#x4E3A;&#x4E86;&#x652F;&#x6301;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x52A8;&#x6001;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x52A8;&#x6001;&#x5206;&#x6D3E;&#x5728; Java &#x4E2D;&#x88AB;&#x5927;&#x91CF;&#x4F7F;&#x7528;&#xFF0C;&#x4F7F;&#x7528;&#x9891;&#x7387;&#x53CA;&#x5176;&#x9AD8;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x6BCF;&#x6B21;&#x52A8;&#x6001;&#x5206;&#x6D3E;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x90FD;&#x8981;&#x91CD;&#x65B0;&#x5728;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x5143;&#x6570;&#x636E;&#x4E2D;&#x641C;&#x7D22;&#x5408;&#x9002;&#x7684;&#x76EE;&#x6807;&#x7684;&#x8BDD;&#x5C31;&#x53EF;&#x80FD;&#x5F71;&#x54CD;&#x5230;&#x6267;&#x884C;&#x6548;&#x7387;&#xFF0C;&#x56E0;&#x6B64; JVM &#x5728;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x533A;&#x4E2D;&#x5EFA;&#x7ACB;&#x865A;&#x65B9;&#x6CD5;&#x8868;&#xFF08;virtual method table&#xFF09;&#x6765;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;&#x6BCF;&#x4E2A;&#x7C7B;&#x4E2D;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x865A;&#x65B9;&#x6CD5;&#x8868;&#xFF0C;&#x8868;&#x4E2D;&#x5B58;&#x653E;&#x7740;&#x5404;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x9645;&#x5165;&#x53E3;&#x3002;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x65B9;&#x6CD5;&#x5728;&#x5B50;&#x7C7B;&#x4E2D;&#x6CA1;&#x6709;&#x88AB;&#x91CD;&#x5199;&#xFF0C;&#x90A3;&#x5B50;&#x7C7B;&#x7684;&#x865A;&#x65B9;&#x6CD5;&#x8868;&#x4E2D;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x5730;&#x5740;&#x5165;&#x53E3;&#x548C;&#x7236;&#x7C7B;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x5730;&#x5740;&#x5165;&#x53E3;&#x4E00;&#x6837;&#xFF0C;&#x5373;&#x5B50;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x5165;&#x53E3;&#x6307;&#x5411;&#x7236;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x5165;&#x53E3;&#x3002;&#x5982;&#x679C;&#x5B50;&#x7C7B;&#x91CD;&#x5199;&#x7236;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x90A3;&#x4E48;&#x5B50;&#x7C7B;&#x7684;&#x865A;&#x65B9;&#x6CD5;&#x8868;&#x4E2D;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x9645;&#x5165;&#x53E3;&#x5C06;&#x4F1A;&#x88AB;&#x66FF;&#x6362;&#x4E3A;&#x6307;&#x5411;&#x5B50;&#x7C7B;&#x5B9E;&#x73B0;&#x7248;&#x672C;&#x7684;&#x5165;&#x53E3;&#x5730;&#x5740;&#x3002;<br>
+&#x90A3;&#x4E48;&#x865A;&#x65B9;&#x6CD5;&#x8868;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x88AB;&#x521B;&#x5EFA;&#xFF1F;&#x865A;&#x65B9;&#x6CD5;&#x8868;&#x4F1A;&#x5728;&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x8FDE;&#x63A5;&#x9636;&#x6BB5;&#x88AB;&#x521B;&#x5EFA;&#x5E76;&#x5F00;&#x59CB;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x7C7B;&#x7684;&#x53D8;&#x91CF;&#x521D;&#x59CB;&#x503C;&#x51C6;&#x5907;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;JVM &#x4F1A;&#x628A;&#x8BE5;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x8868;&#x4E5F;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6BD5;&#x3002;</p>
+<h3 id="&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;">&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;</h3>
+<p>&#x51B3;&#x5B9A;&#x5F53;&#x524D;&#x6267;&#x884C;&#x7684;&#x6307;&#x4EE4;</p>
+<h3 id="&#x793A;&#x4F8B;">&#x793A;&#x4F8B;</h3>
+<h4 id="&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x7C7B;&#x6211;&#x4EEC;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x5176;&#x5B57;&#x8282;&#x7801;">&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x7C7B;&#x6211;&#x4EEC;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x5176;&#x5B57;&#x8282;&#x7801;</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> String employeeName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">employeeName</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.employeeName;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;&#x5176;&#x5B57;&#x8282;&#x7801;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">Classfile /Users/li/Downloads/Test.class</span><br><span class="line">  Last modified Mar <span class="number">15</span>, <span class="number">2018</span>; size <span class="number">309</span> bytes</span><br><span class="line">  MD5 checksum <span class="number">4553</span>b41dee731dd099687198deb75de7</span><br><span class="line">  Compiled from <span class="string">&quot;Test.java&quot;</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line">  minor version: 0</span><br><span class="line">  major version: <span class="number">52</span></span><br><span class="line">  flags: ACC_PUBLIC, ACC_SUPER</span><br><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #4.#15         // java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">   #2 = Fieldref           #3.#16         // Test.name:Ljava/lang/String;</span><br><span class="line">   #3 = Class              #17            // Test</span><br><span class="line">   #4 = Class              #18            // java/lang/Object</span><br><span class="line">   #5 = Utf8               name</span><br><span class="line">   #6 = Utf8               Ljava/lang/String;</span><br><span class="line">   #7 = Utf8               &lt;init&gt;</span><br><span class="line">   #8 = Utf8               ()V</span><br><span class="line">   #9 = Utf8               Code</span><br><span class="line">  #10 = Utf8               LineNumberTable</span><br><span class="line">  #11 = Utf8               employeeName</span><br><span class="line">  #12 = Utf8               ()Ljava/lang/String;</span><br><span class="line">  #13 = Utf8               SourceFile</span><br><span class="line">  #14 = Utf8               Test.java</span><br><span class="line">  #15 = NameAndType        #7:#8          // &quot;&lt;init&gt;&quot;:()V</span><br><span class="line">  #16 = NameAndType        #5:#6          // name:Ljava/lang/String;</span><br><span class="line">  #17 = Utf8               Test</span><br><span class="line">  #18 = Utf8               java/lang/Object</span><br><span class="line">{</span><br><span class="line">  java.lang.String name;</span><br><span class="line">    descriptor: Ljava/lang/String;</span><br><span class="line">    flags:</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Test</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">         <span class="number">4</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">1</span>: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> java.lang.<span class="function">String <span class="title">employeeName</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()Ljava/lang/String;</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: getfield      #2                  // Field name:Ljava/lang/String;</span><br><span class="line">         <span class="number">4</span>: areturn</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">4</span>: <span class="number">0</span></span><br><span class="line">}</span><br><span class="line">SourceFile: <span class="string">&quot;Test.java&quot;</span></span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;(line 44)&#x7684;&#x5B57;&#x8282;&#x7801;&#x6709;&#x4E09;&#x4E2A;&#x64CD;&#x4F5C;&#x7801;&#x7EC4;&#x6210;&#x3002;</p>
+<ol type="1">
+<li>&#x7B2C;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x7801; aload_0&#xFF0C;&#x7528;&#x4E8E;&#x5C06;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x7D22;&#x5F15;&#x4E3A; 0 &#x7684;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x63A8;&#x9001;&#x5230;&#x64CD;&#x4F5C;&#x6808;&#x4E0A;&#x3002;&#x524D;&#x9762;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x4E3A;&#x65B9;&#x6CD5;&#x4F20;&#x9012;&#x53C2;&#x6570;&#x7684;&#xFF0C;&#x6784;&#x9020;&#x5668;&#x548C;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x7684; this &#x5F15;&#x7528;&#x603B;&#x662F;&#x5B58;&#x653E;&#x5728;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x7684;&#x5730;&#x5740; 0 &#x5904;&#xFF0C;this &#x5F15;&#x7528;&#x5FC5;&#x987B;&#x5165;&#x6808;&#xFF0C;&#x56E0;&#x4E3A;&#x65B9;&#x6CD5;&#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5B9E;&#x4F8B;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x540D;&#x79F0;&#x548C;&#x7C7B;&#x3002;</li>
+<li>&#x7B2C;&#x4E8C;&#x4E2A;&#x64CD;&#x4F5C;&#x7801; getfield&#xFF0C;&#x7528;&#x4E8E;&#x4ECE;&#x5BF9;&#x8C61;&#x4E2D;&#x63D0;&#x53D6;&#x5B57;&#x6BB5;&#x3002;&#x5F53;&#x8BE5;&#x64CD;&#x4F5C;&#x7801;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x64CD;&#x4F5C;&#x6808;&#x9876;&#x7684;&#x503C;&#x5C31;&#x4F1A;&#x5F39;&#x51FA;(pop)&#xFF0C;&#x7136;&#x540E;&#xFF03;2 &#x5C31;&#x7528;&#x6765;&#x5728;&#x7C7B;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x5B58;&#x653E;&#x5B57;&#x6BB5; name &#x5F15;&#x7528;&#x5730;&#x5740;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x5F53;&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x88AB;&#x63D0;&#x53D6;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x88AB;&#x63A8;&#x9001;&#x5230;&#x64CD;&#x4F5C;&#x6808;&#x4E0A;&#x3002;</li>
+<li>&#x7B2C;&#x4E09;&#x4E2A;&#x64CD;&#x4F5C;&#x7801; areturn&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6765;&#x81EA;&#x65B9;&#x6CD5;&#x7684;&#x5F15;&#x7528;&#x3002;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#x7684;&#x662F;&#xFF0C;areturn &#x7684;&#x6267;&#x884C;&#x4F1A;&#x5BFC;&#x81F4;&#x64CD;&#x4F5C;&#x6808;&#x9876;&#x7684;&#x503C;&#xFF0C;name &#x5B57;&#x6BB5;&#x7684; &#x5F15;&#x7528;&#x90FD;&#x4F1A;&#x88AB;&#x5F39;&#x51FA;&#xFF0C;&#x7136;&#x540E;&#x63A8;&#x9001;&#x5230;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x7684;&#x64CD;&#x4F5C;&#x6808;&#x3002;</li>
+</ol>
+<p>employeeName &#x7684;&#x65B9;&#x6CD5;&#x76F8;&#x5F53;&#x7B80;&#x5355;&#xFF0C;&#x5728;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x66F4;&#x590D;&#x6742;&#x7684;&#x4F8B;&#x5B50;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x68C0;&#x67E5;&#x6BCF;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x7801;&#x5DE6;&#x8FB9;&#x7684;&#x503C;&#x3002;&#x5728; employeeName &#x7684;&#x65B9;&#x6CD5;&#x7684;&#x5B57;&#x8282;&#x7801;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E9B;&#x503C;&#x662F; 0&#xFF0C;1&#xFF0C;4&#x3002;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684;&#x5B57;&#x8282;&#x7801;&#x6570;&#x7EC4;&#x3002;&#x8FD9;&#x4E9B;&#x503C;&#x5BF9;&#x5E94;&#x6BCF;&#x4E2A;&#x64CD;&#x4F5C;&#x7801;&#x548C;&#x5B83;&#x4EEC;&#x5728;&#x53C2;&#x6570;&#x6570;&#x7EC4;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#x7801;&#x542B;&#x6709;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x4F1A;&#x5360;&#x636E;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x7684;&#x7A7A;&#x95F4;&#x3002;aload_0 &#x6CA1;&#x6709;&#x53C2;&#x6570;&#xFF0C;&#x81EA;&#x7136;&#x800C;&#x7136;&#x5C31;&#x5360;&#x636E;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x4E0B;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x7801; getfield&#xFF0C;&#x5C31;&#x5728;&#x4F4D;&#x7F6E; 1 &#x4E0A;&#xFF0C;&#x7136;&#x800C; areturn &#x5728;&#x4F4D;&#x7F6E; 4 &#x4E0A;&#xFF0C;&#x56E0;&#x4E3A; getfield &#x64CD;&#x4F5C;&#x7801;&#x548C;&#x4ED6;&#x7684;&#x53C2;&#x6570;&#x5360;&#x636E;&#x4E86;&#x4F4D;&#x7F6E; 1&#xFF0C;2&#xFF0C;3&#x3002;&#x4F4D;&#x7F6E; 1 &#x88AB;&#x64CD;&#x4F5C;&#x7801; getfield &#x4F7F;&#x7528;&#xFF0C;&#x4F4D;&#x7F6E; 2&#xFF0C;3 &#x88AB;&#x7528;&#x4E8E;&#x5B58;&#x653E;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x7528;&#x4E8E;&#x6784;&#x6210;&#x5728;&#x7C7B;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x653E;&#x503C;&#x7684;&#x5730;&#x65B9;&#x7684;&#x4E00;&#x4E2A;&#x7D22;&#x5F15;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x56FE;&#xFF0C;&#x5C55;&#x793A;&#x4E86; employeeName &#x7684;&#x65B9;&#x6CD5;&#x7684;&#x5B57;&#x8282;&#x7801;&#x6570;&#x6570;&#x7EC4;&#x770B;&#x8D77;&#x6765;&#x7684;&#x6837;&#x5B50; <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-50-00.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-50-00.png"> &#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x5B57;&#x8282;&#x7801;&#x6570;&#x7EC4;&#x5305;&#x542B;&#x4EE3;&#x8868;&#x6307;&#x4EE4;&#x7684;&#x5B57;&#x8282;&#x3002;&#x4F7F;&#x7528;&#x4E00;&#x4E2A; 16 &#x8FDB;&#x5236;&#x7684;&#x7F16;&#x8F91;&#x5668;&#x67E5;&#x770B; class &#x6587;&#x4EF6;&#xFF0C;&#x53EF;&#x80FD;&#x770B;&#x5230;&#x5B57;&#x8282;&#x7801;&#x6570;&#x7EC4;&#x4E2D;&#x6709;&#x4E0B;&#x9762;&#x7684;&#x503C; <img src="/images/java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-50-44.png" alt="java&#x5B57;&#x8282;&#x7801;_2020-04-23-10-50-44.png"></p>
+<h4 id="&#x901A;&#x8FC7;&#x5B57;&#x8282;&#x7801;&#x5206;&#x6790;synchronized&#x65B9;&#x6CD5;&#x548C;synchronized&#x4EE3;&#x7801;&#x5757;&#x7684;&#x533A;&#x522B;">&#x901A;&#x8FC7;&#x5B57;&#x8282;&#x7801;&#x5206;&#x6790;<code>synchronized</code>&#x65B9;&#x6CD5;&#x548C;<code>synchronized</code>&#x4EE3;&#x7801;&#x5757;&#x7684;&#x533A;&#x522B;</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">top1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">return</span> intArr[<span class="number">0</span>];</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line"> <span class="keyword">synchronized</span> (<span class="keyword">this</span>) {</span><br><span class="line">  <span class="keyword">return</span> intArr[<span class="number">0</span>];</span><br><span class="line"> }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Method <span class="keyword">int</span> <span class="title">top1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">   0 aload_0           <span class="comment">//&#x5C06;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x7D22;&#x5F15;&#x4E3A;0&#x7684;&#x5BF9;&#x8C61;&#x5F15;&#x7528;this&#x5165;&#x6808;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   1 getfield #6 &lt;Field <span class="keyword">int</span> intArr[]&gt;</span></span><br><span class="line"><span class="function">                       <span class="comment">//&#x5F39;&#x51FA;&#x5BF9;&#x8C61;&#x5F15;&#x7528;this&#xFF0C;&#x5C06;&#x8BBF;&#x95EE;&#x5E38;&#x91CF;&#x6C60;&#x7684;intArr&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x5165;&#x6808;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   4 iconst_0          <span class="comment">//&#x5C06;0&#x5165;&#x6808;&#x3002;</span></span></span><br><span class="line"><span class="function">   5 iaload            <span class="comment">//&#x5F39;&#x51FA;&#x6808;&#x9876;&#x7684;&#x4E24;&#x4E2A;&#x503C;&#xFF0C;&#x5C06;intArr&#x4E2D;&#x7D22;&#x5F15;&#x4E3A;0&#x7684;&#x503C;&#x5165;&#x6808;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   6 ireturn           <span class="comment">//&#x5F39;&#x51FA;&#x6808;&#x9876;&#x7684;&#x503C;&#xFF0C;&#x5C06;&#x5176;&#x538B;&#x5165;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x7684;&#x64CD;&#x4F5C;&#x6808;&#xFF0C;&#x5E76;&#x9000;&#x51FA;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Method <span class="keyword">int</span> <span class="title">top2</span><span class="params">()</span></span></span><br><span class="line"><span class="function">   0 aload_0           <span class="comment">//&#x5C06;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x7D22;&#x5F15;&#x4E3A;0&#x7684;&#x5BF9;&#x8C61;&#x5F15;&#x7528;this&#x5165;&#x6808;&#x3002;</span></span></span><br><span class="line"><span class="function">   1 astore_2          <span class="comment">//&#x5F39;&#x51FA;this&#x5F15;&#x7528;&#xFF0C;&#x5B58;&#x653E;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x7D22;&#x5F15;&#x4E3A;2&#x7684;&#x5730;&#x65B9;&#x3002;</span></span></span><br><span class="line"><span class="function">   2 aload_2           <span class="comment">//&#x5C06;this&#x5F15;&#x7528;&#x5165;&#x6808;&#x3002;</span></span></span><br><span class="line"><span class="function">   3 monitorenter      <span class="comment">//&#x5F39;&#x51FA;this&#x5F15;&#x7528;&#xFF0C;&#x83B7;&#x53D6;&#x5BF9;&#x8C61;&#x7684;&#x76D1;&#x89C6;&#x5668;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   4 aload_0           <span class="comment">//&#x5F00;&#x59CB;&#x8FDB;&#x5165;&#x540C;&#x6B65;&#x5757;&#x3002;&#x5C06;this&#x5F15;&#x7528;&#x538B;&#x5165;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x7D22;&#x5F15;&#x4E3A;0&#x7684;&#x5730;&#x65B9;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   5 getfield #6 &lt;Field <span class="keyword">int</span> intArr[]&gt;</span></span><br><span class="line"><span class="function">                       <span class="comment">//&#x5F39;&#x51FA;this&#x5F15;&#x7528;&#xFF0C;&#x538B;&#x5165;&#x8BBF;&#x95EE;&#x5E38;&#x91CF;&#x6C60;&#x7684;intArr&#x5F15;&#x7528;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   8 iconst_0          <span class="comment">//&#x538B;&#x5165;0&#x3002;</span></span></span><br><span class="line"><span class="function">   9 iaload            <span class="comment">//&#x5F39;&#x51FA;&#x9876;&#x90E8;&#x7684;&#x4E24;&#x4E2A;&#x503C;&#xFF0C;&#x538B;&#x5165;intArr&#x7D22;&#x5F15;&#x4E3A;0&#x7684;&#x503C;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  10 istore_1          <span class="comment">//&#x5F39;&#x51FA;&#x503C;&#xFF0C;&#x5C06;&#x5B83;&#x5B58;&#x653E;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x7D22;&#x5F15;&#x4E3A;1&#x7684;&#x5730;&#x65B9;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  11 jsr 19            <span class="comment">//&#x538B;&#x5165;&#x4E0B;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x7801;(14)&#x7684;&#x5730;&#x5740;&#xFF0C;&#x5E76;&#x8DF3;&#x8F6C;&#x5230;&#x4F4D;&#x7F6E;19&#x3002;</span></span></span><br><span class="line"><span class="function">  14 iload_1           <span class="comment">//&#x538B;&#x5165;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x4E2D;&#x7D22;&#x5F15;&#x4E3A;1&#x7684;&#x503C;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  15 ireturn           <span class="comment">//&#x5F39;&#x51FA;&#x9876;&#x90E8;&#x7684;&#x503C;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x538B;&#x5165;&#x5230;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x7684;&#x64CD;&#x4F5C;&#x6808;&#x4E2D;&#xFF0C;&#x9000;&#x51FA;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  16 aload_2           <span class="comment">//&#x540C;&#x6B65;&#x5757;&#x7ED3;&#x675F;&#x3002;&#x5C06;this&#x5F15;&#x7528;&#x538B;&#x5165;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x7D22;&#x5F15;&#x4E3A;2&#x7684;&#x5730;&#x65B9;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  17 monitorexit       <span class="comment">//&#x5F39;&#x51FA;this&#x5F15;&#x7528;&#xFF0C;&#x9000;&#x51FA;&#x76D1;&#x89C6;&#x5668;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  18 athrow            <span class="comment">//&#x5F39;&#x51FA;this&#x5F15;&#x7528;&#xFF0C;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  19 astore_3          <span class="comment">//&#x5F39;&#x51FA;&#x8FD4;&#x56DE;&#x5730;&#x5740;(14)&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x5B58;&#x653E;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x7D22;&#x5F15;&#x4E3A;3&#x7684;&#x5730;&#x65B9;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  20 aload_2           <span class="comment">//&#x5C06;this&#x5F15;&#x7528;&#x538B;&#x5165;&#x5230;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7D22;&#x5F15;&#x4E3A;2&#x7684;&#x5730;&#x65B9;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  21 monitorexit       <span class="comment">//&#x5F39;&#x51FA;this&#x5F15;&#x7528;&#xFF0C;&#x5E76;&#x9000;&#x51FA;&#x76D1;&#x89C6;&#x5668;&#x3002;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  22 ret 3             <span class="comment">//&#x4ECE;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x8868;&#x7D22;&#x5F15;&#x4E3A;3&#x7684;&#x503C;(14)&#x6307;&#x793A;&#x7684;&#x5730;&#x65B9;&#x8FD4;&#x56DE;&#x3002;</span></span></span><br><span class="line"><span class="function">Exception table:       <span class="comment">//&#x5982;&#x679C;&#x5728;&#x4F4D;&#x7F6E;4(&#x5305;&#x62EC;4)&#x548C;&#x4F4D;&#x7F6E;16(&#x6392;&#x9664;16)&#x4E2D;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x8DF3;&#x8F6C;&#x5230;&#x4F4D;&#x7F6E;16.</span></span></span><br><span class="line"><span class="function">from to target type</span></span><br><span class="line"><span class="function"> 4   16   16   any</span></span><br></pre></td></tr></table></figure>
+<p>top2 &#x6BD4; top1 &#x5927;&#xFF0C;&#x6267;&#x884C;&#x8FD8;&#x6162;&#xFF0C;&#x662F;&#x56E0;&#x4E3A; top2 &#x91C7;&#x53D6;&#x7684;&#x540C;&#x6B65;&#x548C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x3002;&#x6CE8;&#x610F;&#x5230; top1 &#x91C7;&#x7528; synchronized &#x65B9;&#x6CD5;&#x4FEE;&#x9970;&#x7B26;&#xFF0C;&#x8FD9;&#x4E0D;&#x4F1A;&#x4EA7;&#x751F;&#x989D;&#x5916;&#x7684;&#x5B57;&#x8282;&#x7801;&#x3002;&#x76F8;&#x53CD; top2 &#x5728;&#x65B9;&#x6CD5;&#x4F53;&#x5185;&#x4F7F;&#x7528; synchronized &#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#xFF0C;&#x4F1A;&#x4EA7;&#x751F; monitorenter &#x548C; monitorexit &#x64CD;&#x4F5C;&#x7801;&#x7684;&#x5B57;&#x8282;&#x7801;&#xFF0C;&#x8FD8;&#x6709;&#x989D;&#x5916;&#x7684;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x7684;&#x5B57;&#x8282;&#x7801;&#x3002;&#x5982;&#x679C;&#x6267;&#x884C;&#x5230;&#x4E00;&#x4E2A;&#x540C;&#x6B65;&#x9501;&#x7684;&#x5757;(&#x4E00;&#x4E2A;&#x76D1;&#x89C6;&#x5668;)&#x5185;&#x90E8;&#x65F6;&#xFF0C;&#x629B;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;&#xFF0C;&#x8FD9;&#x4E2A;&#x9501;&#x8981;&#x4FDD;&#x8BC1;&#x5728;&#x9000;&#x51FA;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x524D;&#x88AB;&#x91CA;&#x653E;&#x3002;top1 &#x7684;&#x5B9E;&#x73B0;&#x8981;&#x6BD4; top2 &#x7684;&#x6548;&#x7387;&#x9AD8;&#x4E00;&#x4E9B;&#xFF0C;&#x8FD9;&#x80FD;&#x83B7;&#x53D6;&#x4E00;&#x4E01;&#x70B9;&#x7684;&#x6027;&#x80FD;&#x63D0;&#x5347;&#x3002;</p>
+<p>&#x5F53; synchronized &#x65B9;&#x6CD5;&#x4FEE;&#x9970;&#x7B26;&#x51FA;&#x73B0;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9501;&#x7684;&#x83B7;&#x53D6;&#x548C;&#x91CA;&#x653E;&#x4E0D;&#x662F;&#x901A;&#x8FC7; monitorenter &#x548C; monitorexit &#x64CD;&#x4F5C;&#x7801;&#x6765;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x800C;&#x662F;&#x5728; JVM &#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5B83;&#x68C0;&#x67E5; ACC_SYNCHRONIZED &#x5C5E;&#x6027;&#x7684;&#x6807;&#x8BC6;&#x3002;&#x5982;&#x679C;&#x6709;&#x8FD9;&#x4E2A;&#x6807;&#x8BC6;&#xFF0C;&#x6B63;&#x5728;&#x6267;&#x884C;&#x7684;&#x7EBF;&#x7A0B;&#x5C06;&#x4F1A;&#x5148;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x9501;&#xFF0C;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x7136;&#x540E;&#x5728;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x65F6;&#x91CA;&#x653E;&#x9501;&#x3002;&#x5982;&#x679C;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;&#x5728;&#x5F02;&#x5E38;&#x79BB;&#x5F00;&#x65B9;&#x6CD5;&#x524D;&#x4F1A;&#x81EA;&#x52A8;&#x91CA;&#x653E;&#x9501;&#x3002;</p>
+<h2 id="&#x5E38;&#x7528;&#x5B57;&#x8282;&#x7801;&#x6307;&#x4EE4;&#x96C6;">&#x5E38;&#x7528;&#x5B57;&#x8282;&#x7801;&#x6307;&#x4EE4;&#x96C6;</h2>
+<p><em>Note that any referenced &quot;value&quot; refers to a 32-bit int as per the Java instruction set.</em></p>
+<table>
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 31%">
+<col style="width: 15%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Mnemonic</th>
+<th style="text-align: center;">Opcode <em>(in hex)</em></th>
+<th style="text-align: center;">Opcode (in binary)</th>
+<th style="text-align: center;">Other bytes [count]: [operand labels]</th>
+<th style="text-align: center;">Stack [before]&#x2192;[after]</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><em>(no name)</em></td>
+<td style="text-align: center;">cb-fd</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">these values are currently unassigned for opcodes and are reserved for future use</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aaload</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">0011 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load onto the stack a reference from an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">aastore</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">0101 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store into a reference in an array</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aconst_null</td>
+<td style="text-align: center;">01</td>
+<td style="text-align: center;">0000 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; null</td>
+<td style="text-align: left;">push a <em>null</em> reference onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">aload</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">0001 1001</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">&#x2192; objectref</td>
+<td style="text-align: left;">load a reference onto the stack from a local variable <em>#index</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aload_0</td>
+<td style="text-align: center;">2a</td>
+<td style="text-align: center;">0010 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; objectref</td>
+<td style="text-align: left;">load a reference onto the stack from local variable 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">aload_1</td>
+<td style="text-align: center;">2b</td>
+<td style="text-align: center;">0010 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; objectref</td>
+<td style="text-align: left;">load a reference onto the stack from local variable 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aload_2</td>
+<td style="text-align: center;">2c</td>
+<td style="text-align: center;">0010 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; objectref</td>
+<td style="text-align: left;">load a reference onto the stack from local variable 2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">aload_3</td>
+<td style="text-align: center;">2d</td>
+<td style="text-align: center;">0010 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; objectref</td>
+<td style="text-align: left;">load a reference onto the stack from local variable 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">anewarray</td>
+<td style="text-align: center;">bd</td>
+<td style="text-align: center;">1011 1101</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">count &#x2192; arrayref</td>
+<td style="text-align: left;">create a new array of references of length <em>count</em> and component type identified by the class reference <em>index</em> (indexbyte1 &lt;&lt; 8 + indexbyte2) in the constant pool</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">areturn</td>
+<td style="text-align: center;">b0</td>
+<td style="text-align: center;">1011 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192; [empty]</td>
+<td style="text-align: left;">return a reference from a method</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">arraylength</td>
+<td style="text-align: center;">be</td>
+<td style="text-align: center;">1011 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref &#x2192; length</td>
+<td style="text-align: left;">get the length of an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">astore</td>
+<td style="text-align: center;">3a</td>
+<td style="text-align: center;">0011 1010</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">store a reference into a local variable <em>#index</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">astore_0</td>
+<td style="text-align: center;">4b</td>
+<td style="text-align: center;">0100 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">store a reference into local variable 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">astore_1</td>
+<td style="text-align: center;">4c</td>
+<td style="text-align: center;">0100 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">store a reference into local variable 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">astore_2</td>
+<td style="text-align: center;">4d</td>
+<td style="text-align: center;">0100 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">store a reference into local variable 2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">astore_3</td>
+<td style="text-align: center;">4e</td>
+<td style="text-align: center;">0100 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">store a reference into local variable 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">athrow</td>
+<td style="text-align: center;">bf</td>
+<td style="text-align: center;">1011 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192; [empty], objectref</td>
+<td style="text-align: left;">throws an error or exception (notice that the rest of the stack is cleared, leaving only a reference to the Throwable)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">baload</td>
+<td style="text-align: center;">33</td>
+<td style="text-align: center;">0011 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load a byte or Boolean value from an array</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">bastore</td>
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">0101 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store a byte or Boolean value into an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">bipush</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">0001 0000</td>
+<td style="text-align: center;">1: byte</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">push a <em>byte</em> onto the stack as an integer <em>value</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">breakpoint</td>
+<td style="text-align: center;">ca</td>
+<td style="text-align: center;">1100 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">reserved for breakpoints in Java debuggers; should not appear in any class file</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">caload</td>
+<td style="text-align: center;">34</td>
+<td style="text-align: center;">0011 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load a char from an array</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">castore</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">0101 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store a char into an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">checkcast</td>
+<td style="text-align: center;">c0</td>
+<td style="text-align: center;">1100 0000</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">objectref &#x2192; objectref</td>
+<td style="text-align: left;">checks whether an <em>objectref</em> is of a certain type, the class reference of which is in the constant pool at <em>index</em> (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">d2f</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">1001 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a double to a float</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">d2i</td>
+<td style="text-align: center;">8e</td>
+<td style="text-align: center;">1000 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a double to an int</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">d2l</td>
+<td style="text-align: center;">8f</td>
+<td style="text-align: center;">1000 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a double to a long</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dadd</td>
+<td style="text-align: center;">63</td>
+<td style="text-align: center;">0110 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">add two doubles</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">daload</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">0011 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load a double from an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dastore</td>
+<td style="text-align: center;">52</td>
+<td style="text-align: center;">0101 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store a double into an array</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dcmpg</td>
+<td style="text-align: center;">98</td>
+<td style="text-align: center;">1001 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">compare two doubles</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dcmpl</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">1001 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">compare two doubles</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dconst_0</td>
+<td style="text-align: center;">0e</td>
+<td style="text-align: center;">0000 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 0.0</td>
+<td style="text-align: left;">push the constant <em>0.0</em> (a <em>double</em>) onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dconst_1</td>
+<td style="text-align: center;">0f</td>
+<td style="text-align: center;">0000 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 1.0</td>
+<td style="text-align: left;">push the constant <em>1.0</em> (a <em>double</em>) onto the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ddiv</td>
+<td style="text-align: center;">6f</td>
+<td style="text-align: center;">0110 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">divide two doubles</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dload</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">0001 1000</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a double <em>value</em> from a local variable <em>#index</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dload_0</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">0010 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a double from local variable 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dload_1</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">0010 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a double from local variable 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dload_2</td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">0010 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a double from local variable 2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dload_3</td>
+<td style="text-align: center;">29</td>
+<td style="text-align: center;">0010 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a double from local variable 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dmul</td>
+<td style="text-align: center;">6b</td>
+<td style="text-align: center;">0110 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">multiply two doubles</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dneg</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">0111 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">negate a double</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">drem</td>
+<td style="text-align: center;">73</td>
+<td style="text-align: center;">0111 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">get the remainder from a division between two doubles</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dreturn</td>
+<td style="text-align: center;">af</td>
+<td style="text-align: center;">1010 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; [empty]</td>
+<td style="text-align: left;">return a double from a method</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dstore</td>
+<td style="text-align: center;">39</td>
+<td style="text-align: center;">0011 1001</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a double <em>value</em> into a local variable <em>#index</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dstore_0</td>
+<td style="text-align: center;">47</td>
+<td style="text-align: center;">0100 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a double into local variable 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dstore_1</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;">0100 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a double into local variable 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dstore_2</td>
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">0100 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a double into local variable 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dstore_3</td>
+<td style="text-align: center;">4a</td>
+<td style="text-align: center;">0100 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a double into local variable 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dsub</td>
+<td style="text-align: center;">67</td>
+<td style="text-align: center;">0110 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">subtract a double from another</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dup</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">0101 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; value, value</td>
+<td style="text-align: left;">duplicate the value on top of the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dup2</td>
+<td style="text-align: center;">5c</td>
+<td style="text-align: center;">0101 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">{value2, value1} &#x2192; {value2, value1}, {value2, value1}</td>
+<td style="text-align: left;">duplicate top two stack words (two values, if value1 is not double nor long; a single value, if value1 is double or long)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dup2_x1</td>
+<td style="text-align: center;">5d</td>
+<td style="text-align: center;">0101 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value3, {value2, value1} &#x2192; {value2, value1}, value3, {value2, value1}</td>
+<td style="text-align: left;">duplicate two words and insert beneath third word (see explanation above)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dup2_x2</td>
+<td style="text-align: center;">5e</td>
+<td style="text-align: center;">0101 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">{value4, value3}, {value2, value1} &#x2192; {value2, value1}, {value4, value3}, {value2, value1}</td>
+<td style="text-align: left;">duplicate two words and insert beneath fourth word</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dup_x1</td>
+<td style="text-align: center;">5a</td>
+<td style="text-align: center;">0101 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value2, value1 &#x2192; value1, value2, value1</td>
+<td style="text-align: left;">insert a copy of the top value into the stack two values from the top. value1 and value2 must not be of the type double or long.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dup_x2</td>
+<td style="text-align: center;">5b</td>
+<td style="text-align: center;">0101 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value3, value2, value1 &#x2192; value1, value3, value2, value1</td>
+<td style="text-align: left;">insert a copy of the top value into the stack two (if value2 is double or long it takes up the entry of value3, too) or three values (if value2 is neither double nor long) from the top</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">f2d</td>
+<td style="text-align: center;">8d</td>
+<td style="text-align: center;">1000 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a float to a double</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">f2i</td>
+<td style="text-align: center;">8b</td>
+<td style="text-align: center;">1000 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a float to an int</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">f2l</td>
+<td style="text-align: center;">8c</td>
+<td style="text-align: center;">1000 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a float to a long</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fadd</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">0110 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">add two floats</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">faload</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">0011 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load a float from an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fastore</td>
+<td style="text-align: center;">51</td>
+<td style="text-align: center;">0101 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store a float in an array</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fcmpg</td>
+<td style="text-align: center;">96</td>
+<td style="text-align: center;">1001 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">compare two floats</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fcmpl</td>
+<td style="text-align: center;">95</td>
+<td style="text-align: center;">1001 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">compare two floats</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fconst_0</td>
+<td style="text-align: center;">0b</td>
+<td style="text-align: center;">0000 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 0.0f</td>
+<td style="text-align: left;">push <em>0.0f</em> on the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fconst_1</td>
+<td style="text-align: center;">0c</td>
+<td style="text-align: center;">0000 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 1.0f</td>
+<td style="text-align: left;">push <em>1.0f</em> on the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fconst_2</td>
+<td style="text-align: center;">0d</td>
+<td style="text-align: center;">0000 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 2.0f</td>
+<td style="text-align: left;">push <em>2.0f</em> on the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fdiv</td>
+<td style="text-align: center;">6e</td>
+<td style="text-align: center;">0110 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">divide two floats</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fload</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">0001 0111</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a float <em>value</em> from a local variable <em>#index</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fload_0</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">0010 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a float <em>value</em> from local variable 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fload_1</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">0010 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a float <em>value</em> from local variable 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fload_2</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">0010 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a float <em>value</em> from local variable 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fload_3</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">0010 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a float <em>value</em> from local variable 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fmul</td>
+<td style="text-align: center;">6a</td>
+<td style="text-align: center;">0110 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">multiply two floats</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fneg</td>
+<td style="text-align: center;">76</td>
+<td style="text-align: center;">0111 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">negate a float</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">frem</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">0111 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">get the remainder from a division between two floats</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">freturn</td>
+<td style="text-align: center;">ae</td>
+<td style="text-align: center;">1010 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; [empty]</td>
+<td style="text-align: left;">return a float</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fstore</td>
+<td style="text-align: center;">38</td>
+<td style="text-align: center;">0011 1000</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a float <em>value</em> into a local variable <em>#index</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fstore_0</td>
+<td style="text-align: center;">43</td>
+<td style="text-align: center;">0100 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a float <em>value</em> into local variable 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fstore_1</td>
+<td style="text-align: center;">44</td>
+<td style="text-align: center;">0100 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a float <em>value</em> into local variable 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fstore_2</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">0100 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a float <em>value</em> into local variable 2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fstore_3</td>
+<td style="text-align: center;">46</td>
+<td style="text-align: center;">0100 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a float <em>value</em> into local variable 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">fsub</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">0110 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">subtract two floats</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">getfield</td>
+<td style="text-align: center;">b4</td>
+<td style="text-align: center;">1011 0100</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">objectref &#x2192; value</td>
+<td style="text-align: left;">get a field <em>value</em> of an object <em>objectref</em>, where the field is identified by field reference in the constant pool <em>index</em> (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">getstatic</td>
+<td style="text-align: center;">b2</td>
+<td style="text-align: center;">1011 0010</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">get a static field <em>value</em> of a class, where the field is identified by field reference in the constant pool <em>index</em> (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">goto</td>
+<td style="text-align: center;">a7</td>
+<td style="text-align: center;">1010 0111</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">[no change]</td>
+<td style="text-align: left;">goes to another instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">goto_w</td>
+<td style="text-align: center;">c8</td>
+<td style="text-align: center;">1100 1000</td>
+<td style="text-align: center;">4: branchbyte1, branchbyte2, branchbyte3, branchbyte4</td>
+<td style="text-align: center;">[no change]</td>
+<td style="text-align: left;">goes to another instruction at <em>branchoffset</em> (signed int constructed from unsigned bytes branchbyte1 &lt;&lt; 24 + branchbyte2 &lt;&lt; 16 + branchbyte3 &lt;&lt; 8 + branchbyte4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">i2b</td>
+<td style="text-align: center;">91</td>
+<td style="text-align: center;">1001 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert an int into a byte</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">i2c</td>
+<td style="text-align: center;">92</td>
+<td style="text-align: center;">1001 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert an int into a character</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">i2d</td>
+<td style="text-align: center;">87</td>
+<td style="text-align: center;">1000 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert an int into a double</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">i2f</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">1000 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert an int into a float</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">i2l</td>
+<td style="text-align: center;">85</td>
+<td style="text-align: center;">1000 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert an int into a long</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">i2s</td>
+<td style="text-align: center;">93</td>
+<td style="text-align: center;">1001 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert an int into a short</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iadd</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">0110 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">add two ints</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iaload</td>
+<td style="text-align: center;">2e</td>
+<td style="text-align: center;">0010 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load an int from an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iand</td>
+<td style="text-align: center;">7e</td>
+<td style="text-align: center;">0111 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">perform a bitwise AND on two integers</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iastore</td>
+<td style="text-align: center;">4f</td>
+<td style="text-align: center;">0100 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store an int into an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iconst_0</td>
+<td style="text-align: center;">03</td>
+<td style="text-align: center;">0000 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 0</td>
+<td style="text-align: left;">load the int value 0 onto the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iconst_1</td>
+<td style="text-align: center;">04</td>
+<td style="text-align: center;">0000 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 1</td>
+<td style="text-align: left;">load the int value 1 onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iconst_2</td>
+<td style="text-align: center;">05</td>
+<td style="text-align: center;">0000 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 2</td>
+<td style="text-align: left;">load the int value 2 onto the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iconst_3</td>
+<td style="text-align: center;">06</td>
+<td style="text-align: center;">0000 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 3</td>
+<td style="text-align: left;">load the int value 3 onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iconst_4</td>
+<td style="text-align: center;">07</td>
+<td style="text-align: center;">0000 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 4</td>
+<td style="text-align: left;">load the int value 4 onto the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iconst_5</td>
+<td style="text-align: center;">08</td>
+<td style="text-align: center;">0000 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 5</td>
+<td style="text-align: left;">load the int value 5 onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iconst_m1</td>
+<td style="text-align: center;">02</td>
+<td style="text-align: center;">0000 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; -1</td>
+<td style="text-align: left;">load the int value &#x2212;1 onto the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">idiv</td>
+<td style="text-align: center;">6c</td>
+<td style="text-align: center;">0110 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">divide two integers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">if_acmpeq</td>
+<td style="text-align: center;">a5</td>
+<td style="text-align: center;">1010 0101</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if references are equal, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">if_acmpne</td>
+<td style="text-align: center;">a6</td>
+<td style="text-align: center;">1010 0110</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if references are not equal, branch to instruction at <em>branchoffset</em>(signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">if_icmpeq</td>
+<td style="text-align: center;">9f</td>
+<td style="text-align: center;">1001 1111</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if ints are equal, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">if_icmpge</td>
+<td style="text-align: center;">a2</td>
+<td style="text-align: center;">1010 0010</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if <em>value1</em> is greater than or equal to <em>value2</em>, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">if_icmpgt</td>
+<td style="text-align: center;">a3</td>
+<td style="text-align: center;">1010 0011</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if <em>value1</em> is greater than <em>value2</em>, branch to instruction at <em>branchoffset</em>(signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">if_icmple</td>
+<td style="text-align: center;">a4</td>
+<td style="text-align: center;">1010 0100</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if <em>value1</em> is less than or equal to <em>value2</em>, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">if_icmplt</td>
+<td style="text-align: center;">a1</td>
+<td style="text-align: center;">1010 0001</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if <em>value1</em> is less than <em>value2</em>, branch to instruction at <em>branchoffset</em>(signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">if_icmpne</td>
+<td style="text-align: center;">a0</td>
+<td style="text-align: center;">1010 0000</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value1, value2 &#x2192;</td>
+<td style="text-align: left;">if ints are not equal, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ifeq</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">1001 1001</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is 0, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ifge</td>
+<td style="text-align: center;">9c</td>
+<td style="text-align: center;">1001 1100</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is greater than or equal to 0, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ifgt</td>
+<td style="text-align: center;">9d</td>
+<td style="text-align: center;">1001 1101</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is greater than 0, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ifle</td>
+<td style="text-align: center;">9e</td>
+<td style="text-align: center;">1001 1110</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is less than or equal to 0, branch to instruction at <em>branchoffset</em>(signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iflt</td>
+<td style="text-align: center;">9b</td>
+<td style="text-align: center;">1001 1011</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is less than 0, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ifne</td>
+<td style="text-align: center;">9a</td>
+<td style="text-align: center;">1001 1010</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is not 0, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ifnonnull</td>
+<td style="text-align: center;">c7</td>
+<td style="text-align: center;">1100 0111</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is not null, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ifnull</td>
+<td style="text-align: center;">c6</td>
+<td style="text-align: center;">1100 0110</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">if <em>value</em> is null, branch to instruction at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iinc</td>
+<td style="text-align: center;">84</td>
+<td style="text-align: center;">1000 0100</td>
+<td style="text-align: center;">2: index, const</td>
+<td style="text-align: center;">[No change]</td>
+<td style="text-align: left;">increment local variable <em>#index</em> by signed byte <em>const</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iload</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">0001 0101</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load an int <em>value</em> from a local variable <em>#index</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iload_0</td>
+<td style="text-align: center;">1a</td>
+<td style="text-align: center;">0001 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load an int <em>value</em> from local variable 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iload_1</td>
+<td style="text-align: center;">1b</td>
+<td style="text-align: center;">0001 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load an int <em>value</em> from local variable 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">iload_2</td>
+<td style="text-align: center;">1c</td>
+<td style="text-align: center;">0001 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load an int <em>value</em> from local variable 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iload_3</td>
+<td style="text-align: center;">1d</td>
+<td style="text-align: center;">0001 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load an int <em>value</em> from local variable 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">impdep1</td>
+<td style="text-align: center;">fe</td>
+<td style="text-align: center;">1111 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">reserved for implementation-dependent operations within debuggers; should not appear in any class file</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">impdep2</td>
+<td style="text-align: center;">ff</td>
+<td style="text-align: center;">1111 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">reserved for implementation-dependent operations within debuggers; should not appear in any class file</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">imul</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">0110 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">multiply two integers</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ineg</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">0111 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">negate int</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">instanceof</td>
+<td style="text-align: center;">c1</td>
+<td style="text-align: center;">1100 0001</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">objectref &#x2192; result</td>
+<td style="text-align: left;">determines if an object <em>objectref</em> is of a given type, identified by class reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">invokedynamic</td>
+<td style="text-align: center;">ba</td>
+<td style="text-align: center;">1011 1010</td>
+<td style="text-align: center;">4: indexbyte1, indexbyte2, 0, 0</td>
+<td style="text-align: center;">[arg1, [arg2 ...]] &#x2192; result</td>
+<td style="text-align: left;">invokes a dynamic method and puts the result on the stack (might be void); the method is identified by method reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">invokeinterface</td>
+<td style="text-align: center;">b9</td>
+<td style="text-align: center;">1011 1001</td>
+<td style="text-align: center;">4: indexbyte1, indexbyte2, count, 0</td>
+<td style="text-align: center;">objectref, [arg1, arg2, ...] &#x2192; result</td>
+<td style="text-align: left;">invokes an interface method on object <em>objectref</em> and puts the result on the stack (might be void); the interface method is identified by method reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">invokespecial</td>
+<td style="text-align: center;">b7</td>
+<td style="text-align: center;">1011 0111</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">objectref, [arg1, arg2, ...] &#x2192; result</td>
+<td style="text-align: left;">invoke instance method on object <em>objectref</em> and puts the result on the stack (might be void); the method is identified by method reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">invokestatic</td>
+<td style="text-align: center;">b8</td>
+<td style="text-align: center;">1011 1000</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">[arg1, arg2, ...] &#x2192; result</td>
+<td style="text-align: left;">invoke a static method and puts the result on the stack (might be void); the method is identified by method reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">invokevirtual</td>
+<td style="text-align: center;">b6</td>
+<td style="text-align: center;">1011 0110</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">objectref, [arg1, arg2, ...] &#x2192; result</td>
+<td style="text-align: left;">invoke virtual method on object <em>objectref</em> and puts the result on the stack (might be void); the method is identified by method reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ior</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">1000 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">bitwise int OR</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">irem</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">0111 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">logical int remainder</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ireturn</td>
+<td style="text-align: center;">ac</td>
+<td style="text-align: center;">1010 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; [empty]</td>
+<td style="text-align: left;">return an integer from a method</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ishl</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">0111 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">int shift left</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ishr</td>
+<td style="text-align: center;">7a</td>
+<td style="text-align: center;">0111 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">int arithmetic shift right</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">istore</td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">0011 0110</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store int <em>value</em> into variable <em>#index</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">istore_0</td>
+<td style="text-align: center;">3b</td>
+<td style="text-align: center;">0011 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store int <em>value</em> into variable 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">istore_1</td>
+<td style="text-align: center;">3c</td>
+<td style="text-align: center;">0011 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store int <em>value</em> into variable 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">istore_2</td>
+<td style="text-align: center;">3d</td>
+<td style="text-align: center;">0011 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store int <em>value</em> into variable 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">istore_3</td>
+<td style="text-align: center;">3e</td>
+<td style="text-align: center;">0011 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store int <em>value</em> into variable 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">isub</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">0110 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">int subtract</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">iushr</td>
+<td style="text-align: center;">7c</td>
+<td style="text-align: center;">0111 1100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">int logical shift right</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ixor</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">1000 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">int xor</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">jsr</td>
+<td style="text-align: center;">a8</td>
+<td style="text-align: center;">1010 1000</td>
+<td style="text-align: center;">2: branchbyte1, branchbyte2</td>
+<td style="text-align: center;">&#x2192; address</td>
+<td style="text-align: left;">jump to subroutine at <em>branchoffset</em> (signed short constructed from unsigned bytes branchbyte1 &lt;&lt; 8 + branchbyte2) and place the return address on the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">jsr_w</td>
+<td style="text-align: center;">c9</td>
+<td style="text-align: center;">1100 1001</td>
+<td style="text-align: center;">4: branchbyte1, branchbyte2, branchbyte3, branchbyte4</td>
+<td style="text-align: center;">&#x2192; address</td>
+<td style="text-align: left;">jump to subroutine at <em>branchoffset</em> (signed int constructed from unsigned bytes branchbyte1 &lt;&lt; 24 + branchbyte2 &lt;&lt; 16 + branchbyte3 &lt;&lt; 8 + branchbyte4) and place the return address on the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">l2d</td>
+<td style="text-align: center;">8a</td>
+<td style="text-align: center;">1000 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a long to a double</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">l2f</td>
+<td style="text-align: center;">89</td>
+<td style="text-align: center;">1000 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a long to a float</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">l2i</td>
+<td style="text-align: center;">88</td>
+<td style="text-align: center;">1000 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">convert a long to a int</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ladd</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">0110 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">add two longs</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">laload</td>
+<td style="text-align: center;">2f</td>
+<td style="text-align: center;">0010 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load a long from an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">land</td>
+<td style="text-align: center;">7f</td>
+<td style="text-align: center;">0111 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;"><a href="https://en.wikipedia.org/wiki/Bitwise_operation" target="_blank" rel="noopener">bitwise</a> AND of two longs</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lastore</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">0101 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store a long to an array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lcmp</td>
+<td style="text-align: center;">94</td>
+<td style="text-align: center;">1001 0100</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">push 0 if the two longs are the same, 1 if value1 is greater than value2, -1 otherwise</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lconst_0</td>
+<td style="text-align: center;">09</td>
+<td style="text-align: center;">0000 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 0L</td>
+<td style="text-align: left;">push <em>0L</em> (the number <a href="https://en.wikipedia.org/wiki/Zero" target="_blank" rel="noopener">zero</a> with type <em>long</em>) onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lconst_1</td>
+<td style="text-align: center;">0a</td>
+<td style="text-align: center;">0000 1010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; 1L</td>
+<td style="text-align: left;">push <em>1L</em> (the number <a href="https://en.wikipedia.org/wiki/One" target="_blank" rel="noopener">one</a> with type <em>long</em>) onto the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ldc</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">0001 0010</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">push a constant <em>#index</em> from a constant pool (String, int, float, Class, java.lang.invoke.MethodType, or java.lang.invoke.MethodHandle) onto the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ldc2_w</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">0001 0100</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">push a constant <em>#index</em> from a constant pool (double or long) onto the stack (wide <em>index</em> is constructed as indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ldc_w</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">0001 0011</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">push a constant <em>#index</em> from a constant pool (String, int, float, Class, java.lang.invoke.MethodType, or java.lang.invoke.MethodHandle) onto the stack (wide <em>index</em> is constructed as indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ldiv</td>
+<td style="text-align: center;">6d</td>
+<td style="text-align: center;">0110 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">divide two longs</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lload</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">0001 0110</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a long value from a local variable <em>#index</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lload_0</td>
+<td style="text-align: center;">1e</td>
+<td style="text-align: center;">0001 1110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a long value from a local variable 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lload_1</td>
+<td style="text-align: center;">1f</td>
+<td style="text-align: center;">0001 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a long value from a local variable 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lload_2</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">0010 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a long value from a local variable 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lload_3</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">0010 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">load a long value from a local variable 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lmul</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">0110 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">multiply two longs</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lneg</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">0111 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; result</td>
+<td style="text-align: left;">negate a long</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lookupswitch</td>
+<td style="text-align: center;">ab</td>
+<td style="text-align: center;">1010 1011</td>
+<td style="text-align: center;">8+: &lt;0&#x2013;3 bytes padding&gt;, defaultbyte1, defaultbyte2, defaultbyte3, defaultbyte4, npairs1, npairs2, npairs3, npairs4, match-offset pairs...</td>
+<td style="text-align: center;">key &#x2192;</td>
+<td style="text-align: left;">a target address is looked up from a table using a key and execution continues from the instruction at that address</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lor</td>
+<td style="text-align: center;">81</td>
+<td style="text-align: center;">1000 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">bitwise OR of two longs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lrem</td>
+<td style="text-align: center;">71</td>
+<td style="text-align: center;">0111 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">remainder of division of two longs</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lreturn</td>
+<td style="text-align: center;">ad</td>
+<td style="text-align: center;">1010 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192; [empty]</td>
+<td style="text-align: left;">return a long value</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lshl</td>
+<td style="text-align: center;">79</td>
+<td style="text-align: center;">0111 1001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">bitwise shift left of a long <em>value1</em> by int <em>value2</em> positions</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lshr</td>
+<td style="text-align: center;">7b</td>
+<td style="text-align: center;">0111 1011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">bitwise shift right of a long <em>value1</em> by int <em>value2</em> positions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lstore</td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;">0011 0111</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a long <em>value</em> in a local variable <em>#index</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lstore_0</td>
+<td style="text-align: center;">3f</td>
+<td style="text-align: center;">0011 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a long <em>value</em> in a local variable 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lstore_1</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">0100 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a long <em>value</em> in a local variable 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lstore_2</td>
+<td style="text-align: center;">41</td>
+<td style="text-align: center;">0100 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a long <em>value</em> in a local variable 2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lstore_3</td>
+<td style="text-align: center;">42</td>
+<td style="text-align: center;">0100 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">store a long <em>value</em> in a local variable 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lsub</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">0110 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">subtract two longs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">lushr</td>
+<td style="text-align: center;">7d</td>
+<td style="text-align: center;">0111 1101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">bitwise shift right of a long <em>value1</em> by int <em>value2</em> positions, unsigned</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">lxor</td>
+<td style="text-align: center;">83</td>
+<td style="text-align: center;">1000 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value1, value2 &#x2192; result</td>
+<td style="text-align: left;">bitwise XOR of two longs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">monitorenter</td>
+<td style="text-align: center;">c2</td>
+<td style="text-align: center;">1100 0010</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">enter monitor for object (&quot;grab the lock&quot; &#x2013; start of synchronized() section)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">monitorexit</td>
+<td style="text-align: center;">c3</td>
+<td style="text-align: center;">1100 0011</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">objectref &#x2192;</td>
+<td style="text-align: left;">exit monitor for object (&quot;release the lock&quot; &#x2013; end of synchronized() section)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">multianewarray</td>
+<td style="text-align: center;">c5</td>
+<td style="text-align: center;">1100 0101</td>
+<td style="text-align: center;">3: indexbyte1, indexbyte2, dimensions</td>
+<td style="text-align: center;">count1, [count2,...] &#x2192; arrayref</td>
+<td style="text-align: left;">create a new array of <em>dimensions</em> dimensions of type identified by class reference in constant pool <em>index</em> (indexbyte1 &lt;&lt; 8 + indexbyte2); the sizes of each dimension is identified by <em>count1</em>, [<em>count2</em>, etc.]</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">new</td>
+<td style="text-align: center;">bb</td>
+<td style="text-align: center;">1011 1011</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">&#x2192; objectref</td>
+<td style="text-align: left;">create new object of type identified by class reference in constant pool <em>index</em> (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">newarray</td>
+<td style="text-align: center;">bc</td>
+<td style="text-align: center;">1011 1100</td>
+<td style="text-align: center;">1: atype</td>
+<td style="text-align: center;">count &#x2192; arrayref</td>
+<td style="text-align: left;">create new array with <em>count</em> elements of primitive type identified by <em>atype</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">nop</td>
+<td style="text-align: center;">00</td>
+<td style="text-align: center;">0000 0000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">[No change]</td>
+<td style="text-align: left;">perform no operation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">pop</td>
+<td style="text-align: center;">57</td>
+<td style="text-align: center;">0101 0111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">discard the top value on the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">pop2</td>
+<td style="text-align: center;">58</td>
+<td style="text-align: center;">0101 1000</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">{value2, value1} &#x2192;</td>
+<td style="text-align: left;">discard the top two values on the stack (or one value, if it is a double or long)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">putfield</td>
+<td style="text-align: center;">b5</td>
+<td style="text-align: center;">1011 0101</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">objectref, value &#x2192;</td>
+<td style="text-align: left;">set field to <em>value</em> in an object <em>objectref</em>, where the field is identified by a field reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">putstatic</td>
+<td style="text-align: center;">b3</td>
+<td style="text-align: center;">1011 0011</td>
+<td style="text-align: center;">2: indexbyte1, indexbyte2</td>
+<td style="text-align: center;">value &#x2192;</td>
+<td style="text-align: left;">set static field to <em>value</em> in a class, where the field is identified by a field reference <em>index</em> in constant pool (indexbyte1 &lt;&lt; 8 + indexbyte2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ret</td>
+<td style="text-align: center;">a9</td>
+<td style="text-align: center;">1010 1001</td>
+<td style="text-align: center;">1: index</td>
+<td style="text-align: center;">[No change]</td>
+<td style="text-align: left;">continue execution from address taken from a local variable <em>#index</em>(the asymmetry with jsr is intentional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">return</td>
+<td style="text-align: center;">b1</td>
+<td style="text-align: center;">1011 0001</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&#x2192; [empty]</td>
+<td style="text-align: left;">return void from method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">saload</td>
+<td style="text-align: center;">35</td>
+<td style="text-align: center;">0011 0101</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index &#x2192; value</td>
+<td style="text-align: left;">load short from array</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">sastore</td>
+<td style="text-align: center;">56</td>
+<td style="text-align: center;">0101 0110</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">arrayref, index, value &#x2192;</td>
+<td style="text-align: left;">store short to array</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">sipush</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">0001 0001</td>
+<td style="text-align: center;">2: byte1, byte2</td>
+<td style="text-align: center;">&#x2192; value</td>
+<td style="text-align: left;">push a short onto the stack as an integer <em>value</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">swap</td>
+<td style="text-align: center;">5f</td>
+<td style="text-align: center;">0101 1111</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">value2, value1 &#x2192; value1, value2</td>
+<td style="text-align: left;">swaps two top words on the stack (note that value1 and value2 must not be double or long)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">tableswitch</td>
+<td style="text-align: center;">aa</td>
+<td style="text-align: center;">1010 1010</td>
+<td style="text-align: center;">16+: [0&#x2013;3 bytes padding], defaultbyte1, defaultbyte2, defaultbyte3, defaultbyte4, lowbyte1, lowbyte2, lowbyte3, lowbyte4, highbyte1, highbyte2, highbyte3, highbyte4, jump offsets...</td>
+<td style="text-align: center;">index &#x2192;</td>
+<td style="text-align: left;">continue execution from an address in the table at offset <em>index</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">wide</td>
+<td style="text-align: center;">c4</td>
+<td style="text-align: center;">1100 0100</td>
+<td style="text-align: center;">3/5: opcode, indexbyte1, indexbyte2 or iinc, indexbyte1, indexbyte2, countbyte1, countbyte2</td>
+<td style="text-align: center;">[same as for corresponding instructions]</td>
+<td style="text-align: left;">execute <em>opcode</em>, where <em>opcode</em> is either iload, fload, aload, lload, dload, istore, fstore, astore, lstore, dstore, or ret, but assume the <em>index</em>is 16 bit; or execute iinc, where the <em>index</em> is 16 bits and the constant to increment by is a signed 16 bit short</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
+          
+            <a href="/tags/字节码/" rel="tag"># 字节码</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+            
+              <div>
+                
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+              </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/18/大学计算机笔记/" rel="next" title="大学计算机笔记">
+                <i class="fa fa-chevron-left"></i> 大学计算机笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/23/java类加载机制/" rel="prev" title="java类加载机制">
+                java类加载机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lijun</p>
+              <div class="site-description motion-element" itemprop="description">与其感慨路难行，不如马上就出发</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">123</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">116</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">2.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部变量"><span class="nav-number">2.1.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类字段"><span class="nav-number">2.2.</span> <span class="nav-text">类字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量字段类常量"><span class="nav-number">2.3.</span> <span class="nav-text">常量字段（类常量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态变量"><span class="nav-number">2.4.</span> <span class="nav-text">静态变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态链接"><span class="nav-number">2.5.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序计数器"><span class="nav-number">2.6.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">2.7.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于一个简单的类我们分析一下其字节码"><span class="nav-number">2.7.1.</span> <span class="nav-text">对于一个简单的类我们分析一下其字节码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过字节码分析synchronized方法和synchronized代码块的区别"><span class="nav-number">2.7.2.</span> <span class="nav-text">通过字节码分析synchronized方法和synchronized代码块的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用字节码指令集"><span class="nav-number">3.</span> <span class="nav-text">常用字节码指令集</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lijun</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
+
+
+
+  <div class="footer-custom">Hosted by <a href="https://pages.coding.me" class="theme-link" rel="noopener" target="_blank">Coding Pages</a></div>
+
+
+
+
+<script src="/js/echarts.min.js"></script>
+
+<script>
+    function recursion_tree(dom, tree) {
+        tree = tree || {}
+        if (dom.tagName === 'UL') {
+            tree.children = []
+            Array.prototype.forEach.call(dom.children, child => {
+                tree.children.push(recursion_tree(child))
+            })
+            return tree;
+        } else if (dom.tagName === 'LI') {
+            html = dom.innerHTML
+            tree.name = html;
+            var ulIndex = html.indexOf('<')
+            if (ulIndex > 0) {
+                tree.name = html.substring(0, ulIndex).trim()
+                Array.prototype.forEach.call(dom.children, child => {
+                    console.log(child)
+                    console.log(recursion_tree(child, tree))
+
+                })
+            }
+            return tree
+        } else {
+
+        }
+    }
+    var title = document.querySelector('.post-title').innerText.trim()
+
+    Array.prototype.forEach.call(document.getElementsByClassName("li-echarts-tree"), function (dom) {
+        dom = dom.children[0]
+        data = recursion_tree(dom, { "name": title })
+        var div = document.createElement('div')
+        div.setAttribute('style', 'width: 600px;height:400px;')
+        dom.innerHTML=''
+        dom.appendChild(div);
+        var myChart = echarts.init(div);
+        myChart.setOption(option = {
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series: [
+                {
+                    type: 'tree',
+
+                    data: [data],
+
+                    top: '1%',
+                    left: '7%',
+                    bottom: '1%',
+                    right: '20%',
+
+                    symbolSize: 7,
+
+                    label: {
+                        position: 'left',
+                        verticalAlign: 'middle',
+                        align: 'right',
+                        fontSize: 9
+                    },
+
+                    leaves: {
+                        label: {
+                            position: 'right',
+                            verticalAlign: 'middle',
+                            align: 'left'
+                        }
+                    },
+
+                    expandAndCollapse: false,
+                    animationDuration: 350,
+                    animationDurationUpdate: 450
+                }
+            ]
+        });
+    })
+</script>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '0c587ba925564ae382e7',
+    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
+    repo: 'comment',
+    owner: 'leaderli',
+    admin: ['leaderli'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'false# Facebook-like distraction free mode'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '0c587ba925564ae382e7',
+    clientSecret: '5ee038d836c8665b83e05871cb0263e65baf0188',
+    repo: 'comment',
+    owner: 'leaderli',
+    admin: ['leaderli'],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'false# Facebook-like distraction free mode'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+
+
+  
+
+
+
+  
+<script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+        search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+        isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+        $('.popup').hide();
+        $('#local-search-input').val('');
+        $('.search-result-list').remove();
+        $('#no-result').remove();
+        $(".local-search-pop-overlay").remove();
+        $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+            .css('overflow', 'hidden');
+        $('.search-popup-overlay').click(onPopupClose);
+        $('.popup').toggle();
+        var $localSearchInput = $('#local-search-input');
+        $localSearchInput.attr("autocapitalize", "none");
+        $localSearchInput.attr("autocorrect", "off");
+        $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+
+        // start loading animation
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                '<div id="search-loading-icon">' +
+                '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                '</div>' +
+                '</div>')
+            .css('overflow', 'hidden');
+        $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+        $.ajax({
+            url: path,
+            dataType: isXml ? "xml" : "json",
+            async: true,
+            success: function (res) {
+                // get the contents from search data
+                isfetched = true;
+                $('.popup').detach().appendTo('.header-inner');
+                var datas = isXml ? $("entry", res).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get() : res;
+                var input = document.getElementById(search_id);
+                var resultContent = document.getElementById(content_id);
+                var inputEventFunction = function () {
+                    var searchText = input.value.toLowerCase();
+                    if (searchText.length < 1) {
+                        return
+                    }
+                    var keywords = []
+                    var first_keyword;
+                    if (searchText.charAt(0) === '/') {
+                        if (searchText.indexOf('/', 1) == 1) {
+                            keywords.push(searchText.substring(1))
+                        } else if (searchText.length > 2 && searchText.charAt(searchText.length - 1) === '/') {
+                            keywords.push('$$')
+                            try {
+                                eval('first_keyword = ' + searchText + 'g');
+                            } catch (err) {
+                                console.error(err)
+                                return
+                            }
+                            input.value = searchText.substring(0,searchText.length-1)
+                        } else {
+                            return
+                        }
+                    } else {
+                        keywords.push(searchText);
+                    }
+                    var resultItems = [];
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = false;
+                        var hitCount = 0;
+                        var searchTextCount = 0;
+                        var title = data.title.trim();
+                        var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
+                        var content = data.content.trim();
+                        var contentInLowerCase = content.toLowerCase();
+                        var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                        var indexOfTitle = [];
+                        var indexOfContent = [];
+                        // only match articles with not empty titles
+                        if (title != '') {
+                            if (first_keyword) {
+                                keywords = contentInLowerCase.match(first_keyword)
+                            }
+                            if (!keywords) {
+                                keywords = []
+                            }
+                            keywords.forEach(function (keyword) {
+                            
+                                function getIndexByWord(word, text, caseSensitive) {
+                                    var wordLen = word.length;
+                                    if (wordLen === 0) {
+                                        return [];
+                                    }
+                                    var startPosition = 0, position = [], index = [];
+                                    if (!caseSensitive) {
+                                        text = text.toLowerCase();
+                                        word = word.toLowerCase();
+                                    }
+                                    while ((position = text.indexOf(word, startPosition)) > -1) {
+
+                                        index.push({ position: position, word: word });
+                                        startPosition = position + wordLen;
+                                    }
+                                    return index;
+                                }
+
+                                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                            });
+                            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                isMatch = true;
+                                hitCount = indexOfTitle.length + indexOfContent.length;
+                            }
+                        }
+
+                        // show search results
+
+                        if (isMatch) {
+                            // sort index by position of keyword
+
+                            [indexOfTitle, indexOfContent].forEach(function (index) {
+                                index.sort(function (itemLeft, itemRight) {
+                                    if (itemRight.position !== itemLeft.position) {
+                                        return itemRight.position - itemLeft.position;
+                                    } else {
+                                        return itemLeft.word.length - itemRight.word.length;
+                                    }
+                                });
+                            });
+
+                            // merge hits into slices
+
+                            function mergeIntoSlice(text, start, end, index) {
+                                var item = index[index.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                var hits = [];
+                                var searchTextCountInSlice = 0;
+                                while (position + word.length <= end && index.length != 0) {
+                                    if (word === searchText) {
+                                        searchTextCountInSlice++;
+                                    }
+                                    hits.push({ position: position, length: word.length });
+                                    var wordEnd = position + word.length;
+
+                                    // move to next position of hit
+
+                                    index.pop();
+                                    while (index.length != 0) {
+                                        item = index[index.length - 1];
+                                        position = item.position;
+                                        word = item.word;
+                                        if (wordEnd > position) {
+                                            index.pop();
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+                                searchTextCount += searchTextCountInSlice;
+                                return {
+                                    hits: hits,
+                                    start: start,
+                                    end: end,
+                                    searchTextCount: searchTextCountInSlice
+                                };
+                            }
+
+                            var slicesOfTitle = [];
+                            if (indexOfTitle.length != 0) {
+                                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                            }
+
+                            var slicesOfContent = [];
+                            while (indexOfContent.length != 0) {
+                                var item = indexOfContent[indexOfContent.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                // cut out 100 characters
+                                var start = position - 20;
+                                var end = position + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (end < position + word.length) {
+                                    end = position + word.length;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                            }
+
+                            // sort slices in content by search text's count and hits' count
+
+                            slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                    return sliceRight.hits.length - sliceLeft.hits.length;
+                                } else {
+                                    return sliceLeft.start - sliceRight.start;
+                                }
+                            });
+
+                            // select top N slices in content
+                            var upperBound = parseInt('1');
+                            if (upperBound >= 0) {
+                                slicesOfContent = slicesOfContent.slice(0, upperBound);
+                            }
+
+                            // highlight title and content
+
+                            function highlightKeyword(text, slice) {
+                                var result = '';
+                                var prevEnd = slice.start;
+                                slice.hits.forEach(function (hit) {
+                                    result += text.substring(prevEnd, hit.position);
+                                    var end = hit.position + hit.length;
+                                    result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                    prevEnd = end;
+                                });
+                                result += text.substring(prevEnd, slice.end);
+                                
+                                return result;
+                            }
+
+                            var resultItem = '';
+
+                            if (slicesOfTitle.length != 0) {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                            } else {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                            }
+
+                            slicesOfContent.forEach(function (slice) {
+                                resultItem += "<a href='" + articleUrl + "'>" +
+                                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                    "...</p>" + "</a>";
+                            });
+
+                            resultItem += "</li>";
+                            resultItems.push({
+                                item: resultItem,
+                                searchTextCount: searchTextCount,
+                                hitCount: hitCount,
+                                id: resultItems.length
+                            });
+                        }
+                    })
+                    if (keywords.length === 1 && keywords[0] === "") {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+                    } else if (resultItems.length === 0) {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+                    } else {
+                        resultItems.sort(function (resultLeft, resultRight) {
+                            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                return resultRight.searchTextCount - resultLeft.searchTextCount;
+                            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                return resultRight.hitCount - resultLeft.hitCount;
+                            } else {
+                                return resultRight.id - resultLeft.id;
+                            }
+                        });
+                        var searchResultList = '<ul class=\"search-result-list\">';
+                        resultItems.forEach(function (result) {
+                            searchResultList += result.item;
+                        })
+                        searchResultList += "</ul>";
+                        resultContent.innerHTML = searchResultList;
+                    }
+                }
+
+                if ('auto' === 'auto') {
+                    input.addEventListener('input', inputEventFunction);
+                } else {
+                    $('.search-icon').click(inputEventFunction);
+                    input.addEventListener('keypress', function (event) {
+                        if (event.keyCode === 13) {
+                            inputEventFunction();
+                        }
+                    });
+                }
+
+                // remove loading animation
+                $(".local-search-pop-overlay").remove();
+                $('body').css('overflow', '');
+
+                proceedsearch();
+            }
+        });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+        e.stopPropagation();
+        if (isfetched === false) {
+            searchFunc(path, 'local-search-input', 'local-search-result');
+        } else {
+            proceedsearch();
+        };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+        e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+        var shouldDismissSearchPopup = event.which === 27 &&
+            $('.search-popup').is(':visible');
+        if (shouldDismissSearchPopup) {
+            onPopupClose();
+        }
+    });
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    //url: '',
+    url: '/js/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: '',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+   <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>
