@@ -171,16 +171,6 @@
 
 
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?eQr4ptzetx";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
 
 
 
@@ -695,7 +685,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">123</span>
+                    <span class="site-state-item-count">127</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1318,6 +1308,9 @@
                         var isMatch = false;
                         var hitCount = 0;
                         var searchTextCount = 0;
+                        if(!data.title){
+                            return
+                        }
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
                         if (!data.content){

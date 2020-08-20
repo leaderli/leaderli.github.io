@@ -170,16 +170,6 @@
 
 
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?eQr4ptzetx";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
 
 
 
@@ -444,6 +434,32 @@
 
       <h2 class="post-title">
         
+          <a class="post-title-link" href="/2020/05/11/linux进程管理/" itemprop="url">
+            
+              <span itemprop="name">linux进程管理</span>
+            
+          </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2020-05-11T22:53:29+08:00" content="2020-05-11">
+          05-11
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
           <a class="post-title-link" href="/2020/05/11/linux环境变量/" itemprop="url">
             
               <span itemprop="name">linux环境变量</span>
@@ -619,7 +635,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">123</span>
+                    <span class="site-state-item-count">127</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1219,6 +1235,9 @@
                         var isMatch = false;
                         var hitCount = 0;
                         var searchTextCount = 0;
+                        if(!data.title){
+                            return
+                        }
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
                         if (!data.content){

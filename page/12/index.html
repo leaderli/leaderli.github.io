@@ -170,16 +170,6 @@
 
 
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?eQr4ptzetx";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
 
 
 
@@ -404,6 +394,839 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/31/动态规划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/31/动态规划/" class="post-title-link" itemprop="url">动态规划</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-31 20:28:41" itemprop="dateCreated datePublished" datetime="2019-07-31T20:28:41+08:00">2019-07-31</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous"><h2 id="&#x9898;&#x76EE;">&#x9898;&#x76EE;</h2>
+<p>&#x5047;&#x8BBE;&#x4F60;&#x6B63;&#x5728;&#x722C;&#x697C;&#x68AF;&#x3002;&#x9700;&#x8981; n&#xA0;&#x9636;&#x4F60;&#x624D;&#x80FD;&#x5230;&#x8FBE;&#x697C;&#x9876;&#x3002; &#x6BCF;&#x6B21;&#x4F60;&#x53EF;&#x4EE5;&#x722C; 1 &#x6216; 2 &#x4E2A;&#x53F0;&#x9636;&#x3002;&#x4F60;&#x6709;&#x591A;&#x5C11;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x5462;&#xFF1F; &#x6CE8;&#x610F;&#xFF1A;&#x7ED9;&#x5B9A; n &#x662F;&#x4E00;&#x4E2A;&#x6B63;&#x6574;&#x6570;&#x3002;</p>
+<p>&#x793A;&#x4F8B; 1&#xFF1A; &gt;&#x8F93;&#x5165;&#xFF1A; 2 &#x8F93;&#x51FA;&#xFF1A; 2</p>
+<p>&#x89E3;&#x91CA;&#xFF1A; &#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x3002;</p>
+<blockquote>
+<p>1 &#x9636; + 1 &#x9636; 2 &#x9636;</p>
+</blockquote>
+<p>&#x793A;&#x4F8B; 2&#xFF1A; &gt;&#x8F93;&#x5165;&#xFF1A; 3 &#x8F93;&#x51FA;&#xFF1A; 3</p>
+<p>&#x89E3;&#x91CA;&#xFF1A; &#x6709;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x3002;</p>
+<blockquote>
+<p>1 &#x9636; + 1 &#x9636; + 1 &#x9636; 1 &#x9636; + 2 &#x9636; 2 &#x9636; + 1 &#x9636;</p>
+</blockquote>
+<h2 id="&#x601D;&#x8DEF;">&#x601D;&#x8DEF;</h2>
+<p>&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x7684;&#x601D;&#x8DEF;&#x53BB;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x3002;&#x5BF9;&#x4E8E;&#x6307;&#x5B9A;n&#x9636;&#x7684;&#x697C;&#x68AF;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x722C;&#x697C;&#x68AF;&#xFF0C;&#x8981;&#x561B;&#x662F;1&#x9636;&#xFF0C;&#x8981;&#x561B;&#x5C31;&#x662F;2&#x9636;&#xFF0C;&#x90A3;&#x4E48;&#x603B;&#x5171;&#x5C31;&#x6709;&#x722C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>&#x9636;&#x548C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&#x2212;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>&#x9636;&#x7684;&#x697C;&#x68AF;</p>
+<p>&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(1) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F(2) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n-1)+F(n-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></p>
+<p>&#x6839;&#x636E;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x5F97;&#x51FA;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">3</span>) {</span><br><span class="line">      <span class="keyword">return</span> n;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">int</span> f1 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> f2 = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;=n; i++) {</span><br><span class="line">      <span class="keyword">int</span> t = f2;</span><br><span class="line">      f2 = f2 + f1;</span><br><span class="line">      f1 = t;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> f2;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/30/springboot-jpa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/30/springboot-jpa/" class="post-title-link" itemprop="url">springboot-jpa</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-30 21:50:50" itemprop="dateCreated datePublished" datetime="2019-07-30T21:50:50+08:00">2019-07-30</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x7248;&#x672C;&#x8BF4;&#x660E;">&#x7248;&#x672C;&#x8BF4;&#x660E;</h2>
+<p><code>jdk</code>:1.8.0_131 <code>springboot</code>:2.1.6.RELEAS <code>maven</code>:3.6.1 <code>database</code>:mysql-5.7.14 <code>lombok&#x63D2;&#x4EF6;</code></p>
+<h2 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h2>
+<p>&#x9879;&#x76EE;&#x57FA;&#x4E8E; maven&#xFF0C;pom &#x914D;&#x7F6E;&#x5982;&#x4E0B;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.li<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.ulisesbocchio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jasypt-spring-boot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.inject<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.inject<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.aspectj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aspectjweaver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.code.gson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-clean-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F7F;&#x7528;<code>lombok</code>&#x8FDB;&#x884C;&#x7B80;&#x5316;</p>
+<p>&#x8868;&#x5B9E;&#x4F53;&#x7C7B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.Column;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Proxy</span>(lazy = <span class="keyword">false</span>)</span><br><span class="line"><span class="meta">@Entity</span>(name = <span class="string">&quot;log&quot;</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log</span> </span>{</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String log;</span><br><span class="line">    <span class="keyword">private</span> String time;</span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">&quot;user_id&quot;</span>)</span><br><span class="line">    <span class="keyword">private</span> String userID;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>@Id</code>&#x8868;&#x793A;&#x4E3B;&#x952E; <code>@Entity</code>&#x6807;&#x8BB0;&#x5F53;&#x524D;&#x7C7B;&#x4E3A;&#x4E00;&#x4E2A;&#x8868;&#xFF0C;&#x82E5;&#x6307;&#x5B9A;&#x5C5E;&#x6027;<code>name</code>&#xFF0C;&#x5219;&#x5B9E;&#x9645;&#x8868;&#x540D;&#x4F7F;&#x7528;<code>name</code>&#x7684;&#x503C;&#xFF0C;&#x5426;&#x5219;&#x4F7F;&#x7528;&#x7C7B;&#x540D;&#x3002; <code>@Column</code>&#x4E2D;&#x7684;<code>name</code>&#x540C;&#x6837;&#x4E5F;&#x662F;&#x6307;&#x5B9A;&#x8868;&#x7684;&#x5B57;&#x6BB5;&#x540D;&#x3002;</p>
+<p>&#x8868;&#x64CD;&#x4F5C;&#x7C7B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.li.springboot.bean.Log;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LogDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Log</span>, <span class="title">String</span>&gt; </span>{</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.li.springboot.bean.Log;</span><br><span class="line"><span class="keyword">import</span> com.li.springboot.dao.LogDao;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogController</span> </span>{</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  LogDao logDao;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@RequestMapping</span>(<span class="string">&quot;/{id}&quot;</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Log <span class="title">log</span><span class="params">(@PathVariable String id)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> logDao.getOne(id);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>JpaRepository</code>&#x7684;&#x6CDB;&#x578B;&#xFF0C;&#x5206;&#x522B;&#x6307;&#x5B9A;&#x8868;&#x5B9E;&#x4F53;&#x7C7B;&#x548C;&#x8868;&#x4E3B;&#x952E;,<code>JpaRepository</code>&#x5305;&#x542B;&#x5E38;&#x7528;&#x7684;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#xFF0C;<code>LogDao</code>&#x53EF;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x4FE1;&#x606F;&#x914D;&#x7F6E;</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/app</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">&quot;{cipher}cm9vdA&quot;</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  level:</span></span><br><span class="line"><span class="attr">    root:</span> <span class="string">error</span></span><br><span class="line"><span class="attr">    com:</span></span><br><span class="line"><span class="attr">      li:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+<p>&#x5176;&#x4ED6;&#xFF0C;&#x7565;</p>
+<p>&#x6D4B;&#x8BD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"><span class="keyword">import</span> com.li.springboot.bean.Log;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@AutoConfigureMockMvc</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogControllerTest</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        mockMvc.perform(get(<span class="string">&quot;/1&quot;</span>)).andDo(print()).andExpect(result -&gt; {</span><br><span class="line">            Log log = <span class="keyword">new</span> Gson().fromJson(result.getResponse().getContentAsString(), Log.class);</span><br><span class="line">            <span class="keyword">assert</span> log !=<span class="keyword">null</span>;</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/29/简单逻辑学/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/29/简单逻辑学/" class="post-title-link" itemprop="url">简单逻辑学</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-29 22:16:17" itemprop="dateCreated datePublished" datetime="2019-07-29T22:16:17+08:00">2019-07-29</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/逻辑学/" itemprop="url" rel="index"><span itemprop="name">逻辑学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x4E3A;&#x4EC0;&#x4E48;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;">&#x4E3A;&#x4EC0;&#x4E48;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;</h2>
+<p><strong>&#x63D0;&#x5347;&#x53E3;&#x8BED;&#x8868;&#x8FBE;&#x80FD;&#x529B;</strong> &#x4F60;&#x6240;&#x8BF4;&#x7684;&#x5C31;&#x662F;&#x4F60;&#x6240;&#x60F3;&#x7684;&#xFF0C;&#x82E5;&#x5BF9;&#x4E8B;&#x7269;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x6E05;&#x6670;&#x660E;&#x4E86;&#x7684;&#x8BA4;&#x77E5;&#xFF0C;&#x5C31;&#x66F4;&#x4E0D;&#x53EF;&#x80FD;&#x7528;&#x8BED;&#x8A00;&#x53BB;&#x7CBE;&#x51C6;&#x7684;&#x63CF;&#x8FF0;&#x5B83;&#x3002;&#x4E0D;&#x8981;&#x6C42;&#x8BF4;&#x8BDD;&#x8BF4;&#x5F97;&#x591A;&#x4E48;&#x597D;&#x542C;&#xFF0C;&#x4F46;&#x6C42;&#x80FD;&#x591F;&#x6E05;&#x695A;&#x6709;&#x529B;&#x7684;&#x8868;&#x8FBE;&#x81EA;&#x5DF1;&#x60F3;&#x8981;&#x8BF4;&#x7684;&#x3002;</p>
+<p><strong>&#x8D39;&#x66FC;&#x5B66;&#x4E60;&#x6CD5;</strong> &#x80FD;&#x591F;&#x7528;&#x7B80;&#x5355;&#x7684;&#x8BED;&#x8A00;&#x5411;&#x522B;&#x4EBA;&#x89E3;&#x91CA;&#x4E00;&#x4E2A;&#x77E5;&#x8BC6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x638C;&#x63E1;&#x77E5;&#x8BC6;&#x7684;&#x65F6;&#x5019;&#x3002;&#x800C;&#x903B;&#x8F91;&#x5B66;&#x5C31;&#x662F;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x7CBE;&#x51C6;&#x63CF;&#x8FF0;&#x4E8B;&#x7269;&#x7684;&#x5B66;&#x79D1;&#x3002;</p>
+<h2 id="&#x5982;&#x4F55;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;">&#x5982;&#x4F55;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;</h2>
+<p><strong>&#x601D;&#x7EF4;&#x5BFC;&#x56FE;</strong> &#x601D;&#x7EF4;&#x5BFC;&#x56FE;&#x662F;&#x7528;&#x7B80;&#x5355;&#x7684;&#x8BCD;&#x8BED;&#x9AD8;&#x5EA6;&#x62BD;&#x8C61;&#x6982;&#x62EC;&#x77E5;&#x8BC6;&#x7684;&#x4E00;&#x4E2A;&#x5DE5;&#x5177;&#xFF0C;&#x800C;&#x62BD;&#x8C61;&#x7684;&#x8FC7;&#x7A0B;&#x65E2;&#x662F;&#x903B;&#x8F91;&#x5316;&#x7684;&#x4E00;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002; <strong>&#x535A;&#x5BA2;</strong> &#x5199;&#x4F5C;&#x7684;&#x8FC7;&#x7A0B;&#x5373;&#x662F;&#x8BB2;&#x81EA;&#x5DF1;&#x6240;&#x60F3;&#x6240;&#x601D;&#x8F6C;&#x53D8;&#x4E3A;&#x6587;&#x5B57;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5728;&#x7F16;&#x5199;&#x535A;&#x5BA2;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x59CB;&#x7EC8;&#x9075;&#x5FAA;&#x7B80;&#x5355;&#x903B;&#x8F91;&#x5B66;&#x548C;&#x91D1;&#x5B57;&#x5854;&#x539F;&#x7406;&#x7684;&#x7406;&#x8BBA;&#x601D;&#x60F3;&#xFF0C;&#x4E0D;&#x65AD;&#x52A0;&#x5F3A;&#x81EA;&#x5DF1;&#x7684;&#x6982;&#x62EC;&#x62BD;&#x8C61;&#x80FD;&#x529B;&#x3002;</p>
+<h2 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h2>
+<p>&#x903B;&#x8F91;&#x5B66;&#x662F;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x6E05;&#x6670;&#x6709;&#x6548;&#x7684;&#x601D;&#x7EF4;&#x3002;&#x903B;&#x8F91;&#x5B66;&#x662F;&#x63ED;&#x9732;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x771F;&#x76F8;&#x7684;&#x4E00;&#x95E8;&#x5B66;&#x95EE;&#x3002;</p>
+<h2 id="&#x5FC3;&#x91CC;&#x4E0A;&#x7684;&#x51C6;&#x5907;">&#x5FC3;&#x91CC;&#x4E0A;&#x7684;&#x51C6;&#x5907;</h2>
+<ol type="1">
+<li><p>&#x4FDD;&#x6301;&#x6CE8;&#x610F;&#x529B;&#xFF0C;&#x4E16;&#x4E0A;&#x6CA1;&#x6709;&#x4E24;&#x7247;&#x76F8;&#x540C;&#x7684;&#x6811;&#x53F6;&#xFF0C;&#x6BCF;&#x4E2A;&#x4E8B;&#x52A1;&#x90FD;&#x662F;&#x552F;&#x4E00;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4FDD;&#x6301;&#x8B66;&#x60D5;&#x3002;</p></li>
+<li><p>&#x4E8B;&#x5B9E;&#x5BA2;&#x89C2;&#x5B58;&#x5728;&#xFF0C;&#x4E0D;&#x56E0;&#x4EBA;&#x7684;&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#x800C;&#x6539;&#x53D8;&#xFF0C;&#x800C;&#x4EBA;&#x7684;&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#x4F1A;&#x968F;&#x7740;&#x5BF9;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x7684;&#x7406;&#x89E3;&#x52A0;&#x6DF1;&#x800C;&#x6108;&#x52A0;&#x63A5;&#x8FD1;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x3002;</p></li>
+<li><p>&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#x6108;&#x52A0;&#x63A5;&#x8FD1;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#xFF0C;&#x5C31;&#x8D8A;&#x5BB9;&#x6613;&#x6E05;&#x6670;&#x51C6;&#x786E;&#x7684;&#x7528;&#x8BED;&#x8A00;&#x53BB;&#x63CF;&#x8FF0;&#x5B83;&#x3002;</p></li>
+<li><p>&#x8BED;&#x8A00;&#x53EA;&#x80FD;&#x63CF;&#x8FF0;&#x4EBA;&#x7684;&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x3002;</p></li>
+</ol>
+<h2 id="&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x6709;&#x6548;&#x7684;&#x6C9F;&#x901A;">&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x6709;&#x6548;&#x7684;&#x6C9F;&#x901A;</h2>
+<ol type="1">
+<li><p>&#x4E0D;&#x8981;&#x5047;&#x8BBE;&#x542C;&#x4F17;&#x4E86;&#x89E3;&#x4F60;&#x7684;&#x6F5C;&#x53F0;&#x8BCD;&#x3002;</p></li>
+<li><p>&#x4F7F;&#x7528;&#x5B8C;&#x6574;&#x7684;&#x8BED;&#x53E5;&#x8868;&#x8FBE;&#x81EA;&#x5DF1;&#x7684;&#x89C2;&#x70B9;&#x3002;</p></li>
+<li><p>&#x907F;&#x514D;&#x4F7F;&#x7528;&#x731C;&#x6D4B;&#xFF0C;&#x4E0D;&#x51C6;&#x786E;&#x7684;&#x8868;&#x8FF0;&#x5F62;&#x5F0F;&#x3002;</p></li>
+<li><p>&#x7AD9;&#x5728;&#x542C;&#x4F17;&#x7684;&#x89D2;&#x5EA6;&#xFF0C;&#x4EE5;&#x4ED6;&#x4EEC;&#x80FD;&#x7406;&#x89E3;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x9648;&#x8FF0;&#x3002;</p></li>
+<li><p>&#x907F;&#x514D;&#x4F7F;&#x7528;&#x6B67;&#x4E49;&#xFF0C;&#x6A21;&#x7CCA;&#x7684;&#x8868;&#x8FBE;&#x3002;</p></li>
+</ol>
+<h2 id="&#x903B;&#x8F91;&#x5B66;&#x7B2C;&#x4E00;&#x539F;&#x5219;">&#x903B;&#x8F91;&#x5B66;&#x7B2C;&#x4E00;&#x539F;&#x5219;</h2>
+<ol type="1">
+<li><p>&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x82F9;&#x679C;&#x5C31;&#x662F;&#x82F9;&#x679C;&#xFF0C;&#x4E0D;&#x662F;&#x6A59;&#x5B50;&#xFF0C;&#x4E0D;&#x662F;&#x9999;&#x8549;&#xFF0C;&#x4E5F;&#x4E0D;&#x662F;&#x68A8;&#x5B50;&#x3002;</p></li>
+<li><p>&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x8981;&#x561B;&#x5B58;&#x5728;&#x8981;&#x561B;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x4E2D;&#x95F4;&#x72B6;&#x6001;</p></li>
+<li><p>&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x5B58;&#x5728;&#x6709;&#x5145;&#x8DB3;&#x7684;&#x7406;&#x7531;</p></li>
+<li><p>&#x5728;&#x540C;&#x6837;&#x7684;&#x89D2;&#x5EA6;&#x4E0B;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x662F;&#x540C;&#x65F6;&#x4E0D;&#x662F;</p></li>
+</ol>
+<h2 id="&#x5176;&#x4ED6;&#x539F;&#x5219;">&#x5176;&#x4ED6;&#x539F;&#x5219;</h2>
+<ol type="1">
+<li><p>&#x6709;&#x4E9B;&#x4E8B;&#x52A1;&#x65E0;&#x6CD5;&#x88AB;&#x6E05;&#x6670;&#x7684;&#x5B9A;&#x4E49;&#x3002;</p></li>
+<li><p>&#x6709;&#x4E9B;&#x4E8B;&#x52A1;&#x6211;&#x4EEC;&#x4E0D;&#x77E5;&#x9053;&#x662F;&#x5982;&#x4F55;&#x53D1;&#x751F;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E00;&#x5B9A;&#x662F;&#x6709;&#x539F;&#x56E0;&#x7684;</p></li>
+<li><p>&#x5C3D;&#x91CF;&#x7F29;&#x77ED;&#x903B;&#x8F91;&#x94FE;</p></li>
+<li><p>&#x533A;&#x5206;&#x4E3B;&#x6B21;</p></li>
+<li><p>&#x7528;&#x81EA;&#x5DF1;&#x7684;&#x8BED;&#x8A00;&#x53BB;&#x89E3;&#x91CA;</p></li>
+<li><p>&#x7528;&#x660E;&#x786E;&#x7684;&#x80AF;&#x5B9A;&#x7684;&#x8BED;&#x8A00;&#x63CF;&#x8FF0;</p></li>
+<li><p>&#x62BD;&#x8C61;&#x6982;&#x62EC;&#x89C2;&#x70B9;</p></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/22/docker基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/22/docker基础/" class="post-title-link" itemprop="url">docker基础</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-22 21:22:57" itemprop="dateCreated datePublished" datetime="2019-07-22T21:22:57+08:00">2019-07-22</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x6307;&#x5357;">&#x6307;&#x5357;</h2>
+<h3 id="&#x5B89;&#x88C5;">&#x5B89;&#x88C5;</h3>
+<p><a href="https://docs.docker.com/install/" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x5B89;&#x88C5;&#x6587;&#x6863;</a></p>
+<p><code>docker --version</code> &#x67E5;&#x770B;&#x7248;&#x672C;&#x53F7; <code>docker info</code> &#x67E5;&#x770B; docker &#x8BE6;&#x7EC6;&#x4FE1;&#x606F;</p>
+<h3 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h3>
+<h4 id="image">image</h4>
+<p>&#x5BB9;&#x5668;&#x662F;&#x7531;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x542F;&#x52A8;&#x7684;&#x3002;&#x955C;&#x50CF;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF0C;&#x5305;&#x542B;&#x8FD0;&#x884C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6240;&#x9700;&#x8981;&#x7684;&#x6240;&#x6709;&#x8D44;&#x6E90;&#xFF0C;&#x5305;&#x62EC; &#x4EE3;&#x7801;&#xFF0C;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7B49;&#x3002; &#x53EF;&#x901A;&#x8FC7;<code>docker images</code>&#x67E5;&#x770B;&#x6240;&#x6709;&#x955C;&#x50CF;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                                             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">jenkins/jenkins                                        2.138.4             b8efbb99cea6        7 months ago        701MB</span><br><span class="line">registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g   latest              3fa112fd3642        3 years ago         6.85GB</span><br></pre></td></tr></table></figure>
+<p>&#x53EF;&#x901A;&#x8FC7;<code>docker pull &lt;image:TAG&gt;</code>&#x4E0B;&#x8F7D;&#x955C;&#x50CF;&#xFF0C;&#x4E0D;&#x663E;&#x793A;&#x6307;&#x5B9A;<code>TAG</code>&#x5219;&#x4E0B;&#x8F7D;<code>latest</code>&#x7248;&#x672C;&#x7684;&#xFF0C;&#x5F53;&#x4F7F;&#x7528;<code>docker run &lt;image&gt;</code>&#x65F6;&#x82E5;&#x672C;&#x5730;&#x955C;&#x50CF;&#x6CA1;&#x6709;&#x5219;&#x4F1A;&#x81EA;&#x52A8;&#x4E0B;&#x8F7D;&#x8FDC;&#x7A0B;&#x955C;&#x50CF;</p>
+<h4 id="container">container</h4>
+<p>&#x5BB9;&#x5668;&#x662F;&#x955C;&#x50CF;&#x7684;&#x8FD0;&#x884C;&#x5B9E;&#x4F8B;&#xFF0C;&#x5BB9;&#x5668;&#x5171;&#x4EAB;&#x5BBF;&#x4E3B;&#x673A;&#x7684;<code>kernel</code>&#x5185;&#x6838;&#xFF0C;&#x72EC;&#x7ACB;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#xFF0C;&#x4E0D;&#x5360;&#x7528;&#x5176;&#x4ED6;&#x4EFB;&#x4F55;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x90E8;&#x5206;&#x547D;&#x4EE4;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># List Docker CLI commands</span></span></span><br><span class="line">docker</span><br><span class="line">docker container --help</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Display Docker version and info</span></span></span><br><span class="line">docker --version</span><br><span class="line">docker version</span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Execute Docker image</span></span></span><br><span class="line">docker run hello-world</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># List Docker images</span></span></span><br><span class="line">docker image ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># List Docker containers (running, all, all in quiet mode)</span></span></span><br><span class="line">docker container ls</span><br><span class="line">docker container ls --all</span><br><span class="line">docker container ls -aq</span><br></pre></td></tr></table></figure>
+<h2 id="&#x5BB9;&#x5668;">&#x5BB9;&#x5668;</h2>
+<h3 id="&#x521B;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x5BB9;&#x5668;">&#x521B;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x5BB9;&#x5668;</h3>
+<p>&#x901A;&#x8FC7;<code>Dockerfile</code>&#x5B9A;&#x4E49;&#x955C;&#x50CF; &#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7A7A;&#x76EE;&#x5F55;&#xFF0C;<code>cd</code>&#x8FDB;&#x5165;&#x76EE;&#x5F55;&#xFF0C;&#x7F16;&#x8F91;<code>Dockerfile</code>&#x6587;&#x4EF6;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use an official Python runtime as a parent image</span></span><br><span class="line">FROM python:2.7-slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the working directory to /app</span></span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the current directory contents into the container at /app</span></span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install any needed packages specified in requirements.txt</span></span><br><span class="line">RUN pip install --trusted-host pypi.python.org -r requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make port 80 available to the world outside this container</span></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define environment variable</span></span><br><span class="line">ENV NAME World</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run app.py when the container launches</span></span><br><span class="line">CMD [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;app.py&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p>&#x6839;&#x636E;&#x4E0A;&#x8FF0;<code>Dockerfile</code>&#x65B0;&#x5EFA;<code>requirements.txt</code>&#x548C;<code>app.py</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Flask</span><br><span class="line">Redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> redis <span class="keyword">import</span> Redis, RedisError</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect to Redis</span></span><br><span class="line">redis = Redis(host=<span class="string">&quot;redis&quot;</span>, db=<span class="number">0</span>, socket_connect_timeout=<span class="number">2</span>, socket_timeout=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(&quot;/&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        visits = redis.incr(<span class="string">&quot;counter&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> RedisError:</span><br><span class="line">        visits = <span class="string">&quot;&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;&quot;</span></span><br><span class="line"></span><br><span class="line">    html = <span class="string">&quot;&lt;h3&gt;Hello {name}!&lt;/h3&gt;&quot;</span> \</span><br><span class="line">           <span class="string">&quot;&lt;b&gt;Hostname:&lt;/b&gt; {hostname}&lt;br/&gt;&quot;</span> \</span><br><span class="line">           <span class="string">&quot;&lt;b&gt;Visits:&lt;/b&gt; {visits}&quot;</span></span><br><span class="line">    <span class="keyword">return</span> html.format(name=os.getenv(<span class="string">&quot;NAME&quot;</span>, <span class="string">&quot;world&quot;</span>), hostname=socket.gethostname(), visits=visits)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(host=<span class="string">&apos;0.0.0.0&apos;</span>, port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+<p>&#x6267;&#x884C;<code>docker build -t=friendlyhello .</code> &#x7B49;&#x5F85;&#x7F16;&#x8BD1;&#x5B8C;&#x6210;&#x540E;&#x901A;&#x8FC7;<code>docker image ls</code>&#x53EF;&#x67E5;&#x770B;&#x5230;&#x5DF2;&#x7ECF;&#x7F16;&#x8BD1;&#x597D;&#x7684;&#x955C;&#x50CF;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                                             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">friendlyhello                                          latest              9f7c2034a1f3        27 seconds ago      148MB</span><br><span class="line">python                                                 2.7-slim            5caa018c2dc0        9 days ago          137MB</span><br></pre></td></tr></table></figure>
+<p>&#x6267;&#x884C;<code>docker run -d -p 4000:80 friendlyhello</code>&#xFF0C;&#x4EE5;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;&#x5BB9;&#x5668;</p>
+<p>&#x53EF;&#x901A;&#x8FC7;<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>&#x8BBF;&#x95EE;&#x9996;&#x9875;</p>
+<p>&#x7248;&#x672C;&#x63A7;&#x5236; <code>docker tag image username/repository:tag</code></p>
+<p>&#x90E8;&#x5206;&#x547D;&#x4EE4;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">docker build -t friendlyhello .  <span class="comment"># Create image using this directory&apos;s Dockerfile</span></span><br><span class="line">docker run -p 4000:80 friendlyhello  <span class="comment"># Run &quot;friendlyhello&quot; mapping port 4000 to 80</span></span><br><span class="line">docker run -d -p 4000:80 friendlyhello         <span class="comment"># Same thing, but in detached mode</span></span><br><span class="line">docker container ls                                <span class="comment"># List all running containers</span></span><br><span class="line">docker container ls -a             <span class="comment"># List all containers, even those not running</span></span><br><span class="line">docker container stop &lt;<span class="built_in">hash</span>&gt;           <span class="comment"># Gracefully stop the specified container</span></span><br><span class="line">docker container <span class="built_in">kill</span> &lt;<span class="built_in">hash</span>&gt;         <span class="comment"># Force shutdown of the specified container</span></span><br><span class="line">docker container rm &lt;<span class="built_in">hash</span>&gt;        <span class="comment"># Remove specified container from this machine</span></span><br><span class="line">docker container rm $(docker container ls -a -q)         <span class="comment"># Remove all containers</span></span><br><span class="line">docker image ls -a                             <span class="comment"># List all images on this machine</span></span><br><span class="line">docker image rm &lt;image id&gt;            <span class="comment"># Remove specified image from this machine</span></span><br><span class="line">docker image rm $(docker image ls -a -q)   <span class="comment"># Remove all images from this machine</span></span><br><span class="line">docker login             <span class="comment"># Log in this CLI session using your Docker credentials</span></span><br><span class="line">docker tag &lt;image&gt; username/repository:tag  <span class="comment"># Tag &lt;image&gt; for upload to registry</span></span><br><span class="line">docker push username/repository:tag            <span class="comment"># Upload tagged image to registry</span></span><br><span class="line">docker run username/repository:tag                   <span class="comment"># Run image from a registry</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x542F;&#x52A8;&#x5BB9;&#x5668;">&#x542F;&#x52A8;&#x5BB9;&#x5668;</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-p &#x6620;&#x5C04;&#x7AEF;&#x53E3;    &lt;&#x5BBF;&#x4E3B;&#x7AEF;&#x53E3;:&#x5BB9;&#x5668;&#x7AEF;&#x53E3;&gt;</span></span><br><span class="line">docker run -p   4001:8080  friendlyhello</span><br><span class="line"><span class="comment">#-d &#x4EE5;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x542F;&#x52A8;</span></span><br><span class="line">docker run -d -p  4001:8080  friendlyhello</span><br></pre></td></tr></table></figure>
+<h3 id="&#x8FDB;&#x5165;&#x5BB9;&#x5668;">&#x8FDB;&#x5165;&#x5BB9;&#x5668;</h3>
+<p>&#x8FDB;&#x5165;&#x5BB9;&#x5668;&#xFF0C;&#x5E76;&#x4EE5;<code>bash</code>&#x4F5C;&#x4E3A;<code>shell</code> <code>docker exec -it 6bcaf729d3d4 bash</code></p>
+<p><code>6bcaf729d3d4</code>&#x5BB9;&#x5668; id&#xFF0C;&#x53EF;&#x901A;&#x8FC7;<code>docker ps</code>&#x67E5;&#x770B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">6bcaf729d3d4        jenkins             &quot;/bin/tini -- /usr/l&#x2026;&quot;   31 seconds ago      Up 29 seconds       50000/tcp, 0.0.0.0:8002-&gt;8080/tcp   jenkins</span><br></pre></td></tr></table></figure>
+<p>&#x4EE5; root &#x6743;&#x9650;&#x767B;&#x5F55; <code>sudo docker exec -ti -u root 6bcaf729d3d4 bash</code></p>
+<h3 id="&#x5220;&#x9664;&#x5BB9;&#x5668;">&#x5220;&#x9664;&#x5BB9;&#x5668;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker container rm &lt;containerID&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5220;&#x9664;&#x6240;&#x6709;</span></span><br><span class="line">docker container rm `docker container ls -a -q`</span><br></pre></td></tr></table></figure>
+<h2 id="&#x670D;&#x52A1;&#x5316;">&#x670D;&#x52A1;&#x5316;</h2>
+<h2 id="&#x4E0B;&#x8F7D;&#x955C;&#x50CF;">&#x4E0B;&#x8F7D;&#x955C;&#x50CF;</h2>
+<p><code>docker pull name:tag</code> <code>name</code>&#x955C;&#x50CF;&#x540D; <code>tag</code>&#x955C;&#x50CF;&#x7248;&#x672C;</p>
+<blockquote>
+<p>&#x82E5;&#x901F;&#x5EA6;&#x8F83;&#x6162;&#xFF0C;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x955C;&#x50CF;&#x52A0;&#x901F; <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">&#x955C;&#x50CF;&#x52A0;&#x901F;&#x53C2;&#x8003;&#x6587;&#x6863;</a></p>
+</blockquote>
+<h2 id="&#x5220;&#x9664;&#x955C;&#x50CF;">&#x5220;&#x9664;&#x955C;&#x50CF;</h2>
+<p><code>docker images</code>&#x67E5;&#x770B;&#x6240;&#x6709;&#x955C;&#x50CF; <code>dockder rmi &apos;image_id&apos;</code>&#x5220;&#x9664;&#x955C;&#x50CF; &#x5220;&#x9664;&#x6240;&#x6709;&#x955C;&#x50CF;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f `docker images -q`</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4FDD;&#x5B58;&#x955C;&#x50CF;">&#x4FDD;&#x5B58;&#x955C;&#x50CF;</h2>
+<p>&#x5F53;&#x5728;&#x955C;&#x50CF;&#x542F;&#x52A8;&#x7684;&#x5BB9;&#x5668;&#x4E2D;&#x505A;&#x4E86;&#x4FEE;&#x6539;&#xFF0C;&#x6BD4;&#x5982;&#x4E0B;&#x8F7D;&#x4E86;&#x8F6F;&#x4EF6;&#xFF0C;&#x505A;&#x4E86;&#x914D;&#x7F6E;&#x7B49;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x5BB9;&#x5668;&#x4FDD;&#x5B58;&#x4E3A;&#x955C;&#x50CF;&#x3002; <code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code> &#x793A;&#x4F8B; <code>docker commit a8eb6111cf26 li-ubuntu</code> &#x540E;&#x7EED;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x65B0;&#x7684;&#x955C;&#x50CF;&#x540D;&#x79F0;&#x6765;&#x542F;&#x52A8;&#x5E94;&#x7528;&#x4E86; <code>docker run -it li-ubuntu /bin/bash</code></p>
+<h2 id="&#x5BFC;&#x51FA;&#x955C;&#x50CF;">&#x5BFC;&#x51FA;&#x955C;&#x50CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o update1.tar update</span><br></pre></td></tr></table></figure>
+<h2 id="&#x52A0;&#x8F7D;&#x79BB;&#x7EBF;&#x955C;&#x50CF;">&#x52A0;&#x8F7D;&#x79BB;&#x7EBF;&#x955C;&#x50CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i update1.tar</span><br></pre></td></tr></table></figure>
+<h2 id="&#x5B89;&#x88C5;&#x79BB;&#x7EBF;&#x955C;&#x50CF;">&#x5B89;&#x88C5;&#x79BB;&#x7EBF;&#x955C;&#x50CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="&#x67E5;&#x770B;&#x65E5;&#x5FD7;">&#x67E5;&#x770B;&#x65E5;&#x5FD7;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker logs [OPTIONS] CONTAINER</span><br><span class="line">  Options:</span><br><span class="line">        --details        &#x663E;&#x793A;&#x66F4;&#x591A;&#x7684;&#x4FE1;&#x606F;</span><br><span class="line">    -f, --follow         &#x8DDF;&#x8E2A;&#x5B9E;&#x65F6;&#x65E5;&#x5FD7;</span><br><span class="line">        --since string   &#x663E;&#x793A;&#x81EA;&#x67D0;&#x4E2A;timestamp&#x4E4B;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x6216;&#x76F8;&#x5BF9;&#x65F6;&#x95F4;&#xFF0C;&#x5982;42m&#xFF08;&#x5373;42&#x5206;&#x949F;&#xFF09;</span><br><span class="line">        --tail string    &#x4ECE;&#x65E5;&#x5FD7;&#x672B;&#x5C3E;&#x663E;&#x793A;&#x591A;&#x5C11;&#x884C;&#x65E5;&#x5FD7;&#xFF0C; &#x9ED8;&#x8BA4;&#x662F;all</span><br><span class="line">    -t, --timestamps     &#x663E;&#x793A;&#x65F6;&#x95F4;&#x6233;</span><br><span class="line">        --until string   &#x663E;&#x793A;&#x81EA;&#x67D0;&#x4E2A;timestamp&#x4E4B;&#x524D;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x6216;&#x76F8;&#x5BF9;&#x65F6;&#x95F4;&#xFF0C;&#x5982;42m&#xFF08;&#x5373;42&#x5206;&#x949F;&#xFF09;</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x53EA;&#x663E;&#x793A;&#x6700;&#x540E; 100 &#x884C;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f -t --since=&quot;2018-02-08&quot; --tail=100 CONTAINER_ID`</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;&#x6700;&#x8FD1; 30 &#x5206;&#x949F;&#x7684;&#x65E5;&#x5FD7;:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs --since 30m CONTAINER_ID</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;&#x67D0;&#x65F6;&#x95F4;&#x4E4B;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -t --since=&quot;2018-02-08T13:23:37&quot; CONTAINER_ID</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;&#x67D0;&#x65F6;&#x95F4;&#x6BB5;&#x65E5;&#x5FD7;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -t --since=&quot;2018-02-08T13:23:37&quot; --until &quot;2018-02-09T12:23:37&quot; CONTAINER_ID</span><br></pre></td></tr></table></figure>
+<h2 id="&#x6302;&#x8F7D;&#x5BBF;&#x4E3B;&#x76EE;&#x5F55;">&#x6302;&#x8F7D;&#x5BBF;&#x4E3B;&#x76EE;&#x5F55;</h2>
+<p><code>-v</code>&#x53EF;&#x91CD;&#x590D;&#x4F7F;&#x7528;&#xFF0C;&#x6307;&#x5B9A;&#x591A;&#x4E2A;&#x76EE;&#x5F55;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8002:8080 -v ~/jenkins:/var/jenkins_home -v /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home:/mnt/java -v /usr/local/Cellar/maven/3.6.1:/mnt/maven -v /Users/li/.m2:/mnt/.m2 --name jenkins --restart=always jenkins/jenkins:2.138.4</span><br></pre></td></tr></table></figure>
+<p><code>/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home:/mnt/java</code>&#x6302;&#x8F7D;<code>jdk</code></p>
+<h2 id="&#x5BB9;&#x5668;&#x5185;-vim-&#x5B89;&#x88C5;">&#x5BB9;&#x5668;&#x5185; vim &#x5B89;&#x88C5;</h2>
+<p>&#x8FDB;&#x5165;&#x5BB9;&#x5668;&#x4E2D;&#x4F7F;&#x7528;<code>vi</code>&#x63D0;&#x793A;&#x4E0D;&#x5B58;&#x5728;</p>
+<p><code>apt-get update</code>&#x66F4;&#x65B0;&#x8F6F;&#x4EF6;&#x5305;&#x7BA1;&#x7406;&#x5DE5;&#x5177;,&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x7684;&#x4F5C;&#x7528;&#x662F;&#xFF1A;&#x540C;&#x6B65; /etc/apt/sources.list &#x548C; /etc/apt/sources.list.d &#x4E2D;&#x5217;&#x51FA;&#x7684;&#x6E90;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x80FD;&#x83B7;&#x53D6;&#x5230;&#x6700;&#x65B0;&#x7684;&#x8F6F;&#x4EF6;&#x5305;&#x3002; <code>apt-get install vim</code>&#x5B89;&#x88C5; vi</p>
+<h2 id="&#x5F00;&#x542F;ssh&#x767B;&#x5F55;">&#x5F00;&#x542F;<code>ssh</code>&#x767B;&#x5F55;</h2>
+<ol type="1">
+<li>&#x5B89;&#x88C5;&#x670D;&#x52A1;&#x7AEF;<code>apt-get install openssh-server</code></li>
+<li>&#x542F;&#x52A8;<code>ssh</code>&#x670D;&#x52A1;,&#x4F7F;&#x7528;&#x547D;&#x4EE4;<code>service ssh start</code>&#x6216;&#x8005;<code>/ect/init.d/ssh start</code></li>
+<li>&#x5173;&#x95ED;<code>ssh</code>&#x670D;&#x52A1;&#xFF0C;<code>service ssh stop</code></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1202,7 +2025,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-08-18 10:16:35" itemprop="dateModified" datetime="2020-08-18T10:16:35+08:00">2020-08-18</time>
               </span>
             
           
@@ -1389,7 +2212,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.44<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&#x90A3;&#x4E48;&#x5728;&#x5B50;&#x6A21;&#x5757;&#x4E2D;&#x53EA;&#x9700;&#x8981;<code>&lt;groupId&gt;</code>&#x548C;<code>&lt;artifactId&gt;</code>&#x5373;&#x53EF;&#xFF0C;&#x5982;&#xFF1A;</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&#x8BF4;&#x660E;&#xFF1A; &#x4F7F;&#x7528; dependencyManagement &#x53EF;&#x4EE5;&#x7EDF;&#x4E00;&#x7BA1;&#x7406;&#x9879;&#x76EE;&#x7684;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x786E;&#x4FDD;&#x5E94;&#x7528;&#x7684;&#x5404;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x4F9D;&#x8D56;&#x548C;&#x7248;&#x672C;&#x4E00;&#x81F4;&#xFF0C;&#x4E0D;&#x7528;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x9879;&#x76EE;&#x90FD;&#x5F04;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4E0D;&#x5229;&#x4E8E;&#x7BA1;&#x7406;&#xFF0C;&#x5F53;&#x9700;&#x8981;&#x53D8;&#x66F4;&#x7248;&#x672C;&#x53F7;&#x7684;&#x65F6;&#x5019;&#x53EA;&#x9700;&#x8981;&#x5728;&#x7236;&#x7C7B;&#x5BB9;&#x5668;&#x91CC;&#x66F4;&#x65B0;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5B50;&#x9879;&#x76EE;&#x7684;&#x4FEE;&#x6539;&#xFF1B;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5B50;&#x9879;&#x76EE;&#x9700;&#x8981;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x7248;&#x672C;&#x53F7;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x6A21;&#x5757; dependencies &#x4E2D;&#x58F0;&#x660E;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x53F7;&#x5373;&#x53EF;&#x3002;&#x5B50;&#x7C7B;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x5B50;&#x7C7B;&#x58F0;&#x660E;&#x7684;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4E0D;&#x7EE7;&#x627F;&#x4E8E;&#x7236;&#x7C7B;&#x7248;&#x672C;&#x53F7;&#x3002;</p>
+<p>&#x8BF4;&#x660E;&#xFF1A; &#x4F7F;&#x7528; dependencyManagement &#x53EF;&#x4EE5;&#x7EDF;&#x4E00;&#x7BA1;&#x7406;&#x9879;&#x76EE;&#x7684;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x786E;&#x4FDD;&#x5E94;&#x7528;&#x7684;&#x5404;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x4F9D;&#x8D56;&#x548C;&#x7248;&#x672C;&#x4E00;&#x81F4;&#xFF0C;&#x4E0D;&#x7528;&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x9879;&#x76EE;&#x90FD;&#x5F04;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4E0D;&#x5229;&#x4E8E;&#x7BA1;&#x7406;&#xFF0C;&#x5F53;&#x9700;&#x8981;&#x53D8;&#x66F4;&#x7248;&#x672C;&#x53F7;&#x7684;&#x65F6;&#x5019;&#x53EA;&#x9700;&#x8981;&#x5728;&#x7236;&#x7C7B;&#x5BB9;&#x5668;&#x91CC;&#x66F4;&#x65B0;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5B50;&#x9879;&#x76EE;&#x7684;&#x4FEE;&#x6539;&#xFF1B;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5B50;&#x9879;&#x76EE;&#x9700;&#x8981;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x7248;&#x672C;&#x53F7;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x6A21;&#x5757; dependencies &#x4E2D;&#x58F0;&#x660E;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x53F7;&#x5373;&#x53EF;&#x3002;&#x5B50;&#x7C7B;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x5B50;&#x7C7B;&#x58F0;&#x660E;&#x7684;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x4E0D;&#x7EE7;&#x627F;&#x4E8E;&#x7236;&#x7C7B;&#x7248;&#x672C;&#x53F7;&#x3002; <strong><em>dependencyManagement &#x4E0D;&#x4F1A;&#x5F15;&#x5165;&#x5305;&#xFF0C;&#x4EC5;&#x63A7;&#x5236;&#x7248;&#x672C;</em></strong></p>
 <h4 id="&#x4E0E;-dependencies-&#x533A;&#x522B;">&#x4E0E; dependencies &#x533A;&#x522B;</h4>
 <ol type="1">
 <li>Dependencies &#x76F8;&#x5BF9;&#x4E8E; dependencyManagement&#xFF0C;&#x6240;&#x6709;&#x751F;&#x547D;&#x5728; dependencies &#x91CC;&#x7684;&#x4F9D;&#x8D56;&#x90FD;&#x4F1A;&#x81EA;&#x52A8;&#x5F15;&#x5165;&#xFF0C;&#x5E76;&#x9ED8;&#x8BA4;&#x88AB;&#x6240;&#x6709;&#x7684;&#x5B50;&#x9879;&#x76EE;&#x7EE7;&#x627F;&#x3002;</li>
@@ -1408,6 +2231,9 @@
 </blockquote>
 <h2 id="&#x5F3A;&#x5236;&#x5237;&#x65B0;&#x672C;&#x5730;&#x7F13;&#x5B58;">&#x5F3A;&#x5236;&#x5237;&#x65B0;&#x672C;&#x5730;&#x7F13;&#x5B58;</h2>
 <p><code>mvn dependency:purge-local-repository</code></p>
+<h2 id="&#x6253;&#x5305;&#x6E90;&#x7801;">&#x6253;&#x5305;&#x6E90;&#x7801;</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- &#x7ED1;&#x5B9A;source&#x63D2;&#x4EF6;&#x5230;Maven&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;,&#x5E76;&#x5728;&#x751F;&#x547D;&#x5468;&#x671F;&#x540E;&#x6267;&#x884C;&#x7ED1;&#x5B9A;&#x7684;source&#x7684;goal --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &#x7ED1;&#x5B9A;source&#x63D2;&#x4EF6;&#x5230;Maven&#x7684;&#x751F;&#x547D;&#x5468;&#x671F; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&#x5728;&#x751F;&#x547D;&#x5468;&#x671F;&#x540E;&#x6267;&#x884C;&#x7ED1;&#x5B9A;&#x7684;source&#x63D2;&#x4EF6;&#x7684;goals --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar-no-fork<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x6267;&#x884C; mvn install&#xFF0C;maven &#x4F1A;&#x81EA;&#x52A8;&#x5C06; source install &#x5230; repository &#x3002; &#x6267;&#x884C; mvn deploy&#xFF0C;maven &#x4F1A;&#x81EA;&#x52A8;&#x5C06; source deploy &#x5230; remote-repository &#x3002; &#x6267;&#x884C; mvn source:jar&#xFF0C;&#x5355;&#x72EC;&#x6253;&#x5305;&#x6E90;&#x7801;&#x3002;</p>
 
           
         
@@ -1852,828 +2678,6 @@ Provide an environment similar to what the user would expect had the user logged
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/09/maven相关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/09/maven相关/" class="post-title-link" itemprop="url">maven相关</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-09 23:01:19" itemprop="dateCreated datePublished" datetime="2019-07-09T23:01:19+08:00">2019-07-09</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-15 09:45:54" itemprop="dateModified" datetime="2020-07-15T09:45:54+08:00">2020-07-15</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="idea-&#x4E2D;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x6E90;&#x4EE3;&#x7801;">idea &#x4E2D;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x6E90;&#x4EE3;&#x7801;</h3>
-<p>&#x53EF;&#x5728;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x4E0B;&#x624B;&#x52A8;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x4E0B;&#x8F7D;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn dependency:resolve -Dclassifier=sources</span><br></pre></td></tr></table></figure>
-<h3 id="maven-&#x7236;&#x7C7B;-pom">maven &#x7236;&#x7C7B; pom</h3>
-<p>&#x5B9A;&#x4E49;&#x7236;&#x7C7B;<code>pom</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.li<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&#x6267;&#x884C;<code>install</code>&#x6216;<code>depoly</code>&#x53D1;&#x5E03;&#x5230;&#x4ED3;&#x5E93;&#x4E2D;</p>
-<p>&#x5176;&#x4ED6;&#x9879;&#x76EE;&#x5F15;&#x7528;</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.li<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="eclipse-&#x4E2D;-maven-&#x9879;&#x76EE;&#x4E0D;&#x81EA;&#x52A8;&#x7F16;&#x8BD1;">eclipse &#x4E2D; maven &#x9879;&#x76EE;&#x4E0D;&#x81EA;&#x52A8;&#x7F16;&#x8BD1;</h3>
-<p>&#x6267;&#x884C;<code>clean</code>&#xFF0C;&#x518D;<code>compile</code>&#x5373;&#x53EF;&#x3002;</p>
-<h3 id="&#x8DF3;&#x8FC7;&#x6D4B;&#x8BD5;">&#x8DF3;&#x8FC7;&#x6D4B;&#x8BD5;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package -DskipTests=true</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/09/english/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/09/english/" class="post-title-link" itemprop="url">english</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-09 08:13:49" itemprop="dateCreated datePublished" datetime="2019-07-09T08:13:49+08:00">2019-07-09</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-27 10:14:13" itemprop="dateModified" datetime="2020-07-27T10:14:13+08:00">2020-07-27</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/english/" itemprop="url" rel="index"><span itemprop="name">english</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x524D;&#x7F00;">&#x524D;&#x7F00;</h2>
-<p><code>mis</code> &#x574F;&#xFF0C;&#x9519;&#x8BEF;&#xFF0C;&#x5426;&#x5B9A;</p>
-<h2 id="&#x540E;&#x7F00;">&#x540E;&#x7F00;</h2>
-<p><code>less</code> &#x8868;&#x793A;&#x65E0;...&#x7684;&#x3001;&#x4E0D;...&#x7684;</p>
-<p><code>ness</code> &#x52A0;&#x8F7D;&#x5F62;&#x5BB9;&#x8BCD;&#x4E4B;&#x540E;&#xFF0C;&#x6784;&#x6210;&#x62BD;&#x5171;&#x4EAB;&#x540D;&#x8BCD;&#xFF0C;&#x8868;&#x793A;&#x6027;&#x8D28;&#xFF0C;&#x60C5;&#x51B5;&#xFF0C;&#x72B6;&#x6001;</p>
-<h2 id="&#x82F1;&#x6587;&#x6807;&#x70B9;&#x7B26;&#x53F7;">&#x82F1;&#x6587;&#x6807;&#x70B9;&#x7B26;&#x53F7;</h2>
-<p>&#x53E5;&#x70B9;&#xFF1A;&#x82F1;&#x56FD;&#x82F1;&#x8BED;&#xFF08;BrE&#xFF09;&#xFF1A;Full Stop&#xFF1B;&#x7F8E;&#x56FD;&#x82F1;&#x8BED;&#xFF08;AmE&#xFF09;&#xFF1A;Period&#xFF0C;&#x201C; . &#x201D; &#x95EE;&#x53F7;&#xFF1A;Question Mark&#xFF0C;&#x201C; ? &#x201D; &#x611F;&#x53F9;&#x53F7;&#xFF1A;Exclamation Mark&#xFF0C;&#x201C; ! &#x201D; &#x9017;&#x53F7;&#xFF1A;Comma&#xFF0C;&#x201C; , &#x201D; &#x5192;&#x53F7;&#xFF1A;Colon&#xFF0C;&#x201C; : &#x201D; &#x7701;&#x7565;&#x53F7;&#xFF1A;Ellipsis (&#x4F17;&#x6570;&#xFF1A;Ellipses)&#xFF0C;&#x201C; ... &#x201D; &#x5206;&#x53F7;&#xFF1A;Semicolon&#xFF0C;&#x201C; ; &#x201D; &#x8FDE;&#x5B57;&#x7B26;&#xFF1A;Hyphen&#xFF0C;&#x201C; - &#x201D; &#x8FDE;&#x63A5;&#x53F7;&#xFF1A;En Dash&#xFF0C;&#x201C; &#x2013; &#x201D; &#x7834;&#x6298;&#x53F7;&#xFF1A;Em Dash&#xFF0C;&#x201C; &#x2014; &#x201D; &#x62EC;&#x53F7;&#xFF1A;Parentheses&#xFF0C; &#x3000;&#x3000;&#x3000;&#x5C0F;&#x62EC;&#x53F7;&#xFF08;&#x5706;&#x62EC;&#x53F7;&#xFF09;&#x201C; ( ) &#x201D;&#xFF08;parenthesis; round brackets&#xFF09;&#xFF1B; &#x3000;&#x3000;&#x3000;&#x4E2D;&#x62EC;&#x53F7;&#x201C; [ ] &#x201D;&#xFF08;square brackets&#xFF09;&#xFF1B; &#x3000;&#x3000;&#x3000;&#x5927;&#x62EC;&#x53F7;&#x201C; { } &#x201D;&#xFF08;brackets; braces&#xFF09; &#x5F15;&#x53F7;&#xFF1A;Quotation Marks&#xFF0C; &#x3000;&#x3000;&#x3000;&#x53CC;&#x5F15;&#x53F7;&#x201C; &quot; &#x201D;&#xFF08;quote&#xFF09;&#xFF1B; &#x3000;&#x3000;&#x3000;&#x5355;&#x5F15;&#x53F7;&#x201C; &apos; &#x201D;&#xFF08;single quotation marks&#xFF09; &#x7F29;&#x5199;&#x53CA;&#x6240;&#x6709;&#x683C;&#x7B26;&#x53F7;&#xFF1A;Apostrophe&#xFF0C;&#x201C; &apos; &#x201D;</p>
-<h2 id="&#x5E38;&#x7528;&#x53D8;&#x91CF;">&#x5E38;&#x7528;&#x53D8;&#x91CF;</h2>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">&#x82F1;&#x6587;</th>
-<th style="text-align: left;">&#x4E2D;&#x6587;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">CaseSensitive</td>
-<td style="text-align: left;">&#x5927;&#x5C0F;&#x5199;&#x654F;&#x611F;</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CaseInSensitive</td>
-<td style="text-align: left;">&#x5927;&#x5C0F;&#x4E0D;&#x5199;&#x654F;&#x611F;</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">factor</td>
-<td style="text-align: left;">&#x7CFB;&#x6570;</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tutorial</td>
-<td style="text-align: left;">&#x6307;&#x5BFC;</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Escape character</td>
-<td style="text-align: left;">&#x8F6C;&#x4E49;&#x5B57;&#x7B26;</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/08/markdown_katex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/08/markdown_katex/" class="post-title-link" itemprop="url">markdown_katex</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-08 21:25:25" itemprop="dateCreated datePublished" datetime="2019-07-08T21:25:25+08:00">2019-07-08</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-30 13:22:19" itemprop="dateModified" datetime="2020-07-30T13:22:19+08:00">2020-07-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous"><h2 id="markdown-&#x8BED;&#x6CD5;">markdown &#x8BED;&#x6CD5;</h2>
-<ul>
-<li><p>&#x6807;&#x9898; <code>#</code>,<code>#</code>&#x4E2A;&#x6570;&#x8868;&#x793A;&#x6807;&#x9898;&#x7684;&#x7B49;&#x7EA7;&#xFF0C;&#x6807;&#x9898;&#x540E;&#x53EF;&#x4F7F;&#x7528;<code>{}</code>&#x6DFB;&#x52A0;&#x6E32;&#x67D3;&#x540E;&#x7684;&#x8282;&#x70B9;&#x7684; id&#xFF0C;&#x65B9;&#x4FBF;&#x4F7F;&#x7528;&#x951A;&#x70B9;&#x529F;&#x80FD;</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### My Great Heading {#custom-id}</span></span><br></pre></td></tr></table></figure></li>
-<li><p>&#x7A7A;&#x767D;&#x884C; <code>&amp;emsp;</code></p></li>
-<li>&#x9996;&#x884C;&#x7F29;&#x8FDB;&#xFF0C;&#x901A;&#x8FC7;&#x4E24;&#x4E2A;&#x7A7A;&#x767D;&#x884C;&#x6765;&#x5B9E;&#x73B0; <code>&amp;emsp;&amp;emsp;</code></li>
-<li>&#x6362;&#x884C; &#x4E24;&#x6BB5;&#x4E4B;&#x95F4;&#x63D2;&#x5165;&#x4E00;&#x4E2A;&#x7A7A;&#x767D;&#x884C;&#xFF0C;&#x6216;&#x8005;&#x4E0A;&#x4E00;&#x884C;&#x884C;&#x5C3E;&#x63D2;&#x5165;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;</li>
-<li><p>&#x6709;&#x5E8F;&#x5217;&#x8868;</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>ol</span><br><span class="line"><span class="bullet">2. </span>ol</span><br></pre></td></tr></table></figure></li>
-<li><p>&#x6587;&#x672C;&#x5F15;&#x7528;</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; &#x8FD9;&#x4E2A;&#x662F;&#x533A;&#x5757;&#x5F15;&#x7528;</span></span><br><span class="line">&gt;</span><br><span class="line"><span class="quote">&gt; &gt; &#x8FD9;&#x4E2A;&#x4E5F;&#x662F;&#x533A;&#x5757;&#x5F15;&#x7528;</span></span><br><span class="line"><span class="quote">&gt; &gt;</span></span><br><span class="line"><span class="quote">&gt; &gt; &gt; &#x8FD9;&#x4E2A;&#x8FD8;&#x662F;&#x662F;&#x533A;&#x5757;&#x5F15;&#x7528;</span></span><br></pre></td></tr></table></figure></li>
-<li>&#x63D2;&#x5165;&#x56FE;&#x7247; &#x5C06;&#x56FE;&#x7247;&#x5B58;&#x5165; md &#x6587;&#x4EF6;&#x540C;&#x7EA7;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;&#x5F15;&#x5165; <code>![&#x8BE6;&#x7EC6;&#x65E5;&#x5FD7;](./images/&#x56FE;&#x7247;&#x540D;.jpg)</code> &#x8BE5;&#x76EE;&#x5F55;&#x5728;<code>hexo</code>&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7684;<code>source</code>&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x5C06;&#x56FE;&#x7247;&#x653E;&#x5165;&#x5176;&#x4E2D;&#x5373;&#x53EF; &#x56FE;&#x7247;&#x4E0B;&#x9700;&#x8981;&#x6709;&#x884C;&#x6587;&#x5B57;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x663E;&#x793A;&#x51FA;&#x56FE;&#x7247;&#x7684;&#x9ED8;&#x8BA4;&#x540D;</li>
-<li><p>&#x94FE;&#x63A5;&#x2003;<code>[title](urls)</code></p></li>
-<li><p>&#x8868;&#x683C;&#x57FA;&#x672C;&#x6A21;&#x677F;&#xFF0C;&#x5176;&#x4E2D;<code>:</code>&#x8868;&#x793A;&#x5BF9;&#x9F50;&#xFF0C;&#x8868;&#x683C;&#x4E0A;&#x65B9;&#x9700;&#x8981;&#x7A7A;&#x4E00;&#x884C;&#xFF0C;&#x5426;&#x5219;&#x65E0;&#x6CD5;&#x6B63;&#x5E38;&#x663E;&#x793A;</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Table Header 1</th>
-<th style="text-align: center;">Table Header 2</th>
-<th style="text-align: right;">Table Header 3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Division 1</td>
-<td style="text-align: center;">Division 2</td>
-<td style="text-align: right;">Division 3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Division 1</td>
-<td style="text-align: center;">Division 2</td>
-<td style="text-align: right;">Division 3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Division 1</td>
-<td style="text-align: center;">Division 2</td>
-<td style="text-align: right;">Division 3</td>
-</tr>
-</tbody>
-</table></li>
-<li><p>&#x6587;&#x672C;&#x6362;&#x884C;&#x53EF;&#x5728;&#x4E0A;&#x4E00;&#x6BB5;&#x6587;&#x672C;&#x540E;&#x8FFD;&#x52A0;&#x81F3;&#x5C11;&#x4E24;&#x4E2A;&#x7A7A;&#x683C;</p></li>
-<li>&#x6C34;&#x5E73;&#x7EBF; <code>---</code></li>
-<li>&#x5220;&#x9664;&#x7EBF; <code>~~&#x5220;&#x9664;&#x7EBF;~~</code> <del>&#x5220;&#x9664;&#x7EBF;</del></li>
-<li><p>&#x52A0;&#x7C97;&#x6587;&#x672C;</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**_&#x52A0;&#x7C97;&#x7684;&#x6587;&#x672C;_*</span>*</span><br></pre></td></tr></table></figure></li>
-<li><p>&#x4EE3;&#x7801;&#x5757; ```language ``` &#x652F;&#x6301;&#x7684;&#x8BED;&#x8A00;&#x6709; <code>c</code>, <code>abnf</code>, <code>accesslog</code>, <code>actionscript</code>, <code>ada</code>, <code>apache</code>, <code>applescript</code>, <code>arduino</code>, <code>armasm</code>, <code>asciidoc</code>, <code>aspectj</code>, <code>autohotkey</code>, <code>autoit</code>, <code>avrasm</code>, <code>awk</code>, <code>axapta</code>, <code>bash</code>, <code>basic</code>, <code>bnf</code>, <code>brainfuck</code>, <code>cal</code>, <code>capnproto</code>, <code>ceylon</code>, <code>clean</code>, <code>clojure</code>, <code>clojure</code>-<code>repl</code>, <code>cmake</code>, <code>coffeescript</code>, <code>coq</code>, <code>cos</code>, <code>cpp</code>, <code>crmsh</code>, <code>crystal</code>, <code>cs</code>, <code>csp</code>, <code>css</code>, <code>d</code>, <code>dart</code>, <code>delphi</code>, <code>diff</code>, <code>django</code>, <code>dns</code>, <code>dockerfile</code>, <code>dos</code>, <code>dsconfig</code>, <code>dts</code>, <code>dust</code>, <code>ebnf</code>, <code>elixir</code>, <code>elm</code>, <code>erb</code>, <code>erlang</code>, <code>erlang</code>-<code>repl</code>, <code>excel</code>, <code>fix</code>, <code>flix</code>, <code>fortran</code>, <code>fsharp</code>, <code>gams</code>, <code>gauss</code>, <code>gcode</code>, <code>gherkin</code>, <code>glsl</code>, <code>go</code>, <code>golo</code>, <code>gradle</code>, <code>groovy</code>, <code>haml</code>, <code>handlebars</code>, <code>haskell</code>, <code>haxe</code>, <code>hsp</code>, <code>htmlbars</code>, <code>http</code>, <code>hy</code>, <code>inform7</code>, <code>ini</code>, <code>irpf90</code>, <code>java</code>, <code>javascript</code>, <code>json</code>, <code>julia</code>, <code>kotlin</code>, <code>lasso</code>, <code>ldif</code>, <code>leaf</code>, <code>less</code>, <code>lisp</code>, <code>livecodeserver</code>, <code>livescript</code>, <code>llvm</code>, <code>lsl</code>, <code>lua</code>, <code>makefile</code>, <code>markdown</code>, <code>mathematica</code>, <code>matlab</code>, <code>maxima</code>, <code>mel</code>, <code>mercury</code>, <code>mipsasm</code>, <code>mizar</code>, <code>mojolicious</code>, <code>monkey</code>, <code>moonscript</code>, <code>n1ql</code>, <code>nginx</code>, <code>nimrod</code>, <code>nix</code>, <code>nsis</code>, <code>objectivec</code>, <code>ocaml</code>, <code>openscad</code>, <code>oxygene</code>, <code>parser3</code>, <code>perl</code>, <code>pf</code>, <code>php</code>, <code>pony</code>, <code>powershell</code>, <code>processing</code>, <code>profile</code>, <code>prolog</code>, <code>protobuf</code>, <code>puppet</code>, <code>purebasic</code>, <code>python</code>, <code>q</code>, <code>qml</code>, <code>r</code>, <code>rib</code>, <code>roboconf</code>, <code>rsl</code>, <code>ruby</code>, <code>ruleslanguage</code>, <code>rust</code>, <code>scala</code>, <code>scheme</code>, <code>scilab</code>, <code>scss</code>, <code>smali</code>, <code>smalltalk</code>, <code>sml</code>, <code>sqf</code>, <code>sql</code>, <code>stan</code>, <code>stata</code>, <code>step21</code>, <code>stylus</code>, <code>subunit</code>, <code>swift</code>, <code>taggerscript</code>, <code>tap</code>, <code>tcl</code>, <code>tex</code>, <code>thrift</code>, <code>tp</code>, <code>twig</code>, <code>typescript</code>, <code>vala</code>, <code>vbnet</code>, <code>vbscript</code>, <code>vbscript</code>-<code>html</code>, <code>verilog</code>, <code>vhdl</code>, <code>vim</code>, <code>x86asm</code>, <code>xl</code>, <code>xml</code>, <code>xquery</code>, <code>yaml</code>, <code>zephir</code></p></li>
-<li><p>&#x8F6C;&#x4E49;</p>
-<ol type="1">
-<li>&#x8F6C;&#x4E49;&#x5B57;&#x7B26;<code>\</code></li>
-<li>&#x884C;&#x5185;&#x4EE3;&#x7801;&#x8F6C;&#x79FB;`,&#x4F7F;&#x7528;&#x4E24;&#x4E2A;``&#x5305;&#x88F9;&#xFF0C;&#x4F8B;&#x5982;<code>&#x6D4B;&#x8BD5;`a`</code></li>
-</ol></li>
-<li><p>&#x81EA;&#x5B9A;&#x4E49; html</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">em</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>aa<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&#x81EA;&#x5B9A;&#x4E49;&#x6837;&#x5F0F;&#xFF0C;&#x5728;&#x4E3B;&#x9898;<code>next</code>&#x4E0B;&#x7684;<code>main.styl</code>&#x5F15;&#x5165;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>@import &apos;_custom/li.styl&apos;;</code>&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9; vscode &#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x663E;&#x793A;&#xFF0C;&#x5728; vscode &#x4E2D;&#x589E;&#x52A0;&#x914D;&#x7F6E;&#x9879;<code>&quot;markdown.styles&quot;: [&quot;http://localhost:4000/css/main.css?v=7.2.0&quot;],</code>(vscode &#x56E0;&#x4E3A;&#x5B89;&#x5168;&#x539F;&#x56E0;&#x4E0D;&#x652F;&#x6301;&#x76F4;&#x63A5;&#x52A0;&#x8F7D;&#x672C;&#x5730;&#x6587;&#x4EF6;)</p>
-<p>&#x4F8B;&#x5982;: <em class="red">aa</em></p></li>
-</ul>
-<p>&#x8BE6;&#x7EC6;&#x8BED;&#x6CD5;&#x53EF;&#x53C2;&#x8003;<a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noopener">markdown &#x53C2;&#x8003;</a></p>
-<h2 id="katex">KaTex</h2>
-<p><a href="https://katex.org/docs/supported.html" target="_blank" rel="noopener">&#x53C2;&#x8003;&#x6587;&#x6863;</a></p>
-<p>&#x57FA;&#x672C; KaTex &#x9996;&#x5C3E;&#x9700;&#x8981;<code>$</code>&#x5305;&#x542B;,&#x4F8B;&#x5982;<code>$X_y$</code>&#x8868;&#x793A;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>X</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">X_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></p>
-<p>&#x5E38;&#x7528; | &#x8868;&#x8FBE;&#x5F0F; | &#x793A;&#x4F8B; | | :----: | :----: | | <code>\{\}</code> | <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">{</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mclose">}</span></span></span></span> | | <code>\ge</code> | <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2265;</mo></mrow><annotation encoding="application/x-tex">\ge</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">&#x2265;</span></span></span></span> | | <code>\le</code> | <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&#x2264;</mo></mrow><annotation encoding="application/x-tex">\le</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">&#x2264;</span></span></span></span> | | <code>X_y</code> | <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>X</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">X_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> | | <code>X^{y}</code> | <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mi>y</mi></msup></mrow><annotation encoding="application/x-tex">x^{y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span></span></span></span></span></span></span></span></span> | |<code>\hat{\delta}</code>|<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>&#x3B4;</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{\delta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9578799999999998em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9578799999999998em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03785em;">&#x3B4;</span></span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;">^</span></span></span></span></span></span></span></span></span>|</p>
-<p>&#x5757;&#x72B6;&#x4F7F;&#x7528;<code>$$</code>&#x5305;&#x542B;</p>
-<p>&#x4E0D;&#x652F;&#x6301;&#x4E2D;&#x6587;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/08/背包问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/08/背包问题/" class="post-title-link" itemprop="url">背包问题</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-08 16:08:55" itemprop="dateCreated datePublished" datetime="2019-07-08T16:08:55+08:00">2019-07-08</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous"><h2 id="&#x52A8;&#x6001;&#x89C4;&#x5212;">&#x52A8;&#x6001;&#x89C4;&#x5212;</h2>
-<p>&#x2003;&#x2003;&#x901A;&#x8FC7;&#x628A;&#x539F;&#x95EE;&#x9898;&#x5206;&#x89E3;&#x4E3A;&#x76F8;&#x5BF9;&#x7B80;&#x5355;&#x7684;&#x5B50;&#x95EE;&#x9898;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x89E3;&#x51B3;&#x590D;&#x6742;&#x95EE;&#x9898;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x5E38;&#x5E38;&#x9002;&#x7528;&#x4E8E;&#x6709;&#x91CD;&#x53E0;&#x5B50;&#x95EE;&#x9898;&#x548C;&#x6700;&#x4F18;&#x5B50;&#x7ED3;&#x6784;&#x7684;&#x95EE;&#x9898;&#x3002;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x80CC;&#x540E;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x5927;&#x81F4;&#x4E0A;&#xFF0C;&#x82E5;&#x8981;&#x89E3;&#x51B3;&#x4E00;&#x4E2A;&#x7ED9;&#x5B9A;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x4E0D;&#x540C;&#x90E8;&#x5206;(&#x5B50;&#x95EE;&#x9898;)&#xFF0C;&#x518D;&#x6839;&#x636E;&#x5B50;&#x95EE;&#x9898;&#x7684;&#x89E3;&#x5F97;&#x51FA;&#x539F;&#x95EE;&#x9898;&#x7684;&#x89E3;&#x3002;</p>
-<p>&#x2003;&#x2003;&#x901A;&#x5E38;&#x8BB8;&#x591A;&#x5B50;&#x95EE;&#x9898;&#x975E;&#x5E38;&#x76F8;&#x4F3C;&#xFF0C;&#x4E3A;&#x6B64;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x8BD5;&#x56FE;&#x4EC5;&#x4EC5;&#x89E3;&#x51B3;&#x4E00;&#x6B21;&#x5B50;&#x95EE;&#x9898;&#xFF0C;&#x4ECE;&#x800C;&#x51CF;&#x5C11;&#x8BA1;&#x7B97;&#x91CF;&#xFF0C;&#x4E00;&#x65E6;&#x67D0;&#x4E2A;&#x7ED9;&#x5B9A;&#x5B50;&#x95EE;&#x9898;&#x7684;&#x89E3;&#x5DF2;&#x7ECF;&#x7B97;&#x51FA;&#xFF0C;&#x5219;&#x5C06;&#x5176;&#x8BB0;&#x5FC6;&#x5316;&#x5B58;&#x50A8;&#xFF0C;&#x4EE5;&#x4FBF;&#x4E0B;&#x4E00;&#x6B21;&#x9700;&#x8981;&#x540C;&#x4E00;&#x4E2A;&#x5B50;&#x95EE;&#x9898;&#x89E3;&#x4E4B;&#x65F6;&#x76F4;&#x63A5;&#x67E5;&#x8868;&#x3002;</p>
-<h2 id="&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x5217;&#x548C;">&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x5217;&#x548C;</h2>
-<p>&#x5BF9;&#x4E8E;&#x7ED9;&#x5B9A;&#x5E8F;&#x5217;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">{</mo><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>A</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{A_1,A_2,...,A_i\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>,&#x6C42;&#x89E3;&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x5217;&#x548C;</p>
-<p>&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#xFF1A;</p>
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mi>A</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">dp(1) = A1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord">1</span></span></span></span></li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">{</mo><msub><mi>A</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>A</mi><mi>i</mi></msub><mo>+</mo><mi>d</mi><mi>p</mi><mo stretchy="false">(</mo><mi>i</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">dp(i) = max\{A_i,A_i+dp(i-1)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">{</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>... nums)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> ans = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">1</span>) {</span><br><span class="line">      <span class="keyword">return</span> ans;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) {</span><br><span class="line">      ans = Math.max(nums[i], ans + nums[i]);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">  }</span><br></pre></td></tr></table></figure>
-<h2 id="&#x7B80;&#x5355;&#x80CC;&#x5305;&#x95EE;&#x9898;">&#x7B80;&#x5355;&#x80CC;&#x5305;&#x95EE;&#x9898;</h2>
-<p>&#x4E00;&#x4E2A;&#x5BB9;&#x91CF;&#x4E3A;V&#x7684;&#x80CC;&#x5305;&#xFF0C;N&#x79CD;&#x4E0D;&#x540C;&#x8D28;&#x91CF;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">N_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&#x7684;&#x7269;&#x54C1;&#xFF0C;&#x4E3A;&#x6C42;&#x89E3;&#x5C06;&#x54EA;&#x4E9B;&#x7269;&#x54C1;&#x88C5;&#x5165;&#x80CC;&#x5305;&#x53EF;&#x4F7F;&#x603B;&#x548C;&#x6700;&#x5927;&#xFF0C;&#x4E0D;&#x540C;&#x8D28;&#x91CF;&#x7684;&#x7269;&#x54C1;&#x4E0D;&#x9650;&#x6570;&#x91CF;</p>
-<p>&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#xFF1A;</p>
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F(0) = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>V</mi><mo stretchy="false">)</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">{</mo><mi>F</mi><mo stretchy="false">(</mo><mi>V</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>N</mi><mi>v</mi></msub><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>V</mi><mo>&#x2212;</mo><msub><mi>N</mi><mi>v</mi></msub><mo stretchy="false">)</mo><mi mathvariant="normal">&#x2223;</mi><msub><mi>N</mi><mi>v</mi></msub><mo>&#x2264;</mo><mi>V</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">F(V) = max\{F(V-1),N_v+F(V-N_v)|N_v \le V\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">{</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">&#x2223;</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2264;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mclose">}</span></span></span></span></li>
-</ul>
-<p>&#x603B;&#x91CD;&#x91CF;&#x4E3A;0&#xFF0C;&#x90A3;&#x4E48;&#x7269;&#x54C1;&#x6570;&#x91CF;&#x4E5F;&#x4E3A;0</p>
-<p>&#x603B;&#x91CD;&#x91CF;&#x4E3A;V&#x65F6;&#x6709;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;</p>
-<ul>
-<li><p>&#x7B2C;&#x4E00;&#x79CD;&#x662F;&#x8BE5;&#x91CD;&#x91CF;&#x65E0;&#x6CD5;&#x586B;&#x6EE1;&#xFF0C;&#x8FD9;&#x5BF9;&#x5E94;&#x8868;&#x8FBE;&#x5F0F;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>V</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(V-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>&#x7684;&#x89E3;&#x3002;</p></li>
-<li><p>&#x7B2C;&#x4E8C;&#x79CD;&#x60C5;&#x51B5;&#x662F;&#x521A;&#x597D;&#x586B;&#x6EE1;&#xFF0C;&#x8FD9;&#x5BF9;&#x5E94;&#x4E00;&#x7CFB;&#x5217;&#x521A;&#x597D;&#x586B;&#x6EE1;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x5176;&#x4E2D;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x662F;&#x6307;&#x6700;&#x540E;&#x653E;&#x5165;&#x5305;&#x4E2D;&#x7684;&#x7269;&#x54C1;&#x6070;&#x597D;&#x662F;&#x91CD;&#x91CF;&#x4E3A;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">N_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>&#x7684;&#x7269;&#x54C1;&#xFF0C;&#x800C;&#x8FD9;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x89E3;&#x51FA;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>V</mi><mo>&#x2212;</mo><msub><mi>N</mi><mi>v</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(V-N_v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>&#x7684;&#x503C;&#x5373;&#x53EF;&#x3002;</p></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> V, Integer[] map)</span> </span>{</span><br><span class="line">  <span class="keyword">if</span> (map == <span class="keyword">null</span>) {</span><br><span class="line">    map = <span class="keyword">new</span> Integer[V + <span class="number">1</span>];</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">if</span> (map[V] != <span class="keyword">null</span>) {</span><br><span class="line">    <span class="keyword">return</span> map[V];</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">int</span> max = V == <span class="number">0</span> ? <span class="number">0</span> : max(nums, V - <span class="number">1</span>, map);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> Nv : nums) {</span><br><span class="line">    <span class="keyword">if</span> (Nv &lt;= V) {</span><br><span class="line">      max = Math.max(Nv + max(nums, V - Nv, map), max);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  map[V] = max;</span><br><span class="line">  <span class="keyword">return</span> max;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="&#x53C2;&#x8003;&#x94FE;&#x63A5;">&#x53C2;&#x8003;&#x94FE;&#x63A5;</h2>
-<p><a href="https://zh.wikipedia.org/wiki/&#x80CC;&#x5305;&#x95EE;&#x9898;" target="_blank" rel="noopener">&#x7EF4;&#x57FA;&#x767E;&#x79D1;-&#x80CC;&#x5305;&#x95EE;&#x9898;</a><br>
-<a href="https://zh.wikipedia.org/wiki/&#x52A8;&#x6001;&#x89C4;&#x5212;" target="_blank" rel="noopener">&#x7EF4;&#x57FA;&#x767E;&#x79D1;-&#x52A8;&#x6001;&#x89C4;&#x5212;</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2720,7 +2724,7 @@ Provide an environment similar to what the user would expect had the user logged
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">123</span>
+                    <span class="site-state-item-count">127</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3320,6 +3324,9 @@ Provide an environment similar to what the user would expect had the user logged
                         var isMatch = false;
                         var hitCount = 0;
                         var searchTextCount = 0;
+                        if(!data.title){
+                            return
+                        }
                         var title = data.title.trim();
                         var titleInLowerCase = title.toLowerCase();
                         if (!data.content){
