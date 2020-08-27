@@ -1732,7 +1732,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f2906c;
+  background: #c762b3;
 }
 .feed-link,
 .chat {
@@ -2780,10 +2780,21 @@ ul.breadcrumb li+li:last-child {
 }
 .red {
   color: #f00;
+  font-size: 16px;
 }
 .grey {
   color: #8a8f8a;
 }
 .mermaid {
   background-color: #fff !important;
+}
+hi {
+  font-family: 'PT Mono', consolas, Menlo, 'PingFang SC', 'Microsoft YaHei', monospace;
+  overflow-wrap: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  padding: 2px 4px;
+  background: #ffe819;
+  border-radius: 3px;
+  font-size: 14px;
 }

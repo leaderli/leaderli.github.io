@@ -410,6 +410,253 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/19/redis发布订阅/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/19/redis发布订阅/" class="post-title-link" itemprop="url">redis发布订阅</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-19 20:10:06" itemprop="dateCreated datePublished" datetime="2020-05-19T20:10:06+08:00">2020-05-19</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>redis &#x63D0;&#x4F9B;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x529F;&#x80FD;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x8BA2;&#x9605;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A; channel&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#x3002;&#x4F7F;&#x7528;<code>redis-cli</code>&#x8FDB;&#x5165;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF0C;&#x53EA;&#x80FD;&#x4F7F;&#x7528;<code>ctrl-c</code>&#x53D6;&#x6D88;&#x8BA2;&#x9605;</p>
+<h2 id="&#x53D1;&#x5E03;&#x8BA2;&#x9605;">&#x53D1;&#x5E03;&#x8BA2;&#x9605;</h2>
+<h3 id="&#x8BA2;&#x9605;">&#x8BA2;&#x9605;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subscribe [channel1] [channel2]</span><br></pre></td></tr></table></figure>
+<h3 id="&#x53D6;&#x6D88;&#x8BA2;&#x9605;">&#x53D6;&#x6D88;&#x8BA2;&#x9605;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unsubscribe [channel1] [channel2]</span><br></pre></td></tr></table></figure>
+<h3 id="&#x53D1;&#x5E03;&#x6D88;&#x606F;">&#x53D1;&#x5E03;&#x6D88;&#x606F;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publish [channel] [message]</span><br></pre></td></tr></table></figure>
+<p>&#x53D1;&#x5E03;&#x6D88;&#x606F;&#x540E;&#xFF0C;&#x53D1;&#x5E03;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x5F53;&#x524D;&#x8BA2;&#x9605; channel &#x7684;&#x4E2A;&#x6570;&#x3002;&#x8BA2;&#x9605;&#x65B9;&#x4F1A;&#x53D7;&#x5230;&#x5305;&#x542B; channel &#x548C; message</p>
+<h3 id="&#x6A21;&#x5F0F;&#x8BA2;&#x9605;">&#x6A21;&#x5F0F;&#x8BA2;&#x9605;</h3>
+<p>psubscribe &#x548C; punsubscribe &#x57FA;&#x672C;&#x4E0E; subscribe&#xFF0C;unsubscribe &#x7528;&#x6CD5;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x5B83;&#x652F;&#x6301;&#x4F7F;&#x7528;&#x901A;&#x914D;&#x7B26;&#x3002;&#x4F8B;&#x5982;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psubscribe news.*</span><br><span class="line">punsubscribe news.*</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;">&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;</h2>
+<p>redis &#x652F;&#x6301;&#x8BA2;&#x9605;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#x4F7F;&#x7528;&#x666E;&#x901A;&#x7684;&#x8BA2;&#x9605;&#x53D1;&#x5E03;&#x673A;&#x5236;&#xFF0C;&#x4E0D;&#x5177;&#x5907;&#x53EF;&#x9760;&#x6027;&#xFF0C;&#x5F53;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x5BA2;&#x6237;&#x7AEF;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x65F6;&#xFF0C;&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x7684;&#x8BA2;&#x9605;&#x4FE1;&#x606F;&#x4F1A;&#x4E22;&#x5931;&#x3002;</p>
+<p>&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#x5F71;&#x54CD; redis &#x6027;&#x80FD;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x662F;&#x5173;&#x95ED;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6253;&#x5F00;&#xFF0C;&#x4E00;&#x822C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;<code>CONFIG SET</code>&#x4E34;&#x65F6;&#x8BBE;&#x7F6E; <img src="/images/redis&#x53D1;&#x5E03;&#x8BA2;&#x9605;_2020-05-25-15-16-11.png" alt="redis&#x53D1;&#x5E03;&#x8BA2;&#x9605;_2020-05-25-15-16-11.png"> &#x8F93;&#x5165;&#x7684;&#x53C2;&#x6570;&#x4E2D;&#x81F3;&#x5C11;&#x8981;&#x6709;&#x4E00;&#x4E2A; K &#x6216;&#x8005; E&#xFF0C;&#x5426;&#x5219;&#x7684;&#x8BDD;&#xFF0C;&#x4E0D;&#x7BA1;&#x5176;&#x4F59;&#x7684;&#x53C2;&#x6570;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x90FD;&#x4E0D;&#x4F1A;&#x6709;&#x4EFB;&#x4F55;&#x901A;&#x77E5;&#x88AB;&#x5206;&#x53D1;&#x3002;(&#x5927;&#x5C0F;&#x5199;&#x4E0D;&#x654F;&#x611F;)</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">&#x5B57;&#x7B26;</th>
+<th style="text-align: left;">&#x53D1;&#x9001;&#x7684;&#x901A;&#x77E5;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">K</td>
+<td style="text-align: left;">&#x952E;&#x7A7A;&#x95F4;&#x901A;&#x77E5;&#xFF0C;&#x6240;&#x6709;&#x901A;&#x77E5;&#x4EE5; &#xA0;<code>__keyspace@&lt;db&gt;__</code>&#xA0; &#x4E3A;&#x524D;&#x7F00;&#xFF0C;&#x9488;&#x5BF9; Key</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">&#x952E;&#x4E8B;&#x4EF6;&#x901A;&#x77E5;&#xFF0C;&#x6240;&#x6709;&#x901A;&#x77E5;&#x4EE5; &#xA0;<code>__keyevent@&lt;db&gt;__</code>&#xA0; &#x4E3A;&#x524D;&#x7F00;&#xFF0C;&#x9488;&#x5BF9; event</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">g</td>
+<td style="text-align: left;">DEL&#xA0;&#x3001;&#xA0;EXPIRE&#xA0;&#x3001;&#xA0;RENAME&#xA0; &#x7B49;&#x7C7B;&#x578B;&#x65E0;&#x5173;&#x7684;&#x901A;&#x7528;&#x547D;&#x4EE4;&#x7684;&#x901A;&#x77E5;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$</td>
+<td style="text-align: left;">&#x5B57;&#x7B26;&#x4E32;&#x547D;&#x4EE4;&#x7684;&#x901A;&#x77E5;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">l</td>
+<td style="text-align: left;">&#x5217;&#x8868;&#x547D;&#x4EE4;&#x7684;&#x901A;&#x77E5;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">&#x96C6;&#x5408;&#x547D;&#x4EE4;&#x7684;&#x901A;&#x77E5;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">&#x54C8;&#x5E0C;&#x547D;&#x4EE4;&#x7684;&#x901A;&#x77E5;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">z</td>
+<td style="text-align: left;">&#x6709;&#x5E8F;&#x96C6;&#x5408;&#x547D;&#x4EE4;&#x7684;&#x901A;&#x77E5;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x</td>
+<td style="text-align: left;">&#x8FC7;&#x671F;&#x4E8B;&#x4EF6;&#xFF1A;&#x6BCF;&#x5F53;&#x6709;&#x8FC7;&#x671F;&#x952E;&#x88AB;&#x5220;&#x9664;&#x65F6;&#x53D1;&#x9001;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">e</td>
+<td style="text-align: left;">&#x9A71;&#x9010;(evict)&#x4E8B;&#x4EF6;&#xFF1A;&#x6BCF;&#x5F53;&#x6709;&#x952E;&#x56E0;&#x4E3A; &#xA0;maxmemory&#xA0; &#x653F;&#x7B56;&#x800C;&#x88AB;&#x5220;&#x9664;&#x65F6;&#x53D1;&#x9001;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">&#x53C2;&#x6570; &#xA0;g$lshzxe&#xA0; &#x7684;&#x522B;&#x540D;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x662F; All</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li><code>notify-keyspace-events &quot;Ex&quot;</code> &#x8868;&#x793A;&#x5BF9;&#x8FC7;&#x671F;&#x4E8B;&#x4EF6;&#x8FDB;&#x884C;&#x901A;&#x77E5;&#x53D1;&#x9001;</li>
+<li><code>notify-keyspace-events &quot;Kx&quot;</code>&#x8868;&#x793A;&#x60F3;&#x76D1;&#x63A7;&#x67D0;&#x4E2A; key &#x7684;&#x5931;&#x6548;&#x4E8B;&#x4EF6;</li>
+<li><code>notify-keyspace-events &quot;AKx&quot;</code>&#x5C06;&#x53C2;&#x6570;&#x8BBE;&#x4E3A;&#x5B57;&#x7B26;&#x4E32; AKE &#x8868;&#x793A;&#x53D1;&#x9001;&#x6240;&#x6709;&#x7C7B;&#x578B;&#x7684;&#x901A;&#x77E5;&#x3002;</li>
+</ol>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x4E34;&#x65F6;&#x8BBE;&#x7F6E;&#x76D1;&#x63A7;&#x4E8B;&#x4EF6;&#x901A;&#x77E5;</span></span><br><span class="line">config set notify-keyspace-events &quot;KEx&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x6A21;&#x5F0F;&#x8BA2;&#x9605;</span></span><br><span class="line">PSUBSCRIBE __key*</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x8FC7;&#x671F;&#x4E8B;&#x4EF6;&#x6D4B;&#x8BD5;&#xFF0C; 10&#x79D2;&#x540E;&#x51FA;&#x89E6;&#x53D1;&#x5931;&#x6548;&#x4E8B;&#x4EF6;</span></span><br><span class="line">setex name 10 tx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x8BA2;&#x9605;&#x65B9;&#x6536;&#x5230;&#x6D88;&#x606F;</span></span><br><span class="line">1) &quot;pmessage&quot;</span><br><span class="line">2) &quot;__key*&quot;</span><br><span class="line">3) &quot;__keyspace@0__:name&quot;</span><br><span class="line">4) &quot;expired&quot;</span><br><span class="line">1) &quot;pmessage&quot;</span><br><span class="line">2) &quot;__key*&quot;</span><br><span class="line">3) &quot;__keyevent@0__:expired&quot;</span><br><span class="line">4) &quot;name&quot;</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>K</code>&#x4E0E;<code>E</code>&#x7684;&#x533A;&#x522B;&#x4E3B;&#x8981;&#x5728;&#x4E8E;&#x89E6;&#x53D1;&#x7684;<code>channel</code>&#x548C;<code>message</code>&#x7684;&#x4E0D;&#x540C; <strong>_ &#x96C6;&#x7FA4;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x6240;&#x6709;&#x8282;&#x70B9;&#x4E0A;&#x90FD;&#x5F00;&#x542F;&#x4E8B;&#x4EF6;&#x901A;&#x77E5;&#xFF0C;&#x53C8;&#x56E0;&#x4E3A;&#x76D1;&#x542C;&#x4E8B;&#x4EF6;&#x4E3B;&#x8981;&#x662F;&#x57FA;&#x4E8E; key &#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x5728;&#x6B63;&#x786E;&#x7684;&#x8282;&#x70B9;&#x4E0A;&#x8BA2;&#x9605;&#x6D88;&#x606F;_</strong></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/19/redis-script/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1495,7 +1742,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-08-18 08:29:09" itemprop="dateModified" datetime="2020-08-18T08:29:09+08:00">2020-08-18</time>
+                <time title="修改时间：2020-08-25 11:10:42" itemprop="dateModified" datetime="2020-08-25T11:10:42+08:00">2020-08-25</time>
               </span>
             
           
@@ -1957,7 +2204,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-08-25 11:07:52" itemprop="dateModified" datetime="2020-08-25T11:07:52+08:00">2020-08-25</time>
               </span>
             
           
@@ -2018,6 +2265,9 @@
 <ul>
 <li>-a &#x663E;&#x793A;&#x7CFB;&#x7EDF;&#x6982;&#x8981;&#x4FE1;&#x606F;</li>
 </ul>
+<h2 id="which">which</h2>
+<p>&#x5728; PATH &#x53D8;&#x91CF;&#x6307;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x4E2D;&#xFF0C;&#x641C;&#x7D22;&#x67D0;&#x4E2A;&#x7CFB;&#x7EDF;&#x547D;&#x4EE4;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5E76;&#x4E14;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4E2A;&#x641C;&#x7D22;&#x7ED3;&#x679C;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x4F7F;&#x7528; which &#x547D;&#x4EE4;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x67D0;&#x4E2A;&#x7CFB;&#x7EDF;&#x547D;&#x4EE4;&#x662F;&#x5426;&#x5B58;&#x5728;&#xFF0C;&#x4EE5;&#x53CA;&#x6267;&#x884C;&#x7684;&#x5230;&#x5E95;&#x662F;&#x54EA;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#x7684;&#x547D;&#x4EE4;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">&gt; <span class="built_in">which</span> vi</span></span><br><span class="line">alias vi=&apos;vim&apos;</span><br><span class="line">   /usr/bin/vim</span><br></pre></td></tr></table></figure>
 <h2 id="date">date</h2>
 <p>&#x4EE5;&#x6307;&#x5B9A;&#x683C;&#x5F0F;&#x67E5;&#x770B;&#x65F6;&#x95F4;</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dt=`date +&apos;%Y-%m-%d&apos;`</span><br></pre></td></tr></table></figure>
@@ -2362,194 +2612,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/11/linux环境变量/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/11/linux环境变量/" class="post-title-link" itemprop="url">linux环境变量</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-11 21:51:47" itemprop="dateCreated datePublished" datetime="2020-05-11T21:51:47+08:00">2020-05-11</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;">&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;</h2>
-<h3 id="login-shell">login shell</h3>
-<p><code>login shell</code>&#x662F;&#x9700;&#x8981;&#x7528;&#x6237;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#x8FDB;&#x5165;<code>shell</code>&#xFF0C;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x5F55;&#x6D41;&#x7A0B;&#x3002;&#x8FD9;&#x79CD;&#x767B;&#x5F55;&#x65B9;&#x5F0F;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;</p>
-<ol type="1">
-<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/profile</code></li>
-<li>&#x52A0;&#x8F7D;&#x7528;&#x6237;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;~/.bash_profile &#x6216; ~/.bash_login &#x6216;~/.profile&#x3002;&#x4E0A;&#x8FF0;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#x53EA;&#x4F1A;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x4F9D;&#x6B21;&#x964D;&#x4F4E; login shell &#x662F;&#x8BF4;&#x5728;&#x53D6;&#x5F97; bash &#x65F6;&#x9700;&#x8981;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x9646;&#x6D41;&#x7A0B;&#x3002;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x53D6;&#x5F97; bash &#x5462;&#xFF1F;&#x5F53;&#x7136;&#x5C31;&#x662F;&#x7528;&#x6237;&#x767B;&#x9646;&#x7684;&#x65F6;&#x5019;&#x3002;&#x5F53;&#x4F60;&#x5728; tty1~tty6 &#x767B;&#x9646;&#xFF0C;&#x9700;&#x8981;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#xFF0C;&#x6B64;&#x65F6;&#x53D6;&#x5F97;&#x7684; bash &#x5C31;&#x662F; login shell&#x3002;</li>
-</ol>
-<h3 id="non-login-shell">non-login shell</h3>
-<p><code>non-login shell</code> &#x5C31;&#x662F;&#x53D6;&#x5F97; bash &#x4E0D;&#x9700;&#x8981;&#x91CD;&#x590D;&#x767B;&#x5F55;&#xFF0C;&#x5C31;&#x50CF;&#x4F60;&#x5728;&#x684C;&#x9762;&#x89C6;&#x56FE;&#x4E2D;&#x7528;<code>ctrl+alt+T</code>&#x542F;&#x52A8;&#x7684; shell &#x8F93;&#x5165;&#x7A97;&#x53E3;&#x5C31;&#x662F;<code>non-login shell</code>&#x3002;&#x8FD8;&#x6709;&#x5C31;&#x662F;&#x4F60;&#x5728; shell &#x7A97;&#x53E3;&#x76F4;&#x63A5; su &#x5207;&#x6362;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x90FD;&#x5C5E;&#x4E8E;<code>non-login shell</code>&#x3002; <code>non-login shell</code> &#x53EA;&#x4F1A;&#x8BFB;&#x53D6;~/.bashrc &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;</p>
-<blockquote>
-<p>&#x5F53;&#x4F7F;&#x7528;<code>su &lt;user&gt;</code>&#x5207;&#x6362;&#x7528;&#x6237;&#x7684;&#x65F6;&#xFF0C;&#x662F;&#x4EE5;<code>non-login shell</code>&#x7684;&#x65B9;&#x5F0F;&#x53D6;&#x5F97; bash &#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF; PATH &#x7B49;&#x662F;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x8BFB;&#x53D6;<code>/etc/profile</code>&#x7684;&#x8BDD;&#xFF0C; &#x4F60;&#x9700;&#x8981;&#x7528;<code>su - &lt;user&gt;</code>&#x7684;&#x65B9;&#x5F0F;&#x767B;&#x5F55;&#x3002;<code>su -</code>&#x5C31;&#x662F;<code>su -l</code>&#x5373;<code>su --login</code>&#x7684;&#x610F;&#x601D; &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x540E;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>source</code>&#x547D;&#x4EE4;&#x8BA9;&#x5B83;&#x7ACB;&#x5373;&#x751F;&#x6548;&#xFF0C;&#x4F8B;&#x5982;<code>source ~/.bashrc</code></p>
-</blockquote>
-<h2 id="&#x76F8;&#x5173;&#x914D;&#x7F6E;">&#x76F8;&#x5173;&#x914D;&#x7F6E;</h2>
-<h3 id="&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;">&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;</h3>
-<p>1&#x3001;&#x7F16;&#x8F91;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;/etc/profile&#xFF0C;&#x4F7F;&#x6240;&#x6709;&#x7528;&#x6237;&#x5747;&#x663E;&#x793A;&#x8BE5;&#x683C;&#x5F0F;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vi  /etc/profile</span></span><br><span class="line">export TIME_STYLE=&quot;+%Y-%m-%d %H:%M:%S&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="path"><code>PATH</code></h3>
-<p>&#x5F53;&#x7A0B;&#x5E8F;&#x5728;<code>PATH</code>&#x7684;&#x76EE;&#x5F55;&#x4E2D;&#x4E14;&#x5177;&#x6709;&#x6267;&#x884C;&#x6743;&#x9650;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x4EFB;&#x610F;&#x5730;&#x65B9;&#x76F4;&#x63A5;&#x8FD0;&#x884C;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2596,7 +2658,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">127</span>
+                    <span class="site-state-item-count">128</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2918,7 +2980,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">118</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

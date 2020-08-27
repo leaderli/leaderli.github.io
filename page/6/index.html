@@ -410,6 +410,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/11/linux环境变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/11/linux环境变量/" class="post-title-link" itemprop="url">linux环境变量</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-11 21:51:47" itemprop="dateCreated datePublished" datetime="2020-05-11T21:51:47+08:00">2020-05-11</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;">&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;</h2>
+<h3 id="login-shell">login shell</h3>
+<p><code>login shell</code>&#x662F;&#x9700;&#x8981;&#x7528;&#x6237;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#x8FDB;&#x5165;<code>shell</code>&#xFF0C;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x5F55;&#x6D41;&#x7A0B;&#x3002;&#x8FD9;&#x79CD;&#x767B;&#x5F55;&#x65B9;&#x5F0F;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;</p>
+<ol type="1">
+<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/profile</code></li>
+<li>&#x52A0;&#x8F7D;&#x7528;&#x6237;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;~/.bash_profile &#x6216; ~/.bash_login &#x6216;~/.profile&#x3002;&#x4E0A;&#x8FF0;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#x53EA;&#x4F1A;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x4F9D;&#x6B21;&#x964D;&#x4F4E; login shell &#x662F;&#x8BF4;&#x5728;&#x53D6;&#x5F97; bash &#x65F6;&#x9700;&#x8981;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x9646;&#x6D41;&#x7A0B;&#x3002;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x53D6;&#x5F97; bash &#x5462;&#xFF1F;&#x5F53;&#x7136;&#x5C31;&#x662F;&#x7528;&#x6237;&#x767B;&#x9646;&#x7684;&#x65F6;&#x5019;&#x3002;&#x5F53;&#x4F60;&#x5728; tty1~tty6 &#x767B;&#x9646;&#xFF0C;&#x9700;&#x8981;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#xFF0C;&#x6B64;&#x65F6;&#x53D6;&#x5F97;&#x7684; bash &#x5C31;&#x662F; login shell&#x3002;</li>
+</ol>
+<h3 id="non-login-shell">non-login shell</h3>
+<p><code>non-login shell</code> &#x5C31;&#x662F;&#x53D6;&#x5F97; bash &#x4E0D;&#x9700;&#x8981;&#x91CD;&#x590D;&#x767B;&#x5F55;&#xFF0C;&#x5C31;&#x50CF;&#x4F60;&#x5728;&#x684C;&#x9762;&#x89C6;&#x56FE;&#x4E2D;&#x7528;<code>ctrl+alt+T</code>&#x542F;&#x52A8;&#x7684; shell &#x8F93;&#x5165;&#x7A97;&#x53E3;&#x5C31;&#x662F;<code>non-login shell</code>&#x3002;&#x8FD8;&#x6709;&#x5C31;&#x662F;&#x4F60;&#x5728; shell &#x7A97;&#x53E3;&#x76F4;&#x63A5; su &#x5207;&#x6362;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x90FD;&#x5C5E;&#x4E8E;<code>non-login shell</code>&#x3002; <code>non-login shell</code> &#x53EA;&#x4F1A;&#x8BFB;&#x53D6;~/.bashrc &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;</p>
+<blockquote>
+<p>&#x5F53;&#x4F7F;&#x7528;<code>su &lt;user&gt;</code>&#x5207;&#x6362;&#x7528;&#x6237;&#x7684;&#x65F6;&#xFF0C;&#x662F;&#x4EE5;<code>non-login shell</code>&#x7684;&#x65B9;&#x5F0F;&#x53D6;&#x5F97; bash &#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF; PATH &#x7B49;&#x662F;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x8BFB;&#x53D6;<code>/etc/profile</code>&#x7684;&#x8BDD;&#xFF0C; &#x4F60;&#x9700;&#x8981;&#x7528;<code>su - &lt;user&gt;</code>&#x7684;&#x65B9;&#x5F0F;&#x767B;&#x5F55;&#x3002;<code>su -</code>&#x5C31;&#x662F;<code>su -l</code>&#x5373;<code>su --login</code>&#x7684;&#x610F;&#x601D; &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x540E;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>source</code>&#x547D;&#x4EE4;&#x8BA9;&#x5B83;&#x7ACB;&#x5373;&#x751F;&#x6548;&#xFF0C;&#x4F8B;&#x5982;<code>source ~/.bashrc</code></p>
+</blockquote>
+<h2 id="&#x76F8;&#x5173;&#x914D;&#x7F6E;">&#x76F8;&#x5173;&#x914D;&#x7F6E;</h2>
+<h3 id="&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;">&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;</h3>
+<p>1&#x3001;&#x7F16;&#x8F91;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;/etc/profile&#xFF0C;&#x4F7F;&#x6240;&#x6709;&#x7528;&#x6237;&#x5747;&#x663E;&#x793A;&#x8BE5;&#x683C;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vi  /etc/profile</span></span><br><span class="line">export TIME_STYLE=&quot;+%Y-%m-%d %H:%M:%S&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="path"><code>PATH</code></h3>
+<p>&#x5F53;&#x7A0B;&#x5E8F;&#x5728;<code>PATH</code>&#x7684;&#x76EE;&#x5F55;&#x4E2D;&#x4E14;&#x5177;&#x6709;&#x6267;&#x884C;&#x6743;&#x9650;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x4EFB;&#x610F;&#x5730;&#x65B9;&#x76F4;&#x63A5;&#x8FD0;&#x884C;</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/08/node入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4037,182 +4225,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/03/16/spring配置类加载yaml配置项的模拟实现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/16/spring配置类加载yaml配置项的模拟实现/" class="post-title-link" itemprop="url">spring配置类加载yaml配置项的模拟实现</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-16 14:27:04" itemprop="dateCreated datePublished" datetime="2020-03-16T14:27:04+08:00">2020-03-16</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&#x6838;&#x5FC3;&#x601D;&#x8DEF;&#x5C31;&#x662F;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6CE8;&#x89E3;&#x7528;&#x4EE5;<code>Spring</code>&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5C06;&#x5176;&#x624B;&#x52A8;&#x6CE8;&#x5165;&#x5230;<code>Spring</code>&#x5BB9;&#x5668;&#x4E2D;&#xFF0C;&#x5E76;&#x5E72;&#x9884;&#x8BE5;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x5316;&#x8FC7;&#x7A0B;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>({ElementType.TYPE})</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> YamlBean {</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportBeanDefinitionRegistrar;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.filter.AnnotationTypeFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YamlBeanRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>{</span><br><span class="line">        createComponentScanner().findCandidateComponents(<span class="string">&quot;com.leaderli.yaml&quot;</span>).forEach(beanDefinition -&gt; {</span><br><span class="line">            System.out.println(<span class="string">&quot;beanDefinition = &quot;</span> + beanDefinition);</span><br><span class="line">            beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(Objects.requireNonNull(beanDefinition.getBeanClassName()));</span><br><span class="line">            beanDefinition.setBeanClassName(ProxyFactoryBean.class.getName()); <span class="comment">//&#x6307;&#x5B9A;&#x8BE5;&#x7C7B;&#x7684;&#x751F;&#x6210;&#x5DE5;&#x5382;&#x7C7B;</span></span><br><span class="line">            registry.registerBeanDefinition(Objects.requireNonNull(beanDefinition.getBeanClassName()), beanDefinition);</span><br><span class="line">        });</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ClassPathScanningCandidateComponentProvider <span class="title">createComponentScanner</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="comment">// &#x626B;&#x63CF;YamlBean&#x6CE8;&#x89E3;&#x7684;&#x7C7B;</span></span><br><span class="line">        ClassPathScanningCandidateComponentProvider provider</span><br><span class="line">                = <span class="keyword">new</span> ClassPathScanningCandidateComponentProvider(<span class="keyword">false</span>);</span><br><span class="line">        provider.addIncludeFilter(<span class="keyword">new</span> AnnotationTypeFilter(YamlBean.class));</span><br><span class="line">        <span class="keyword">return</span> provider;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.FactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.yaml.snakeyaml.Yaml;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyFactoryBean</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">FactoryBean</span>&lt;<span class="title">T</span>&gt; </span>{</span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; interfaceClass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyFactoryBean</span><span class="params">(Class&lt;T&gt; interfaceClass)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.interfaceClass = interfaceClass;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">        YamlBean annotation = interfaceClass.getAnnotation(YamlBean.class);</span><br><span class="line"></span><br><span class="line">        InputStream inputStream = ClassLoader.getSystemResourceAsStream(<span class="string">&quot;bean.yml&quot;</span>);</span><br><span class="line">        Yaml yaml = <span class="keyword">new</span> Yaml();</span><br><span class="line">        Map&lt;String,Object&gt; load = yaml.load(inputStream);</span><br><span class="line"></span><br><span class="line">        String prefix = annotation.value();</span><br><span class="line">        System.out.println(<span class="string">&quot;prefix = &quot;</span> + prefix);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String key : prefix.split(<span class="string">&quot;\\.&quot;</span>)) {</span><br><span class="line">            load= (Map&lt;String, Object&gt;) load.get(key);</span><br><span class="line">            System.out.println(<span class="string">&quot;load = &quot;</span> + load);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">        yaml = <span class="keyword">new</span> Yaml();</span><br><span class="line">        String dump = yaml.dump(load);</span><br><span class="line">        System.out.println(<span class="string">&quot;dump = &quot;</span> + dump);</span><br><span class="line"></span><br><span class="line">        T bean = yaml.loadAs(dump, interfaceClass);</span><br><span class="line">        System.out.println(<span class="string">&quot;bean = &quot;</span> + bean);</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; getObjectType() {</span><br><span class="line">        <span class="keyword">return</span> interfaceClass;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x5728;<code>Spring</code>&#x7684;&#x914D;&#x7F6E;&#x7C7B;&#x5C06;&#x626B;&#x63CF;&#x5668;&#x5BFC;&#x5165;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import</span>(YamlBeanRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringConfig</span> </span>{</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4259,7 +4271,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">127</span>
+                    <span class="site-state-item-count">128</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -4581,7 +4593,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">118</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -410,6 +410,229 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/27/log4j/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/27/log4j/" class="post-title-link" itemprop="url">log4j</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-27 23:30:03" itemprop="dateCreated datePublished" datetime="2019-08-27T23:30:03+08:00">2019-08-27</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-12 14:35:59" itemprop="dateModified" datetime="2020-08-12T14:35:59+08:00">2020-08-12</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="debug-&#x6A21;&#x5F0F;&#x8FD0;&#x884C;">DEBUG &#x6A21;&#x5F0F;&#x8FD0;&#x884C;</h2>
+<p><code>log4j</code>&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x914D;&#x7F6E;<code>log4j.debug=true</code>&#x5373;&#x53EF;&#x5F00;&#x542F;</p>
+<h2 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h2>
+<p><code>log4j</code>&#x7684;<code>looger</code>&#x662F;&#x5C42;&#x7EA7;&#x7ED3;&#x6784;&#x7684;&#xFF0C;&#x4F8B;&#x5982;<code>com.li</code>&#x662F;<code>com.li.springboot</code>&#x7684;&#x7236;&#x7C7B;<code>logger</code><br>
+&#x53EF;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;&#x53D6;&#x51FA;<code>logger</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.advice.log4j;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LevelTest</span> </span>{</span><br><span class="line">    Logger logger= Logger.getLogger(LevelTest.class);</span><br><span class="line">    Logger logger= Logger.getLogger(<span class="string">&quot;com.li.springboot.advice.log4j.LevelTest&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>getLogger</code>&#x6839;&#x636E;&#x53C2;&#x6570;<code>name</code>&#xFF0C;&#x5728;&#x4EFB;&#x610F;&#x5904;&#x53D6;&#x51FA;&#x7684;<code>logger</code>&#x90FD;&#x662F;&#x540C;&#x4E00;&#x4E2A; <code>root logger</code>&#x662F;&#x6240;&#x6709;<code>logger</code>&#x7684;&#x7236;&#x7C7B;&#xFF0C;&#x4E00;&#x5B9A;&#x5B58;&#x5728;&#x4F46;&#x662F;&#x5B83;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>getLogger</code>&#x901A;&#x8FC7;<code>name</code>&#x53D6;&#x51FA;&#x3002;&#x53EF;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;&#x53D6;&#x51FA;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getRootLogger()</span><br></pre></td></tr></table></figure>
+<p>&#x53EF;&#x4F7F;&#x7528;&#x7684;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;<code>org.apache.log4j.Level</code></p>
+<blockquote>
+<p><code>TRACE</code>,<code>DEBUG</code>,<code>INFO</code>,<code>WARN</code>,<code>ERROR</code> and <code>FATAL</code></p>
+</blockquote>
+<p>&#x5F53;&#x6307;&#x5B9A;<code>name</code>&#x7684;<code>logger</code>&#x65E5;&#x5FD7;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x4F1A;&#x5C06;&#x8BE5;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x81F3;&#x7236;&#x7C7B;<code>logger</code> &#x5F53;<code>logger</code>&#x6CA1;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x914D;&#x7F6E;&#x65F6;&#xFF0C;&#x4F1A;&#x627E;&#x6700;&#x8FD1;&#x7684;&#x7236;&#x7C7B;&#x914D;&#x7F6E;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;<code>logger</code>&#x914D;&#x7F6E;&#x4F1A;&#x7EE7;&#x627F;&#x7236;&#x7C7B;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x53EF;&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;<code>log4j.additivity.xxx=false</code>&#x4F7F;&#x5176;&#x4E0D;&#x7EE7;&#x627F;(xxx &#x662F; logger &#x7684; name)</p>
+<h2 id="&#x914D;&#x7F6E;">&#x914D;&#x7F6E;</h2>
+<ol type="1">
+<li><p>&#x521D;&#x59CB;&#x5316; Logger &#x5BB9;&#x5668; Hierarchy,&#x8BBE;&#x7F6E;&#x6839;&#x8282;&#x70B9;&#x4E3A; RootLogger</p></li>
+<li><p>&#x521D;&#x59CB; LoggerRepositorySelector(&#x5BB9;&#x5668;&#x9009;&#x62E9;&#x5668;)&#x4E3A;&#x9ED8;&#x8BA4;&#x7684; DefaultRepositorySelector,&#x5BB9;&#x5668;&#x4E3A; Hierarchy</p></li>
+<li><p>&#x8BFB;&#x53D6;&#x7CFB;&#x7EDF;&#x5C5E;&#x6027; log4j.defaultInitOverride,&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x6216;&#x8005;&#x4E3A; false &#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;,&#x5426;&#x5219;&#x8DF3;&#x8FC7;&#x521D;&#x59CB;&#x5316;</p></li>
+<li><p>&#x8BFB;&#x53D6;&#x7CFB;&#x7EDF;&#x5C5E;&#x6027; log4j.configuration(log4j &#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x914D;&#x7F6E;),&#x5982;&#x679C;&#x5B58;&#x5728;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;,&#x5219;&#x5F97;&#x5230; URL.&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;,&#x9996;&#x5148;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x5B58;&#x5728; log4j.xml &#x6587;&#x4EF6;,&#x5982;&#x679C;&#x5B58;&#x5728;,&#x5F97;&#x5230; Log4j &#x914D;&#x7F6E;&#x6587;&#x4EF6; URL,&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728; log4j.xml,&#x7EE7;&#x7EED;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x5B58;&#x5728; log4j.properties &#x6587;&#x4EF6;,&#x5982;&#x679C;&#x5B58;&#x5728;&#x8BE5;&#x6587;&#x4EF6;,&#x5F97;&#x5230; log4j &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684; URL,&#x5426;&#x5219;&#x63D0;&#x793A;&#x6CA1;&#x6709;&#x53D1;&#x73B0;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p></li>
+<li><p>&#x8BFB;&#x53D6;&#x7CFB;&#x7EDF;&#x5C5E;&#x6027; log4j.configuratorClass(&#x81EA;&#x5B9A;&#x4E49; Configurator &#x914D;&#x7F6E;&#x7C7B;&#x5168;&#x8DEF;&#x5F84;,&#x4E00;&#x822C;&#x4E0D;&#x81EA;&#x5B9A;&#x4E49;)</p></li>
+<li><p>&#x8C03;&#x7528; OptionConverter.selectAndConfigure(url, configuratorClassName,LogManager.getLoggerRepository()),&#x521D;&#x59CB;&#x5316; logger &#x5BB9;&#x5668;</p></li>
+</ol>
+<h3 id="&#x6269;&#x5C55;&#x914D;&#x7F6E;">&#x6269;&#x5C55;&#x914D;&#x7F6E;</h3>
+<p>&#x53EF;&#x4F7F;&#x7528;<code>BasicConfigurator.resetConfiguration()</code>&#x91CD;&#x7F6E;&#x914D;&#x7F6E; &#x53EF;&#x4F7F;&#x7528;<code>PropertyConfigurator.configure</code>&#x6307;&#x5B9A;&#x5176;&#x4ED6;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
+<h3 id="tomcat&#x4E0B;&#x7684;log4j"><code>tomcat</code>&#x4E0B;&#x7684;<code>log4j</code></h3>
+<p>&#x5F53;<code>log4j</code>&#x7684;<code>jar</code>&#x5305;&#x5728;<code>tomcat</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F7F;&#x7528;<code>BasicConfigurator.resetConfiguration()</code>&#x91CD;&#x7F6E;&#x914D;&#x7F6E;&#x65F6;&#xFF0C;&#x4F1A;&#x4FEE;&#x6539;<code>tomcat</code>&#x4E0B;&#x6240;&#x6709;&#x5E94;&#x7528;&#x7684;&#x65E5;&#x5FD7;&#x6253;&#x5370;&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B; &#x6211;&#x4EEC;&#x5728;&#x4E3B;&#x5E94;&#x7528;&#x91CC;&#x505A;&#x914D;&#x7F6E;&#xFF0C;&#x5FFD;&#x7565;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x7684;&#x914D;&#x7F6E;&#x5373;&#x53EF;&#x3002;&#x4F46;&#x662F;&#x5F53;&#x4F60;&#x53D1;&#x5E03;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x65F6;&#xFF0C;&#x89E6;&#x53D1;<code>log4j</code>&#x7684;&#x521D;&#x59CB;&#x5316;&#x914D;&#x7F6E;&#xFF0C;&#x5219;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x4E3B;&#x5E94;&#x7528;&#xFF0C;&#x53EF;&#x80FD;&#x9020;&#x6210;&#x4E3B;&#x5E94;&#x7528;&#x65E5;&#x5FD7;&#x4E0D;&#x6253;&#x5370;&#x3002;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x901A;&#x8FC7;<code>HierarchyEventListener</code>&#x6765;&#x76D1;&#x542C;<code>log4j</code>&#x7684;&#x914D;&#x7F6E;&#x662F;&#x5426;&#x88AB;&#x4FEE;&#x6539;&#xFF0C;&#x6765;&#x5728;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x91CD;&#x7F6E;&#x914D;&#x7F6E;&#x65F6;&#xFF0C;&#x91CD;&#x65B0;&#x89E6;&#x53D1;&#x4E3B;&#x5E94;&#x7528;&#x7684;&#x914D;&#x7F6E;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x5373;&#x53EF;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> {</span><br><span class="line">    Logger.getRootLogger().getLoggerRepository().addHierarchyEventListener(<span class="keyword">new</span> HierarchyEventListener() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addAppenderEvent</span><span class="params">(Category cat, Appender appender)</span> </span>{</span><br><span class="line">            LogLog.debug(<span class="string">&quot;add &quot;</span> + cat.getName() + <span class="string">&quot;  &quot;</span> + appender);</span><br><span class="line">            flag = <span class="keyword">false</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeAppenderEvent</span><span class="params">(Category cat, Appender appender)</span> </span>{</span><br><span class="line">            <span class="comment">//log4j&#x914D;&#x7F6E;&#x88AB;&#x79FB;&#x9664;&#x524D;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x6B64;&#x65F6;&#x914D;&#x7F6E;&#x8FD8;&#x662F;&#x751F;&#x6548;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x662F;&#x65E0;&#x6548;&#x7684;&#xFF0C;&#x56DE;&#x8C03;&#x540E;&#x5C31;</span></span><br><span class="line">            <span class="comment">//&#x88AB;&#x91CD;&#x7F6E;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x5728;&#x5916;&#x9762;&#x53BB;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#xFF0C;&#x8FD9;&#x91CC;&#x4EC5;&#x6253;&#x4E00;&#x4E2A;&#x6807;&#x8BB0;</span></span><br><span class="line">            LogLog.debug(<span class="string">&quot;remove &quot;</span> + cat.getName() + <span class="string">&quot;  &quot;</span> + appender);</span><br><span class="line">            flag = <span class="keyword">true</span>;</span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initLog4j</span><span class="params">()</span> </span>{</span><br><span class="line">    BasicConfigurator.resetConfiguration();</span><br><span class="line">    Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        properties.load(ClassLoader.getSystemResourceAsStream(<span class="string">&quot;mylog4j.properties&quot;</span>));</span><br><span class="line">    } <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//&#x914D;&#x7F6E;logger&#x65F6;&#xFF0C;&#x5DF2;&#x6709;&#x7684;&#x540C;&#x540D;Category&#x4F1A;&#x88AB;remove&#x6389;&#xFF0C;&#x5373;&#x53EF;&#x4EE5;&#x89E6;&#x53D1;removeAppenderEvent&#x4E8B;&#x4EF6;</span></span><br><span class="line">    PropertyConfigurator.configure(properties);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cycle; i++) {</span><br><span class="line">    Thread.sleep(RandomUtils.nextInt(<span class="number">500</span>, <span class="number">1500</span>));</span><br><span class="line">        <span class="keyword">if</span> (flag) {</span><br><span class="line">            initLog4j();</span><br><span class="line">        }</span><br><span class="line">    logger.debug(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="mdc"><code>MDC</code></h3>
+<p>&#x6253;&#x9020;&#x65E5;&#x5FD7;&#x94FE;&#x8DEF;&#xFF0C;<code>MDC</code>&#x7C7B;&#x4F3C;<code>ThreadLocal</code>&#x7C7B;&#xFF0C;&#x6839;&#x636E;&#x7EBF;&#x7A0B;&#x5B58;&#x5165;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#xFF0C;&#x4EE5;&#x4F9B;&#x6253;&#x5370;&#x65E5;&#x5FD7;&#x7684;&#x65F6;&#x5019;&#x8F93;&#x51FA;(<code>%X{name}</code>)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MDC.clear();</span><br><span class="line">MDC.put(<span class="string">&quot;session&quot;</span>, <span class="string">&quot;xxxx&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">log4j.appender.consoleAppender.layout.ConversionPattern</span>= <span class="string">%X{session} %m%n</span></span><br></pre></td></tr></table></figure>
+<h2 id="&#x95EE;&#x9898;">&#x95EE;&#x9898;</h2>
+<h3 id="&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x95EE;&#x9898;">&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x95EE;&#x9898;</h3>
+<p>&#x5E94;&#x7528;&#x4E2D;&#x9700;&#x8981;&#x5C06;&#x591A;&#x4E2A;<code>logger</code>&#x7684;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x5230;&#x540C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x4E14;&#x9700;&#x8981;&#x6839;&#x636E;&#x65F6;&#x95F4;&#x6BCF;&#x5929;&#x81EA;&#x52A8;&#x5206;&#x5272;&#x6587;&#x4EF6;&#x3002;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>DailyRollingFileAppender</code> &#x914D;&#x7F6E;&#x5982;&#x4E0B;</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#x5F00;&#x542F;log4j&#x7684;&#x65E5;&#x5FD7;</span></span><br><span class="line"><span class="meta">log4j.debug</span>=<span class="string">true</span></span><br><span class="line"><span class="meta">log4j.rootLogger</span>=<span class="string">error, stdout</span></span><br><span class="line"><span class="meta">log4j.logger.l1</span>=<span class="string">DEBUG, fuck1</span></span><br><span class="line"><span class="meta">log4j.logger.l2</span>=<span class="string">DEBUG, fuck2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#l1</span></span><br><span class="line"><span class="meta">log4j.appender.fuck1</span>=<span class="string">org.apache.log4j.DailyRollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.fuck1.DatePattern</span>=<span class="string">&apos;.&apos;-yyyy-MM-dd-HH-mm</span></span><br><span class="line"><span class="meta">log4j.appender.fuck1.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.fuck1.File</span>=<span class="string">/Users/li/Downloads/log4j/log4j.log</span></span><br><span class="line"><span class="meta">log4j.appender.fuck1.layout.ConversionPattern</span>=<span class="string">%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#l2</span></span><br><span class="line"><span class="meta">log4j.appender.fuck2</span>=<span class="string">org.apache.log4j.DailyRollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.fuck2.DatePattern</span>=<span class="string">&apos;.&apos;-yyyy-MM-dd-HH-mm</span></span><br><span class="line"><span class="meta">log4j.appender.fuck2.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.fuck2.File</span>=<span class="string">/Users/li/Downloads/log4j/log4j.log</span></span><br><span class="line"><span class="meta">log4j.appender.fuck2.layout.ConversionPattern</span>=<span class="string">%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</span></span><br></pre></td></tr></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x6211;&#x4F7F;&#x7528;<code>Spring</code>&#x7684;<code>Scheduled</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Scheduled;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledTask</span> </span>{</span><br><span class="line"></span><br><span class="line">    Logger logger = Logger.getLogger(<span class="string">&quot;l1&quot;</span>);</span><br><span class="line">    Logger logger2 = Logger.getLogger(<span class="string">&quot;l2&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">&quot;*/1 * * * * *&quot;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">()</span> </span>{</span><br><span class="line">        logger.info(<span class="string">&quot;--------------------&quot;</span> + index++);</span><br><span class="line">        logger2.debug(<span class="string">&quot;--------------------&quot;</span> + index++);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>*/1 * * * * *</code>&#x8868;&#x793A;&#x6BCF;&#x79D2;&#x6267;&#x884C;&#x4E00;&#x6B21;</p>
+<p><code>log4j.appender.fuck1.DatePattern=&apos;.&apos;-yyyy-MM-dd-HH-mm</code>&#x8868;&#x793A;&#x6BCF;&#x5206;&#x949F;&#x5206;&#x5272;&#x4E00;&#x6B21;&#x6587;&#x4EF6;</p>
+<p>&#x5728;&#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5230;&#x5E95;&#x5207;&#x5272;&#x70B9;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x89C2;&#x5BDF;&#x5230;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;</p>
+<p><code>log4j</code>&#x81EA;&#x8EAB;&#x7684;&#x65E5;&#x5FD7;&#x4E00;&#x5B9A;&#x8F93;&#x51FA;&#x5728;<code>System.out</code>&#x4E2D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2019-09-05 21:16:59 DEBUG l2:22 - --------------------44</span><br><span class="line">log4j: /Users/li/Downloads/log4j/log4j.log -&gt; /Users/li/Downloads/log4j/log4j.log.-2019-09-05-21-16</span><br><span class="line">log4j: setFile called: /Users/li/Downloads/log4j/log4j.log, true</span><br><span class="line">log4j: setFile ended</span><br><span class="line">2019-09-05 21:17:00 INFO  l1:21 - --------------------45</span><br><span class="line">log4j: /Users/li/Downloads/log4j/log4j.log -&gt; /Users/li/Downloads/log4j/log4j.log.-2019-09-05-21-16</span><br><span class="line">log4j: setFile called: /Users/li/Downloads/log4j/log4j.log, true</span><br><span class="line">log4j: setFile ended</span><br><span class="line">2019-09-05 21:17:00 DEBUG l2:22 - --------------------46</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x89C2;&#x5BDF;&#x4E0B;&#x6E90;&#x7801;&#x5206;&#x6790;&#x4E0B;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">subAppend</span><span class="params">(LoggingEvent event)</span> </span>{</span><br><span class="line">    <span class="keyword">long</span> n = System.currentTimeMillis();</span><br><span class="line">    <span class="comment">//&#x68C0;&#x6D4B;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x70B9;&#x662F;&#x5426;&#x9700;&#x8981;&#x5206;&#x5272;&#x6587;&#x4EF6;</span></span><br><span class="line">    <span class="keyword">if</span> (n &gt;= nextCheck) {</span><br><span class="line">      now.setTime(n);</span><br><span class="line">      nextCheck = rc.getNextCheckMillis(now);</span><br><span class="line">      <span class="keyword">try</span> {</span><br><span class="line">        rollOver();</span><br><span class="line">      }</span><br><span class="line">      <span class="keyword">catch</span>(IOException ioe) {</span><br><span class="line">          <span class="keyword">if</span> (ioe <span class="keyword">instanceof</span> InterruptedIOException) {</span><br><span class="line">              Thread.currentThread().interrupt();</span><br><span class="line">          }</span><br><span class="line">        LogLog.error(<span class="string">&quot;rollOver() failed.&quot;</span>, ioe);</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">super</span>.subAppend(event);</span><br><span class="line">   }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rollOver</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Compute filename, but only if datePattern is specified */</span></span><br><span class="line">    <span class="keyword">if</span> (datePattern == <span class="keyword">null</span>) {</span><br><span class="line">      errorHandler.error(<span class="string">&quot;Missing DatePattern option in rollOver().&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    String datedFilename = fileName+sdf.format(now);</span><br><span class="line">    <span class="comment">// It is too early to roll over because we are still within the</span></span><br><span class="line">    <span class="comment">// bounds of the current interval. Rollover will occur once the</span></span><br><span class="line">    <span class="comment">// next interval is reached.</span></span><br><span class="line">    <span class="keyword">if</span> (scheduledFilename.equals(datedFilename)) {</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// close current file, and rename it to datedFilename</span></span><br><span class="line">    <span class="keyword">this</span>.closeFile();</span><br><span class="line">    <span class="comment">//&#x5982;&#x679C;&#x5B58;&#x5728;&#x5176;&#x4ED6;&#x5206;&#x5272;&#x540E;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5219;&#x5220;&#x9664;</span></span><br><span class="line">    File target  = <span class="keyword">new</span> File(scheduledFilename);</span><br><span class="line">    <span class="keyword">if</span> (target.exists()) {</span><br><span class="line">      target.delete();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    File file = <span class="keyword">new</span> File(fileName);</span><br><span class="line">    <span class="comment">//&#x5C06;&#x5F53;&#x524D;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x6539;&#x540D;&#x4E3A;&#x4EE3;&#x65E5;&#x671F;&#x7684;&#x6587;&#x4EF6;</span></span><br><span class="line">    <span class="keyword">boolean</span> result = file.renameTo(target);</span><br><span class="line">    <span class="keyword">if</span>(result) {</span><br><span class="line">      LogLog.debug(fileName +<span class="string">&quot; -&gt; &quot;</span>+ scheduledFilename);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">      LogLog.error(<span class="string">&quot;Failed to rename [&quot;</span>+fileName+<span class="string">&quot;] to [&quot;</span>+scheduledFilename+<span class="string">&quot;].&quot;</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">      <span class="comment">// This will also close the file. This is OK since multiple</span></span><br><span class="line">      <span class="comment">// close operations are safe.</span></span><br><span class="line">      <span class="comment">//&#x5C06;log4j&#x65E5;&#x5FD7;&#x7684;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#x4E3A;&#x4E0D;&#x5E26;&#x65E5;&#x671F;&#x7684;&#x6587;&#x4EF6;</span></span><br><span class="line">      <span class="keyword">this</span>.setFile(fileName, <span class="keyword">true</span>, <span class="keyword">this</span>.bufferedIO, <span class="keyword">this</span>.bufferSize);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">catch</span>(IOException e) {</span><br><span class="line">      errorHandler.error(<span class="string">&quot;setFile(&quot;</span>+fileName+<span class="string">&quot;, true) call failed.&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">    scheduledFilename = datedFilename;</span><br><span class="line">  }</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li><p><code>logger</code>&#x7684;&#x65E5;&#x5FD7;&#x5728;<code>logger2</code>&#x4E4B;&#x524D;&#xFF0C;&#x56E0;&#x6B64;&#x5148;&#x89E6;&#x53D1;<code>rollOver</code>,&#x6B64;&#x65F6;&#x6CA1;&#x6709;&#x6587;&#x4EF6;<code>log4j.log.-2019-09-05-21-16</code>,&#x5C06;<code>log4j.log</code>&#x91CD;&#x547D;&#x540D;&#x4E3A;<code>log4j.log.-2019-09-05-21-16</code>,&#x5E76;&#x5C06;<code>logger</code>&#x7684;&#x65E5;&#x5FD7;&#x6D41;&#x91CD;&#x5B9A;&#x5411;&#x4E3A;<code>log4j.log</code></p></li>
+<li><p>&#x7D27;&#x63A5;&#x7740;<code>logger2</code>&#x7684;&#x65E5;&#x5FD7;&#x6D41;&#x89E6;&#x53D1;<code>rollOver</code>,&#x6B64;&#x65F6;&#x4F1A;&#x5C06;<code>log4j.log.-2019-09-05-21-16</code>&#x5220;&#x9664;&#xFF0C;&#x540C;&#x65F6;&#x5C06;<code>log4j.log</code>&#x91CD;&#x547D;&#x540D;&#x4E3A;<code>log4j.log.-2019-09-05-21-16</code>&#xFF0C;&#x5E76;&#x5C06;<code>logger2</code>&#x7684;&#x65E5;&#x5FD7;&#x6D41;&#x91CD;&#x5B9A;&#x5411;&#x4E3A;<code>log4j.log</code>&#x3002;&#x6B64;&#x65F6;<code>logger</code>&#x7684;&#x65E5;&#x5FD7;&#x6D41;&#x5C31;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x88AB;&#x6539;&#x540D;&#x4E86;&#x3002;</p></li>
+<li><p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x7B2C;&#x4E00;&#x8F6E;&#x7684;&#x65E5;&#x5FD7;&#x88AB;<code>logger2</code>&#x89E6;&#x53D1;&#x7684;<code>rollOver</code>&#x5220;&#x9664;&#x4E86;&#xFF0C;&#x800C;<code>logger</code>&#x7684;&#x65E5;&#x5FD7;&#x6D41;&#x8F93;&#x51FA;&#x5230;<code>&#x4E0A;&#x4E00;&#x8F6E;</code></p></li>
+</ol>
+<h3 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;">&#x89E3;&#x51B3;&#x65B9;&#x6848;</h3>
+<p>&#x6839;&#x636E;&#x5206;&#x6790;&#xFF0C;&#x6211;&#x4EEC;&#x786E;&#x4FDD;<code>target.delete()</code>&#x548C;<code>ile.renameTo(target)</code>&#x53EA;&#x88AB;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF0C;&#x4E14;&#x5176;&#x4ED6;<code>logger</code>&#x5728;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x91CD;&#x65B0;&#x5C06;&#x65E5;&#x5FD7;&#x6D41;&#x6307;&#x5411;&#x5230;&#x6700;&#x65B0;&#x7684;<code>log4j.log</code>&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#x7B80;&#x5355;&#x7684;&#x91CD;&#x5199;<code>DailyRollingFileAppender</code>,&#x5728;<code>rollOver</code>&#x4EE3;&#x7801;&#x5904;&#x7A0D;&#x4F5C;&#x4FEE;&#x6539;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">File target = <span class="keyword">new</span> File(scheduledFilename);</span><br><span class="line"><span class="comment">//&#x5F53;&#x76EE;&#x6807;&#x6587;&#x4EF6;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x65F6;&#xFF0C;&#x5C31;&#x8BF4;&#x660E;&#x5DF2;&#x7ECF;&#x88AB;&#x5207;&#x5272;&#x8FC7;&#x4E86;&#xFF0C;&#x5219;&#x7B80;&#x5355;&#x91CD;&#x5B9A;&#x5411;&#x5373;&#x53EF;</span></span><br><span class="line"><span class="keyword">if</span> (!target.exists()) {</span><br><span class="line">    File file = <span class="keyword">new</span> File(fileName);</span><br><span class="line">    <span class="keyword">boolean</span> result = file.renameTo(target);</span><br><span class="line">    <span class="keyword">if</span> (result) {</span><br><span class="line">        LogLog.debug(fileName + <span class="string">&quot; -&gt; &quot;</span> + scheduledFilename);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        LogLog.error(<span class="string">&quot;Failed to rename [&quot;</span> + fileName + <span class="string">&quot;] to [&quot;</span> + scheduledFilename + <span class="string">&quot;].&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">        <span class="keyword">this</span>.setFile(fileName, <span class="keyword">true</span>, <span class="keyword">this</span>.bufferedIO, <span class="keyword">this</span>.bufferSize);</span><br><span class="line">    } <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">        errorHandler.error(<span class="string">&quot;setFile(&quot;</span> + fileName + <span class="string">&quot;, true) call failed.&quot;</span>);</span><br><span class="line">}</span><br><span class="line">    scheduledFilename = datedFilename;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/26/spring循环依赖/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2188,191 +2411,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/09/java-bridge-method/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/09/java-bridge-method/" class="post-title-link" itemprop="url">java-bridge-method</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-09 21:25:04" itemprop="dateCreated datePublished" datetime="2019-08-09T21:25:04+08:00">2019-08-09</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x6865;&#x63A5;&#x65B9;&#x6CD5;">&#x6865;&#x63A5;&#x65B9;&#x6CD5;</h2>
-<p>&#x6CDB;&#x578B;&#x7C7B;&#x578B;&#x64E6;&#x9664;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x4EE5;&#x53CA; bridge &#x65B9;&#x6CD5;&#x4ECB;&#x7ECD;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">T</span>&gt; </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T data)</span> </span>{ <span class="keyword">this</span>.data = data; }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">&quot;Node.setData&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyNode</span> <span class="keyword">extends</span> <span class="title">Node</span>&lt;<span class="title">Integer</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyNode</span><span class="params">(Integer data)</span> </span>{ <span class="keyword">super</span>(data); }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(Integer data)</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">&quot;MyNode.setData&quot;</span>);</span><br><span class="line">        <span class="keyword">super</span>.setData(data);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x5F53;&#x505A;&#x5982;&#x4E0B;&#x4F7F;&#x7528;&#x65F6;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Node node = <span class="keyword">new</span> MyNode(<span class="number">5</span>);</span><br><span class="line">n.setData(<span class="string">&quot;Hello&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>&#x6211;&#x4EEC;&#x7684;&#x5B50;&#x7C7B;&#x4E2D;&#x5B9E;&#x9645;&#x662F;&#x6CA1;&#x6709; setData(Object.class)&#x7684;&#x65B9;&#x6CD5;&#x7684;&#xFF0C;<code>java</code>&#x7F16;&#x8BD1;&#x5668;&#x5728;&#x8FDB;&#x884C;&#x7C7B;&#x578B;&#x64E6;&#x9664;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x4E00;&#x4E2A;<code>synthetic</code>&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x53EB;<code>bridge</code>&#x65B9;&#x6CD5;,&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x751F;&#x6210;&#x7684;&#x5B57;&#x8282;&#x7801;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5B9E;&#x9645;<code>bridge</code>&#x65B9;&#x6CD5;&#xFF0C;&#x9996;&#x5148;&#x6821;&#x9A8C;&#x7C7B;&#x578B;&#x662F;&#x5426;&#x4E3A;<code>Integer</code>&#xFF0C;&#x7136;&#x540E;&#x5728;&#x8C03;&#x7528;<code>setData(Integer.class)</code>&#x56E0;&#x6B64;&#xFF0C;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4F1A;&#x629B;&#x51FA;<code>ClassCastException</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(java.lang.Integer)</span></span>;</span><br><span class="line">    descriptor: (Ljava/lang/Integer;)V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">        stack=<span class="number">2</span>, locals=<span class="number">2</span>, args_size=<span class="number">2</span></span><br><span class="line">            0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">            3: ldc           #3                  // String MyNode.setNode</span><br><span class="line">            5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">            <span class="number">8</span>: aload_0</span><br><span class="line">            <span class="number">9</span>: aload_1</span><br><span class="line">            10: invokespecial #5                  // Method com/li/springboot/bridge/Node.setData:(Ljava/lang/Object;)V</span><br><span class="line">            <span class="number">13</span>: <span class="keyword">return</span></span><br><span class="line">        LineNumberTable:</span><br><span class="line">        line <span class="number">11</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">12</span>: <span class="number">8</span></span><br><span class="line">        line <span class="number">13</span>: <span class="number">13</span></span><br><span class="line">        LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>      <span class="number">14</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lcom/li/springboot/bridge/MyNode;</span><br><span class="line">            <span class="number">0</span>      <span class="number">14</span>     <span class="number">1</span> integer   Ljava/lang/Integer;</span><br><span class="line">    MethodParameters:</span><br><span class="line">        Name                           Flags</span><br><span class="line">        integer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(java.lang.Object)</span></span>;</span><br><span class="line">    descriptor: (Ljava/lang/Object;)V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_BRIDGE, ACC_SYNTHETIC</span><br><span class="line">    Code:</span><br><span class="line">        stack=<span class="number">2</span>, locals=<span class="number">2</span>, args_size=<span class="number">2</span></span><br><span class="line">            <span class="number">0</span>: aload_0</span><br><span class="line">            <span class="number">1</span>: aload_1</span><br><span class="line">            2: checkcast     #11                 // class java/lang/Integer</span><br><span class="line">            5: invokevirtual #12                 // Method setData:(Ljava/lang/Integer;)V</span><br><span class="line">            <span class="number">8</span>: <span class="keyword">return</span></span><br><span class="line">        LineNumberTable:</span><br><span class="line">        line <span class="number">3</span>: <span class="number">0</span></span><br><span class="line">        LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">9</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lcom/li/springboot/bridge/MyNode;</span><br><span class="line">    MethodParameters:</span><br><span class="line">        Name                           Flags</span><br><span class="line">        integer                        synthetic</span><br></pre></td></tr></table></figure>
-<h2 id="&#x6865;&#x63A5;&#x5B50;&#x7C7B;&#x83B7;&#x53D6;&#x6CDB;&#x578B;">&#x6865;&#x63A5;&#x5B50;&#x7C7B;&#x83B7;&#x53D6;&#x6CDB;&#x578B;</h2>
-<p>&#x7236;&#x7C7B;&#x6CDB;&#x578B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ParameterizedTypeImpl type = (ParameterizedTypeImpl) MyNode.class.getGenericSuperclass();</span><br><span class="line"><span class="comment">//&#x5177;&#x4F53;&#x6BCF;&#x4E2A;&#x6CDB;&#x578B;</span></span><br><span class="line">type.getActualTypeArguments()</span><br></pre></td></tr></table></figure>
-<p>&#x63A5;&#x53E3;&#x6CDB;&#x578B;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ParameterizedTypeImpl[] types = (ParameterizedTypeImpl[]) MyNode.class.getGenericInterfaces();</span><br></pre></td></tr></table></figure>
-<h2 id="spring-&#x6CE8;&#x5165;&#x6865;&#x63A5;&#x5B50;&#x7C7B;&#x6CE8;&#x610F;">Spring &#x6CE8;&#x5165;&#x6865;&#x63A5;&#x5B50;&#x7C7B;&#x6CE8;&#x610F;</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Generic</span>&lt;<span class="title">T</span>,<span class="title">R</span>&gt; </span>{}</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">G1</span> <span class="keyword">implements</span> <span class="title">Generic</span>&lt;<span class="title">Object</span>, <span class="title">Collection</span>&gt; </span>{}</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">G2</span> <span class="keyword">implements</span> <span class="title">Generic</span>&lt;<span class="title">Object</span>, <span class="title">List</span>&gt; </span>{}</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">G3</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Generic</span>&lt;<span class="title">T</span>, <span class="title">List</span>&gt; </span>{}</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">G4</span> <span class="keyword">implements</span> <span class="title">Generic</span>&lt;<span class="title">String</span>, <span class="title">List</span>&gt; </span>{}</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">List&lt;Generic&gt; generics; <span class="comment">//G1 G2 G3 G4</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">List&lt;Generic&lt;?, ? extends Collection&gt;&gt; generics; <span class="comment">//G1 G2 G3 G4</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">List&lt;Generic&lt;?, Collection&gt;&gt; generics;<span class="comment">//G1</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">List&lt;Generic&lt;Object, ? extends Collection&gt;&gt; generics; <span class="comment">//G1 G2 G3</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">List&lt;Generic&lt;Object, Collection&gt;&gt; generics; <span class="comment">//G1 G2</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2419,7 +2457,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">127</span>
+                    <span class="site-state-item-count">128</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2741,7 +2779,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">118</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
