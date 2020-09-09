@@ -410,6 +410,1032 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/09/09/postgres/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/09/09/postgres/" class="post-title-link" itemprop="url">postgres</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-09 11:09:01 / 修改时间：11:46:31" itemprop="dateCreated datePublished" datetime="2020-09-09T11:09:01+08:00">2020-09-09</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/db/" itemprop="url" rel="index"><span itemprop="name">db</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#x7701;&#x7565; linux &#x5B89;&#x88C5;&#x8FC7;&#x7A0B;&#xFF0C;&#x5B89;&#x88C5;&#x540E;&#x4E00;&#x822C;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; postgres &#x7528;&#x6237;&#xFF0C;&#x8BE5;&#x7528;&#x6237;&#x5177;&#x6709;&#x6570;&#x636E;&#x5E93;&#x8D85;&#x7EA7;&#x7528;&#x6237;&#x6743;&#x9650;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~$ psql</span><br><span class="line">psql(9.5.17)</span><br><span class="line">Type &quot;help&quot; for help.</span><br><span class="line"></span><br><span class="line">postgres=#</span><br></pre></td></tr></table></figure>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x767B;&#x5F55;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h localhost -p 5432 -U postgress myBd</span><br></pre></td></tr></table></figure>
+<p>&#x5728; postgres cli &#x64CD;&#x4F5C;&#x754C;&#x9762;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x9000;&#x51FA;postgres</span></span><br><span class="line">\q</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;&#x6240;&#x6709;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line">\l</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> c + &#x6570;&#x636E;&#x5E93;  &#x8FDB;&#x5165;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line">\c myDB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x663E;&#x793A;&#x6240;&#x6709;&#x8868;</span></span><br><span class="line">\d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x663E;&#x793A;&#x8868;&#x4FE1;&#x606F;</span></span><br><span class="line">\d tableName</span><br></pre></td></tr></table></figure>
+<p>sql &#x8BED;&#x53E5;&#xFF0C;&#x5728; postgres cli &#x64CD;&#x4F5C;&#x754C;&#x9762;&#x5199; sql &#x8BED;&#x53E5;&#xFF0C;&#x9700;&#x8981;&#x4EE5;<code>;</code>&#x5206;&#x5272;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x56DE;&#x8F66;&#x5C06; sql &#x5206;&#x591A;&#x884C;&#x6765;&#x5199;</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/09/04/sip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/09/04/sip/" class="post-title-link" itemprop="url">sip</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-04 13:34:17" itemprop="dateCreated datePublished" datetime="2020-09-04T13:34:17+08:00">2020-09-04</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-09-08 15:52:44" itemprop="dateModified" datetime="2020-09-08T15:52:44+08:00">2020-09-08</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ivr/" itemprop="url" rel="index"><span itemprop="name">ivr</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>SIP &#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x7B49;&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x7C7B;&#x4F3C; P2P&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x5728;&#x4E0D;&#x9700;&#x8981;&#x670D;&#x52A1;&#x5668;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x53EA;&#x8981;&#x901A;&#x4FE1;&#x53CC;&#x65B9;&#x90FD;&#x5F7C;&#x6B64;&#x6307;&#x5BFC;&#x5BF9;&#x65B9;&#x7684;&#x5730;&#x5740;&#xFF08;&#x6216;&#x8005;&#x53EA;&#x6709;&#x4E00;&#x65B9;&#x77E5;&#x9053;&#x53E6;&#x4E00;&#x65B9;&#x7684;&#x5730;&#x5740;&#xFF09;&#x5373;&#x53EF;&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x79F0;&#x4E3A;&#x70B9;&#x5BF9;&#x70B9;&#x901A;&#x4FE1;&#x3002;&#x8BE6;&#x7EC6;&#x6807;&#x51C6;&#x53EF;&#x67E5;&#x770B;<a href="https://tools.ietf.org/html/rfc3261#section-7.3" target="_blank" rel="noopener">RFC3261</a></p>
+<p>SIP &#x534F;&#x8BAE;&#x91C7;&#x7528; Client/Server &#x6A21;&#x578B;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#xFF08;request&#xFF09;&#xFF0C;Server &#x4ECE;&#x63A5;&#x53D7;&#x5230;&#x8BF7;&#x6C42;&#x5230;&#x5904;&#x7406;&#x5B8C;&#x6BD5;&#xFF0C;&#x8981;&#x56DE;&#x590D;&#x591A;&#x4E2A;&#x4E34;&#x65F6;&#x54CD;&#x5E94;&#xFF0C;&#x548C;&#x6709;&#x4E14;&#x4EC5;&#x6709;&#x4E00;&#x4E2A;&#x7EC8;&#x7ED3;&#x54CD;&#x5E94;&#xFF08;response&#xFF09;&#x3002;</p>
+<h2 id="&#x6982;&#x5FF5;">&#x6982;&#x5FF5;</h2>
+<ol type="1">
+<li><p>Transaction &#x8BF7;&#x6C42;&#x548C;&#x6240;&#x6709;&#x7684;&#x54CD;&#x5E94;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#xFF0C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x547C;&#x53EB;&#x8FC7;&#x7A0B;&#x5305;&#x62EC;&#x591A;&#x4E2A;&#x4E8B;&#x4EF6;&#x3002;</p></li>
+<li><p>UA &#x7528;&#x6237;&#x4EE3;&#x7406;&#xFF0C;&#x662F;&#x53D1;&#x8D77;&#x6216;&#x63A5;&#x53D7;&#x547C;&#x53EB;&#x7684;&#x903B;&#x8F91;&#x5B9E;&#x4F53;</p></li>
+<li><p>UAC &#x7528;&#x6237;&#x4EE3;&#x7406;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7528;&#x4E8E;&#x53D1;&#x8D77;&#x8BF7;&#x6C42;</p></li>
+<li><p>UAS &#x7528;&#x6237;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x63A5;&#x53D7;&#x8BF7;&#x6C42;</p></li>
+<li><p>UAC &#x548C; UAS &#x7684;&#x5212;&#x5206;&#x662F;&#x9488;&#x5BF9;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x7684;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x547C;&#x53EB;&#x7684;&#x591A;&#x4E2A;&#x4E8B;&#x52A1;&#x4E2D;&#xFF0C;UAC &#x548C; UAS &#x7684;&#x89D2;&#x8272;&#x662F;&#x53EF;&#x4EE5;&#x4E92;&#x76F8;&#x8F6C;&#x6362;&#x7684;</p></li>
+<li><p>B2BUA &#x662F;&#x4E00;&#x4E2A; SIP &#x4E2D;&#x903B;&#x8F91;&#x4E0A;&#x7684;&#x7F51;&#x7EDC;&#x7EC4;&#x4EF6;&#xFF0C;&#x7528;&#x4E8E;&#x64CD;&#x4F5C;&#x4E0D;&#x540C;&#x4F1A;&#x8BDD;&#x7684;&#x7AEF;&#x70B9;&#xFF0C;&#x5B83;&#x5C06; channel &#x5212;&#x5206;&#x4E3A;&#x4E24;&#x8DEF;&#x901A;&#x8BDD;&#xFF0C;&#x5728;&#x4E0D;&#x540C;&#x4F1A;&#x8BDD;&#x7684;&#x7AEF;&#x70B9;&#x76F4;&#x63A5;&#x901A;&#x4FE1;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5F53;&#x5EFA;&#x7ACB;&#x4E00;&#x901A;&#x547C;&#x53EB;&#x65F6;&#xFF0C;B2BUA &#x4F5C;&#x4E3A;&#x4E00;&#x4E2A; UAS &#x63A5;&#x53D7;&#x6240;&#x6709;&#x7528;&#x6237;&#x8BF7;&#x6C42;&#xFF0C;&#x5904;&#x7406;&#x540E;&#x4EE5; UAC &#x89D2;&#x8272;&#x8F6C;&#x53D1;&#x81F3;&#x76EE;&#x6807;&#x7AEF;&#x3002; <img src="/images/freeswitch_B2BUA.png" alt="freeswitch_B2BUA.png"></p></li>
+</ol>
+<h2 id="sip-uri">SIP URI</h2>
+<p>&#x5047;&#x8BBE; Bob &#x5728;&#x670D;&#x52A1;&#x5668; 192.168.1.100&#xFF0C;Alice &#x5728; 192.168.1.200 &#x4E0A;&#xFF0C;FreeSwitch &#x5728; 192.168.1.9 &#x4E0A;&#xFF0C;Alice &#x6CE8;&#x518C;&#x5230; FreeSwitch &#x4E0A;&#xFF0C;Bob &#x547C;&#x53EB; Alice &#x65F6;&#xFF0C;&#x4F7F;&#x7528; Alice &#x7684;&#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;&#xFF08;Bob &#x53EA;&#x77E5;&#x9053;&#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;&#xFF09;&#xFF0C;&#x5373; sip:Alice@192.168.1.9&#xFF0C;FreeSwitch &#x63A5;&#x53D7;&#x5230;&#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x67E5;&#x627E;&#x672C;&#x5730;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x53D1;&#x73B0; Alice &#x7684;&#x5B9E;&#x9645;&#x5730;&#x5740;&#xFF08;Contact &#x5730;&#x5740;&#xFF0C;&#x53C8;&#x53EB;&#x8054;&#x7CFB;&#x5730;&#x5740;&#xFF09;&#x662F; sip:Alice@192.168.1.100&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x5EFA;&#x7ACB;&#x547C;&#x53EB;&#x3002;Bob &#x4F5C;&#x4E3A;&#x4E3B;&#x53EB;&#x65B9;&#xFF0C;&#x5B83;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x53D1;&#x9001; INVITE &#x8BF7;&#x6C42;&#xFF0C;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x6CE8;&#x518C;&#x7684;&#xFF0C;&#x800C; Alice &#x4F5C;&#x4E3A;&#x88AB;&#x53EB;&#x7684;&#x4E00;&#x65B9;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x670D;&#x52A1;&#x5668;&#x80FD;&#x627E;&#x5230;&#x5B83;&#xFF0C;&#x5B83;&#x5FC5;&#x987B;&#x4E8B;&#x5148;&#x901A;&#x8FC7; REGISTER &#x6D88;&#x606F;&#x6CE8;&#x518C;&#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;</p>
+<h2 id="&#x5A92;&#x4F53;">&#x5A92;&#x4F53;</h2>
+<h3 id="&#x97F3;&#x9891;&#x7F16;&#x7801;">&#x97F3;&#x9891;&#x7F16;&#x7801;</h3>
+<p>&#x4ECE;&#x6A21;&#x62DF;&#x4FE1;&#x53F7;&#x53D8;&#x6210;&#x6570;&#x5B57;&#x4FE1;&#x53F7;&#x7684;&#x8FC7;&#x7A0B;&#x79F0;&#x6A21;&#x6570;&#x8F6C;&#x6362;&#xFF08;Analog Digital Convert ,AD&#xFF09;&#x3002;AD &#x8F6C;&#x6362;&#x8981;&#x7ECF;&#x8FC7;&#x91C7;&#x6837;&#x3001;&#x91CF;&#x5316;&#x3001;&#x7F16;&#x7801;&#x4E09;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002;&#x7F16;&#x7801;&#x5C31;&#x662F;&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x7684;&#x89C4;&#x5219;&#x5C06;&#x91C7;&#x6837;&#x6240;&#x5F97;&#x7684;&#x4FE1;&#x53F7;&#x7528;&#x4E00;&#x7EC4;&#x4E8C;&#x8FDB;&#x5236;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x8FDB;&#x5236;&#x7684;&#x6570;&#x6765;&#x8868;&#x793A;&#x3002;&#x7ECF;&#x8FC7;&#x7F16;&#x7801;&#x540E;&#x7684;&#x6570;&#x636E;&#x4FBF;&#x4E8E;&#x5728;&#x7F51;&#x7EDC;&#x4E0A;&#x4F20;&#x8F93;&#xFF0C;&#x5230;&#x8FBE;&#x5BF9;&#x7AEF;&#x540E;&#xFF0C;&#x5728;&#x901A;&#x8FC7;&#x89E3;&#x7801;&#x8FC7;&#x7A0B;&#x53D8;&#x6210;&#x539F;&#x59CB;&#x4FE1;&#x53F7;&#xFF0C;&#x8FDB;&#x800C;&#x7ECF;&#x8FC7;&#x6570;&#x6A21;&#x8F6C;&#x6362;(DA)&#x5728;&#x6062;&#x590D;&#x4E3A;&#x6A21;&#x62DF;&#x91CF;&#xFF0C;&#x5373;&#x8F6C;&#x6362;&#x4E3A;&#x4EBA;&#x4EEC;&#x80FD;&#x591F;&#x611F;&#x77E5;&#x7684;&#x4FE1;&#x53F7;&#x3002;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x7F16;&#x7801;&#x4E0E;&#x89E3;&#x7801;&#x90FD;&#x662F;&#x6210;&#x5BF9;&#x51FA;&#x73B0;&#x7684;&#xFF0C;&#x79F0;&#x4E3A;&#x7F16;&#x89E3;&#x7801;&#xFF08;codec&#xFF09;&#xFF0C;&#x4E00;&#x822C;&#x7B80;&#x79F0;&#x7F16;&#x7801;&#x3002;</p>
+<p>&#x97F3;&#x9891;&#x7F16;&#x7801;&#x6700;&#x57FA;&#x672C;&#x7684;&#x4E24;&#x4E2A;&#x6280;&#x672F;&#x53C2;&#x6570;&#x5C31;&#x662F;&#x91C7;&#x6837;&#x7387;&#x548C;&#x6253;&#x5305;&#x5468;&#x671F;&#x3002;</p>
+<ul>
+<li>&#x91C7;&#x6837;&#x7387; &#x91C7;&#x6837;&#x9891;&#x7387;&#x8D8A;&#x9AD8;&#xFF0C;&#x58F0;&#x97F3;&#x5C31;&#x8D8A;&#x6E05;&#x6670;&#xFF0C;&#x4FDD;&#x7559;&#x7684;&#x7EC6;&#x8282;&#x5C31;&#x8D8A;&#x591A;&#x3002;&#x5BF9;&#x4E8E;&#x666E;&#x901A;&#x7684;&#x4EBA;&#x58F0;&#x901A;&#x8BDD;&#x6765;&#x8BF4;&#xFF0C;8000Hz &#x5C31;&#x591F;&#x4E86;&#x3002;</li>
+<li>&#x6253;&#x5305;&#x5468;&#x671F; &#x6253;&#x5305;&#x5468;&#x671F;&#x548C;&#x4F20;&#x8F93;&#x6709;&#x5173;&#xFF0C;&#x6253;&#x5305;&#x5468;&#x671F;&#x8D8A;&#x77ED;&#xFF0C;&#x5EF6;&#x8FDF;&#x8D8A;&#x5C0F;&#xFF0C;&#x76F8;&#x5BF9;&#x800C;&#x8A00;&#x4F20;&#x8F93;&#x5F00;&#x9500;&#x5C31;&#x4F1A;&#x8D8A;&#x591A;&#x3002;&#x5927;&#x90E8;&#x5206;&#x7F16;&#x7801;&#x90FD;&#x652F;&#x6301;&#x591A;&#x79CD;&#x6253;&#x5305;&#x5468;&#x671F;&#xFF0C;&#x5E38;&#x89C1;&#x7684;&#x6253;&#x5305;&#x5468;&#x671F;&#x4E3A; 20ms&#x3002;</li>
+</ul>
+<p>FreeSwitch &#x652F;&#x6301;&#x7684;<a href="https://freeswitch.org/confluence/display/FREESWITCH/Audio+Codecs" target="_blank" rel="noopener">&#x8BED;&#x97F3;&#x7F16;&#x7801;</a>&#xFF0C;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">freeswitch@CentOS7&gt;</span><span class="bash"> show codec</span></span><br><span class="line">type,name,ikey</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x7F16;&#x7801;&#x540D;&#x79F0; &#x53C2;&#x6570;  &#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x6A21;&#x5757;</span></span><br><span class="line">codec,ADPCM (IMA),mod_spandsp</span><br><span class="line">codec,AMR / Bandwidth Efficient,mod_amr</span><br><span class="line">codec,AMR / Octet Aligned,mod_amr</span><br><span class="line">codec,G.711 alaw,CORE_PCM_MODULE</span><br><span class="line">codec,G.711 ulaw,CORE_PCM_MODULE</span><br><span class="line">codec,G.722,mod_spandsp</span><br><span class="line">codec,G.723.1 6.3k,mod_g723_1</span><br><span class="line">codec,G.726 16k,mod_spandsp</span><br><span class="line">codec,G.726 16k (AAL2),mod_spandsp</span><br><span class="line">codec,G.726 24k,mod_spandsp</span><br><span class="line">codec,G.726 24k (AAL2),mod_spandsp</span><br><span class="line">codec,G.726 32k,mod_spandsp</span><br><span class="line">codec,G.726 32k (AAL2),mod_spandsp</span><br><span class="line">codec,G.726 40k,mod_spandsp</span><br><span class="line">codec,G.726 40k (AAL2),mod_spandsp</span><br><span class="line">codec,G.729,mod_g729</span><br><span class="line">codec,GSM,mod_spandsp</span><br><span class="line">codec,LPC-10,mod_spandsp</span><br><span class="line">codec,PROXY PASS-THROUGH,CORE_PCM_MODULE</span><br><span class="line">codec,PROXY VIDEO PASS-THROUGH,CORE_PCM_MODULE</span><br><span class="line">codec,RAW Signed Linear (16 bit),CORE_PCM_MODULE</span><br><span class="line">codec,Speex,CORE_SPEEX_MODULE</span><br><span class="line">codec,VP8 Video,CORE_VPX_MODULE</span><br><span class="line">codec,VP9 Video,CORE_VPX_MODULE</span><br></pre></td></tr></table></figure>
+<p>&#x66F4;&#x591A;&#x7F16;&#x7801;&#x53EF;&#x53C2;&#x8003;<a href="https://en.wikipedia.org/wiki/List_of_codecs" target="_blank" rel="noopener">wiki</a></p>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x76F8;&#x5173;&#x97F3;&#x9891;&#x7F16;&#x7801;&#x7684;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">freeswitch@CentOS7&gt;</span><span class="bash"> reload mod_g723_1</span></span><br><span class="line">+OK Reloading XML</span><br><span class="line">+OK module unloaded</span><br><span class="line">+OK module loaded</span><br><span class="line"></span><br><span class="line">2020-09-07 16:33:34.525691 [ERR] switch_stun.c:900 STUN Failed! [Timeout]</span><br><span class="line">2020-09-07 16:33:34.525691 [ERR] switch_xml.c:175 stun-set failed.</span><br><span class="line">2020-09-07 16:33:44.566137 [ERR] switch_stun.c:900 STUN Failed! [Timeout]</span><br><span class="line">2020-09-07 16:33:44.566137 [ERR] switch_xml.c:175 stun-set failed.</span><br><span class="line">2020-09-07 16:33:44.585289 [ERR] switch_xml.c:1370 Error including /etc/freeswitch/lang/de/*.xml</span><br><span class="line">2020-09-07 16:33:44.585289 [ERR] switch_xml.c:1370 Error including /etc/freeswitch/lang/fr/*.xml</span><br><span class="line">2020-09-07 16:33:44.585289 [ERR] switch_xml.c:1370 Error including /etc/freeswitch/lang/ru/*.xml</span><br><span class="line">2020-09-07 16:33:44.585289 [ERR] switch_xml.c:1370 Error including /etc/freeswitch/lang/he/*.xml</span><br><span class="line">2020-09-07 16:33:44.585289 [INFO] switch_xml.c:1373 No files to include at /etc/freeswitch/lang/es/es_ES.xml</span><br><span class="line">2020-09-07 16:33:44.585289 [INFO] switch_xml.c:1373 No files to include at /etc/freeswitch/lang/pt/pt_BR.xml</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:1186 Deleting Codec G723 4 G.723.1 6.3k 8000hz 120ms</span><br><span class="line">2020-09-07 16:33:44.605574 [INFO] mod_enum.c:884 ENUM Reloaded</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:1186 Deleting Codec G723 4 G.723.1 6.3k 8000hz 90ms</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:1186 Deleting Codec G723 4 G.723.1 6.3k 8000hz 60ms</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:1186 Deleting Codec G723 4 G.723.1 6.3k 8000hz 30ms</span><br><span class="line">2020-09-07 16:33:44.605574 [CONSOLE] switch_loadable_module.c:2399 mod_g723_1 has no shutdown routine</span><br><span class="line">2020-09-07 16:33:44.605574 [CONSOLE] switch_loadable_module.c:2416 mod_g723_1 unloaded.</span><br><span class="line">2020-09-07 16:33:44.605574 [CONSOLE] switch_loadable_module.c:1803 Successfully Loaded [mod_g723_1]</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:241 Adding Codec G723 4 G.723.1 6.3k 8000hz 120ms 1ch 6300bps</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:241 Adding Codec G723 4 G.723.1 6.3k 8000hz 90ms 1ch 6300bps</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:241 Adding Codec G723 4 G.723.1 6.3k 8000hz 60ms 1ch 6300bps</span><br><span class="line">2020-09-07 16:33:44.605574 [NOTICE] switch_loadable_module.c:241 Adding Codec G723 4 G.723.1 6.3k 8000hz 30ms 1ch 6300bps</span><br><span class="line">2020-09-07 16:33:44.605574 [INFO] switch_time.c:1430 Timezone reloaded 1750 definitions</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5A92;&#x4F53;&#x534F;&#x5546;">&#x5A92;&#x4F53;&#x534F;&#x5546;</h3>
+<p>&#x4E0D;&#x540C;&#x7684; SIP &#x7EC8;&#x7AEF;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x652F;&#x6301;&#x4E0D;&#x540C;&#x7684;&#x8BED;&#x97F3;&#x7F16;&#x7801;&#x3002;&#x6240;&#x4EE5;&#x4E0D;&#x540C;&#x7684; SIP &#x7EC8;&#x7AEF;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x65F6;&#x9700;&#x8981;&#x5148;&#x4E0E;&#x652F;&#x6301;&#x7684;&#x7F16;&#x7801;&#x8FDB;&#x884C;&#x201C;&#x534F;&#x5546;&#x201D;&#xFF0C;&#x4EE5;&#x4FBF;&#x53CC;&#x65B9;&#x4E92;&#x76F8;&#x80FD;&#x591F;&#x7406;&#x89E3;&#x5BF9;&#x65B9;&#x53D1;&#x6765;&#x7684;&#x5A92;&#x4F53;&#x6D41;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x3002; &#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x7F16;&#x7801;&#x534F;&#x5546;&#x8FC7;&#x7A0B;&#x3002;&#x5728; FreeSwitch &#x4E2D;&#x6211;&#x4EEC;&#x5C06;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#x8C03;&#x6574;&#x4E3A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x6216;&#x8005;&#x6309;&#x5FEB;&#x6377;&#x952E;F8</span></span><br><span class="line"><span class="meta">freeswitch@CentOS7&gt;</span><span class="bash"> /<span class="built_in">log</span> 7</span></span><br><span class="line">+OK log level 7 [7]</span><br></pre></td></tr></table></figure>
+<p>&#x5728; log &#x4E2D;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5982;&#x4E0B;&#x7684;&#x534F;&#x5546;&#x8FC7;&#x7A0B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Audio Codec Compare [opus:113:48000:20:0:2]/[G722:9:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [opus:113:48000:20:0:2]/[PCMU:0:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [opus:113:48000:20:0:2]/[PCMA:8:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [G722:9:8000:20:64000:1]/[G722:9:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [G722:9:8000:20:64000:1] ++++ is saved as a match</span><br><span class="line">Audio Codec Compare [G722:9:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [G722:9:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMU:0:8000:20:64000:1]/[G722:9:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMU:0:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMU:0:8000:20:64000:1] ++++ is saved as a match</span><br><span class="line">Audio Codec Compare [PCMU:0:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMA:8:8000:20:64000:1]/[G722:9:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMA:8:8000:20:64000:1]/[PCMU:0:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMA:8:8000:20:64000:1]/[PCMA:8:8000:20:64000:1]</span><br><span class="line">Audio Codec Compare [PCMA:8:8000:20:64000:1] ++++ is saved as a match</span><br><span class="line">Set telephone-event payload to 101@8000</span><br><span class="line">Set Codec sofia/internal/1001@10.211.55.6 G722/8000 20 ms 160 samples 64000 bits 1 channels</span><br><span class="line">sofia/internal/1001@10.211.55.6 Original read codec set to G722:9</span><br></pre></td></tr></table></figure>
+<p>SIP &#x91C7;&#x7528; Off/Anwser&#xFF08;&#x8BF7;&#x6C42;&#xFF0F;&#x5E94;&#x7B54;&#xFF09;&#x673A;&#x5236;&#x6765;&#x534F;&#x5546;&#x3002;&#x8BF7;&#x6C42;&#x53D1;&#x8D77;&#x7684;&#x4E00;&#x65B9;&#x63D0;&#x4F9B;&#xFF08;Offer&#xFF09;&#x81EA;&#x5DF1;&#x652F;&#x6301;&#x7684;&#x5A92;&#x4F53;&#x7F16;&#x7801;&#x5217;&#x8868;&#xFF0C;&#x88AB;&#x8BF7;&#x6C42;&#x7684;&#x4E00;&#x65B9;&#x6BD4;&#x8F83;&#x81EA;&#x5DF1;&#x652F;&#x6301;&#x7684;&#x5A92;&#x4F53;&#x5217;&#x8868;&#x6700;&#x7EC8;&#x9009;&#x62E9;&#x4E00;&#x79CD;&#xFF08;&#x6216;&#x51E0;&#x79CD;&#xFF09;&#x7F16;&#x7801;&#x4EE5;&#x5E94;&#x7B54;&#xFF08;Anwser&#xFF09;&#x65B9;&#x5F0F;&#x901A;&#x77E5;&#x8BF7;&#x6C42;&#x8005;&#xFF0C;&#x7136;&#x540E;&#x4ED6;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x517C;&#x5BB9;&#x7684;&#x7F16;&#x7801;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x4E86;&#x3002;&#x4E0A;&#x8FF0; Log&#xFF0C;&#x6700;&#x7EC8;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x4ED6;&#x4E5F;&#x662F;&#x5C06;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7F16;&#x7801;&#x8FDB;&#x884C;&#x9010;&#x4E00;&#x6BD4;&#x8F83;&#xFF0C;&#x6700;&#x540E;<code>Set Codec sofia/internal/1001@10.211.55.6 G722/8000 20 ms 160 samples 64000 bits 1 channels</code>&#xFF0C;&#x8868;&#x793A;&#x672C;&#x6B21;&#x534F;&#x5546;&#x6210;&#x529F;&#x5E76;&#x628A;&#x8BE5; Channel &#x7684;&#x7F16;&#x7801;&#x8BBE;&#x7F6E;&#x4E3A; G722 &#x7F16;&#x7801;</p>
+<p>&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x62E8;&#x6253;&#x4E00;&#x901A;&#x7535;&#x8BDD;&#xFF0C;&#x6293;&#x53D6; tcpdump &#x62A5;&#x6587;&#xFF0C;&#x8BE6;&#x7EC6;&#x67E5;&#x770B;&#x4E00;&#x4E0B;&#x76F8;&#x5173;&#x7684; SIP &#x4FE1;&#x4EE4;</p>
+<p>&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x4E00;&#x4E2A; INVITE &#x8BF7;&#x6C42;&#xFF08;&#x5220;&#x51CF;&#x90E8;&#x5206;&#x4FE1;&#x606F;&#xFF09;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">INVITE sip:5000@10.211.55.6 SIP/2.0</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=8.AL-QAaB3pR6AtISmelTqJqewW4zcKh</span><br><span class="line">To: &lt;sip:5000@10.211.55.6&gt;</span><br><span class="line">User-Agent: Blink Lite 4.6.0 (MacOSX)</span><br><span class="line">Content-Type: application/sdp</span><br><span class="line">Content-Length:   427</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=- 3808463179 3808463179 IN IP4 10.211.55.2</span><br><span class="line">s=Blink Lite 4.6.0 (MacOSX)</span><br><span class="line">t=0 0</span><br><span class="line"><span class="meta">#</span><span class="bash"> audio&#x8868;&#x793A;&#x97F3;&#x9891;&#x6570;&#x636E; 50008&#x8868;&#x793A;&#x7AEF;&#x53E3;&#x53F7;&#xFF0C;&#x8BE5;&#x7AEF;&#x53E3;&#x7528;&#x4E8E;&#x6536;&#x53D1;RTP&#x6570;&#x636E; RTP/AVP&#x8868;&#x793A;RTP&#x683C;&#x5F0F;&#xFF0C;9 0 8 &#x8868;&#x793A;&#x97F3;&#x9891;&#x7F16;&#x7801;&#x7684;IANA&#x7684;&#x4EE3;&#x7801; G722 PCMU PCMA</span></span><br><span class="line">m=audio 50008 RTP/AVP 113 9 0 8 101</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5A92;&#x4F53;&#x6240;&#x5728;&#x673A;&#x5668;&#x7684;IP&#x5730;&#x5740;</span></span><br><span class="line">c=IN IP4 10.211.55.2</span><br><span class="line">a=rtcp:50009</span><br><span class="line">a=rtpmap:113 opus/48000/2</span><br><span class="line">a=fmtp:113 useinbandfec=1</span><br><span class="line">a=rtpmap:9 G722/8000</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=rtpmap:8 PCMA/8000</span><br><span class="line">a=rtpmap:101 telephone-event/8000</span><br><span class="line">a=fmtp:101 0-16</span><br><span class="line">a=zrtp-hash:1.10 5049b4964ef2ea5a3f01fb61c8c264ec564df6bcdef57d74d26548abf58f19e3</span><br><span class="line"><span class="meta">#</span><span class="bash"> sendrecv&#x8868;&#x793A;&#x53CC;&#x5411;&#x6536;&#x53D1; &#x5176;&#x4ED6;&#x7684;&#x8FD8;&#x6709;sendonly,recvonly,inactive</span></span><br><span class="line">a=sendrecv</span><br></pre></td></tr></table></figure>
+<p>&#x5F53; Freeswitch &#x6536;&#x5230;&#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x5373;&#x542F;&#x52A8;&#x534F;&#x5546;&#x8FC7;&#x7A0B;&#x3002;&#x6839;&#x636E;&#x524D;&#x9762;&#x7684; Log &#x6240;&#x4EE5;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x63D0;&#x4F9B; OPUS,G722,PCMU,PCMA &#x7B49;&#x3002;&#x56E0;&#x6B64;&#x5F53;&#x6BD4;&#x8F83;&#x5230; G7222 &#x65F6;&#x534F;&#x5546;&#x6210;&#x529F;&#xFF0C;FreeSwitch &#x8FD4;&#x56DE;&#x5982;&#x4E0B; SIP &#x6D88;&#x606F;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=8.AL-QAaB3pR6AtISmelTqJqewW4zcKh</span><br><span class="line">To: &lt;sip:5000@10.211.55.6&gt;;tag=F0mU0rHp6gUHS</span><br><span class="line">Accept: application/sdp</span><br><span class="line">Content-Type: application/sdp</span><br><span class="line">Content-Disposition: session</span><br><span class="line">Content-Length: 251</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=FreeSWITCH 1599452646 1599452647 IN IP4 10.211.55.6</span><br><span class="line">s=FreeSWITCH</span><br><span class="line">c=IN IP4 10.211.55.6</span><br><span class="line">t=0 0</span><br><span class="line"><span class="meta">#</span><span class="bash"> FreeSwitch&#x8FD9;&#x7AEF;&#x7684;RTP&#x7AEF;&#x53E3;&#x53F7;&#x662F;21734&#xFF0C;&#x4F7F;&#x7528;G7222&#x7F16;&#x7801;</span></span><br><span class="line">m=audio 21734 RTP/AVP 9 101</span><br><span class="line">a=rtpmap:9 G722/8000</span><br><span class="line">a=rtpmap:101 telephone-event/8000</span><br><span class="line">a=fmtp:101 0-16</span><br><span class="line">a=ptime:20</span><br><span class="line">a=rtcp:21735 IN IP4 10.211.55.6</span><br><span class="line">pidf:time-offset</span><br></pre></td></tr></table></figure>
+<p>&#x534F;&#x5546;&#x8FC7;&#x7A0B;&#x5B8C;&#x6BD5;&#xFF0C;&#x53CC;&#x65B9;&#x4E92;&#x76F8;&#x77E5;&#x9053;&#x4E86;&#x5BF9;&#x65B9;&#x7684; IP &#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;&#x597D;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x4E92;&#x53D1;&#x97F3;&#x9891; RTP &#x5305;&#x4E86;&#x3002;</p>
+<h3 id="freeswitch-&#x534F;&#x5546;&#x7B56;&#x7565;">FreeSwitch &#x534F;&#x5546;&#x7B56;&#x7565;</h3>
+<ul>
+<li>generous &#x4F18;&#x5148;&#x91C7;&#x7528;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x7F16;&#x7801;</li>
+<li>greedy &#x4F18;&#x5148;&#x9009;&#x62E9;&#x670D;&#x52A1;&#x7AEF;&#x5373; FreeSwitch &#x7684;&#x7F16;&#x7801;</li>
+<li>scrooge &#x4F18;&#x5148;&#x9009;&#x62E9;&#x670D;&#x52A1;&#x7AEF;&#x5373; FreeSwitch &#x7684;&#x7F16;&#x7801;&#x5E76;&#x5F3A;&#x5236;&#x4F7F;&#x7528;&#x81EA;&#x5DF1;&#x7684;&#x91C7;&#x6837;&#x7387;</li>
+</ul>
+<h3 id="freeswitch-&#x8F6C;&#x7801;">FreeSwitch &#x8F6C;&#x7801;</h3>
+<p>FreeSwitch &#x4F5C;&#x4E3A;&#x4E00;&#x4E2A; B2BUA&#xFF0C;&#x56E0;&#x800C;&#x5728;&#x6865;&#x63A5;&#x4E24;&#x6761;&#x817F;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4E24;&#x6761;&#x817F;&#x5206;&#x522B;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x7ECF;&#x8FC7;&#x4E00;&#x4E2A;&#x8F6C;&#x7801;&#x8FC7;&#x7A0B;&#x5206;&#x522B;&#x8F6C;&#x6210;&#x5BF9;&#x65B9;&#x9700;&#x8981;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x5F53;&#x9700;&#x8981;&#x8F6C;&#x7801;&#x65F6;&#xFF0C;FreeSwitch &#x56DE;&#x5C06;&#x6536;&#x5230;&#x7684;&#x97F3;&#x9891;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x6210;&#x4E00;&#x79CD;&#x4E2D;&#x95F4;&#x683C;&#x5F0F;&#xFF0C;&#x79F0;&#x4E3A; L16&#xFF0C;&#x5373;&#x7EBF;&#x6027; 16 &#x4F4D;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x8FD9;&#x79CD;&#x683C;&#x5F0F;&#x53EF;&#x4EE5;&#x548C;&#x5176;&#x4ED6;&#x5404;&#x79CD;&#x7F16;&#x7801;&#x8FDB;&#x884C;&#x8F6C;&#x6362;&#x3002;</p>
+<h3 id="freeswitch-&#x5176;&#x4ED6;">FreeSwitch &#x5176;&#x4ED6;</h3>
+<ul>
+<li>&#x900F;&#x4F20; &#x6307;&#x5728;&#x4E0D;&#x7ECF;&#x8FC7;&#x8F6C;&#x7801;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5C06;&#x4ECE;&#x4E00;&#x65B9;&#x6536;&#x5230;&#x7684;&#x5A92;&#x4F53;&#x6D41;&#x539F;&#x6837;&#x8F6C;&#x7ED9;&#x53E6;&#x4E00;&#x65B9;</li>
+<li>&#x5A92;&#x4F53;&#x7ED5;&#x8FC7; &#x5A92;&#x4F53;&#x7ED5;&#x8FC7;&#x6280;&#x672F;&#xFF0C;&#x5373;&#x771F;&#x6B63;&#x7684;&#x5A92;&#x4F53;&#x6D41;&#x4F7F;&#x7528;&#x70B9;&#x5230;&#x70B9;&#x4F20;&#x8F93;&#xFF0C;&#x6839;&#x672C;&#x4E0D;&#x7ECF;&#x8FC7; freeswitch</li>
+<li>&#x5A92;&#x4F53;&#x4EE3;&#x7406; &#x5373;&#x4E0D;&#x7BA1; freeswitch &#x662F;&#x5426;&#x652F;&#x6301;&#x5BF9;&#x8BE5;&#x79CD;&#x7F16;&#x7801;&#x8F6C;&#x7801;&#xFF0C;&#x4ED6;&#x90FD;&#x5BF9; rtp &#x6570;&#x636E;&#x5728;&#x4E0D;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x5904;&#x7406;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x53D1;&#x9001;&#x7ED9;&#x53E6;&#x4E00;&#x65B9;&#xFF0C;&#x4E0E;&#x900F;&#x4F20;&#x7684;&#x533A;&#x522B;&#x662F;&#xFF1A;&#x4ED6;&#x53EA;&#x6539;&#x53D8; sdp &#x4E2D;&#x7684;&#x201C;c=&#x201D;&#x90E8;&#x5206;&#x3002;</li>
+<li>&#x5A92;&#x4F53; Bug&#xFF0C;&#x7528;&#x4F5C;&#x76D1;&#x542C;&#xFF0C;&#x68C0;&#x6D4B;&#x7B49;</li>
+<li>&#x4F7F;&#x7528; uuid_debug_media &#x62CD;&#x9519;&#xFF0C;&#x67E5;&#x770B;&#x65E5;&#x5FD7;<code>Audio Codec Compare</code>&#x76F8;&#x5173;&#x884C;</li>
+</ul>
+<h2 id="sdp">SDP</h2>
+<p>SIP &#x8D1F;&#x8D23;&#x5EFA;&#x7ACB;&#x548C;&#x91CA;&#x653E;&#x4F1A;&#x8BDD;&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x4F1A;&#x8BDD;&#x4F1A;&#x5305;&#x542B;&#x76F8;&#x5173;&#x7684;&#x5A92;&#x4F53;&#xFF0C;&#x5982;&#x89C6;&#x9891;&#x548C;&#x97F3;&#x9891;&#x3002;&#x5A92;&#x4F53;&#x6570;&#x636E;&#x662F;&#x7531; SDP&#xFF08;Session Description Protocol&#xFF0C;&#x4F1A;&#x8BDD;&#x63CF;&#x8FF0;&#x534F;&#x8BAE;&#xFF09;&#x63CF;&#x8FF0;&#x7684;&#xFF0C;SDP &#x4E00;&#x822C;&#x4E0D;&#x5355;&#x72EC;&#x4F7F;&#x7528;&#xFF0C;&#x5B83;&#x4E0E; SIP &#x914D;&#x5408;&#x4F7F;&#x7528;&#x65F6;&#x4F1A;&#x653E;&#x5230; SIP &#x534F;&#x8BAE;&#x7684; Boby&#xFF08;&#x6B63;&#x6587;&#xFF09;&#x4E2D;&#x3002;&#x4F1A;&#x8BDD;&#x5EFA;&#x7ACB;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5A92;&#x4F53;&#x534F;&#x5546;&#xFF0C;&#x53CC;&#x65B9;&#x624D;&#x80FD;&#x786E;&#x5B9A;&#x5BF9;&#x65B9;&#x7684;&#x5A92;&#x4F53;&#x80FD;&#x529B;&#x4EE5;&#x4EA4;&#x4E92;&#x5A92;&#x4F53;&#x6570;&#x636E;&#xFF0C;&#x6BD4;&#x5982;&#x786E;&#x8BA4;&#x652F;&#x6301;&#x7684;&#x6570;&#x636E;&#x683C;&#x5F0F;&#x3002; SDP &#x7684;&#x7279;&#x70B9;</p>
+<ul>
+<li>&#x662F;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x6587;&#x672C;&#x534F;&#x8BAE;</li>
+<li>&#x8868;&#x8FF0; session &#x7684;&#x5A92;&#x4F53;&#xFF0C;&#x534F;&#x8BAE;&#xFF0C;&#x7F16;&#x7801;&#x8BD1;&#x7801;&#x683C;&#x5F0F;&#x7B49;</li>
+<li>&#x901A;&#x5E38;&#x7684; SDP &#x6D88;&#x606F;&#x683C;&#x5F0F;&#x4E3A; <code>type=parameter1 parameter2 ... parameterN</code></li>
+</ul>
+<p>SDP &#x53C2;&#x6570;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> *&#x8868;&#x793A;&#x53EF;&#x9009;&#x53C2;&#x6570;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;</span></span><br><span class="line">v= (protocol version)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">username(&#x7528;&#x6237;&#x540D;) sess-id(&#x4F1A;&#x8BDD;ID) sess-version(&#x4F1A;&#x8BDD;&#x7248;&#x672C;&#x53F7;) nettype(&#x7F51;&#x7EDC;&#x7C7B;&#x578B;) addrtype(&#x5730;&#x5740;&#x7C7B;&#x578B;) unicast-address(&#x5355;&#x64AD;&#x5730;&#x5740;)</span></span><br><span class="line">o= (owner/creator and session identifier)</span><br><span class="line">s= (session name)</span><br><span class="line">i=* (session information)</span><br><span class="line">u=* (URI of description)</span><br><span class="line">e=* (email address)</span><br><span class="line">p=* (phone number)</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#xA0;&#x7F51;&#x7EDC;&#x7C7B;&#x578B; &#x7F51;&#x7EDC;&#x5730;&#x5740;  &#xFF08;RTP&#x6570;&#x636E;&#x6D41;&#x53D1;&#x9001;&#x5230;&#x8BE5;&#x5730;&#x5740;&#xFF09;</span></span><br><span class="line">c=* (connection information - not required if included in all media)</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5E26;&#x5BBD;&#x7C7B;&#x578B;</span></span><br><span class="line">b=* (bandwidth information)</span><br><span class="line">z=* (time zone adjustments)</span><br><span class="line">k=* (encryption key)</span><br><span class="line">t=start-time stop-time</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5A92;&#x4F53;&#x7C7B;&#x578B; &#x97F3;&#x9891;&#x7AEF;&#x53E3;&#x53F7; &#x4F20;&#x8F93;&#x534F;&#x8BAE; &#x652F;&#x6301;&#x7684;codec&#x7C7B;&#x578B;</span></span><br><span class="line">m= media port transport format-list</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x63CF;&#x8FF0;&#x4E0A;&#x9762;&#x97F3;&#x9891;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4E00;&#x822C;m&#x540E;&#x9762;&#x8DDF;&#x591A;&#x4E2A;a</span></span><br><span class="line">a=* (zero or more session attribute lines)</span><br></pre></td></tr></table></figure>
+<p>&#x652F;&#x6301;&#x7684; codec &#x7C7B;&#x578B;&#xFF0C;&#x5728; SDP &#x4E2D;&#x4F7F;&#x7528;<a href="https://en.wikipedia.org/wiki/RTP_payload_formats" target="_blank" rel="noopener">&#x6570;&#x5B57;&#x8868;&#x793A;</a>&#xFF0C;&#x5E38;&#x89C1;&#x7684;&#x5982;&#x4E0B; | &#x6570;&#x5B57;| &#x7F16;&#x7801;| | :---- | :---- | |8| PCMA|</p>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">v = 0</span><br><span class="line">o = mhandley2890844526 2890842807 IN IP4 126.16.64.4</span><br><span class="line">s = SDP Seminar</span><br><span class="line">i = A Seminar on the session description protocol</span><br><span class="line">u = http://www.cs.ucl.ac.uk/staff/M.Handley/sdp.03.ps</span><br><span class="line">e = mjh@isi.edu(Mark Handley)</span><br><span class="line">c = IN IP4 224.2.17.12/127</span><br><span class="line">t = 2873397496 2873404696</span><br><span class="line">a = recvonly</span><br><span class="line">m = audio 49170 RTP/AVP 0</span><br><span class="line">m = video 51372 RTP/AVP 31</span><br><span class="line">m = application 32416udp wb</span><br><span class="line">a = orient:portrait</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;&#x547C;&#x53EB;&#x8FC7;&#x7A0B;">&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;&#x547C;&#x53EB;&#x8FC7;&#x7A0B;</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Alice                     Bob</span><br><span class="line">  |                        |</span><br><span class="line">  |       INVITE F1        |</span><br><span class="line">  |-----------------------&gt;|</span><br><span class="line">  |    180 Ringing F2      |</span><br><span class="line">  |&lt;-----------------------|</span><br><span class="line">  |                        |</span><br><span class="line">  |       200 OK F3        |</span><br><span class="line">  |&lt;-----------------------|</span><br><span class="line">  |         ACK F4         |</span><br><span class="line">  |-----------------------&gt;|</span><br><span class="line">  |   Both Way RTP Media   |</span><br><span class="line">  |&lt;======================&gt;|</span><br><span class="line">  |                        |</span><br><span class="line">  |         BYE F5         |</span><br><span class="line">  |&lt;-----------------------|</span><br><span class="line">  |       200 OK F6        |</span><br><span class="line">  |-----------------------&gt;|</span><br><span class="line">  |                        |</span><br></pre></td></tr></table></figure>
+<p>&#x5176; sip &#x62A5;&#x6587;&#x5927;&#x81F4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol type="1">
+<li><p>F1 INVITE Alice -&gt; Bob</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">INVITE sip:bob@biloxi.example.com SIP/2.0</span><br><span class="line">Via: SIP/2.0/TCP client.atlanta.example.com:5060;branch=z9hG4bK74bf9</span><br><span class="line">Max-Forwards: 70</span><br><span class="line">From: Alice &lt;sip:alice@atlanta.example.com&gt;;tag=9fxced76sl</span><br><span class="line">To: Bob &lt;sip:bob@biloxi.example.com&gt;</span><br><span class="line">Call-ID: 3848276298220188511@atlanta.example.com</span><br><span class="line">CSeq: 1 INVITE</span><br><span class="line">Contact: &lt;sip:alice@client.atlanta.example.com;transport=tcp&gt;</span><br><span class="line">Content-Type: application/sdp</span><br><span class="line">Content-Length: 151</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=alice 2890844526 2890844526 IN IP4 client.atlanta.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 192.0.2.101</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 49172 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br></pre></td></tr></table></figure></li>
+<li><p>F2 180 Ringing Bob -&gt; Alice</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 180 Ringing</span><br><span class="line">Via: SIP/2.0/TCP client.atlanta.example.com:5060;branch=z9hG4bK74bf9</span><br><span class="line">   ;received=192.0.2.101</span><br><span class="line">From: Alice &lt;sip:alice@atlanta.example.com&gt;;tag=9fxced76sl</span><br><span class="line">To: Bob &lt;sip:bob@biloxi.example.com&gt;;tag=8321234356</span><br><span class="line">Call-ID: 3848276298220188511@atlanta.example.com</span><br><span class="line">CSeq: 1 INVITE</span><br><span class="line">Contact: &lt;sip:bob@client.biloxi.example.com;transport=tcp&gt;</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure></li>
+<li><p>F3 200 OK Bob -&gt; Alice</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line">Via: SIP/2.0/TCP client.atlanta.example.com:5060;branch=z9hG4bK74bf9</span><br><span class="line">   ;received=192.0.2.101</span><br><span class="line">From: Alice &lt;sip:alice@atlanta.example.com&gt;;tag=9fxced76sl</span><br><span class="line">To: Bob &lt;sip:bob@biloxi.example.com&gt;;tag=8321234356</span><br><span class="line">Call-ID: 3848276298220188511@atlanta.example.com</span><br><span class="line">CSeq: 1 INVITE</span><br><span class="line">Contact: &lt;sip:bob@client.biloxi.example.com;transport=tcp&gt;</span><br><span class="line">Content-Type: application/sdp</span><br><span class="line">Content-Length: 147</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=bob 2890844527 2890844527 IN IP4 client.biloxi.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 192.0.2.201</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 3456 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br></pre></td></tr></table></figure></li>
+<li><p>F4 ACK Alice -&gt; Bob</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ACK sip:bob@client.biloxi.example.com SIP/2.0</span><br><span class="line">Via: SIP/2.0/TCP client.atlanta.example.com:5060;branch=z9hG4bK74bd5</span><br><span class="line">Max-Forwards: 70</span><br><span class="line">From: Alice &lt;sip:alice@atlanta.example.com&gt;;tag=9fxced76sl</span><br><span class="line">To: Bob &lt;sip:bob@biloxi.example.com&gt;;tag=8321234356</span><br><span class="line">Call-ID: 3848276298220188511@atlanta.example.com</span><br><span class="line">CSeq: 1 ACK</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x7701;&#x7565;&#x901A;&#x8BDD;&#x4E2D;&#x7684; RTP &#x5A92;&#x4F53;&#x4FE1;&#x606F;&#xFF0C;&#x901A;&#x8BDD;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E00;&#x822C;&#x4E0D;&#x518D;&#x6709; SIP &#x6D88;&#x606F;&#x4EA4;&#x4E92;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8BED;&#x97F3;&#x6570;&#x636E;&#x90FD;&#x662F;&#x5728; RTF &#x4E2D;&#x4F20;&#x9001;&#x3002;</p></li>
+<li><p>F5 BYE Bob -&gt; Alice</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BYE sip:alice@client.atlanta.example.com SIP/2.0</span><br><span class="line">Via: SIP/2.0/TCP client.biloxi.example.com:5060;branch=z9hG4bKnashds7</span><br><span class="line">Max-Forwards: 70</span><br><span class="line">From: Bob &lt;sip:bob@biloxi.example.com&gt;;tag=8321234356</span><br><span class="line">To: Alice &lt;sip:alice@atlanta.example.com&gt;;tag=9fxced76sl</span><br><span class="line">Call-ID: 3848276298220188511@atlanta.example.com</span><br><span class="line">CSeq: 1 BYE</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure></li>
+<li><p>F6 200 OK Alice -&gt; Bob</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line">Via: SIP/2.0/TCP client.biloxi.example.com:5060;branch=z9hG4bKnashds7</span><br><span class="line">   ;received=192.0.2.201</span><br><span class="line">From: Bob &lt;sip:bob@biloxi.example.com&gt;;tag=8321234356</span><br><span class="line">To: Alice &lt;sip:alice@atlanta.example.com&gt;;tag=9fxced76sl</span><br><span class="line">Call-ID: 3848276298220188511@atlanta.example.com</span><br><span class="line">CSeq: 1 BYE</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="&#x57FA;&#x672C;&#x65B9;&#x6CD5;">&#x57FA;&#x672C;&#x65B9;&#x6CD5;</h2>
+<h3 id="register">REGISTER</h3>
+<p>&#x901A;&#x5E38;&#x7684;&#x6CE8;&#x518C;&#x6D41;&#x7A0B;&#x662F; Bob &#x5411; FreeSwitch &#x53D1;&#x8D77;&#x6CE8;&#x518C;&#xFF08;REGISTER&#xFF09;&#x8BF7;&#x6C42;&#xFF0C;FreeSwitch &#x8FD4;&#x56DE; Challenge&#xFF0C;Bob &#x5C06;&#x81EA;&#x5DF1;&#x7684;&#x7528;&#x6237;&#x540D;&#x4E0E;&#x5BC6;&#x7801;&#x548C; Challenge &#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x5E76;&#x5C06;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;&#x52A0;&#x5BC6;&#x9644;&#x52A0;&#x5230;&#x4E0B;&#x4E00;&#x6B21; REGISTER &#x8BF7;&#x6C42;&#x4E0A;&#xFF0C;&#x91CD;&#x65B0;&#x53D1;&#x8D77;&#x6CE8;&#x518C;&#x3002;FreeSwitch &#x6536;&#x5230;&#x540E;&#x5BF9;&#x672C;&#x5730;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x4FDD;&#x5B58;&#x7684; Alice &#x4FE1;&#x606F;&#x4F7F;&#x7528;&#x540C;&#x6837;&#x7684;&#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x548C;&#x52A0;&#x5BC6;&#xFF0C;&#x4E0E; Bob &#x53D1;&#x9001;&#x7684;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x6BD4;&#x5BF9;&#xFF0C;&#x5982;&#x679C;&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x8BA4;&#x8BC1;&#x901A;&#x8FC7;&#x3002;&#x5176;&#x4EA4;&#x4E92;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Bob                          FreeSwitch</span><br><span class="line"> |                               |</span><br><span class="line"> |          REGISTER F1          |</span><br><span class="line"> |------------------------------&gt;|</span><br><span class="line"> |      401 Unauthorized F2      |</span><br><span class="line"> |&lt;------------------------------|</span><br><span class="line"> |          REGISTER F3          |</span><br><span class="line"> |------------------------------&gt;|</span><br><span class="line"> |            200 OK F4          |</span><br><span class="line"> |&lt;------------------------------|</span><br><span class="line"> |                               |</span><br></pre></td></tr></table></figure>
+<p>&#x4F7F;&#x7528; tcpdump &#x6293;&#x53D6;&#x62A5;&#x6587;&#xFF0C;&#x53EF;&#x4EE5;&#x89C2;&#x5BDF;&#x5230;&#x5177;&#x4F53;&#x7EC6;&#x8282;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">16:15:09.171545 IP 10.211.55.2.56752 &gt; 10.211.55.6.5060: SIP: REGISTER sip:10.211.55.6 SIP/2.0</span><br><span class="line">E..&quot;+E..@...</span><br><span class="line">.7.</span><br><span class="line">.7........REGISTER sip:10.211.55.6 SIP/2.0</span><br><span class="line">Via: SIP/2.0/UDP 172.20.10.4:56752;rport;branch=z9hG4bKPjinGmFmdA2qA-3UgRFazZJ5pVtLjaVXxy</span><br><span class="line">Max-Forwards: 70</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=in4araCghyxgB69gIFzqY.IPfBSKRrRG</span><br><span class="line">To: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;</span><br><span class="line">Contact: &lt;sip:38201945@10.211.55.2:56752&gt;;+sip.instance=&quot;&lt;urn:uuid:ee04c296-3dfe-4cf0-9402-6df75240f128&gt;&quot;</span><br><span class="line">Call-ID: .vPy3ECALSPa-xVP9cB0XYcP.iwHjbV2</span><br><span class="line">CSeq: 1 REGISTER</span><br><span class="line">Expires: 600</span><br><span class="line">Supported: gruu</span><br><span class="line">User-Agent: Blink Lite 4.6.0 (MacOSX)</span><br><span class="line">Content-Length:  0</span><br><span class="line"></span><br><span class="line">................</span><br><span class="line">16:15:09.173451 IP 10.211.55.6.5060 &gt; 10.211.55.2.56752: SIP: SIP/2.0 401 Unauthorized</span><br><span class="line">E.......@...</span><br><span class="line">.7.</span><br><span class="line">.7........nSIP/2.0 401 Unauthorized</span><br><span class="line">Via: SIP/2.0/UDP 172.20.10.4:56752;rport=56752;branch=z9hG4bKPjinGmFmdA2qA-3UgRFazZJ5pVtLjaVXxy;received=10.211.55.2</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=in4araCghyxgB69gIFzqY.IPfBSKRrRG</span><br><span class="line">To: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=XNFFr99m762FQ</span><br><span class="line">Call-ID: .vPy3ECALSPa-xVP9cB0XYcP.iwHjbV2</span><br><span class="line">CSeq: 1 REGISTER</span><br><span class="line">User-Agent: FreeSWITCH-mod_sofia/1.10.3-release.5~64bit</span><br><span class="line">Allow: INVITE, ACK, BYE, CANCEL, OPTIONS, MESSAGE, INFO, UPDATE, REGISTER, REFER, NOTIFY, PUBLISH, SUBSCRIBE</span><br><span class="line">Supported: timer, path, replaces</span><br><span class="line">WWW-Authenticate: Digest realm=&quot;10.211.55.6&quot;, nonce=&quot;93c5a8f6-7fe8-42ba-b54c-c72c610f158d&quot;, algorithm=MD5, qop=&quot;auth&quot;</span><br><span class="line">Content-Length: 0</span><br><span class="line"></span><br><span class="line">................</span><br><span class="line">16:15:09.173748 IP 10.211.55.2.56752 &gt; 10.211.55.6.5060: SIP: REGISTER sip:10.211.55.6 SIP/2.0</span><br><span class="line">E..!....@.jP</span><br><span class="line">.7.</span><br><span class="line">.7.......D.REGISTER sip:10.211.55.6 SIP/2.0</span><br><span class="line">Via: SIP/2.0/UDP 172.20.10.4:56752;rport;branch=z9hG4bKPjBzzTttNMXs3zHzq2034G2LLu4LSJf6iD</span><br><span class="line">Max-Forwards: 70</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=in4araCghyxgB69gIFzqY.IPfBSKRrRG</span><br><span class="line">To: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;</span><br><span class="line">Contact: &lt;sip:38201945@10.211.55.2:56752&gt;;+sip.instance=&quot;&lt;urn:uuid:ee04c296-3dfe-4cf0-9402-6df75240f128&gt;&quot;</span><br><span class="line">Call-ID: .vPy3ECALSPa-xVP9cB0XYcP.iwHjbV2</span><br><span class="line">CSeq: 2 REGISTER</span><br><span class="line">Expires: 600</span><br><span class="line">Supported: gruu</span><br><span class="line">User-Agent: Blink Lite 4.6.0 (MacOSX)</span><br><span class="line">Authorization: Digest username=&quot;1001&quot;, realm=&quot;10.211.55.6&quot;, nonce=&quot;93c5a8f6-7fe8-42ba-b54c-c72c610f158d&quot;, uri=&quot;sip:10.211.55.6&quot;, response=&quot;31d6b0f15f495b45f8d0e5abbd55dd65&quot;, algorithm=MD5, cnonce=&quot;WbsQ8hhdcIr1uEeN2aOlLx6GhabkDdVx&quot;, qop=auth, nc=00000001</span><br><span class="line">Content-Length:  0</span><br><span class="line"></span><br><span class="line">................</span><br><span class="line">16:15:09.173995 IP 10.211.55.2.56752 &gt; 10.211.55.6.5060: SIP: SUBSCRIBE sip:1001@10.211.55.6 SIP/2.0</span><br><span class="line">E....K..@..C</span><br><span class="line">.7.</span><br><span class="line">.7.......a.SUBSCRIBE sip:1001@10.211.55.6 SIP/2.0</span><br><span class="line">Via: SIP/2.0/UDP 172.20.10.4:56752;rport;branch=z9hG4bKPjCaDuWA9sZj4vsxyWPDY0eYl0Thvuxz4s</span><br><span class="line">Max-Forwards: 70</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=SLN1U96goUyi.DJ6uBNbYf5Diwjuqe2A</span><br><span class="line">To: &lt;sip:1001@10.211.55.6&gt;</span><br><span class="line">Contact: &lt;sip:38201945@10.211.55.2:56752&gt;</span><br><span class="line">Call-ID: emtkXsRqnqqJ4DvYB6G8wxSUyYELlxC6</span><br><span class="line">CSeq: 2381 SUBSCRIBE</span><br><span class="line">Event: message-summary</span><br><span class="line">Expires: 600</span><br><span class="line">Supported: 100rel, replaces, norefersub, gruu</span><br><span class="line">Accept: application/simple-message-summary</span><br><span class="line">Allow-Events: conference, message-summary, dialog, presence, presence.winfo, xcap-diff, dialog.winfo, refer</span><br><span class="line">User-Agent: Blink Lite 4.6.0 (MacOSX)</span><br><span class="line">Content-Length:  0</span><br><span class="line"></span><br><span class="line">................</span><br><span class="line">16:15:09.175484 IP 10.211.55.6.5060 &gt; 10.211.55.2.56752: SIP: SIP/2.0 200 OK</span><br><span class="line">E.......@...</span><br><span class="line">.7.</span><br><span class="line">.7........ISIP/2.0 200 OK</span><br><span class="line">Via: SIP/2.0/UDP 172.20.10.4:56752;rport=56752;branch=z9hG4bKPjBzzTttNMXs3zHzq2034G2LLu4LSJf6iD;received=10.211.55.2</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=in4araCghyxgB69gIFzqY.IPfBSKRrRG</span><br><span class="line">To: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=yy87S4tr4FS2j</span><br><span class="line">Call-ID: .vPy3ECALSPa-xVP9cB0XYcP.iwHjbV2</span><br><span class="line">CSeq: 2 REGISTER</span><br><span class="line">Contact: &lt;sip:38201945@10.211.55.2:56752&gt;;expires=600</span><br><span class="line">Date: Fri, 04 Sep 2020 08:15:09 GMT</span><br><span class="line">User-Agent: FreeSWITCH-mod_sofia/1.10.3-release.5~64bit</span><br><span class="line">Allow: INVITE, ACK, BYE, CANCEL, OPTIONS, MESSAGE, INFO, UPDATE, REGISTER, REFER, NOTIFY, PUBLISH, SUBSCRIBE</span><br><span class="line">Supported: timer, path, replaces</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure>
+<p>&#x5F53;&#x5BC6;&#x7801;&#x8F93;&#x9519;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE; 403</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">................</span><br><span class="line">16:59:04.793322 IP 10.211.55.6.5060 &gt; 10.211.55.2.56752: SIP: SIP/2.0 403 Forbidden</span><br><span class="line">E..IP$..@...</span><br><span class="line">.7.</span><br><span class="line">.7......5..SIP/2.0 403 Forbidden</span><br><span class="line">Via: SIP/2.0/UDP 172.20.10.4:56752;rport=56752;branch=z9hG4bKPjsNvqOhF5Lbmtb4akKPU1hjvy26NfwF8I;received=10.211.55.2</span><br><span class="line">From: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=40Anh2eSlQx7V25EWr2j0i.wfCuRCblN</span><br><span class="line">To: &quot;centos7&quot; &lt;sip:1001@10.211.55.6&gt;;tag=7Fc79Qjra01aB</span><br><span class="line">Call-ID: 9LWhk3GzN5WsrbOehtaNzpwMPQdg6dbB</span><br><span class="line">CSeq: 2 REGISTER</span><br><span class="line">User-Agent: FreeSWITCH-mod_sofia/1.10.3-release.5~64bit</span><br><span class="line">Allow: INVITE, ACK, BYE, CANCEL, OPTIONS, MESSAGE, INFO, UPDATE, REGISTER, REFER, NOTIFY, PUBLISH, SUBSCRIBE</span><br><span class="line">Supported: timer, path, replaces</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure>
+<h3 id="invite">INVITE</h3>
+<p>&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x4F1A;&#x8BDD;&#xFF0C;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x547C;&#x53EB;</p>
+<h3 id="ack">ACK</h3>
+<p>&#x5BF9; INVITE &#x6D88;&#x606F;&#x7684;&#x6700;&#x7EC8;&#x54CD;&#x5E94;</p>
+<h3 id="cancel">CANCEL</h3>
+<p>&#x53D6;&#x6D88;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x5904;&#x7406;&#x6216;&#x6B63;&#x5728;&#x5904;&#x7406;&#x7684;&#x8BF7;&#x6C42;</p>
+<h3 id="bye">BYE</h3>
+<p>&#x7EC8;&#x6B62;&#x4E00;&#x4E2A;&#x4F1A;&#x8BDD;</p>
+<h3 id="options">OPTIONS</h3>
+<p>&#x67E5;&#x8BE2;&#x670D;&#x52A1;&#x5668;&#x548C;&#x80FD;&#x529B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x4F5C; ping &#x6D4B;&#x8BD5;</p>
+<h2 id="sip-&#x62A5;&#x6587;&#x5934;&#x57DF;">SIP &#x62A5;&#x6587;&#x5934;&#x57DF;</h2>
+<p>&#x6240;&#x6709; SIP &#x6D88;&#x606F;&#x90FD;&#x5FC5;&#x987B;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x524D; 6 &#x4E2A;&#x5934;&#x57DF;</p>
+<ol type="1">
+<li>Call-ID &#x7528;&#x4E8E;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x4F1A;&#x8BDD;&#x7684;&#x552F;&#x4E00;&#x6807;&#x5FD7;</li>
+<li>CSeq &#x5E8F;&#x5217;&#x53F7;&#xFF0C;&#x7528;&#x4E8E;&#x5728;&#x540C;&#x4E00;&#x4F1A;&#x8BDD;&#x4E2D;&#x533A;&#x5206;&#x4E8B;&#x52A1;</li>
+<li>From &#x8BF4;&#x660E;&#x8BF7;&#x6C42;&#x6765;&#x6E90;</li>
+<li>To &#x8BF4;&#x660E;&#x8BF7;&#x6C42;&#x63A5;&#x53D7;&#x65B9;</li>
+<li>Max-Forwars &#x9650;&#x5236;&#x8DF3;&#x8DC3;&#x70B9;&#x6570;&#x548C;&#x6700;&#x5927;&#x8F6C;&#x53D1;&#x6B21;&#x6570;</li>
+<li>Via &#x63CF;&#x8FF0;&#x8BF7;&#x6C42;&#x6D88;&#x606F;&#x7ECF;&#x8FC7;&#x7684;&#x8DEF;&#x5F84;</li>
+</ol>
+<p>&#x66F4;&#x591A;&#x7684;&#x8BF7;&#x53C2;&#x8003;<a href="https://www.iana.org/assignments/sip-parameters/sip-parameters.xhtml" target="_blank" rel="noopener">SIP &#x53C2;&#x6570;</a></p>
+<h2 id="&#x72B6;&#x6001;&#x7801;">&#x72B6;&#x6001;&#x7801;</h2>
+<p>&#x4E0E; HTTP &#x54CD;&#x5E94;&#x7C7B;&#x4F3C;&#xFF0C;&#x72B6;&#x6001;&#x7801;&#x7531; 3 &#x4F4D;&#x6570;&#x5B57;&#x7EC4;&#x6210;</p>
+<ul>
+<li>1xx &#x4E34;&#x65F6;&#x72B6;&#x6001;&#xFF0C;&#x8868;&#x660E;&#x547C;&#x53EB;&#x8FDB;&#x5C55;&#x7684;&#x60C5;&#x51B5;</li>
+<li>2xx &#x8868;&#x660E;&#x8BF7;&#x6C42;&#x4E00;&#x676F;&#x6210;&#x529F;&#x6536;&#x5230;&#xFF0C;&#x7406;&#x89E3;&#x548C;&#x63A5;&#x6536;</li>
+<li>3xx &#x91CD;&#x5B9A;&#x5411;&#xFF0C;&#x8868;&#x660E; SIP &#x8BF7;&#x6C42;&#x9700;&#x8981;&#x8F6C;&#x5411;&#x5230;&#x53E6;&#x4E00;&#x4E2A; UAS &#x5904;&#x7406;</li>
+<li>4xx &#x8868;&#x660E;&#x8BF7;&#x6C42;&#x5931;&#x8D25;&#xFF0C;&#x8FD9;&#x79CD;&#x5931;&#x8D25;&#x4E00;&#x822C;&#x7531;&#x5BA2;&#x6237;&#x7AEF;&#x6216;&#x7F51;&#x7EDC;&#x5F15;&#x8D77;&#x7684;&#xFF0C;&#x5982;&#x5BC6;&#x7801;&#x9519;&#x8BEF;&#xFF0C;&#x7A7A;&#x53F7;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5E94;&#x8BE5;&#x91CD;&#x65B0;&#x4FEE;&#x6539;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x91CD;&#x53D1;</li>
+<li>5xx &#x670D;&#x52A1;&#x5668;&#x5185;&#x90E8;&#x9519;&#x8BEF;</li>
+<li>6xx &#x5168;&#x5C40;&#x6027;&#x9519;&#x8BEF;&#xFF0C;&#x5982; 600 Busy Everywhere</li>
+</ul>
+<p>&#x72B6;&#x6001;&#x7801;&#x540E;&#x9762;&#x8DDF;&#x7740;&#x4E00;&#x4E2A;&#x539F;&#x56E0;&#x77ED;&#x8BED;&#xFF08;&#x5982; 200 OK &#x4E2D;&#x7684; OK&#xFF09;&#xFF0C;&#x5B83;&#x662F;&#x5BF9;&#x524D;&#x9762;&#x7684;&#x72B6;&#x6001;&#x7801;&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x89E3;&#x91CA;</p>
+<p>&#x5E38;&#x7528;&#x72B6;&#x6001;&#x7801; | &#x72B6;&#x6001;&#x7801;| &#x8BF4;&#x660E;| | :---- | :---- | |180|&#x632F;&#x94C3;| |488|&#x4E0D;&#x517C;&#x5BB9;&#x7684;&#x5A92;&#x4F53;&#x7C7B;&#x578B;|</p>
+<p>&#x5177;&#x4F53;&#x72B6;&#x6001;&#x7801;&#x89C1;<a href="https://en.wikipedia.org/wiki/List_of_SIP_response_codes#:~:text=The%20SIP%20response%20codes%20and,to%20provide%20more%20response%20codes." target="_blank" rel="noopener">SIP &#x72B6;&#x6001;&#x7801; WIKI</a></p>
+<h2 id="freeswitch-&#x4E2D;&#x7684;-sip-&#x6A21;&#x5757;">FreeSwitch &#x4E2D;&#x7684; SIP &#x6A21;&#x5757;</h2>
+<h3 id="&#x57FA;&#x672C;&#x6982;&#x5FF5;">&#x57FA;&#x672C;&#x6982;&#x5FF5;</h3>
+<ol type="1">
+<li>Sofia-SIP FreeSwitch &#x7684; SIP &#x529F;&#x80FD;&#x662F;&#x5728; mod_sofia &#x6A21;&#x5757;&#x4E2D;&#x5B9E;&#x73B0;&#x7684;&#x3002;FreeSwitch &#x5E76;&#x6CA1;&#x6709;&#x81EA;&#x5DF1;&#x5F00;&#x53D1;&#x65B0;&#x7684; SIP &#x534F;&#x8BAE;&#x6808;&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;&#x4E86;&#x6BD4;&#x8F83;&#x6210;&#x719F;&#x7684;&#x5F00;&#x6E90; SIP &#x534F;&#x8BAE;&#x6808; Sofia-SIP&#x3002;</li>
+<li>Endpoint &#x5728; FreeSwitch &#x4E2D;&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x4E9B;&#x4E92;&#x8054;&#x7F51;&#x534F;&#x8BAE;&#x63A5;&#x53E3;&#x7684;&#x6A21;&#x5757;&#x79F0;&#x4E3A; Endpoint&#x3002;FreeSwitch &#x652F;&#x6301;&#x5F88;&#x591A;&#x7C7B;&#x578B;&#x7684; Endpoint&#xFF0C;&#x5982; SIP&#xFF0C;H232 &#x7B49;&#x3002;&#x8FD9;&#x4E9B;&#x4E0D;&#x540C;&#x7684; Endpoint &#x4E3B;&#x8981;&#x662F;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x63A7;&#x5236;&#x534F;&#x8BAE;&#x8DDF;&#x5176;&#x4ED6;&#x7684; Endpoint &#x901A;&#x8BDD;&#x3002;</li>
+<li>mod_sofia mod_sofia &#x5B9E;&#x73B0;&#x4E86; SIP &#x4E2D;&#x7684;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668;&#x3001;&#x91CD;&#x5B9A;&#x5411;&#x670D;&#x52A1;&#x5668;&#x3001;&#x5A92;&#x4F53;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5448;&#x73B0;&#x670D;&#x52A1;&#x5668;&#x3001;SBC &#x7B49;&#x5404;&#x79CD;&#x529F;&#x80FD;&#x3002;&#x5B83;&#x7684;&#x5B9A;&#x4F4D;&#x662F;&#x4E00;&#x4E2A; B2BUA&#x3002;</li>
+<li>SIP Profile &#x5728; mod_sofia &#x4E2D;&#xFF0C;SIP Profile &#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A; SIPUA&#xFF0C;&#x901A;&#x8FC7;&#x5404;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x4E00;&#x4E2A; UA &#x7684;&#x884C;&#x4E3A;&#x3002;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A; SIP Profile&#xFF0C;&#x6BCF;&#x4E2A; SIP Profile &#x90FD;&#x53EF;&#x4EE5;&#x76D1;&#x542C;&#x4E0D;&#x540C;&#x7684; IP &#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;&#x3002;</li>
+<li>Gateway &#x4E00;&#x4E2A; SIP Profile &#x4E2D;&#x6709;&#x591A;&#x4E2A; Gateway&#xFF08;&#x7F51;&#x5173;&#xFF09;&#xFF0C;&#x5B83;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x8FDC;&#x7A0B;&#x7684; SIP &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4F7F; Freeswitch &#x53EF;&#x4EE5;&#x4E0E;&#x5176;&#x4ED6;&#x670D;&#x52A1;&#x5668;&#x901A;&#x4FE1;&#x3002;</li>
+<li>&#x672C;&#x5730; SIP &#x7528;&#x6237; FreeSwitch &#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5176;&#x4ED6; SIP &#x5BA2;&#x6237;&#x7AEF;&#x5C31;&#x53EF;&#x4EE5;&#x5411;&#x5B83;&#x6CE8;&#x518C;&#x3002;FreesWitch &#x5C06;&#x901A;&#x8FC7;&#x7528;&#x6237;&#x76EE;&#x5F55;&#x4E2D;&#xFF08;conf/Directory)&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x5BF9;&#x6CE8;&#x518C;&#x7528;&#x6237;&#x8FDB;&#x884C;&#x9274;&#x6743;&#x3002;&#x8FD9;&#x4E9B; SIP &#x5BA2;&#x6237;&#x7AEF;&#x9501;&#x4EE3;&#x8868;&#x7684;&#x7528;&#x6237;&#x5C31;&#x79F0;&#x4E3A;&#x672C;&#x5730; SIP &#x7528;&#x6237;&#xFF0C;&#x7B80;&#x79F0;&#x672C;&#x5730;&#x7528;&#x6237;</li>
+<li>&#x6765;&#x7535;&#x53BB;&#x8BDD;&#xFF0C;&#x4E2D;&#x7EE7;&#x6765;&#x7535;&#xFF0C;&#x4E2D;&#x7EE7;&#x53BB;&#x8BDD;</li>
+</ol>
+<h3 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;">&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h3>
+<p>Sofia &#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5728;<code>autoload_configs/sofia.conf.xml</code>&#x4E2D;&#x3002;Sofia &#x652F;&#x6301;&#x591A;&#x4E2A; Profile&#xFF0C;&#x800C;&#x6BCF;&#x4E00;&#x4E2A; Profile &#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A; SIP UA&#xFF0C;&#x5728;&#x542F;&#x52A8;&#x540E;&#x6094;&#x76D1;&#x542C;&#x4E00;&#x4E2A;&#x201C;IP&#xFF1A;PORT&#x201D;&#x5BF9;&#x3002;FreeSwitch &#x9ED8;&#x8BA4;&#x7684;&#x914D;&#x7F6E;&#x5E26;&#x4E86;&#x4E09;&#x4E2A; Profile&#xFF08;&#x4E5F;&#x5C31;&#x662F;&#x4E09;&#x4E2A; UA&#xFF09;&#x3002;&#x6211;&#x4EEC;&#x4E0D;&#x8BA8;&#x8BBA; IPv6&#xFF0C;&#x4EC5;&#x8BA8;&#x8BBA; internal &#x548C; external&#xFF08;&#x5206;&#x522B;&#x5728; internal.xml &#x548C; external.xml &#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#xFF0C;&#x5206;&#x522B;&#x8FD0;&#x884C;&#x5728; 5060,5080 &#x7AEF;&#x53E3;&#x4E0A;&#xFF09;</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/09/02/zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/09/02/zookeeper/" class="post-title-link" itemprop="url">zookeeper</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-02 15:42:33" itemprop="dateCreated datePublished" datetime="2020-09-02T15:42:33+08:00">2020-09-02</time>
+            </span>
+          
+
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/09/02/sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/09/02/sql/" class="post-title-link" itemprop="url">sql</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-02 08:17:46 / 修改时间：08:28:23" itemprop="dateCreated datePublished" datetime="2020-09-02T08:17:46+08:00">2020-09-02</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#x5408;&#x5E76;&#x591A;&#x884C;&#x8868;&#x8BB0;&#x5F55;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> code,<span class="keyword">sum</span>(nums) <span class="keyword">as</span> counts <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">group</span> <span class="keyword">by</span> code</span><br></pre></td></tr></table></figure>
+<p>&#x5C06;&#x51E0;&#x79CD; group &#x5408;&#x5E76;&#x4E3A;&#x4E00;&#x4E2A;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    thecode,</span><br><span class="line">    <span class="keyword">sum</span>(counts)</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span></span><br><span class="line">            <span class="keyword">case</span></span><br><span class="line">                <span class="keyword">when</span> code = <span class="string">&apos;01&apos;</span> <span class="keyword">then</span> <span class="string">&apos;00&apos;</span></span><br><span class="line">                <span class="keyword">else</span> code</span><br><span class="line">            <span class="keyword">end</span> <span class="keyword">as</span> thecode,</span><br><span class="line">            counts</span><br><span class="line">        <span class="keyword">from</span></span><br><span class="line">            (</span><br><span class="line">                <span class="keyword">select</span></span><br><span class="line">                    code,</span><br><span class="line">                    <span class="keyword">sum</span>(nums) <span class="keyword">as</span> counts</span><br><span class="line">                <span class="keyword">from</span></span><br><span class="line">                    <span class="keyword">table</span></span><br><span class="line">                <span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">                    code</span><br><span class="line">            )</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">    thecode</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/08/28/js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/08/28/js/" class="post-title-link" itemprop="url">js</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-08-28 16:01:36" itemprop="dateCreated datePublished" datetime="2020-08-28T16:01:36+08:00">2020-08-28</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-09-02 08:30:32" itemprop="dateModified" datetime="2020-09-02T08:30:32+08:00">2020-09-02</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x540D;&#x5B57;&#x7A7A;&#x95F4;">&#x540D;&#x5B57;&#x7A7A;&#x95F4;</h2>
+<p>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F1A;&#x7ED1;&#x5B9A;&#x5230;<code>window</code>&#x4E0A;&#xFF0C;&#x4E0D;&#x540C;&#x7684; JavaScript &#x6587;&#x4EF6;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;&#x76F8;&#x540C;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x6216;&#x8005;&#x5B9A;&#x4E49;&#x4E86;&#x76F8;&#x540C;&#x540D;&#x5B57;&#x7684;&#x9876;&#x5C42;&#x51FD;&#x6570;&#xFF0C;&#x90FD;&#x4F1A;&#x9020;&#x6210;&#x547D;&#x540D;&#x51B2;&#x7A81;&#xFF0C;&#x5E76;&#x4E14;&#x5F88;&#x96BE;&#x88AB;&#x53D1;&#x73B0;&#x3002;</p>
+<p>&#x51CF;&#x5C11;&#x51B2;&#x7A81;&#x7684;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x628A;&#x81EA;&#x5DF1;&#x7684;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x5168;&#x90E8;&#x7ED1;&#x5B9A;&#x5230;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4E2D;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x552F;&#x4E00;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;MYAPP:</span></span><br><span class="line"><span class="keyword">var</span> MYAPP = {};</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5176;&#x4ED6;&#x53D8;&#x91CF;:</span></span><br><span class="line">MYAPP.name = <span class="string">&quot;myapp&quot;</span>;</span><br><span class="line">MYAPP.version = <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5176;&#x4ED6;&#x51FD;&#x6570;:</span></span><br><span class="line">MYAPP.foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">};</span><br></pre></td></tr></table></figure>
+<p>&#x628A;&#x81EA;&#x5DF1;&#x7684;&#x4EE3;&#x7801;&#x5168;&#x90E8;&#x653E;&#x5165;&#x552F;&#x4E00;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4;<code>MYAPP</code>&#x4E2D;&#xFF0C;&#x4F1A;&#x5927;&#x5927;&#x51CF;&#x5C11;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x51B2;&#x7A81;&#x7684;&#x53EF;&#x80FD;&#x3002;</p>
+<p>&#x8BB8;&#x591A;&#x8457;&#x540D;&#x7684; JavaScript &#x5E93;&#x90FD;&#x662F;&#x8FD9;&#x4E48;&#x5E72;&#x7684;&#xFF1A;jQuery&#xFF0C;YUI&#xFF0C;underscore &#x7B49;&#x7B49;&#x3002;</p>
+<h2 id="&#x6807;&#x51C6;&#x5BF9;&#x8C61;">&#x6807;&#x51C6;&#x5BF9;&#x8C61;</h2>
+<p>&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#xFF0C;&#x6709;&#x8FD9;&#x4E48;&#x51E0;&#x6761;&#x89C4;&#x5219;&#x9700;&#x8981;&#x9075;&#x5B88;&#xFF1A;</p>
+<ul>
+<li>&#x4E0D;&#x8981;&#x4F7F;&#x7528;<code>new Number()</code>&#x3001;<code>new Boolean()</code>&#x3001;<code>new String()</code>&#x521B;&#x5EFA;&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#xFF1B;</li>
+<li>&#x7528;<code>parseInt()</code>&#x6216;<code>parseFloat()</code>&#x6765;&#x8F6C;&#x6362;&#x4EFB;&#x610F;&#x7C7B;&#x578B;&#x5230;<code>number</code>&#xFF1B;</li>
+<li>&#x7528;<code>String()</code>&#x6765;&#x8F6C;&#x6362;&#x4EFB;&#x610F;&#x7C7B;&#x578B;&#x5230;<code>string</code>&#xFF0C;&#x6216;&#x8005;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x67D0;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;<code>toString()</code>&#x65B9;&#x6CD5;&#xFF1B;</li>
+<li>&#x901A;&#x5E38;&#x4E0D;&#x5FC5;&#x628A;&#x4EFB;&#x610F;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x4E3A;<code>boolean</code>&#x518D;&#x5224;&#x65AD;&#xFF0C;&#x56E0;&#x4E3A;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5199;<code>if (myVar) {...}</code>&#xFF1B;</li>
+<li><code>typeof</code>&#x64CD;&#x4F5C;&#x7B26;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x51FA;<code>number</code>&#x3001;<code>boolean</code>&#x3001;<code>string</code>&#x3001;<code>function</code>&#x548C;<code>undefined</code>&#xFF1B;</li>
+<li>&#x5224;&#x65AD;<code>Array</code>&#x8981;&#x4F7F;&#x7528;<code>Array.isArray(arr)</code>&#xFF1B;</li>
+<li>&#x5224;&#x65AD;<code>null</code>&#x8BF7;&#x4F7F;&#x7528;<code>myVar === null</code>&#xFF1B;</li>
+<li>&#x5224;&#x65AD;&#x67D0;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x662F;&#x5426;&#x5B58;&#x5728;&#x7528;<code>typeof window.myVar === &apos;undefined&apos;</code>&#xFF1B;</li>
+<li>&#x51FD;&#x6570;&#x5185;&#x90E8;&#x5224;&#x65AD;&#x67D0;&#x4E2A;&#x53D8;&#x91CF;&#x662F;&#x5426;&#x5B58;&#x5728;&#x7528;<code>typeof myVar === &apos;undefined&apos;</code>&#x3002;</li>
+</ul>
+<p>&#x6700;&#x540E;&#x6709;&#x7EC6;&#x5FC3;&#x7684;&#x540C;&#x5B66;&#x6307;&#x51FA;&#xFF0C;&#x4EFB;&#x4F55;&#x5BF9;&#x8C61;&#x90FD;&#x6709;<code>toString()</code>&#x65B9;&#x6CD5;&#x5417;&#xFF1F;<code>null</code>&#x548C;<code>undefined</code>&#x5C31;&#x6CA1;&#x6709;&#xFF01;&#x786E;&#x5B9E;&#x5982;&#x6B64;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x7279;&#x6B8A;&#x503C;&#x8981;&#x9664;&#x5916;&#xFF0C;&#x867D;&#x7136;<code>null</code>&#x8FD8;&#x4F2A;&#x88C5;&#x6210;&#x4E86;<code>object</code>&#x7C7B;&#x578B;&#x3002;</p>
+<p>&#x66F4;&#x7EC6;&#x5FC3;&#x7684;&#x540C;&#x5B66;&#x6307;&#x51FA;&#xFF0C;<code>number</code>&#x5BF9;&#x8C61;&#x8C03;&#x7528;<code>toString()</code>&#x62A5; SyntaxError&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123.</span>toString(); <span class="comment">// SyntaxError</span></span><br></pre></td></tr></table></figure>
+<p>&#x9047;&#x5230;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x8981;&#x7279;&#x6B8A;&#x5904;&#x7406;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">123</span>).toString(); <span class="comment">// &apos;123&apos;, &#x6CE8;&#x610F;&#x662F;&#x4E24;&#x4E2A;&#x70B9;&#xFF01;</span></span><br><span class="line">(<span class="number">123</span>).toString(); <span class="comment">// &apos;123&apos;</span></span><br></pre></td></tr></table></figure>
+<p>&#x4E0D;&#x8981;&#x95EE;&#x4E3A;&#x4EC0;&#x4E48;&#xFF0C;&#x8FD9;&#x5C31;&#x662F; JavaScript &#x4EE3;&#x7801;&#x7684;&#x4E50;&#x8DA3;&#xFF01;</p>
+<h2 id="json">JSON</h2>
+<p>&#x5728; JSON &#x4E2D;&#xFF0C;&#x4E00;&#x5171;&#x5C31;&#x8FD9;&#x4E48;&#x51E0;&#x79CD;&#x6570;&#x636E;&#x7C7B;&#x578B;,&#x5E76;&#x4E14;&#xFF0C;JSON &#x8FD8;&#x5B9A;&#x6B7B;&#x4E86;&#x5B57;&#x7B26;&#x96C6;&#x5FC5;&#x987B;&#x662F; UTF-8&#xFF0C;&#x8868;&#x793A;&#x591A;&#x8BED;&#x8A00;&#x5C31;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x4E86;&#x3002;&#x4E3A;&#x4E86;&#x7EDF;&#x4E00;&#x89E3;&#x6790;&#xFF0C;JSON &#x7684;&#x5B57;&#x7B26;&#x4E32;&#x89C4;&#x5B9A;&#x5FC5;&#x987B;&#x7528;&#x53CC;&#x5F15;&#x53F7;<code>&quot;&quot;</code>&#xFF0C;Object &#x7684;&#x952E;&#x4E5F;&#x5FC5;&#x987B;&#x7528;&#x53CC;&#x5F15;&#x53F7;<code>&quot;&quot;</code>&#x3002;</p>
+<ul>
+<li><p><code>number</code>&#xFF1A;&#x548C; JavaScript &#x7684; number &#x5B8C;&#x5168;&#x4E00;&#x81F4;&#xFF1B;</p></li>
+<li><p><code>boolean</code>&#xFF1A;&#x5C31;&#x662F; JavaScript &#x7684; true &#x6216; false&#xFF1B;</p></li>
+<li><p><code>string</code>&#xFF1A;&#x5C31;&#x662F; JavaScript &#x7684; string&#xFF1B;</p></li>
+<li><p><code>null</code>&#xFF1A;&#x5C31;&#x662F; JavaScript &#x7684; null&#xFF1B;</p></li>
+<li><p><code>array</code>&#xFF1A;&#x5C31;&#x662F; JavaScript &#x7684; Array &#x8868;&#x793A;&#x65B9;&#x5F0F;&#x2014;&#x2014;[]&#xFF1B;</p></li>
+<li><p><code>object</code>&#xFF1A;&#x5C31;&#x662F; JavaScript &#x7684;{ ... }&#x8868;&#x793A;&#x65B9;&#x5F0F;&#x3002;</p></li>
+</ul>
+<h2 id="cookie">COOKIE</h2>
+<p>&#x670D;&#x52A1;&#x5668;&#x5728;&#x8BBE;&#x7F6E; Cookie &#x65F6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; httpOnly&#xFF0C;&#x8BBE;&#x5B9A;&#x4E86; httpOnly &#x7684; Cookie &#x5C06;&#x4E0D;&#x80FD;&#x88AB; JavaScript &#x8BFB;&#x53D6;&#x3002;&#x8FD9;&#x4E2A;&#x884C;&#x4E3A;&#x7531;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x73B0;&#xFF0C;&#x4E3B;&#x6D41;&#x6D4F;&#x89C8;&#x5668;&#x5747;&#x652F;&#x6301; httpOnly &#x9009;&#x9879;&#xFF0C;IE &#x4ECE; IE6 SP1 &#x5F00;&#x59CB;&#x652F;&#x6301;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x5B89;&#x5168;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x5728;&#x8BBE;&#x7F6E; Cookie &#x65F6;&#xFF0C;&#x5E94;&#x8BE5;&#x59CB;&#x7EC8;&#x575A;&#x6301;&#x4F7F;&#x7528; httpOnly&#x3002;</p>
+<h2 id="&#x4F5C;&#x7528;&#x57DF;">&#x4F5C;&#x7528;&#x57DF;</h2>
+<ol type="1">
+<li><p>&#x5728; object &#x5185;&#x7684; function this &#x6307;&#x5411; object&#xFF0C;&#x800C;&#x5C5E;&#x4E8E; function &#x5185;&#x90E8;&#x7684;&#x95ED;&#x5305;&#x51FD;&#x6570; this &#x6307;&#x5411; window &#x5BF9;&#x8C61;,&#x7EAF; function this &#x4E5F;&#x6307;&#x5411; window &#x5BF9;&#x8C61;</p></li>
+<li><p>&#x201C;&#x81EA;&#x7531;&#x53D8;&#x91CF;&#x201D;&#x3002;&#x5728; A &#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x53D8;&#x91CF; x&#xFF0C;&#x5374;&#x6CA1;&#x6709;&#x5728; A &#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x58F0;&#x660E;&#xFF08;&#x5373;&#x5728;&#x5176;&#x4ED6;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x58F0;&#x660E;&#x7684;&#xFF09;&#xFF0C;&#x5BF9;&#x4E8E; A &#x4F5C;&#x7528;&#x57DF;&#x6765;&#x8BF4;&#xFF0C;x &#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x7531;&#x53D8;&#x91CF;&#x3002;&#x5982;&#x4E0B;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">20</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x + b); <span class="comment">//&#x8FD9;&#x91CC;&#x7684;x&#x5728;&#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x7531;&#x53D8;&#x91CF;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x4E3A; Object.prototype &#x8D4B;&#x503C;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x5728; window &#x5BF9;&#x8C61;&#x4E0A;&#x8D4B;&#x503C;</p></li>
+</ol>
+<p>&#x5982;&#x4E0A;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x5728;&#x8C03;&#x7528; fn()&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x51FD;&#x6570;&#x4F53;&#x4E2D;&#x7B2C; 6 &#x884C;&#x3002;&#x53D6; b &#x7684;&#x503C;&#x5C31;&#x76F4;&#x63A5;&#x53EF;&#x4EE5;&#x5728; fn &#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x53D6;&#xFF0C;&#x56E0;&#x4E3A; b &#x5C31;&#x662F;&#x5728;&#x8FD9;&#x91CC;&#x5B9A;&#x4E49;&#x7684;&#x3002;&#x800C;&#x53D6; x &#x7684;&#x503C;&#x65F6;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x53D6;&#x3002;&#x5230;&#x54EA;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x53D6;&#x5462;&#xFF1F;</p>
+<p>&#x6709;&#x4EBA;&#x8BF4;&#x8FC7;&#x8981;&#x5230;&#x7236;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x53D6;&#xFF0C;&#x5176;&#x5B9E;&#x6709;&#x65F6;&#x5019;&#x8FD9;&#x79CD;&#x89E3;&#x91CA;&#x4F1A;&#x4EA7;&#x751F;&#x6B67;&#x4E49;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">f</span>) </span>{</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">20</span>;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">    f(); <span class="comment">//10 &#x800C;&#x4E0D;&#x662F;20</span></span><br><span class="line">  })();</span><br><span class="line">}</span><br><span class="line">show(fn);</span><br></pre></td></tr></table></figure>
+<p>&#x8981;&#x5230;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x90A3;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x53D6;&#x503C;&#x2014;&#x2014;&#x662F;&#x201C;&#x521B;&#x5EFA;&#x201D;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x201C;&#x8C03;&#x7528;&#x201D;&#xFF0C;&#x5207;&#x8BB0;&#x5207;&#x8BB0;&#x2014;&#x2014;&#x5176;&#x5B9E;&#x8FD9;&#x5C31;&#x662F;&#x6240;&#x8C13;&#x7684;&#x201C;&#x9759;&#x6001;&#x4F5C;&#x7528;&#x57DF;&#x201D;&#x3002;</p>
+<h2 id="&#x539F;&#x578B;">&#x539F;&#x578B;</h2>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>{}</span><br><span class="line">Fn.prototype.name = <span class="string">&quot;xiaoming&quot;</span>;</span><br><span class="line">Fn.prototype.getYear = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1988</span>;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="keyword">new</span> Fn();</span><br><span class="line"><span class="built_in">console</span>.log(fn.name);</span><br><span class="line"><span class="built_in">console</span>.log(fn.getYear());</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>&#x51FD;&#x6570; Fn &#x4E5F;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;<code>prototype</code>&#xFF0C;<code>prototype</code>&#x7684;&#x503C;&#x4E3A;&#x539F;&#x578B;&#x5BF9;&#x8C61;</li>
+<li>fn &#x4E3A; Fn &#x51FD;&#x6570;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x5C5E;&#x6027; <code>__proto__</code>,fn &#x7684;<code>__proto__</code>&#x6307;&#x5411; Fn &#x7684;<code>prototype</code>&#xFF0C;&#x5373;&#x539F;&#x578B;&#x5BF9;&#x8C61;&#x3002;</li>
+<li>Object.prototype &#x662F;&#x4E00;&#x4E2A;&#x7279;&#x4F8B;&#x2014;&#x2014;&#x5B83;&#x7684;<code>__proto__</code>&#x6307;&#x5411;&#x7684;&#x662F; null</li>
+<li><p>&#x8BBF;&#x95EE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5148;&#x5728;&#x57FA;&#x672C;&#x5C5E;&#x6027;&#x4E2D;&#x67E5;&#x627E;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#xFF0C;&#x518D;&#x6CBF;&#x7740;<code>__proto__</code>&#x8FD9;&#x6761;&#x94FE;&#x5411;&#x4E0A;&#x627E;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x539F;&#x578B;&#x94FE;&#x3002;</p>
+<figure>
+<img src="/images/js-tips_2020-04-25-13-18-14.png" alt="js-tips_2020-04-25-13-18-14.png"><figcaption>js-tips_2020-04-25-13-18-14.png</figcaption>
+</figure></li>
+</ol>
+<p>&#x6211;&#x4EEC;&#x4EE5;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ob = {</span><br><span class="line">  f: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">  },</span><br><span class="line">};</span><br><span class="line"><span class="comment">// &#x53D8;&#x91CF;ob&#x7684;&#x58F0;&#x660E;&#x4E3A;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x7B49;&#x540C;&#x4E8E; ob = Object()</span></span><br><span class="line"><span class="comment">// ob&#x7684;__proto__&#x6307;&#x5411; Object.prototype&#xFF0C;&#x5373;&#x6240;&#x6709;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;&#x6700;&#x9876;&#x5C42;&#x7684;&#x539F;&#x578B;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment">// ob.f &#x65B9;&#x6CD5;&#x4E2D; this.a&#xFF0C;</span></span><br><span class="line">ob.__proto__.a = <span class="number">1</span>;</span><br><span class="line">ob.__proto__ = { <span class="attr">a</span>: <span class="number">2</span> };</span><br><span class="line">ob.f();</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;</p>
+<blockquote>
+<p>2 1</p>
+</blockquote>
+<h2 id="this">this</h2>
+<p>this &#x5230;&#x5E95;&#x53D6;&#x4F55;&#x503C;&#xFF0C;&#x662F;&#x5728;&#x51FD;&#x6570;&#x771F;&#x6B63;&#x88AB;&#x8C03;&#x7528;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x786E;&#x5B9A;&#x7684;&#xFF0C;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x7684;&#x65F6;&#x5019;&#x786E;&#x5B9A;&#x4E0D;&#x4E86;</p>
+<ol type="1">
+<li>&#x5728;&#x5168;&#x5C40;&#x73AF;&#x5883;&#x4E0B;&#xFF0C;this &#x6C38;&#x8FDC;&#x662F; window</li>
+<li>&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4E2D;&#x7684; this &#x5C31;&#x4EE3;&#x8868;&#x5B83;&#x5373;&#x5C06; new &#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;</li>
+<li>&#x5982;&#x679C;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5E76;&#x4E14;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x51FD;&#x6570;&#x4E2D;&#x7684; this &#x6307;&#x5411;&#x8BE5;&#x5BF9;&#x8C61;</li>
+<li>&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x88AB; call &#x548C; apply &#x8C03;&#x7528;&#x65F6;&#xFF0C;this &#x7684;&#x503C;&#x5C31;&#x53D6;&#x4F20;&#x5165;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x503C;</li>
+</ol>
+<h2 id="&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;">&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;</h2>
+<p>&#x51FD;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#x201D;&#x548C;&#x201C;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x201D;&#x3002;&#x867D;&#x7136;&#x4E24;&#x8005;&#x90FD;&#x5F88;&#x5E38;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E24;&#x8005;&#x5728;&#x201C;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x201D;&#x65F6;&#xFF0C;&#x5374;&#x662F;&#x4E24;&#x79CD;&#x5F85;&#x9047;&#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(f1); <span class="comment">// function f1(){};</span></span><br><span class="line"><span class="built_in">console</span>.log(f2); <span class="comment">//undefined</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>{}</span><br><span class="line"><span class="keyword">var</span> f2 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{};</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x5BF9;&#x5F85;&#x51FD;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#x5C31;&#x50CF;&#x5BF9;&#x5F85;&#x201C; var a = 10 &#x201D;&#x8FD9;&#x6837;&#x7684;&#x53D8;&#x91CF;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x58F0;&#x660E;&#x3002;&#x800C;&#x5BF9;&#x5F85;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x65F6;&#xFF0C;&#x5374;&#x628A;&#x51FD;&#x6570;&#x6574;&#x4E2A;&#x8D4B;&#x503C;&#x4E86;&#x3002;</p>
+<p>&#x5168;&#x5C40;&#x4EE3;&#x7801;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x6570;&#x636E;&#x5185;&#x5BB9;&#x4E3A;&#xFF1A;</p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x603B;&#x7ED3;&#x5B8C;&#x4E86;&#x51FD;&#x6570;&#x7684;&#x9644;&#x52A0;&#x5185;&#x5BB9;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x6B64;&#x8981;&#x5168;&#x9762;&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x7684;&#x6570;&#x636E;&#x5185;&#x5BB9;&#x3002;</p>
+<p>&#x5168;&#x5C40;&#x4EE3;&#x7801;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x6570;&#x636E;&#x5185;&#x5BB9;&#x4E3A;&#xFF1A;</p>
+<ul>
+<li>&#x666E;&#x901A;&#x53D8;&#x91CF;&#xFF08;&#x5305;&#x62EC;&#x51FD;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#xFF09;&#xFF0C;&#x5982;&#xFF1A; var a = 10; <code>&#x58F0;&#x660E;&#xFF08;&#x9ED8;&#x8BA4;&#x8D4B;&#x503C;&#x4E3A;undefined&#xFF09;</code>
+<ul>
+<li>&#x51FD;&#x6570;&#x58F0;&#x660E;&#xFF0C;&#x5982;&#xFF1A; function fn() { } <code>&#x8D4B;&#x503C;</code>
+<ul>
+<li>this <code>&#x8D4B;&#x503C;</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>&#x5982;&#x679C;&#x4EE3;&#x7801;&#x6BB5;&#x662F;&#x51FD;&#x6570;&#x4F53;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6B64;&#x57FA;&#x7840;&#x4E0A;&#x9700;&#x8981;&#x9644;&#x52A0;&#xFF1A;</p>
+<ul>
+<li>&#x53C2;&#x6570; <code>&#x8D4B;&#x503C;</code>
+<ul>
+<li>arguments <code>&#x8D4B;&#x503C;</code></li>
+<li>&#x81EA;&#x7531;&#x53D8;&#x91CF;&#x7684;&#x53D6;&#x503C;&#x4F5C;&#x7528;&#x57DF; <code>&#x8D4B;&#x503C;</code></li>
+</ul></li>
+</ul>
+<p>&#x7ED9;&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;&#x73AF;&#x5883;&#x4E0B;&#x4E00;&#x4E2A;&#x901A;&#x4FD7;&#x7684;&#x5B9A;&#x4E49;&#x2014;&#x2014;&#x5728;&#x6267;&#x884C;&#x4EE3;&#x7801;&#x4E4B;&#x524D;&#xFF0C;&#x628A;&#x5C06;&#x8981;&#x7528;&#x5230;&#x7684;&#x6240;&#x6709;&#x7684;&#x53D8;&#x91CF;&#x90FD;&#x4E8B;&#x5148;&#x62FF;&#x51FA;&#x6765;&#xFF0C;&#x6709;&#x7684;&#x76F4;&#x63A5;&#x8D4B;&#x503C;&#x4E86;&#xFF0C;&#x6709;&#x7684;&#x5148;&#x7528;<code>undefined</code>&#x5360;&#x4E2A;&#x7A7A;&#x3002;</p>
+<h2 id="&#x533F;&#x540D;&#x51FD;&#x6570;">&#x533F;&#x540D;&#x51FD;&#x6570;</h2>
+<p>js &#x51FD;&#x6570;&#x524D;&#x52A0;&#x5206;&#x53F7;&#x548C;&#x611F;&#x53F9;&#x53F7;&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#xFF1F;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#xFF1F;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8FD9;&#x4E48;&#x5199;&#x4F1A;&#x62A5;&#x9519;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#xFF1A;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{}()</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5E38;&#x89C1;&#x7684;&#xFF08;&#x591A;&#x4E86;&#x4E00;&#x5BF9;&#x62EC;&#x53F7;&#xFF09;&#xFF0C;&#x8C03;&#x7528;&#x533F;&#x540D;&#x51FD;&#x6570;&#xFF1A;</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{})()</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x4F46;&#x5728;&#x524D;&#x9762;&#x52A0;&#x4E0A;&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x8FD0;&#x7B97;&#x7B26;&#xFF08;&#x53EA;&#x591A;&#x4E86;&#x4E00;&#x4E2A;&#x611F;&#x53F9;&#x53F7;&#xFF09;&#xFF0C;&#x5C31;&#x662F;&#x8868;&#x8FBE;&#x5F0F;&#x4E86;&#xFF0C;&#x5C06;&#x6267;&#x884C;&#x540E;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4E5F;&#x5C31;&#x5408;&#x6CD5;&#x5B9E;&#x73B0;&#x8C03;&#x7528;</span></span><br><span class="line">!<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{}()</span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x524D;&#x9762;&#x52A0;&#x4E0A;~+-&#x7B49;&#x4E00;&#x5143;&#x64CD;&#x4F5C;&#x7B26;&#x4E5F;&#x53EF;&#x4EE5;&#x3002;&#x3002;&#x5176;&#x5B9E;&#x8FD8;&#x6709;&#x597D;&#x51E0;&#x79CD;&#x7B26;&#x5408;&#x90FD;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x533F;&#x540D;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x5B8C;&#x5C31;&#x7ACB;&#x5373;&#x6267;&#x884C;</p>
+<p>var hi = function(){ alert(&quot;hi&quot;) }; hi(); &#x7B49;&#x4E8E;... (function(){ alert(&quot;hi&quot;) })(); !&#x3001;+&#x548C;()&#x4E00;&#x6837;&#x7684;&#x6548;&#x679C;&#x53EF;&#x4EE5;&#x628A;&#x6362;&#x6210; !function(){ alert(&quot;hi&quot;) }(); !&#x6BD4;()&#x8282;&#x7701;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x6216;&#x8005;&#x8BF4;&#x6BD4;()&#x597D;&#x770B;&#x4E9B; &#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;&#x5206;&#x53F7;&#x662F;&#x4E3A;&#x4E86;&#x548C;&#x524D;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x9694;&#x5F00;&#xFF0C;js &#x53EF;&#x4EE5;&#x7528;&#x6362;&#x884C;&#x5206;&#x9694;&#x4EE3;&#x7801;&#xFF0C;&#x4F46;&#x662F;&#x5408;&#x5E76;&#x538B;&#x7F29;&#x591A;&#x4E2A; js &#x6587;&#x4EF6;&#x4E4B;&#x540E;&#xFF0C;&#x6362;&#x884C;&#x7B26;&#x4E00;&#x822C;&#x4F1A;&#x88AB;&#x5220;&#x6389;&#xFF0C;&#x6240;&#x4EE5;&#x8FDE;&#x5728;&#x4E00;&#x8D77;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x9519;&#xFF0C;&#x52A0;&#x4E0A;&#x5206;&#x53F7;&#x5C31;&#x4FDD;&#x9669;&#x4E86;&#x3002; &#x4E00;&#x5143;&#x64CD;&#x4F5C;&#x7B26;&#x4F1A;&#x5BF9; func &#x7684;&#x8FD4;&#x56DE;&#x503C;&#x8FDB;&#x884C;&#x5B9E;&#x9645;&#x8FD0;&#x7B97;</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/08/21/ip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1435,909 +2461,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/07/31/main/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/31/main/" class="post-title-link" itemprop="url">未命名</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-07-31 15:25:26" itemprop="dateCreated datePublished" datetime="2020-07-31T15:25:26+08:00">2020-07-31</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-08-26 17:03:47" itemprop="dateModified" datetime="2020-08-26T17:03:47+08:00">2020-08-26</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            .red {
-  font-size: 16px;
-  color: #f00;
-}
-.grey {
-  color: #8a8f8a;
-}
-
-.mermaid {
-  background-color: #fff !important;
-}
-code {
-  font-family: &quot;PT Mono&quot;, consolas, Menlo, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;,
-    monospace;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  padding: 2px 4px;
-  color: #555;
-  background: #eee;
-  border-radius: 3px;
-  font-size: 14px;
-}
-
-hi {
-  font-family: &quot;PT Mono&quot;, consolas, Menlo, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;,
-    monospace;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  padding: 2px 4px;
-  background: rgb(255, 232, 25);
-  border-radius: 3px;
-  font-size: 14px;
-}
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/07/28/voicexml/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/28/voicexml/" class="post-title-link" itemprop="url">voicexml</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-07-28 09:00:28" itemprop="dateCreated datePublished" datetime="2020-07-28T09:00:28+08:00">2020-07-28</time>
-            </span>
-          
-
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/07/27/三省/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/27/三省/" class="post-title-link" itemprop="url">三省</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-07-27 13:13:51" itemprop="dateCreated datePublished" datetime="2020-07-27T13:13:51+08:00">2020-07-27</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-08-21 15:26:47" itemprop="dateModified" datetime="2020-08-21T15:26:47+08:00">2020-08-21</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x514B;&#x5DF1;">&#x514B;&#x5DF1;</h2>
-<ol type="1">
-<li>&#x5C3D;&#x4E00;&#x5207;&#x53EF;&#x80FD;&#x4F7F;&#x7528;&#x82F1;&#x6587;</li>
-<li>&#x6CE8;&#x610F;&#x5DE6;&#x53F3;&#x5E73;&#x8861;&#x59FF;&#x6001;</li>
-<li>&#x8BB0;&#x5F55;&#x81EA;&#x5DF1;</li>
-<li>&#x6709;&#x7A7A;&#x65F6;&#x91CD;&#x590D;&#x542C;&#x7845;&#x8C37;&#x7EC3;&#x4E60;&#x82F1;&#x8BED;</li>
-<li>&#x575A;&#x6301;&#x8BFB;&#x4E66;&#xFF0C;&#x4E00;&#x672C;&#x4E2D;&#x6587;&#x4E00;&#x672C;&#x82F1;&#x6587;</li>
-<li>&#x590D;&#x76D8;</li>
-</ol>
-<h2 id="&#x4E3A;&#x4EBA;&#x5904;&#x4E8B;">&#x4E3A;&#x4EBA;&#x5904;&#x4E8B;</h2>
-<ol type="1">
-<li>&#x4E0D;&#x8981;&#x6545;&#x610F;&#x8BF4;&#x53CD;&#x8BDD;</li>
-<li>&#x4E8B;&#x60C5;&#x6CA1;&#x6709;&#x6309;&#x9884;&#x671F;&#x53D1;&#x5C55;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E0D;&#x8981;&#x5F20;&#x53E3;&#x5C31;&#x8D23;&#x602A;&#x4ED6;&#x4EBA;</li>
-<li>&#x4E0D;&#x8DDF;&#x5173;&#x7CFB;&#x4E0D;&#x5927;&#x7684;&#x4EBA;&#x4E89;&#x8BBA;&#x3001;&#x4E0D;&#x8BD5;&#x56FE;&#x8BF4;&#x670D;&#x4EFB;&#x4F55;&#x4EBA;</li>
-<li>&#x60F3;&#x5938;&#x4EBA;&#x7684;&#x8BDD;&#x843D;&#x5B9E;&#x5230;&#x5C0F;&#x7EC6;&#x8282;&#x4E0A;&#xFF0C;&#x66F4;&#x80FD;&#x62C9;&#x8FD1;&#x8DDD;&#x79BB;&#x3002;</li>
-<li>&#x56DE;&#x7B54;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x524D;&#x6709;&#x4E2A;&#x601D;&#x7D22;&#x7684;&#x8FC7;&#x7A0B;&#x3002;&#x4E0D;&#x662F;&#x88C5; B&#xFF0C;&#x800C;&#x662F;&#x5927;&#x81F4;&#x7EC4;&#x7EC7;&#x4E00;&#x4E0B;&#x8BED;&#x8A00;</li>
-<li>&#x4E3B;&#x52A8;&#x56DE;&#x907F;&#x522B;&#x4EBA;&#x7684;&#x654F;&#x611F;&#x70B9;</li>
-<li>&#x5BCC;&#x5170;&#x514B;&#x6797;&#x6548;&#x5E94;</li>
-<li>&#x6162;&#x901F;&#x8BF4;&#x8BDD;</li>
-</ol>
-<h2 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h2>
-<ol type="1">
-<li>&#x5E38;&#x5907;&#x4EFD;&#x91CD;&#x8981;&#x8D44;&#x6E90;</li>
-</ol>
-<h2 id="&#x8BFB;&#x4E66;&#x8BA1;&#x5212;">&#x8BFB;&#x4E66;&#x8BA1;&#x5212;</h2>
-<ol type="1">
-<li>elon musk&#xFF08;&#x5728;&#x8BFB;&#xFF09;</li>
-<li>&#x674E;&#x5149;&#x8000;&#x56DE;&#x5FC6;&#x5F55;</li>
-<li>&#x5F85;&#x5B9A;(&#x82F1;&#x6587;)</li>
-<li>&#x7EA2;&#x661F;&#x7167;&#x8000;&#x4E2D;&#x56FD;</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/07/24/websites/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/24/websites/" class="post-title-link" itemprop="url">websites</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-07-24 15:51:49" itemprop="dateCreated datePublished" datetime="2020-07-24T15:51:49+08:00">2020-07-24</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-27 13:17:20" itemprop="dateModified" datetime="2020-07-27T13:17:20+08:00">2020-07-27</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/code/" itemprop="url" rel="index"><span itemprop="name">code</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="&#x514D;&#x8D39;&#x82F1;&#x6587;&#x7F51;&#x7AD9;">&#x514D;&#x8D39;&#x82F1;&#x6587;&#x7F51;&#x7AD9;</h3>
-<ol type="1">
-<li><a href="http://gen.lib.rus.ec/" target="_blank" rel="noopener">Library Genesis</a></li>
-<li><a href="https://b-ok.cc/s/?extension=mobi" target="_blank" rel="noopener">zlibray</a></li>
-</ol>
-<h3 id="&#x67E5;&#x627E;&#x8D44;&#x6E90;">&#x67E5;&#x627E;&#x8D44;&#x6E90;</h3>
-<ol type="1">
-<li><a href="https://en.wikipedia.org/" target="_blank" rel="noopener">wiki</a></li>
-<li><a href="https://www.fosshub.com/categories.html" target="_blank" rel="noopener">&#x597D;&#x7528;&#x5DE5;&#x5177;</a></li>
-</ol>
-<h3 id="w3c">w3c</h3>
-<ol type="1">
-<li><a href="https://www.w3.org/TR/voicexml20/" target="_blank" rel="noopener">voicexml</a></li>
-<li><a href="https://www.w3.org/TR/ccxml/" target="_blank" rel="noopener">ccxml</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/07/24/eclipse-plugin-develop-tutorial-setup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/07/24/eclipse-plugin-develop-tutorial-setup/" class="post-title-link" itemprop="url">eclipse_plugin_develop_tutorial_setup</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-07-24 10:49:48" itemprop="dateCreated datePublished" datetime="2020-07-24T10:49:48+08:00">2020-07-24</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-30 17:25:03" itemprop="dateModified" datetime="2020-07-30T17:25:03+08:00">2020-07-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/eclipse/" itemprop="url" rel="index"><span itemprop="name">eclipse</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x5B89;&#x88C5;&#x8F6F;&#x4EF6;">&#x5B89;&#x88C5;&#x8F6F;&#x4EF6;</h2>
-<ol type="1">
-<li>&#x4E0B;&#x8F7D; eclipse &#x5728;<a href="https://www.eclipse.org/downloads/packages/" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x94FE;&#x63A5;</a>&#x4E0B;&#x8F7D;&#x5408;&#x9002;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x6211;&#x9009;&#x62E9;&#x7684;&#x7248;&#x672C;&#x4E3A; <a href="https://www.eclipse.org/downloads/packages/release/oxygen/3a" target="_blank" rel="noopener">oxygen 3a</a></li>
-<li>&#x5B89;&#x88C5;&#x63D2;&#x4EF6; <a href="http://wiki.eclipse.org/Eclipse_Project_Update_Sites" target="_blank" rel="noopener">wiki</a>&#x4E0A;&#x7EF4;&#x62A4;&#x4E86;&#x6700;&#x65B0;&#x7684;&#x5B98;&#x65B9;&#x63D2;&#x4EF6;&#x5730;&#x5740;&#xFF0C;&#x9009;&#x62E9;&#x4F60;&#x7684; eclipse &#x5BF9;&#x5E94;&#x7248;&#x672C;&#x7684;&#x63D2;&#x4EF6;&#x5730;&#x5740;&#xFF0C;&#x4F8B;&#x5982;<a href="http://download.eclipse.org/eclipse/updates/4.7" target="_blank" rel="noopener">4.7</a> &#x5728; eclipse &#x4E2D;&#x70B9;&#x51FB;<code>Help</code> -&gt; <code>Install New Software</code> <img src="/images/eclipse-plugin-develop-tutorial-setup_&#x5B89;&#x88C5;&#x63D2;&#x4EF6;.png" alt="eclipse-plugin-develop-tutorial-setup_&#x5B89;&#x88C5;&#x63D2;&#x4EF6;.png"></li>
-</ol>
-<h2 id="&#x6982;&#x5FF5;">&#x6982;&#x5FF5;</h2>
-<p>eclipse &#x5DE5;&#x5177;&#x533A;&#x7531;&#x591A;&#x4E2A;&#x90E8;&#x4EF6;&#x7EC4;&#x6210;&#xFF0C;&#x5305;&#x62EC; menu bar&#xFF0C;tool bar &#x7B49; &#x4ED6;&#x4EEC;&#x7684;&#x7EC4;&#x6210;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#x6240;&#x793A; <img src="/images/eclipse-plugin-develop-tutorial-setup_layout.png" alt="eclipse-plugin-develop-tutorial-setup_layout.png"> eclipse &#x4E2D;&#x5DE5;&#x5177;&#x533A;&#x793A;&#x4F8B; <img src="/images/eclipse-plugin-develop-tutorial-setup_&#x5DE5;&#x4F5C;&#x533A;.png" alt="eclipse-plugin-develop-tutorial-setup_&#x5DE5;&#x4F5C;&#x533A;.png"></p>
-<p><a href="https://www.vogella.com/tutorials/EclipseExtensionPoint/article.html" target="_blank" rel="noopener">&#x6269;&#x5C55;&#x70B9;</a> &#x5E38;&#x7528; &#xFF0D; <code>org.eclipse.u.views</code>- add a view &#xFF0D; <code>org.eclipse.ui.viewActions</code> - add an action under a view &#xFF0D; <code>org.eclipse.ui.editors</code> - allows a user to edit an object(e.g. file), it is like a view, but can be opened multiple times. &#xFF0D; <code>org.eclipse.ui.editorActions</code> - add action under an editor &#xFF0D; <code>org.eclipse.ui.popupMenus</code> - add a popup menu. A popup menu is a memu shown by right-clicking. There are two types, one is popup for an object, the other is for popup in editor. &#xFF0D; <code>org.eclipse.ui.actionSets</code> - use for adding menus, menu items, and tool bar items to the workbench menus and toolbar. &#xFF0D; <code>org.eclipse.ui.commands</code> - declaration of a behaviour by id, then other plugins can use the command. It allows &quot;define once, use everywhere&quot;. &#xFF0D; <code>org.eclipse.ui.menus</code> - can associate with a command and place the command in the main menu, view dropdown menus, context menus, main toolbar, view toolbars, and various trim locations. &#xFF0D; <code>org.eclipse.ui.handlers</code> - define handler for a command &#xFF0D; <code>org.eclipse.ui.bindings</code> - bind shortcut key for a command</p>
-<h2 id="&#x5165;&#x95E8;&#x5B9E;&#x4F8B;">&#x5165;&#x95E8;&#x5B9E;&#x4F8B;</h2>
-<ol type="1">
-<li><p>&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B; <img src="/images/eclipse-plugin-develop-tutorial-setup_new.png" alt="eclipse-plugin-develop-tutorial-setup_new.png"></p>
-<p><img src="/images/eclipse-plugin-develop-tutorial-setup_new_name.png" alt="eclipse-plugin-develop-tutorial-setup_new_name.png"> &#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x552F;&#x4E00; ID</p></li>
-<li><p>&#x65B0;&#x589E;&#x4E00;&#x4E2A;&#x6269;&#x5C55;&#x70B9; <code>MANIFEST.MF</code>&#x4E3A;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6; <img src="/images/eclipse-plugin-develop-tutorial-setup_new_extensions.png" alt="eclipse-plugin-develop-tutorial-setup_new_extensions.png"></p>
-<p><img src="/images/eclipse-plugin-develop-tutorial-setup_new_extensions_2.png" alt="eclipse-plugin-develop-tutorial-setup_new_extensions_2.png"> &#x4FDD;&#x5B58;&#x540E;&#x4F1A;&#x751F;&#x6210;<code>build.xml</code>&#x6587;&#x4EF6;&#xFF0C;&#x7F16;&#x8F91;&#x8BE5;&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x6269;&#x5C55;&#x70B9;<code>org.eclipse.ui.perspectives</code>&#x4E0B;&#xFF0C;&#x589E;&#x52A0;<code>perspective</code>&#x5E03;&#x5C40;</p></li>
-<li><p>&#x7F16;&#x8F91;&#x6269;&#x5C55;&#x70B9;</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="php"><span class="meta">&lt;?</span>eclipse version=<span class="string">&quot;3.4&quot;</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">extension</span></span></span><br><span class="line"><span class="tag">         <span class="attr">point</span>=<span class="string">&quot;org.eclipse.ui.perspectives&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">perspective</span></span></span><br><span class="line"><span class="tag">            <span class="attr">class</span>=<span class="string">&quot;com.leaderli.helloworld.PerspectiveFactory&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">id</span>=<span class="string">&quot;com.leaderli.HelloWoldPerspective&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">icon</span>=<span class="string">&quot;icon/workflow.png&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">name</span>=<span class="string">&quot;hello&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">perspective</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">extension</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>name &#x4E3A;&#x900F;&#x89C6;&#x56FE;&#x7684;&#x540D;&#x79F0;</li>
-<li>icon &#x4E3A;&#x900F;&#x89C6;&#x56FE;&#x7684;&#x56FE;&#x6807;&#xFF0C;&#x5176;&#x503C;&#x4E3A;&#x9879;&#x76EE;&#x8DEF;&#x5F84;&#x4E0B;&#x7684;&#x6587;&#x4EF6;</li>
-</ul></li>
-<li><p>&#x900F;&#x89C6;&#x56FE;&#x589E;&#x52A0;&#x7A97;&#x53E3; &#x589E;&#x52A0;&#x6269;&#x5C55;&#x70B9;<code>org.eclipse.ui.perspectiveExtensions</code>&#xFF0C;&#x5E76;&#x7F16;&#x8F91;&#x6269;&#x5C55;&#x70B9;</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">extension</span></span></span><br><span class="line"><span class="tag">   <span class="attr">point</span>=<span class="string">&quot;org.eclipse.ui.perspectiveExtensions&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">perspectiveExtension</span> <span class="attr">targetID</span>=<span class="string">&quot;com.leaderli.HelloWoldPerspective&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">view</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">&quot;org.eclipse.jdt.ui.PackageExplorer&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">minimized</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">moveable</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">ratio</span>=<span class="string">&quot;0.5&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">relationship</span>=<span class="string">&quot;left&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">relative</span>=<span class="string">&quot;org.eclipse.ui.console.ConsoleView&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">visible</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">view</span></span></span><br><span class="line"><span class="tag">      <span class="attr">id</span>=<span class="string">&quot;org.eclipse.ui.console.ConsoleView&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">minimized</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">moveable</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">ratio</span>=<span class="string">&quot;0.5&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">relationship</span>=<span class="string">&quot;right&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">relative</span>=<span class="string">&quot;org.eclipse.jdt.ui.PackageExplorer&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">visible</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">perspectiveExtension</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">extension</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>&#x542F;&#x52A8; <img src="/images/eclipse-plugin-develop-tutorial-setup_start.png" alt="eclipse-plugin-develop-tutorial-setup_start.png"> <img src="/images/eclipse-plugin-develop-tutorial-setup_perspective.png" alt="eclipse-plugin-develop-tutorial-setup_perspective.png"> &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x751F;&#x6210;&#x4E86; hello &#x900F;&#x89C6;&#x56FE;&#xFF0C;&#x4E14;&#x900F;&#x89C6;&#x56FE;&#x4E0B;&#x6709; console &#x7A97;&#x53E3;&#x548C;&#x8D44;&#x6E90;&#x7A97;&#x53E3;</p></li>
-</ol>
-<h2 id="perspective">perspective</h2>
-<p>&#x900F;&#x89C6;&#x56FE;&#x662F;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x4E00;&#x7CFB;&#x5217;&#x89C6;&#x56FE;&#x548C;&#x5185;&#x5BB9;&#x7F16;&#x8F91;&#x5668;&#x7684;&#x53EF;&#x89C6;&#x5BB9;&#x5668;&#x3002;&#x9ED8;&#x8BA4;&#x7684;&#x900F;&#x89C6;&#x56FE;&#x53EB; java&#x3002;&#x900F;&#x89C6;&#x56FE;&#x7684;&#x5E03;&#x5C40;&#x53EF;<a href="https://www.runoob.com/eclipse/eclipse-perspectives.html" target="_blank" rel="noopener">&#x81EA;&#x5B9A;&#x4E49;</a>&#x4FEE;&#x6539;</p>
-<p><a href="https://www.programcreek.com/2013/02/eclipse-plug-in-development-creat-a-perspective/" target="_blank" rel="noopener">&#x5728;&#x63D2;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x900F;&#x89C6;&#x56FE;&#xFF0C;&#x5E76;&#x5B9A;&#x4E49;&#x4E00;&#x4E9B;&#x5E03;&#x5C40;</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2379,7 +2507,7 @@ hi {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">128</span>
+                    <span class="site-state-item-count">133</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

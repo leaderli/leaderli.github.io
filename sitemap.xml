@@ -2,16 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://leaderli.github.io/2020/06/25/ECharts%E7%AE%80%E4%BB%8B/</loc>
+    <loc>https://leaderli.github.io/2020/09/09/postgres/</loc>
     
-    <lastmod>2020-08-27T07:16:59.000Z</lastmod>
+    <lastmod>2020-09-09T03:46:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/07/31/mybatis%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2020-09-08T08:57:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/09/04/sip/</loc>
+    
+    <lastmod>2020-09-08T07:52:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/12/05/js-tips/</loc>
+    
+    <lastmod>2020-09-08T07:27:54.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://leaderli.github.io/2020/07/04/freeswitch/</loc>
     
-    <lastmod>2020-08-27T01:43:46.000Z</lastmod>
+    <lastmod>2020-09-07T12:19:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/08/11/vim/</loc>
+    
+    <lastmod>2020-09-07T08:45:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/05/13/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2020-09-07T08:01:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/06/04/shell-tips/</loc>
+    
+    <lastmod>2020-09-07T06:35:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/07/08/markdown_katex/</loc>
+    
+    <lastmod>2020-09-04T05:33:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/about/index.html</loc>
+    
+    <lastmod>2020-09-03T08:07:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/06/03/kafka/</loc>
+    
+    <lastmod>2020-09-03T07:02:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/09/02/zookeeper/</loc>
+    
+    <lastmod>2020-09-02T07:42:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/06/25/ECharts%E7%AE%80%E4%BB%8B/</loc>
+    
+    <lastmod>2020-09-02T07:23:52.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/07/10/spring-tips/</loc>
+    
+    <lastmod>2020-09-02T02:00:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/08/28/js/</loc>
+    
+    <lastmod>2020-09-02T00:30:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/09/02/sql/</loc>
+    
+    <lastmod>2020-09-02T00:28:23.000Z</lastmod>
     
   </url>
   
@@ -19,13 +117,6 @@
     <loc>https://leaderli.github.io/2020/08/13/mermaid/</loc>
     
     <lastmod>2020-08-26T08:16:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2020/05/13/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
-    
-    <lastmod>2020-08-25T03:10:42.000Z</lastmod>
     
   </url>
   
@@ -40,20 +131,6 @@
     <loc>https://leaderli.github.io/2019/10/15/bash/</loc>
     
     <lastmod>2020-08-24T11:26:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2020/06/04/shell-tips/</loc>
-    
-    <lastmod>2020-08-24T07:36:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/12/05/js-tips/</loc>
-    
-    <lastmod>2020-08-21T08:56:28.000Z</lastmod>
     
   </url>
   
@@ -75,13 +152,6 @@
     <loc>https://leaderli.github.io/2020/08/19/tcpdump/</loc>
     
     <lastmod>2020-08-20T12:09:59.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/07/08/markdown_katex/</loc>
-    
-    <lastmod>2020-08-19T08:32:53.000Z</lastmod>
     
   </url>
   
@@ -110,13 +180,6 @@
     <loc>https://leaderli.github.io/2020/07/04/node%E6%A8%A1%E5%9D%97/</loc>
     
     <lastmod>2020-08-14T03:09:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/08/11/vim/</loc>
-    
-    <lastmod>2020-08-12T10:36:29.000Z</lastmod>
     
   </url>
   
@@ -401,14 +464,14 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/08/01/gson%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</loc>
+    <loc>https://leaderli.github.io/2019/08/18/gradle%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/08/18/gradle%E5%85%A5%E9%97%A8/</loc>
+    <loc>https://leaderli.github.io/2019/08/01/gson%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -429,14 +492,14 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/08/06/java-tips/</loc>
+    <loc>https://leaderli.github.io/2020/06/04/java-%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/06/04/java-%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <loc>https://leaderli.github.io/2019/08/06/java-tips/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -464,21 +527,14 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/04/25/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/11/12/java%E9%9D%A2%E8%AF%95%E9%A2%98-1/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://leaderli.github.io/2019/11/12/java%E6%95%B0%E7%BB%84/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2020/04/25/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -492,7 +548,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/12/16/jenkins/</loc>
+    <loc>https://leaderli.github.io/2019/11/12/java%E9%9D%A2%E8%AF%95%E9%A2%98-1/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -513,6 +569,13 @@
   </url>
   
   <url>
+    <loc>https://leaderli.github.io/2019/12/16/jenkins/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://leaderli.github.io/2019/12/19/jvm%E6%80%A7%E8%83%BD%E6%8E%92%E9%99%A4/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
@@ -521,13 +584,6 @@
   
   <url>
     <loc>https://leaderli.github.io/2020/05/24/linux-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A5%E5%85%A8/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2020/06/03/kafka%E7%AE%80%E8%BF%B0/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -562,42 +618,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/07/31/mybatis%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://leaderli.github.io/2019/07/04/oracle%E7%BB%83%E4%B9%A0/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/12/24/python%E7%BA%BF%E7%A8%8B/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/12/22/python%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/10/10/python%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2020/05/26/redis-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -611,6 +632,27 @@
   </url>
   
   <url>
+    <loc>https://leaderli.github.io/2019/12/24/python%E7%BA%BF%E7%A8%8B/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/10/10/python%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/12/22/python%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://leaderli.github.io/2020/05/19/redis-script/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
@@ -618,7 +660,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/05/22/redis-%E5%88%86%E5%8C%BA/</loc>
+    <loc>https://leaderli.github.io/2020/05/26/redis-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -632,7 +674,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/05/20/redis-%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4/</loc>
+    <loc>https://leaderli.github.io/2020/05/22/redis-%E5%88%86%E5%8C%BA/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -646,7 +688,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/09/02/redis/</loc>
+    <loc>https://leaderli.github.io/2020/05/20/redis-%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -654,6 +696,13 @@
   
   <url>
     <loc>https://leaderli.github.io/2020/05/22/redis%E4%BA%8B%E5%8A%A1/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/09/02/redis/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -681,13 +730,6 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/08/06/spring-ControllerAdvice%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://leaderli.github.io/2019/08/26/spring-ioc-%E6%BA%90%E7%A0%81/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
@@ -702,14 +744,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/07/10/spring-tips/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/2019/07/30/springboot-jpa/</loc>
+    <loc>https://leaderli.github.io/2019/08/06/spring-ControllerAdvice%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -730,7 +765,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/08/02/springboot%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%AE%9A%E4%B9%89mime%E7%B1%BB%E5%9E%8B/</loc>
+    <loc>https://leaderli.github.io/2019/07/30/springboot-jpa/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -751,6 +786,13 @@
   </url>
   
   <url>
+    <loc>https://leaderli.github.io/2019/08/02/springboot%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%AE%9A%E4%B9%89mime%E7%B1%BB%E5%9E%8B/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://leaderli.github.io/2020/03/16/spring%E9%85%8D%E7%BD%AE%E7%B1%BB%E5%8A%A0%E8%BD%BDyaml%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
@@ -765,14 +807,14 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/08/10/tomcat/</loc>
+    <loc>https://leaderli.github.io/2020/05/15/tomcat%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/05/15/tomcat%E5%85%A5%E9%97%A8/</loc>
+    <loc>https://leaderli.github.io/2019/08/10/tomcat/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -814,13 +856,6 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/11/26/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://leaderli.github.io/2020/04/18/%E5%A4%A7%E5%AD%A6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
@@ -828,7 +863,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/04/23/%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96/</loc>
+    <loc>https://leaderli.github.io/2019/11/26/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -842,7 +877,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2020/04/23/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+    <loc>https://leaderli.github.io/2020/04/23/%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -856,7 +891,7 @@
   </url>
   
   <url>
-    <loc>https://leaderli.github.io/2019/07/29/%E7%AE%80%E5%8D%95%E9%80%BB%E8%BE%91%E5%AD%A6/</loc>
+    <loc>https://leaderli.github.io/2020/04/23/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -864,6 +899,13 @@
   
   <url>
     <loc>https://leaderli.github.io/2019/07/08/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://leaderli.github.io/2019/07/29/%E7%AE%80%E5%8D%95%E9%80%BB%E8%BE%91%E5%AD%A6/</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
@@ -885,13 +927,6 @@
   
   <url>
     <loc>https://leaderli.github.io/2020/04/23/java%E5%AD%97%E8%8A%82%E7%A0%81/</loc>
-    
-    <lastmod>2020-06-30T15:59:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://leaderli.github.io/about/index.html</loc>
     
     <lastmod>2020-06-30T15:59:15.000Z</lastmod>
     
