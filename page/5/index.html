@@ -410,6 +410,441 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/26/shell-变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/shell-变量/" class="post-title-link" itemprop="url">shell-变量</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-26 14:32:16" itemprop="dateCreated datePublished" datetime="2020-05-26T14:32:16+08:00">2020-05-26</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-27 10:21:54" itemprop="dateModified" datetime="2020-07-27T10:21:54+08:00">2020-07-27</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x53D8;&#x91CF;&#x5F15;&#x7528;">1. &#x53D8;&#x91CF;&#x5F15;&#x7528;</h2>
+<p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x4F7F;&#x7528; <code>$variable</code>&#x6765;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x503C;&#xFF0C;&#x5B83;&#x662F;<code>${variable}</code>&#x7684;&#x4E00;&#x79CD;&#x7F29;&#x5199;</p>
+<ul>
+<li><p>&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x9ED8;&#x8BA4;&#x503C;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x5F53;&#x53D8;&#x91CF;&#x4E3A;&#x7A7A;&#x65F6;&#xFF0C;name &#x5C31;&#x4E3A; hello</span></span><br><span class="line">name=${variable:-hello}</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x66FF;&#x6362;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x5C06;variable&#x4E2D;&#x7684;hello&#x66FF;&#x6362;&#x4E3A;&#x7A7A;</span></span><br><span class="line">name=${variable/hello/}</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5C06;variable&#x4E2D;&#x7684;&#x6EE1;&#x8DB3;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;`^hello`&#x66FF;&#x6362;&#x4E3A;&#x7A7A;</span></span><br><span class="line">name=${variable//^hello/}</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="&#x57FA;&#x4E8E;&#x4F4D;&#x7F6E;&#x7684;&#x53C2;&#x6570;">1.1. &#x57FA;&#x4E8E;&#x4F4D;&#x7F6E;&#x7684;&#x53C2;&#x6570;</h3>
+<p>&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x5165; shell &#x811A;&#x672C;&#x4E2D;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $1</span><br><span class="line">echo $2</span><br><span class="line"><span class="meta">$</span><span class="bash">1 <span class="variable">$2</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>$0 &#x8868;&#x793A;<code>shell</code>&#x811A;&#x672C;&#x672C;&#x8EAB;</li>
+<li>$[n] &#x8868;&#x793A;<code>shell</code>&#x7B2C;&#x51E0;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;$10 &#x4E0D;&#x80FD;&#x83B7;&#x53D6;&#x7B2C;&#x5341;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x83B7;&#x53D6;&#x7B2C;&#x5341;&#x4E2A;&#x53C2;&#x6570;&#x9700;&#x8981;<code>${10}</code>&#x3002;&#x5F53; n&gt;=10 &#x65F6;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;${n}&#x6765;&#x83B7;&#x53D6;&#x53C2;&#x6570;&#x3002;</li>
+<li>$@ &#x8868;&#x793A;&#x6240;&#x6709;&#x53C2;&#x6570;</li>
+<li>${@:n} &#x8868;&#x793A;&#x9664; n &#x524D;&#x7684;&#x6240;&#x6709;&#x53C2;&#x6570;&#xFF0C;&#x4F8B;&#x5982;<code>${@:2}</code>&#x8868;&#x793A;&#x9664;&#x4E86;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E4B;&#x5916;&#x7684;&#x6240;&#x6709;&#x53C2;&#x6570;</li>
+<li>$? &#x663E;&#x793A;&#x6700;&#x540E;&#x547D;&#x4EE4;&#x7684;&#x9000;&#x51FA;&#x72B6;&#x6001;&#x3002;0 &#x8868;&#x793A;&#x6CA1;&#x6709;&#x9519;&#x8BEF;&#xFF0C;&#x5176;&#x4ED6;&#x4EFB;&#x4F55;&#x503C;&#x8868;&#x660E;&#x6709;&#x9519;&#x8BEF;</li>
+<li>$$ &#x811A;&#x672C;&#x8FD0;&#x884C;&#x7684;&#x5F53;&#x524D;&#x8FDB;&#x7A0B; ID &#x53F7;</li>
+<li>$! &#x540E;&#x53F0;&#x8FD0;&#x884C;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684; ID &#x53F7;</li>
+<li><code>*</code> &#x8868;&#x793A;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x6240;&#x6709;&#x6587;&#x4EF6;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E; ls</li>
+<li>${#name} &#x53D8;&#x91CF;&#x7684;&#x957F;&#x5EA6;</li>
+</ul>
+<h3 id="&#x5B57;&#x7B26;&#x4E32;&#x622A;&#x53D6;">1.2. &#x5B57;&#x7B26;&#x4E32;&#x622A;&#x53D6;</h3>
+<p><code>${varible#*string}</code>&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;&#xFF0C;&#x5220;&#x9664;&#x6700;&#x77ED;&#x7684;&#x4E00;&#x4E2A;&#x4EE5; string &#x7ED3;&#x5C3E;&#x7684;&#x5B50;&#x4E32;&#xFF0C;&#x5373;&#x622A;&#x53D6;&#x7B2C;&#x4E00;&#x4E2A; string &#x5B50;&#x4E32;&#x4E4B;&#x540E;&#x7684;&#x5B57;&#x7B26;&#x4E32;<br>
+<code>${varible##*string}</code>&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;&#xFF0C;&#x5220;&#x9664;&#x6700;&#x957F;&#x7684;&#x4E00;&#x4E2A;&#x4EE5; string &#x7ED3;&#x5C3E;&#x7684;&#x5B50;&#x4E32;&#xFF0C;&#x5373;&#x622A;&#x53D6;&#x6700;&#x540E;&#x4E00;&#x4E2A; string &#x5B50;&#x4E32;&#x4E4B;&#x540E;&#x7684;&#x5B57;&#x7B26;&#x4E32;<br>
+<code>${varible%string*}</code>&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#xFF0C;&#x5220;&#x9664;&#x6700;&#x77ED;&#x7684;&#x4E00;&#x4E2A;&#x4EE5; string &#x5F00;&#x5934;&#x7684;&#x5B50;&#x4E32;&#xFF0C;&#x5373;&#x622A;&#x53D6;&#x6700;&#x540E;&#x4E00;&#x4E2A; string &#x5B50;&#x4E32;&#x4E4B;&#x524D;&#x7684;&#x5B57;&#x7B26;&#x4E32;<br>
+<code>${varible%%string*}</code>&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#xFF0C;&#x5220;&#x9664;&#x6700;&#x957F;&#x7684;&#x4E00;&#x4E2A;&#x4EE5; string &#x5F00;&#x5934;&#x7684;&#x5B50;&#x4E32;&#xFF0C;&#x5373;&#x622A;&#x53D6;&#x7B2C;&#x4E00;&#x4E2A; string &#x5B50;&#x4E32;&#x4E4B;&#x524D;&#x7684;&#x5B57;&#x7B26;&#x4E32;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TEST=123abc456abc789</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">${TEST#*abc}</span>  <span class="comment">#&#x5220;&#x6389; 123abc &#x5269;&#x4E0B; 456abc789</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">${TEST##*abc}</span> <span class="comment">#&#x5220;&#x6389; 123abc456abc &#x5269;&#x4E0B;&quot;789</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">${TEST%abc*}</span>  <span class="comment">#&#x5220;&#x6389; abc789 &#x5269;&#x4E0B; 123abc456</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">${TEST%%abc*}</span> <span class="comment">#&#x5220;&#x6389; abc456abc789 &#x5269;&#x4E0B; 123</span></span><br></pre></td></tr></table></figure>
+<p>&#x56FA;&#x5B9A;&#x4F4D;&#x7F6E;&#x622A;&#x53D6;</p>
+<p><code>${varible:start:len}</code>:&#x622A;&#x53D6;&#x53D8;&#x91CF; varible &#x4ECE;&#x4F4D;&#x7F6E; start &#x5F00;&#x59CB;&#x957F;&#x5EA6;&#x4E3A; len &#x7684;&#x5B50;&#x4E32;&#x3002;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x7684;&#x4F4D;&#x7F6E;&#x4E3A; 0&#x3002;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TEST=123abc456abc789</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">${TEST:0:3}</span> <span class="comment">#123</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">${TEST:3:3}</span> <span class="comment">#abc&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="&#x5F15;&#x53F7;">2. &#x5F15;&#x53F7;</h2>
+<ol type="1">
+<li><p>&#x5355;&#x5F15;&#x53F7;<code>&apos;&apos;</code>,&#x88AB;&#x79F0;&#x4F5C;&#x5F31;&#x5F15;&#x7528;&#xFF0C;&#x5728;<code>&apos;</code>&#x5185;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4F1A;&#x88AB;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x4F1A;&#x88AB;&#x66FF;&#x6362;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;&apos;\&apos;&apos;&apos;</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x8F93;&#x51FA;&#x7ED3;&#x679C;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">&apos;</span></span></span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x5355;&#x5F15;&#x53F7;&#x4E2D;&#x8F6C;&#x4E49;&#x5355;&#x5F15;&#x53F7;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias rxvt=&apos;urxvt -fg &apos;&quot;&apos;&quot;&apos;#111111&apos;&quot;&apos;&quot;&apos; -bg &apos;&quot;&apos;&quot;&apos;#111111&apos;&quot;&apos;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash">                     ^^^^^       ^^^^^     ^^^^^       ^^^^</span></span><br><span class="line"><span class="meta">#</span><span class="bash">                     12345       12345     12345       1234</span></span><br></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x8F6C;&#x4E49;&#x662F;&#x5982;&#x4F55;&#x88AB;&#x89E3;&#x6790;&#x7684;</p>
+<ol type="1">
+<li>&apos; &#x7B2C;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x7ED3;&#x675F;&#xFF0C;&#x4F7F;&#x7528;&#x5355;&#x5F15;&#x53F7;</li>
+<li>&quot; &#x7B2C;&#x4E8C;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x5F00;&#x59CB;&#xFF0C;&#x4F7F;&#x7528;&#x53CC;&#x5F15;&#x53F7;</li>
+<li>&apos; &#x88AB;&#x5F15;&#x7528;&#x7684;&#x5B57;&#x7B26;</li>
+<li>&quot; &#x7B2C;&#x4E8C;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x7ED3;&#x675F;&#xFF0C;&#x4F7F;&#x7528;&#x53CC;&#x5F15;&#x53F7;</li>
+<li>&apos; &#x7B2C;&#x4E09;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x5F00;&#x59CB;</li>
+</ol></li>
+<li><p>&#x53CC;&#x5F15;&#x53F7;<code>&quot;&quot;</code>,&#x88AB;&#x79F0;&#x505A;&#x5F3A;&#x5F15;&#x7528;&#xFF0C;&#x5728;<code>&quot;</code>&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x4F1A;&#x88AB;&#x76F4;&#x63A5;&#x66FF;&#x6362;&#x4E3A;&#x5B9E;&#x9645;&#x7684;&#x503C;</p></li>
+<li><p>&#x53CD;&#x5F15;&#x53F7;``, &#x53CD;&#x5F15;&#x53F7;&#x62EC;&#x8D77;&#x6765;&#x7684;&#x5B57;&#x4E32;&#x88AB; Shell &#x89E3;&#x91CA;&#x4E3A;&#x547D;&#x4EE4;&#xFF0C;&#x5728;&#x6267;&#x884C;&#x65F6;&#xFF0C;Shell &#x9996;&#x5148;&#x6267;&#x884C;&#x8BE5;&#x547D;&#x4EE4;&#xFF0C;&#x5E76;&#x4EE5;&#x5B83;&#x7684;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x53D6;&#x4EE3;&#x6574;&#x4E2A;&#x53CD;&#x5F15;&#x53F7;&#xFF08;&#x5305;&#x62EC;&#x4E24;&#x4E2A;&#x53CD;&#x5F15;&#x53F7;&#xFF09;&#x90E8;&#x5206;</p></li>
+</ol>
+<h2 id="&#x5BB9;&#x9519;&#x65AD;&#x8A00;">3. &#x5BB9;&#x9519;&#x65AD;&#x8A00;</h2>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5FC5;&#x8981;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x6CA1;&#x88AB;&#x8BBE;&#x7F6E;&#x7684;&#x8BDD;, &#x5C31;&#x6253;&#x5370;&#x9519;&#x8BEF;&#x4FE1;&#x606F;.&#x4E0B;&#x9762;&#x662F;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">: ${HOSTNAME?} ${USER?} ${MAIL?}</span><br></pre></td></tr></table></figure>
+<h2 id="&#x8BBE;&#x7F6E;&#x9759;&#x6001;&#x53D8;&#x91CF;">4. &#x8BBE;&#x7F6E;&#x9759;&#x6001;&#x53D8;&#x91CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readonly MY_PATH=/usr/bin</span><br></pre></td></tr></table></figure>
+<h2 id="&#x5B57;&#x7B26;&#x4E32;&#x5207;&#x5272;&#x4E3A;&#x6570;&#x7EC4;">5. &#x5B57;&#x7B26;&#x4E32;&#x5207;&#x5272;&#x4E3A;&#x6570;&#x7EC4;</h2>
+<h3 id="&#x5229;&#x7528;-shell-&#x4E2D;-&#x53D8;&#x91CF;-&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;">5.1. &#x5229;&#x7528; shell &#x4E2D; &#x53D8;&#x91CF; &#x7684;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;</h3>
+<p>&#x7528; string &#x6765;&#x66FF;&#x6362; parameter &#x53D8;&#x91CF;&#x4E2D;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684; pattern</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">string=&quot;hello,shell,split,test&quot;</span><br><span class="line">array=(${string//,/ })</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x8FED;&#x4EE3;&#x6570;&#x7EC4;</span></span><br><span class="line">for var in ${array[@]}</span><br><span class="line">do</span><br><span class="line">   echo $var</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x5206;&#x9694;&#x7B26;&#x901A;&#x8FC7;-ifs-&#x53D8;&#x91CF;">5.2. &#x8BBE;&#x7F6E;&#x5206;&#x9694;&#x7B26;&#xFF0C;&#x901A;&#x8FC7; IFS &#x53D8;&#x91CF;</h3>
+<p>Shell &#x811A;&#x672C;&#x4E2D;&#x6709;&#x4E2A;&#x53D8;&#x91CF;&#x53EB; IFS(Internal Field Seprator) &#xFF0C;&#x5185;&#x90E8;&#x57DF;&#x5206;&#x9694;&#x7B26;&#xFF0C;shell &#x6839;&#x636E; IFS &#x7684;&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; space, tab, newline &#x6765;&#x62C6;&#x89E3;&#x8BFB;&#x5165;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x7136;&#x540E;&#x5BF9;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x6700;&#x540E;&#x91CD;&#x65B0;&#x7EC4;&#x5408;&#x8D4B;&#x503C;&#x7ED9;&#x8BE5;&#x53D8;&#x91CF;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">string=&quot;hello,shell,split,test&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5BF9;IFS&#x53D8;&#x91CF; &#x8FDB;&#x884C;&#x66FF;&#x6362;&#x5904;&#x7406;</span></span><br><span class="line">OLD_IFS=&quot;$IFS&quot;</span><br><span class="line">IFS=&quot;,&quot;</span><br><span class="line">array=($string)</span><br><span class="line">IFS=&quot;$OLD_IFS&quot;</span><br><span class="line"></span><br><span class="line">for var in ${array[@]}</span><br><span class="line">do</span><br><span class="line">   echo $var</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h2 id="&#x53D8;&#x91CF;&#x4F7F;&#x7528;">6. &#x53D8;&#x91CF;&#x4F7F;&#x7528;<code>*</code></h2>
+<p>&#x5728;&#x7F16;&#x5199; shell &#x811A;&#x672C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6709;&#x7684;&#x65F6;&#x5019;&#x96BE;&#x514D;&#x4F1A;&#x7528;&#x5230;&#x4E00;&#x4E9B;&#x53D8;&#x91CF;&#x503C;&#x88AB;&#x5B9A;&#x4E49;&#x4E3A;(<code>*</code>)&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4F46;&#x662F;&#x5F53;&#x6211;&#x4EEC;&#x8BD5;&#x56FE;&#x5F15;&#x7528;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x7684;&#x65F6;&#x5019; bash &#x6709;&#x9ED8;&#x8BA4;&#x4F1A;&#x628A;&#xFF08;<code>*</code>&#xFF09;&#x66FF;&#x6362;&#x6210;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x540D;&#x7684;&#x5217;&#x8868;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vm_102 ~]# a=*</span><br><span class="line">[root@vm_102 ~]# echo $a</span><br><span class="line">anaconda-ks.cfg install.log install.log.syslog</span><br><span class="line">[root@vm_102 ~]# ls</span><br><span class="line">anaconda-ks.cfg  install.log  install.log.syslog</span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;&#x8FD9;&#x91CC;&#x7684;&#xFF08;<code>*</code>&#xFF09;&#x662F;&#x5728;&#x54EA;&#x4E00;&#x6B65;&#x88AB;&#x66FF;&#x6362;&#x6210;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#x7684;&#x6587;&#x4EF6;&#x5217;&#x8868;&#x7684;&#x5462;&#xFF1A;&#x662F;&#x5728;&#x7B2C;&#x4E00;&#x6B65;&#xFF0C;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x88AB;&#x66FF;&#x6362;&#x7684;&#x5462;&#x8FD8;&#x662F;&#x8BF4;&#xFF0C;&#x5728; echo &#x53D8;&#x91CF;&#x503C;&#x7684;&#x65F6;&#x5019;&#x88AB;&#x66FF;&#x6362;&#x7684;&#x5462;&#xFF1F; &#x4E8B;&#x5B9E;&#x662F;&#x8FD9;&#x6837;&#x5B50;&#x7684;&#xFF1A; 1&#x3001;&#x5F53;&#x53D8;&#x91CF;&#x590D;&#x5236;&#x7684;&#x65F6;&#x5019;&#xFF0C;bash &#x4F1A;&#x76F4;&#x63A5;&#x5C06;(<code>*</code>)&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF; a&#xFF1B; 2&#x3001;&#x4F46;&#x662F;&#x5728;&#x7B2C;&#x4E8C;&#x6B65;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x7684;&#x65F6;&#x5019;&#xFF0C;bash &#x9ED8;&#x8BA4;&#x4F1A;&#x628A;(<code>*</code>)&#x66FF;&#x6362;&#x6210;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x7684;&#x5217;&#x8868;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x5B9E;&#x9A8C;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm_102 ~]# echo *</span><br><span class="line">anaconda-ks.cfg install.log install.log.syslog</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/26/redis-主从复制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/26/redis-主从复制/" class="post-title-link" itemprop="url">redis-主从复制</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-26 09:17:49" itemprop="dateCreated datePublished" datetime="2020-05-26T09:17:49+08:00">2020-05-26</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x57FA;&#x7840;&#x6982;&#x5FF5;">&#x57FA;&#x7840;&#x6982;&#x5FF5;</h2>
+<p>redis &#x63D0;&#x4F9B;&#x4E86;&#x57FA;&#x7840;&#x7684;&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x529F;&#x80FD;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x4E00;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;&#x5B9E;&#x4F8B;&#x5B8C;&#x6574;&#x62F7;&#x8D1D;&#x4E3B;&#x8282;&#x70B9;&#x5B9E;&#x4F8B;&#x3002;&#x5F53;&#x4E3B;&#x4ECE;&#x8FDE;&#x63A5;&#x65AD;&#x5F00;&#x540E;&#xFF0C;&#x4ECE;&#x8282;&#x70B9;&#x4F1A;&#x81EA;&#x52A8;&#x91CD;&#x8FDE;&#x4E3B;&#x8282;&#x70B9;</p>
+<ul>
+<li>&#x4E3B;&#x4ECE;&#x8282;&#x70B9;&#x8FDE;&#x63A5;&#x540E;&#xFF0C;&#x4E3B;&#x8282;&#x70B9;&#x60F3;&#x4ECE;&#x8282;&#x70B9;&#x53D1;&#x9001;&#x4E00;&#x8FDE;&#x4E32;&#x7684;&#x6D41;&#x6307;&#x4EE4;&#xFF0C;&#x4EE5;&#x7528;&#x6765;&#x62F7;&#x8D1D;&#x4E3B;&#x8282;&#x70B9;&#x6240;&#x6709;&#x7684;&#x5199;&#x547D;&#x4EE4;</li>
+<li>&#x5F53;&#x4ECE;&#x8282;&#x70B9;&#x56E0;&#x6545;&#x969C;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x540E;&#x91CD;&#x8FDE;&#x540E;&#xFF0C;&#x4ECE;&#x8282;&#x70B9;&#x5C1D;&#x8BD5;&#x6267;&#x884C;&#x90E8;&#x5206;&#x540C;&#x6B65;&#xFF0C;&#x5373;&#x4EC5;&#x540C;&#x6B65;&#x6267;&#x884C;&#x5728;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x65F6;&#x95F4;&#x5185;&#x7684;&#x5199;&#x547D;&#x4EE4;&#x6D41;</li>
+<li>&#x5F53;&#x90E8;&#x5206;&#x540C;&#x6B65;&#x4E0D;&#x53EF;&#x7528;&#x65F6;&#xFF0C;&#x4ECE;&#x8282;&#x70B9;&#x4F1A;&#x8BF7;&#x6C42;&#x4E00;&#x4E2A;&#x5168;&#x91CF;&#x540C;&#x6B65;&#xFF0C;&#x8FD9;&#x9700;&#x8981;&#x4E3B;&#x4ECE;&#x70B9;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x7684;&#x5FEB;&#x7167;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x53D1;&#x9001;&#x7ED9;&#x4ECE;&#x8282;&#x70B9;&#xFF0C;&#x53D1;&#x9001;&#x540E;&#x4E3B;&#x8282;&#x70B9;&#x624D;&#x53EF;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x5176;&#x4ED6;&#x547D;&#x4EE4;</li>
+</ul>
+<p>redis &#x9ED8;&#x8BA4;&#x91C7;&#x7528;&#x5F02;&#x6B65;&#x65B9;&#x5F0F;&#x540C;&#x6B65;&#x6570;&#x636E;&#xFF0C;&#x8017;&#x8D39;&#x65F6;&#x95F4;&#x5C11;&#x6027;&#x80FD;&#x9AD8;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>wait</code>&#x547D;&#x4EE4;&#xFF0C;&#x4F7F;&#x5176;&#x4F7F;&#x7528;&#x540C;&#x6B65;&#x65B9;&#x5F0F;&#x540C;&#x6B65;&#x6570;&#x636E;&#x3002;<code>wait</code>&#x4EC5;&#x786E;&#x8BA4;&#x5F85;&#x540C;&#x6B65;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4E0D;&#x4FDD;&#x8BC1;&#x540C;&#x6B65;&#x8FC7;&#x7A0B;&#x7684;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x3002;</p>
+<ul>
+<li>redis &#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x65B9;&#x5F0F;&#x540C;&#x6B65;&#x6570;&#x636E;</li>
+<li>&#x4E3B;&#x8282;&#x70B9;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;</li>
+<li>&#x4ECE;&#x8282;&#x70B9;&#x53EF;&#x4EE5;&#x6709;&#x5B50;&#x4ECE;&#x8282;&#x70B9;&#xFF0C;&#x7C7B;&#x4F3C;&#x7011;&#x5E03;&#x6A21;&#x5F0F;</li>
+<li>&#x4E3B;&#x8282;&#x70B9;&#x91C7;&#x7528;&#x975E;&#x963B;&#x585E;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x4F20;&#x9012;&#x6570;&#x636E;&#x7684;&#xFF0C;&#x53EF;&#x540C;&#x65F6;&#x652F;&#x6301;&#x67E5;&#x8BE2;&#x6570;&#x636E;</li>
+<li>&#x4ECE;&#x8282;&#x70B9;&#x91C7;&#x7528;&#x975E;&#x963B;&#x585E;&#x7684;&#x65B9;&#x5F0F;&#x63A5;&#x53D7;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x540C;&#x65F6;&#x652F;&#x6301;&#x67E5;&#x8BE2;&#x65E7;&#x6570;&#x636E;</li>
+</ul>
+<p>&#x5F53;&#x5173;&#x95ED;&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x6301;&#x4E45;&#x5316;&#x7B56;&#x7565;&#x65F6;&#xFF0C;&#x5F53;&#x4E3B;&#x8282;&#x70B9;&#x5B95;&#x673A;&#x91CD;&#x542F;&#x4E22;&#x5931;&#x6240;&#x6709;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x4F1A;&#x5C06;&#x7A7A;&#x7684;&#x6570;&#x636E;&#x5E93;&#x540C;&#x6B65;&#x5230;&#x6240;&#x6709;&#x4ECE;&#x8282;&#x70B9;&#xFF0C;&#x9020;&#x6210;&#x6240;&#x6709;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x4E22;&#x5931;&#x3002;&#x6240;&#x4EE5;&#x8FD9;&#x65F6;&#xFF0C;&#x8282;&#x70B9;&#x7684;&#x81EA;&#x52A8;&#x91CD;&#x542F;&#x529F;&#x80FD;&#x9700;&#x8981;&#x88AB;&#x7981;&#x6B62;&#x3002;</p>
+<p><strong><em>&#x4ECE;&#x8282;&#x70B9;&#x4E0D;&#x5177;&#x6709;&#x5199;&#x6743;&#x9650;</em></strong></p>
+<h2 id="&#x914D;&#x7F6E;&#x4ECE;&#x8282;&#x70B9;">&#x914D;&#x7F6E;&#x4ECE;&#x8282;&#x70B9;</h2>
+<p>&#x53EA;&#x9700;&#x8981;&#x5C06;&#x4E0B;&#x8FF0;&#x914D;&#x7F6E;&#x653E;&#x5230;&#x4ECE;&#x8282;&#x70B9;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x5373;&#x53EF;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># xxx&#x7684;&#x4ECE;&#x8282;&#x70B9;</span><br><span class="line">slaveof 192.168.1.1 6379</span><br><span class="line"># &#x662F;&#x5426;&#x4E3A;&#x53EA;&#x8BFB;&#x6A21;&#x5F0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x4E3A;yes</span><br><span class="line">slave-read-only  yes</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x7684;&#x7EC6;&#x8282;">&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x7684;&#x7EC6;&#x8282;</h2>
+<p>&#x6BCF;&#x4E00;&#x4E2A;&#x4E3B;&#x8282;&#x70B9;&#x90FD;&#x6709;&#x4E2A;&#x4E00;&#x4E2A; replication ID &#xFF0C;&#x548C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x8BB0;&#x5F55;&#x5199;&#x547D;&#x4EE4;&#x6570;&#x636E;&#x7684;&#x590D;&#x5236;&#x7F13;&#x5B58;&#x533A;&#xFF0C;&#x6BCF;&#x4E2A; byte &#x7684;&#x7F13;&#x51B2;&#x6570;&#x636E;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x504F;&#x79FB;&#x91CF;&#xFF0C;&#x504F;&#x79FB;&#x91CF;&#x662F;&#x4E00;&#x76F4;&#x589E;&#x957F;&#x7684;&#x3002; <img src="/images/redis-&#x4E3B;&#x4ECE;&#x590D;&#x5236;_2020-05-26-17-16-39.png" alt="redis-&#x4E3B;&#x4ECE;&#x590D;&#x5236;_2020-05-26-17-16-39.png"></p>
+<ol type="1">
+<li>&#x5F53;&#x4ECE;&#x8282;&#x70B9;&#x8FDE;&#x63A5;&#x5230;&#x4E3B;&#x8282;&#x70B9;&#x65F6;&#xFF0C;&#x4ED6;&#x4F7F;&#x7528; psync &#x547D;&#x4EE4;&#x6765;&#x53D1;&#x9001;&#x5B83;&#x4EEC;&#x8BB0;&#x5F55;&#x7684; replication ID &#x548C;&#x8FC4;&#x4ECA;&#x4E3A;&#x6B62;&#x5904;&#x7406;&#x7684;&#x5199;&#x547D;&#x4EE4;&#x7684;&#x504F;&#x79FB;&#x91CF;&#x3002;</li>
+<li>&#x82E5;&#x4ECE;&#x8282;&#x70B9;&#x5339;&#x914D;&#x4E3B;&#x8282;&#x70B9; replication ID &#xFF0C;&#x5E76;&#x4E14;&#x7684;&#x590D;&#x5236;&#x7F13;&#x5B58;&#x533A;&#x4E2D;&#xFF0C;&#x6709;&#x4ECE;&#x8282;&#x70B9;&#x4E0A;&#x9001;&#x7684;&#x504F;&#x79FB;&#x91CF;&#x8BB0;&#x5F55;&#xFF0C;&#x90A3;&#x4E48;&#x4ECE;&#x8282;&#x70B9;&#x5C06;&#x540C;&#x6B65;&#x504F;&#x79FB;&#x91CF;&#x4E4B;&#x540E;&#x7684;&#x6240;&#x6709;&#x547D;&#x4EE4;&#x53D1;&#x9001;&#x5230;&#x4ECE;&#x8282;&#x70B9;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x3002;</li>
+<li>&#x82E5;&#x4ECE;&#x8282;&#x70B9;&#x4E0A;&#x9001;&#x7684; replication ID &#x4E0D;&#x5339;&#x914D;&#xFF0C;&#x6216;&#x8005;&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x590D;&#x5236;&#x7F13;&#x5B58;&#x533A;&#x6CA1;&#x6709;&#x76F8;&#x5173;&#x504F;&#x79FB;&#x91CF;&#x7684;&#x5199;&#x547D;&#x4EE4;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x8FDB;&#x884C;&#x5168;&#x91CF;&#x590D;&#x5236;</li>
+<li>&#x4E3B;&#x8282;&#x70B9;&#x4F7F;&#x7528; BGSAVE &#x547D;&#x4EE4;&#xFF0C;&#x5C06;&#x5F53;&#x524D;&#x6570;&#x636E;&#x751F;&#x6210; rdb &#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6587;&#x4EF6;&#x53D1;&#x9001;&#x7ED9;&#x4ECE;&#x8282;&#x70B9;</li>
+<li>&#x4ECE;&#x8282;&#x70B9;&#x6536;&#x5230; rdb &#x6570;&#x636E;&#x540E;&#xFF0C;&#x5C06;&#x5176;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x540C;&#x65F6;&#x4E22;&#x5931;&#x65E7;&#x6570;&#x636E;</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/24/linux-自定义补全/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2036,393 +2471,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/19/redis管道/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/19/redis管道/" class="post-title-link" itemprop="url">redis管道</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-19 19:26:16" itemprop="dateCreated datePublished" datetime="2020-05-19T19:26:16+08:00">2020-05-19</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>redis &#x4F7F;&#x7528; cs &#x670D;&#x52A1;&#x67B6;&#x6784;&#xFF0C;&#x6267;&#x884C;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#x7684;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;</p>
-<ol type="1">
-<li>&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x5230;&#x670D;&#x52A1;&#x5668;</li>
-<li>&#x670D;&#x52A1;&#x5668;&#x901A;&#x8FC7; socket &#x8BFB;&#x53D6;&#x547D;&#x4EE4;&#xFF0C;&#x901A;&#x5E38;&#x4EE5;&#x963B;&#x585E;&#x7684;&#x65B9;&#x5F0F;&#x8BFB;&#x53D6;</li>
-<li>&#x670D;&#x52A1;&#x5668;&#x901A;&#x8FC7;<code>read()</code>&#x6307;&#x4EE4;&#x5C06;&#x547D;&#x4EE4;&#x4ECE;&#x5185;&#x5B58;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x6838;&#x6267;&#x884C;</li>
-<li>&#x6838;&#x5FC3;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x5C06;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x5199;&#x56DE;&#x5185;&#x5B58;</li>
-<li>&#x5C06;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x5BA2;&#x6237;&#x7AEF;</li>
-</ol>
-<p>redis &#x6267;&#x884C;&#x547D;&#x4EE4;&#x7684;&#x901F;&#x5EA6;&#x662F;&#x8F83;&#x5FEB;&#x7684;&#xFF0C;&#x5F53;&#x6267;&#x884C;&#x5927;&#x91CF;&#x547D;&#x4EE4;&#x65F6;&#xFF0C;&#x90A3;&#x4E48;&#x5927;&#x90E8;&#x5206;&#x65F6;&#x95F4;&#x5C06;&#x82B1;&#x8D39;&#x5728;&#x8BF7;&#x6C42;&#x8FD4;&#x56DE;&#xFF0C;&#x8BFB;&#x53D6;&#x5199;&#x56DE;&#x4E0A;&#x3002; redis &#x63D0;&#x4F9B;&#x4E86;&#x7BA1;&#x9053;&#x547D;&#x4EE4;&#xFF0C;&#x53EF;&#x4EE5;&#x6279;&#x91CF;&#x6267;&#x884C;&#x547D;&#x4EE4;&#xFF0C;&#x4F9D;&#x6B21;&#x6267;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#x5C06;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x6253;&#x5305;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;</p>
-<p>&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x53BB;&#x6267;&#x884C;&#x5927;&#x91CF;&#x547D;&#x4EE4;&#xFF0C;&#x6765;&#x8FBE;&#x5230;&#x6279;&#x91CF;&#x6267;&#x884C;&#x7684;&#x76EE;&#x7684;&#x3002;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/15/tomcat入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/15/tomcat入门/" class="post-title-link" itemprop="url">tomcat入门</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-15 02:10:39" itemprop="dateCreated datePublished" datetime="2020-05-15T02:10:39+08:00">2020-05-15</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;">&#x7C7B;&#x52A0;&#x8F7D;&#x673A;&#x5236;</h2>
-<h3 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h3>
-<p>&#x5728; java &#x4E2D;&#xFF0C;classloader &#x4EE5; tree &#x7684;&#x5F62;&#x5F0F;&#x7EC4;&#x7EC7;&#x8D77;&#x6765;&#x3002;&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F53; classloader &#x52A0;&#x8F7D;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x7C7B;&#x6216;&#x8D44;&#x6E90;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x8BF7;&#x6C42;&#x59D4;&#x6258;&#x7ED9;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x53BB;&#x52A0;&#x8F7D;&#xFF0C;&#x82E5;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4E2D;&#x627E;&#x4E0D;&#x5230;&#x8BE5;&#x7C7B;&#xFF0C;&#x5B83;&#x624D;&#x4F1A;&#x5C1D;&#x8BD5;&#x81EA;&#x5DF1;&#x53BB;&#x52A0;&#x8F7D;&#x3002; <img src="/images/tomcat&#x5165;&#x95E8;_2020-05-15-02-22-01.png" alt="tomcat&#x5165;&#x95E8;_2020-05-15-02-22-01.png"></p>
-<ul>
-<li>Bootstrap jvm &#x63D0;&#x4F9B;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x4E00;&#x822C;&#x662F;&#x6307;<code>($JAVA_HOME/jre/lib/ext)</code>&#x4E0B;&#x7684; jar &#x5305;</li>
-<li>System tomcat &#x7684;&#x6838;&#x5FC3;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x5C31;<code>$CATALINA_HOME/bin</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684;<code>bootstrap.jar</code>,<code>tomcat-juli.jar</code>&#x548C;<code>commons-daemon.jar</code></li>
-<li>Common tomcat &#x7684;&#x5171;&#x4EAB;&#x7C7B;&#x52A0;&#x8F7D;&#x5668; &#x5305;&#xFF0C;&#x5728;<code>$CATALINA_BASE/lib</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684; jar &#x5305;</li>
-<li>WebappX &#x5E94;&#x7528;&#x5185;&#x90E8;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x5B83;&#x52A0;&#x8F7D;&#x5E94;&#x7528;<code>/WEB-INF/classes</code>&#x548C;<code>/WEB-INF/lib</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684; class</li>
-</ul>
-<h3 id="&#x7C7B;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;">&#x7C7B;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;</h3>
-<p>tomcat &#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x6A21;&#x578B;&#x8FDD;&#x80CC;&#x4E86; jvm &#x7684;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x5F0F;&#xFF0C;&#x9664;&#x4E86; Bootstrap &#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;&#x7684;&#x7C7B;&#xFF0C;&#x5B83;&#x9996;&#x5148;&#x4F1A;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528;<code>WebappX</code>&#x6765;&#x52A0;&#x8F7D;&#x7C7B;&#x3002; &#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B; tomcat &#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x5982;&#x4E0B;&#x6240;&#x8FF0;</p>
-<ul>
-<li>Bootstrap classes of your JVM</li>
-<li>/WEB-INF/classes of your web application</li>
-<li>/WEB-INF/lib/*.jar of your web application</li>
-<li>System class loader classes (described above)</li>
-<li>Common class loader classes (described above)</li>
-</ul>
-<p>&#x82E5; tomcat &#x6216;&#x8005;&#x5E94;&#x7528;&#x4E2D;&#x5728; context &#x4E2D;&#x914D;&#x7F6E;&#x4E86;<code>&lt;Loader delegate=&quot;true&quot;/&gt;</code>,&#x90A3;&#x4E48;&#x4ED6;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x5C31;&#x4F1A;&#x53D8;&#x6210;&#x5982;&#x4E0B;</p>
-<ul>
-<li>Bootstrap classes of your JVM</li>
-<li>System class loader classes (described above)</li>
-<li>Common class loader classes (described above)</li>
-<li>/WEB-INF/classes of your web application</li>
-<li>/WEB-INF/lib/*.jar of your web application</li>
-</ul>
-<h3 id="&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;">&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</h3>
-<p>&#x5F53;&#x5728; tomcat &#x76EE;&#x5F55;&#x4E0B;&#x7684;<code>conf/catalina.properties.</code>&#x4E2D;&#x914D;&#x7F6E;<code>&#xB7;server.loader</code>&#x6216;<code>shared.loader</code>,&#x5B83;&#x5C31;&#x4F1A;&#x542F;&#x7528;<code>Server</code>&#x6216;<code>Shared</code>&#x7C7B;&#x52A0;&#x8F7D;&#x5668; <img src="/images/tomcat&#x5165;&#x95E8;_2020-05-15-02-44-19.png" alt="tomcat&#x5165;&#x95E8;_2020-05-15-02-44-19.png"></p>
-<ul>
-<li>Server &#x662F;&#x4F9B; tomcat &#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x5BF9;&#x4E8E;&#x5E94;&#x7528;&#x662F;&#x4E0D;&#x53EF;&#x89C1;&#x7684;</li>
-<li>Shared &#x6240;&#x6709; tomcat &#x5E94;&#x7528;&#x5171;&#x4EAB;&#x7684; jar &#x5305;&#xFF0C;&#x7C7B;&#x4F3C;<code>Common</code>&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</li>
-</ul>
-<h2 id="&#x65E5;&#x5FD7;">&#x65E5;&#x5FD7;</h2>
-<ol type="1">
-<li>tomcat &#x5185;&#x90E8;&#x4F7F;&#x7528;<code>tomcat-juli.jar</code>&#x4F5C;&#x4E3A;&#x65E5;&#x5FD7;&#x7EC4;&#x4EF6;&#xFF0C;&#x5176;&#x4F7F;&#x7528;&#x914D;&#x7F6E;&#x4E3A;<code>$CATALINA_HOME/conf/logging.properties</code></li>
-<li>&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EC4;&#x4EF6;&#x3002;&#x4E0D;&#x540C;&#x7684; web &#x5E94;&#x7528;&#x4F7F;&#x7528;&#x7684;&#x65E5;&#x5FD7;&#x7EC4;&#x4EF6;&#x662F;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5176; WebappX &#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x662F;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x82E5;&#x65E5;&#x5FD7;&#x7EC4;&#x4EF6;&#x5728; Common &#x5171;&#x4EAB;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x6216;&#x8005; Share &#x7C7B;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x4EEC;&#x4F7F;&#x7528;&#x7684;&#x65E5;&#x5FD7;&#x7EC4;&#x4EF6;&#x5219;&#x662F;&#x5171;&#x4EAB;&#x7684;</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2469,7 +2517,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-count">135</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

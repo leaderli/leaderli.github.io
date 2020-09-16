@@ -410,6 +410,391 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/04/23/尾调用优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/23/尾调用优化/" class="post-title-link" itemprop="url">尾调用优化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-23 17:19:51" itemprop="dateCreated datePublished" datetime="2020-04-23T17:19:51+08:00">2020-04-23</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;">&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;</h2>
+<p>&#x5C3E;&#x8C03;&#x7528;&#x4E4B;&#x6240;&#x4EE5;&#x4E0E;&#x5176;&#x4ED6;&#x8C03;&#x7528;&#x4E0D;&#x540C;&#xFF0C;&#x5C31;&#x5728;&#x4E8E;&#x5B83;&#x7684;&#x7279;&#x6B8A;&#x7684;&#x8C03;&#x7528;&#x4F4D;&#x7F6E;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x4F1A;&#x5728;&#x5185;&#x5B58;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&quot;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&quot;&#xFF0C;&#x53C8;&#x79F0;&quot;&#x8C03;&#x7528;&#x5E27;&quot;&#xFF08;call frame&#xFF09;&#xFF0C;&#x4FDD;&#x5B58;&#x8C03;&#x7528;&#x4F4D;&#x7F6E;&#x548C;&#x5185;&#x90E8;&#x53D8;&#x91CF;&#x7B49;&#x4FE1;&#x606F;&#x3002;&#x5982;&#x679C;&#x5728;&#x51FD;&#x6570; A &#x7684;&#x5185;&#x90E8;&#x8C03;&#x7528;&#x51FD;&#x6570; B&#xFF0C;&#x90A3;&#x4E48;&#x5728; A &#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x4E0A;&#x65B9;&#xFF0C;&#x8FD8;&#x4F1A;&#x5F62;&#x6210;&#x4E00;&#x4E2A; B &#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x3002;&#x7B49;&#x5230; B &#x8FD0;&#x884C;&#x7ED3;&#x675F;&#xFF0C;&#x5C06;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x5230; A&#xFF0C;B &#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x624D;&#x4F1A;&#x6D88;&#x5931;&#x3002;&#x5982;&#x679C;&#x51FD;&#x6570; B &#x5185;&#x90E8;&#x8FD8;&#x8C03;&#x7528;&#x51FD;&#x6570; C&#xFF0C;&#x90A3;&#x5C31;&#x8FD8;&#x6709;&#x4E00;&#x4E2A; C &#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x6808;&#xFF0C;&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;&#x3002;&#x6240;&#x6709;&#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x5C31;&#x5F62;&#x6210;&#x4E00;&#x4E2A;<a href="http://zh.wikipedia.org/wiki/%E8%B0%83%E7%94%A8%E6%A0%88" target="_blank" rel="noopener">&quot;&#x8C03;&#x7528;&#x6808;&quot;</a>&#xFF08;call stack&#xFF09;&#x3002; <img src="/images/&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;_2020-04-23-17-20-39.png" alt="&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;_2020-04-23-17-20-39.png"> &#x5C3E;&#x8C03;&#x7528;&#x7531;&#x4E8E;&#x662F;&#x51FD;&#x6570;&#x7684;&#x6700;&#x540E;&#x4E00;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x9700;&#x8981;&#x4FDD;&#x7559;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x56E0;&#x4E3A;&#x8C03;&#x7528;&#x4F4D;&#x7F6E;&#x3001;&#x5185;&#x90E8;&#x53D8;&#x91CF;&#x7B49;&#x4FE1;&#x606F;&#x90FD;&#x4E0D;&#x4F1A;&#x518D;&#x7528;&#x5230;&#x4E86;&#xFF0C;&#x53EA;&#x8981;&#x76F4;&#x63A5;&#x7528;&#x5185;&#x5C42;&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x53D6;&#x4EE3;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">let</span> m = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> n = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">return</span> g(m + n);</span><br><span class="line">}</span><br><span class="line">f();</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x7B49;&#x540C;&#x4E8E;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> g(<span class="number">3</span>);</span><br><span class="line">}</span><br><span class="line">f();</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x7B49;&#x540C;&#x4E8E;</span></span><br><span class="line">g(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x51FD;&#x6570; g &#x4E0D;&#x662F;&#x5C3E;&#x8C03;&#x7528;&#xFF0C;&#x51FD;&#x6570; f &#x5C31;&#x9700;&#x8981;&#x4FDD;&#x5B58;&#x5185;&#x90E8;&#x53D8;&#x91CF; m &#x548C; n &#x7684;&#x503C;&#x3001;g &#x7684;&#x8C03;&#x7528;&#x4F4D;&#x7F6E;&#x7B49;&#x4FE1;&#x606F;&#x3002;&#x4F46;&#x7531;&#x4E8E;&#x8C03;&#x7528; g &#x4E4B;&#x540E;&#xFF0C;&#x51FD;&#x6570; f &#x5C31;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x6267;&#x884C;&#x5230;&#x6700;&#x540E;&#x4E00;&#x6B65;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x5220;&#x9664; f() &#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x53EA;&#x4FDD;&#x7559; g(3) &#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x3002;</p>
+<p>&#x8FD9;&#x5C31;&#x53EB;&#x505A;&quot;&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;&quot;&#xFF08;Tail call optimization&#xFF09;&#xFF0C;&#x5373;&#x53EA;&#x4FDD;&#x7559;&#x5185;&#x5C42;&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x3002;&#x5982;&#x679C;&#x6240;&#x6709;&#x51FD;&#x6570;&#x90FD;&#x662F;&#x5C3E;&#x8C03;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x6BCF;&#x6B21;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#x53EA;&#x6709;&#x4E00;&#x9879;&#xFF0C;&#x8FD9;&#x5C06;&#x5927;&#x5927;&#x8282;&#x7701;&#x5185;&#x5B58;&#x3002;&#x8FD9;&#x5C31;&#x662F;&quot;&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;&quot;&#x7684;&#x610F;&#x4E49;&#x3002;</p>
+<h2 id="&#x5C3E;&#x9012;&#x5F52;">&#x5C3E;&#x9012;&#x5F52;</h2>
+<p>&#x51FD;&#x6570;&#x8C03;&#x7528;&#x81EA;&#x8EAB;&#xFF0C;&#x79F0;&#x4E3A;&#x9012;&#x5F52;&#x3002;&#x5982;&#x679C;&#x5C3E;&#x8C03;&#x7528;&#x81EA;&#x8EAB;&#xFF0C;&#x5C31;&#x79F0;&#x4E3A;&#x5C3E;&#x9012;&#x5F52;&#x3002;</p>
+<p>&#x9012;&#x5F52;&#x975E;&#x5E38;&#x8017;&#x8D39;&#x5185;&#x5B58;&#xFF0C;&#x56E0;&#x4E3A;&#x9700;&#x8981;&#x540C;&#x65F6;&#x4FDD;&#x5B58;&#x6210;&#x5343;&#x4E0A;&#x767E;&#x4E2A;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x53D1;&#x751F;&quot;&#x6808;&#x6EA2;&#x51FA;&quot;&#x9519;&#x8BEF;&#xFF08;stack overflow&#xFF09;&#x3002;&#x4F46;&#x5BF9;&#x4E8E;&#x5C3E;&#x9012;&#x5F52;&#x6765;&#x8BF4;&#xFF0C;&#x7531;&#x4E8E;&#x53EA;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x6240;&#x4EE5;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&quot;&#x6808;&#x6EA2;&#x51FA;&quot;&#x9519;&#x8BEF;&#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>{</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">5</span>); <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x662F;&#x4E00;&#x4E2A;&#x9636;&#x4E58;&#x51FD;&#x6570;&#xFF0C;&#x8BA1;&#x7B97; n &#x7684;&#x9636;&#x4E58;&#xFF0C;&#x6700;&#x591A;&#x9700;&#x8981;&#x4FDD;&#x5B58; n &#x4E2A;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x590D;&#x6742;&#x5EA6; O(n) &#x3002; &#x5982;&#x679C;&#x6539;&#x5199;&#x6210;&#x5C3E;&#x9012;&#x5F52;&#xFF0C;&#x53EA;&#x4FDD;&#x7559;&#x4E00;&#x4E2A;&#x8C03;&#x7528;&#x8BB0;&#x5F55;&#xFF0C;&#x590D;&#x6742;&#x5EA6; O(1) &#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n, total</span>) </span>{</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> total;</span><br><span class="line">  <span class="keyword">return</span> factorial(n - <span class="number">1</span>, n * total);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">5</span>, <span class="number">1</span>); <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+<p>&#x7531;&#x6B64;&#x53EF;&#x89C1;&#xFF0C;&quot;&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;&quot;&#x5BF9;&#x9012;&#x5F52;&#x64CD;&#x4F5C;&#x610F;&#x4E49;&#x91CD;&#x5927;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x4E9B;&#x51FD;&#x6570;&#x5F0F;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x5C06;&#x5176;&#x5199;&#x5165;&#x4E86;&#x8BED;&#x8A00;&#x89C4;&#x683C;&#x3002;ES6 &#x4E5F;&#x662F;&#x5982;&#x6B64;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x660E;&#x786E;&#x89C4;&#x5B9A;&#xFF0C;&#x6240;&#x6709; ECMAScript &#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x90FD;&#x5FC5;&#x987B;&#x90E8;&#x7F72;&quot;&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;&quot;&#x3002;&#x8FD9;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5728; ES6 &#x4E2D;&#xFF0C;&#x53EA;&#x8981;&#x4F7F;&#x7528;&#x5C3E;&#x9012;&#x5F52;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x6808;&#x6EA2;&#x51FA;&#xFF0C;&#x76F8;&#x5BF9;&#x8282;&#x7701;&#x5185;&#x5B58;&#x3002; <img src="/images/&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;_2020-04-23-17-21-00.png" alt="&#x5C3E;&#x8C03;&#x7528;&#x4F18;&#x5316;_2020-04-23-17-21-00.png"></p>
+<h2 id="&#x9012;&#x5F52;&#x51FD;&#x6570;&#x7684;&#x6539;&#x5199;">&#x9012;&#x5F52;&#x51FD;&#x6570;&#x7684;&#x6539;&#x5199;</h2>
+<p>&#x5C3E;&#x9012;&#x5F52;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5F80;&#x5F80;&#x9700;&#x8981;&#x6539;&#x5199;&#x9012;&#x5F52;&#x51FD;&#x6570;&#xFF0C;&#x786E;&#x4FDD;&#x6700;&#x540E;&#x4E00;&#x6B65;&#x53EA;&#x8C03;&#x7528;&#x81EA;&#x8EAB;&#x3002;&#x505A;&#x5230;&#x8FD9;&#x4E00;&#x70B9;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x662F;&#x628A;&#x6240;&#x6709;&#x7528;&#x5230;&#x7684;&#x5185;&#x90E8;&#x53D8;&#x91CF;&#x6539;&#x5199;&#x6210;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3002;&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x9636;&#x4E58;&#x51FD;&#x6570; factorial &#x9700;&#x8981;&#x7528;&#x5230;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x53D8;&#x91CF; total &#xFF0C;&#x90A3;&#x5C31;&#x628A;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x53D8;&#x91CF;&#x6539;&#x5199;&#x6210;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3002;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x7F3A;&#x70B9;&#x5C31;&#x662F;&#x4E0D;&#x592A;&#x76F4;&#x89C2;&#xFF0C;&#x7B2C;&#x4E00;&#x773C;&#x5F88;&#x96BE;&#x770B;&#x51FA;&#x6765;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8BA1;&#x7B97; 5 &#x7684;&#x9636;&#x4E58;&#xFF0C;&#x9700;&#x8981;&#x4F20;&#x5165;&#x4E24;&#x4E2A;&#x53C2;&#x6570; 5 &#x548C; 1&#xFF1F;</p>
+<p>&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x65B9;&#x6CD5;&#x4E00;&#x662F;&#x5728;&#x5C3E;&#x9012;&#x5F52;&#x51FD;&#x6570;&#x4E4B;&#x5916;&#xFF0C;&#x518D;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x6B63;&#x5E38;&#x5F62;&#x5F0F;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tailFactorial</span>(<span class="params">n, total</span>) </span>{</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> total;</span><br><span class="line">  <span class="keyword">return</span> tailFactorial(n - <span class="number">1</span>, n * total);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>{</span><br><span class="line">  <span class="keyword">return</span> tailFactorial(n, <span class="number">1</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">5</span>); <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/04/23/快捷键/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/23/快捷键/" class="post-title-link" itemprop="url">快捷键</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-23 11:05:04" itemprop="dateCreated datePublished" datetime="2020-04-23T11:05:04+08:00">2020-04-23</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="safari">safari</h2>
+<ol type="1">
+<li>&#x2303;1 #&#x663E;&#x793A;&#x6216;&#x9690;&#x85CF;&#x6536;&#x85CF;&#x5939;</li>
+<li>&#x2303;3 #&#x5207;&#x6362; ipad &#x89C6;&#x56FE;</li>
+<li>&#x21E7;&#x2318;D #&#x6DFB;&#x52A0;&#x5F53;&#x524D;&#x9875;&#x9762;&#x5230;&#x9605;&#x8BFB;&#x5217;&#x8868;</li>
+<li>&#x2318;/ #&#x663E;&#x793A;&#x6240;&#x6709;&#x6807;&#x7B7E;&#x9875;</li>
+<li>&#x2303;f #&#x5168;&#x5C4F;</li>
+</ol>
+<h2 id="iterm2">iTerm2</h2>
+<h3 id="&#x5207;&#x6362;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;">&#x5207;&#x6362;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Emacs mode</span></span><br><span class="line">bindkey -e</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Vi mode</span></span><br><span class="line">bindkey -v</span><br></pre></td></tr></table></figure>
+<h3 id="&#x81EA;&#x52A8;&#x5B8C;&#x6210;">&#x81EA;&#x52A8;&#x5B8C;&#x6210;</h3>
+<p>iTerm2 &#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x8865;&#x9F50;&#x547D;&#x4EE4;&#xFF0C;&#x8F93;&#x5165;&#x82E5;&#x5E72;&#x5B57;&#x7B26;&#xFF0C;&#x6309; &#x2318;+;&#x5F39;&#x51FA;&#x81EA;&#x52A8;&#x8865;&#x9F50;&#x7A97;&#x53E3;&#xFF0C;&#x5217;&#x51FA;&#x66FE;&#x7ECF;&#x4F7F;&#x7528;&#x8FC7;&#x7684;&#x547D;&#x4EE4;</p>
+<h3 id="&#x5206;&#x5C4F;">&#x5206;&#x5C4F;</h3>
+<p>&#x5782;&#x76F4;&#x5206;&#x5C4F;&#xFF1A;command + d</p>
+<p>&#x6C34;&#x5E73;&#x5206;&#x5C4F;&#xFF1A;command + shift + d</p>
+<p>&#x5207;&#x6362;&#x5C4F;&#x5E55;&#xFF1A;command + option + &#x65B9;&#x5411;&#x952E; command + [ &#x6216; command + ]</p>
+<h2 id="chrome">chrome</h2>
+<h3 id="&#x622A;&#x56FE;">&#x622A;&#x56FE;</h3>
+<ol type="1">
+<li>F12</li>
+<li>cmmand+shift+p</li>
+<li>&#x8F93;&#x5165;&#x201C;capture&#x201D;</li>
+<li><p>&#x9009;&#x62E9;&#x4EE5;&#x4E0B;&#x4EFB;&#x610F;</p>
+<blockquote>
+<p>1&#xFF09;&#x201C; capture full size screenshot&#x201D;&#x3010;&#x6574;&#x4E2A;&#x7F51;&#x9875;&#x3011; 2&#xFF09;&#x201C;capture node screenshot&#x201D;&#x3010;&#x8282;&#x70B9;&#x7F51;&#x9875;&#x3011; 3&#xFF09;&#x201C;capture screenshot&#x201D;&#x3010;&#x5F53;&#x524D;&#x5C4F;&#x5E55;&#x3011;</p>
+</blockquote></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/04/23/db2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3600,367 +3985,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/25/docker-compose/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/25/docker-compose/" class="post-title-link" itemprop="url">docker_compose</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-12-25 23:53:40" itemprop="dateCreated datePublished" datetime="2019-12-25T23:53:40+08:00">2019-12-25</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x57FA;&#x7840;">&#x57FA;&#x7840;</h2>
-<p>&#x4F7F;&#x7528;<code>Dockerfile</code>&#x548C;<code>dockder-compose.yml</code>&#x6765;&#x5B9A;&#x5236;&#x5BB9;&#x5668;</p>
-<h3 id="dockerfile"><code>Dockerfile</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM li:tomcat</span><br><span class="line">ENTRYPOINT service ssh start &amp;&amp; tail -f /dev/null</span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li><code>FROM</code>&#x8868;&#x793A;&#x4F9D;&#x8D56;&#x7684;&#x955C;&#x50CF;</li>
-<li><code>ENTRYPOINT</code>&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x540E;&#x6267;&#x884C;&#x7684;&#x811A;&#x672C;&#xFF0C;&#x53EF;&#x7528;&#x4E8E;&#x542F;&#x52A8;<code>ssh</code>&#x670D;&#x52A1;&#x7B49;</li>
-</ol>
-<h3 id="docker-compose.yml"><code>docker-compose.yml</code></h3>
-<p>&#x4F7F;&#x7528;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6765;&#x786E;&#x5B9A;&#x6620;&#x5C04;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x53C2;&#x8003;<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">compose-file</a></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  web:</span></span><br><span class="line"><span class="attr">    build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">&quot;li:linux&quot;</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">&quot;4022:22&quot;</span></span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li><code>services.web.image</code>&#x6784;&#x5EFA;&#x7684;&#x955C;&#x50CF;&#x540D;&#x79F0;</li>
-<li><code>services.web.ports</code>&#x6620;&#x5C04;&#x7AEF;&#x53E3;</li>
-<li><code>services.web.build</code>&#x6784;&#x5EFA;&#x7684;&#x6E90;&#x6587;&#x4EF6;&#x76EE;&#x5F55;</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/24/python线程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/24/python线程/" class="post-title-link" itemprop="url">python线程</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-12-24 02:15:49" itemprop="dateCreated datePublished" datetime="2019-12-24T02:15:49+08:00">2019-12-24</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x679C;">&#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x679C;</h2>
-<p>&#x901A;&#x8FC7;&#x7EE7;&#x627F;&#x81EA;<code>threading.Thread</code>&#xFF0C;&#x91CD;&#x5199;&#x5176;<code>run</code>&#x65B9;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">         &#x4F7F;&#x7528;&#x7236;&#x7C7B;&#x6784;&#x9020;&#x5668;&#xFF0C;&#x5C3D;&#x91CF;&#x4FDD;&#x6301;&#x8BED;&#x6CD5;&#x4E00;&#x81F4;&#xFF0C;&#x4EC5;&#x5C06;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x7F13;&#x5B58;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#&#x8BBE;&#x5B9A;&#x56DE;&#x8C03;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&apos;callable&apos;</span> <span class="keyword">in</span> kwargs:</span><br><span class="line">            self._callable = kwargs[<span class="string">&apos;callable&apos;</span>]</span><br><span class="line">            <span class="keyword">del</span> kwargs[<span class="string">&apos;callable&apos;</span>]</span><br><span class="line">        super(MyThread, self).__init__(*args, **kwargs)</span><br><span class="line">        self._result = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self._target:</span><br><span class="line">            self._result = self._target(*self._args, **self._kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">result</span><span class="params">(self, _callable=None)</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        join()&#x786E;&#x4FDD;&#x4EFB;&#x52A1;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x5B8C;&#x6210;</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.join()</span><br><span class="line">        <span class="comment"># &#x56DE;&#x8C03;</span></span><br><span class="line">        <span class="keyword">if</span> _callable <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            _callable = self._callable</span><br><span class="line">        <span class="keyword">if</span> _callable:</span><br><span class="line">            _callable(self._result)</span><br><span class="line">        <span class="keyword">return</span> self._result</span><br></pre></td></tr></table></figure>
-<p>&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tasks = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    tasks.append(MyThread(target=foo))</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> tasks:</span><br><span class="line">    t.start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> tasks:</span><br><span class="line">    t.result()</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4007,7 +4031,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-count">135</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

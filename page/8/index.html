@@ -410,6 +410,367 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/25/docker-compose/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/25/docker-compose/" class="post-title-link" itemprop="url">docker_compose</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-25 23:53:40" itemprop="dateCreated datePublished" datetime="2019-12-25T23:53:40+08:00">2019-12-25</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x57FA;&#x7840;">&#x57FA;&#x7840;</h2>
+<p>&#x4F7F;&#x7528;<code>Dockerfile</code>&#x548C;<code>dockder-compose.yml</code>&#x6765;&#x5B9A;&#x5236;&#x5BB9;&#x5668;</p>
+<h3 id="dockerfile"><code>Dockerfile</code></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM li:tomcat</span><br><span class="line">ENTRYPOINT service ssh start &amp;&amp; tail -f /dev/null</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li><code>FROM</code>&#x8868;&#x793A;&#x4F9D;&#x8D56;&#x7684;&#x955C;&#x50CF;</li>
+<li><code>ENTRYPOINT</code>&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x540E;&#x6267;&#x884C;&#x7684;&#x811A;&#x672C;&#xFF0C;&#x53EF;&#x7528;&#x4E8E;&#x542F;&#x52A8;<code>ssh</code>&#x670D;&#x52A1;&#x7B49;</li>
+</ol>
+<h3 id="docker-compose.yml"><code>docker-compose.yml</code></h3>
+<p>&#x4F7F;&#x7528;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6765;&#x786E;&#x5B9A;&#x6620;&#x5C04;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x53C2;&#x8003;<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">compose-file</a></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  web:</span></span><br><span class="line"><span class="attr">    build:</span> <span class="string">.</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">&quot;li:linux&quot;</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">&quot;4022:22&quot;</span></span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li><code>services.web.image</code>&#x6784;&#x5EFA;&#x7684;&#x955C;&#x50CF;&#x540D;&#x79F0;</li>
+<li><code>services.web.ports</code>&#x6620;&#x5C04;&#x7AEF;&#x53E3;</li>
+<li><code>services.web.build</code>&#x6784;&#x5EFA;&#x7684;&#x6E90;&#x6587;&#x4EF6;&#x76EE;&#x5F55;</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/24/python线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/24/python线程/" class="post-title-link" itemprop="url">python线程</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-24 02:15:49" itemprop="dateCreated datePublished" datetime="2019-12-24T02:15:49+08:00">2019-12-24</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x679C;">&#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x679C;</h2>
+<p>&#x901A;&#x8FC7;&#x7EE7;&#x627F;&#x81EA;<code>threading.Thread</code>&#xFF0C;&#x91CD;&#x5199;&#x5176;<code>run</code>&#x65B9;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">         &#x4F7F;&#x7528;&#x7236;&#x7C7B;&#x6784;&#x9020;&#x5668;&#xFF0C;&#x5C3D;&#x91CF;&#x4FDD;&#x6301;&#x8BED;&#x6CD5;&#x4E00;&#x81F4;&#xFF0C;&#x4EC5;&#x5C06;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x7F13;&#x5B58;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#&#x8BBE;&#x5B9A;&#x56DE;&#x8C03;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&apos;callable&apos;</span> <span class="keyword">in</span> kwargs:</span><br><span class="line">            self._callable = kwargs[<span class="string">&apos;callable&apos;</span>]</span><br><span class="line">            <span class="keyword">del</span> kwargs[<span class="string">&apos;callable&apos;</span>]</span><br><span class="line">        super(MyThread, self).__init__(*args, **kwargs)</span><br><span class="line">        self._result = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self._target:</span><br><span class="line">            self._result = self._target(*self._args, **self._kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">result</span><span class="params">(self, _callable=None)</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        join()&#x786E;&#x4FDD;&#x4EFB;&#x52A1;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x5B8C;&#x6210;</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.join()</span><br><span class="line">        <span class="comment"># &#x56DE;&#x8C03;</span></span><br><span class="line">        <span class="keyword">if</span> _callable <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            _callable = self._callable</span><br><span class="line">        <span class="keyword">if</span> _callable:</span><br><span class="line">            _callable(self._result)</span><br><span class="line">        <span class="keyword">return</span> self._result</span><br></pre></td></tr></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tasks = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    tasks.append(MyThread(target=foo))</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> tasks:</span><br><span class="line">    t.start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> tasks:</span><br><span class="line">    t.result()</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/24/python队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1437,7 +1798,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-08 15:27:54" itemprop="dateModified" datetime="2020-09-08T15:27:54+08:00">2020-09-08</time>
+                <time title="修改时间：2020-09-16 15:06:53" itemprop="dateModified" datetime="2020-09-16T15:06:53+08:00">2020-09-16</time>
               </span>
             
           
@@ -2168,585 +2529,6 @@ CSS &#x80FD;&#x81EA;&#x52A8;&#x7EE7;&#x627F;&#x7684;&#x5C5E;&#x6027;</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/11/21/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/21/git/" class="post-title-link" itemprop="url">git</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-21 02:43:31" itemprop="dateCreated datePublished" datetime="2019-11-21T02:43:31+08:00">2019-11-21</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-03 00:37:37" itemprop="dateModified" datetime="2020-07-03T00:37:37+08:00">2020-07-03</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x5B89;&#x88C5;-git">&#x5B89;&#x88C5; git</h2>
-<p>&#x7CFB;&#x7EDF;&#x4F7F;&#x7528; centos7</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src wget https://github.com/git/git/archive/master.zip</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> unzip master.zip</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x7531;&#x4E8E;&#x7CFB;&#x7EDF;&#x4E2D;&#x5DF2;&#x5B58;&#x5728; git&#xFF0C;&#x6240;&#x4EE5;&#x5148;&#x5907;&#x4EFD;&#x73B0;&#x6709; git&#x3002;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mv /usr/bin/git{,.bak}</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x7F16;&#x8BD1;&#x5B89;&#x88C5;</span></span><br><span class="line">cd /usr/local/src/git-master</span><br><span class="line"><span class="meta">$</span><span class="bash"> make configure</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./configure --prefix=/usr/bin</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make &amp;&amp; make install</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x62F7;&#x8D1D;&#x5230;&#x539F;&#x6709; Git &#x6240;&#x5728;&#x4F4D;&#x7F6E;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cp /usr/<span class="built_in">local</span>/src/git-master/git /usr/bin</span></span><br></pre></td></tr></table></figure>
-<h2 id="&#x914D;&#x7F6E;">&#x914D;&#x7F6E;</h2>
-<h3 id="gitignore"><code>gitignore</code></h3>
-<ol type="1">
-<li><code>/mtk</code>&#x8FC7;&#x6EE4;&#x6574;&#x4E2A;&#x6587;&#x4EF6;&#x5939;,&#x4F46;&#x4E0D;&#x8FC7;&#x6EE4;&#x5B50;&#x6587;&#x4EF6;&#x5939;</li>
-<li><code>mtk/</code>&#x8FC7;&#x6EE4;&#x6587;&#x4EF6;&#x5939;&#x6240;&#x6709;&#x6587;&#x4EF6;</li>
-<li><code>\*.zip</code> &#x8FC7;&#x6EE4;&#x6240;&#x6709;<code>.zip</code> &#x6587;&#x4EF6;</li>
-<li><code>/mtk/do.c</code> &#x8FC7;&#x6EE4;&#x67D0;&#x4E2A;&#x5177;&#x4F53;&#x6587;&#x4EF6;</li>
-<li><code>!/mtk/one.txt</code> &#x8FFD;&#x8E2A;&#xFF08;&#x4E0D;&#x8FC7;&#x6EE4;&#xFF09;&#x67D0;&#x4E2A;&#x5177;&#x4F53;&#x6587;&#x4EF6;</li>
-</ol>
-<p>&#x6CE8;&#x610F;&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x521B;&#x5EFA;<code>.gitignore</code> &#x6587;&#x4EF6;&#x4E4B;&#x524D;&#x5C31;<code>push</code>&#x4E86;&#x67D0;&#x4E00;&#x6587;&#x4EF6;&#xFF0C;&#x90A3;&#x4E48;&#x5373;&#x4F7F;&#x4F60;&#x5728;<code>.gitignore</code>&#x6587;&#x4EF6;&#x4E2D;&#x5199;&#x5165;&#x8FC7;&#x6EE4;&#x8BE5;&#x6587;&#x4EF6;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x8BE5;&#x89C4;&#x5219;&#x4E5F;&#x4E0D;&#x4F1A;&#x8D77;&#x4F5C;&#x7528;&#xFF0C;<code>git</code> &#x4ECD;&#x7136;&#x4F1A;&#x5BF9;&#x8BE5;&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x7248;&#x672C;&#x7BA1;&#x7406;&#x3002;</p>
-<h4 id="gitignore&#x4E0D;&#x751F;&#x6548;"><code>gitignore</code>&#x4E0D;&#x751F;&#x6548;</h4>
-<p><code>.gitignore</code> &#x4E2D;&#x5DF2;&#x7ECF;&#x6807;&#x660E;&#x5FFD;&#x7565;&#x7684;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6587;&#x4EF6;&#xFF0C;<code>git push</code> &#x7684;&#x65F6;&#x5019;&#x8FD8;&#x4F1A;&#x51FA;&#x73B0;&#x5728; <code>push</code> &#x7684;&#x76EE;&#x5F55;&#x4E2D;&#xFF0C;&#x539F;&#x56E0;&#x662F;&#x56E0;&#x4E3A;&#x5728; <code>git</code> &#x5FFD;&#x7565;&#x76EE;&#x5F55;&#x4E2D;&#xFF0C;&#x65B0;&#x5EFA;&#x7684;&#x6587;&#x4EF6;&#x5728; <code>git</code> &#x4E2D;&#x4F1A;&#x6709;&#x7F13;&#x5B58;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E9B;&#x6587;&#x4EF6;&#x5DF2;&#x7ECF;&#x88AB;&#x7EB3;&#x5165;&#x4E86;&#x7248;&#x672C;&#x7BA1;&#x7406;&#x4E2D;&#xFF0C;&#x5C31;&#x7B97;&#x662F;&#x5728;<code>.gitignore</code> &#x4E2D;&#x5DF2;&#x7ECF;&#x58F0;&#x660E;&#x4E86;&#x5FFD;&#x7565;&#x8DEF;&#x5F84;&#x4E5F;&#x662F;&#x4E0D;&#x8D77;&#x4F5C;&#x7528;&#x7684;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x5C31;&#x5E94;&#x8BE5;&#x5148;&#x628A;&#x672C;&#x5730;&#x7F13;&#x5B58;&#x5220;&#x9664;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8FDB;&#x884C; <code>git</code> &#x7684; <code>push</code>&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x5FFD;&#x7565;&#x7684;&#x6587;&#x4EF6;&#x4E86;&#x3002;<code>git</code> &#x6E05;&#x9664;&#x672C;&#x5730;&#x7F13;&#x5B58;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;update .gitignore&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="&#x522B;&#x540D;">&#x522B;&#x540D;</h3>
-<p>&#x6211;&#x4EEC;&#x53EF;&#x901A;&#x8FC7;&#x914D;&#x7F6E; alias &#x6765;&#x7B80;&#x5316; git &#x547D;&#x4EE4; <code>git config &#x2013;-global --edit</code>&#x6765;&#x7F16;&#x8F91;<code>[alias]</code>&#x4E0B;&#x9762;&#x7684;&#x914D;&#x7F6E;&#x522B;&#x540D;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line">al = config --get-regexp alias</span><br><span class="line">b = branch</span><br><span class="line">cm = commit -m</span><br><span class="line">co = checkout --</span><br><span class="line">cp = cherry-pick</span><br><span class="line">dt = difftool</span><br><span class="line">mt = mergetool</span><br><span class="line">mg = merge --no-ff -m</span><br><span class="line">l = log --graph --pretty=oneline --abbrev-commit</span><br><span class="line">pl = pull</span><br><span class="line">ps = push</span><br><span class="line">st = status -s</span><br><span class="line">sw = checkout</span><br></pre></td></tr></table></figure>
-<h2 id="&#x67E5;&#x770B;">&#x67E5;&#x770B;</h2>
-<h3 id="&#x67E5;&#x770B;&#x72B6;&#x6001;">&#x67E5;&#x770B;&#x72B6;&#x6001;</h3>
-<p><code>git show</code>&#x9ED8;&#x8BA4;&#x67E5;&#x770B;&#x5F53;&#x524D;<code>&lt;commit&gt;</code>&#x63D0;&#x4EA4;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;<code>git show &lt;commit&gt;</code>&#x67E5;&#x770B;&#x5177;&#x4F53;&#x67D0;&#x4E2A;&#x63D0;&#x4EA4;&#x7684;&#x4FE1;&#x606F; <code>git status</code>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x533A;&#x4E0E;&#x6682;&#x5B58;&#x533A;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;<code>git status -s</code>&#x7B80;&#x5316;&#x8F93;&#x51FA;&#x4FE1;&#x606F;&#x3002;&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#x7684;&#x4FE1;&#x606F;<code>M</code>&#x8868;&#x793A;&#x6709;&#x6539;&#x52A8;,<code>D</code>&#x8868;&#x793A;&#x5220;&#x9664;,<code>??</code>&#x8868;&#x793A;&#x672A;<code>add</code>,<code>A</code>&#x8868;&#x793A;&#x65B0;&#x589E;&#x4F46;&#x672A;&#x63D0;&#x4EA4;</p>
-<blockquote>
-<p>M 1.txt D 2.txt ?? 4.txt A 5.txt</p>
-</blockquote>
-<h3 id="&#x67E5;&#x770B;&#x7F13;&#x5B58;&#x533A;&#x6587;&#x4EF6;">&#x67E5;&#x770B;&#x7F13;&#x5B58;&#x533A;&#x6587;&#x4EF6;</h3>
-<p><code>git ls-fles</code> &#x663E;&#x793A;<code>index</code>&#x548C;&#x5DE5;&#x4F5C;&#x533A;&#x7684;&#x6587;&#x4EF6;&#x7684;&#x4FE1;&#x606F;&#x3002; &#x9009;&#x9879;</p>
-<p>&#x542B;&#x4E49;</p>
-<blockquote>
-<p>-c, --cached &#x663E;&#x793A;&#x7F13;&#x5B58;&#x4E86;&#x7684;&#x6587;&#x4EF6;&#xFF08;&#x9ED8;&#x8BA4;&#xFF09; -d, --deleted &#x663E;&#x793A;&#x5220;&#x9664;&#x4E86;&#x7684;&#x6587;&#x4EF6; -m, --modified &#x663E;&#x793A;&#x4FEE;&#x6539;&#x4E86;&#x7684;&#x6587;&#x4EF6; -o, --others &#x663E;&#x793A;&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;&#x6587;&#x4EF6;&#xFF08;&#x6BD4;&#x5982;&#x672A;&#x8FFD;&#x8E2A;&#x7684;&#xFF09; -i, --ignored &#x663E;&#x793A;&#x5FFD;&#x7565;&#x4E86;&#x7684;&#x6587;&#x4EF6;&#xFF08;&#x6EE1;&#x8DB3;&#x5FFD;&#x7565;&#x6A21;&#x5F0F;&#x7684;&#xFF09; -s, --stage &#x663E;&#x793A;&#x6682;&#x5B58;&#x7684;&#x6761;&#x76EE;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF08;&#x6A21;&#x5F0F;&#x4F4D;&#xFF0C;&#x6587;&#x4EF6;&#x54C8;&#x5E0C;&#x540E;&#x7684;&#x503C;&#xFF0C;&#x6682;&#x5B58;&#x53F7;&#x548C;&#x6587;&#x4EF6;&#x540D;&#xFF09;&#xFF0C;</p>
-</blockquote>
-<h3 id="&#x65E5;&#x5FD7;">&#x65E5;&#x5FD7;</h3>
-<p><code>git log</code> &#x547D;&#x4EE4;&#x663E;&#x793A;&#x4ECE;&#x6700;&#x8FD1;&#x5230;&#x6700;&#x8FDC;&#x7684;&#x63D0;&#x4EA4;&#x65E5;&#x5FD7;,&#x5982;&#x679C;&#x5ACC;&#x8F93;&#x51FA;&#x4FE1;&#x606F;&#x592A;&#x591A;&#xFF0C;&#x770B;&#x5F97;&#x773C;&#x82B1;&#x7F2D;&#x4E71;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x8BD5;&#x8BD5;&#x52A0;&#x4E0A;<code>--pretty=oneline</code>&#x53C2;&#x6570;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure>
-<p>&#x663E;&#x793A;&#x6240;&#x6709;&#x5206;&#x652F;&#x5173;&#x7CFB;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --decorate --oneline --all</span><br></pre></td></tr></table></figure>
-<p>&#x4F7F;&#x7528;&#x81EA;&#x5E26;&#x56FE;&#x5F62;&#x5316;&#x5DE5;&#x5177;&#x67E5;&#x770B;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitk --all</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#xFF0C;&#x663E;&#x793A;&#x5DEE;&#x5F02;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -p &lt;file&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="&#x6BD4;&#x8F83;&#x5DEE;&#x5F02;">&#x6BD4;&#x8F83;&#x5DEE;&#x5F02;</h3>
-<p><code>git diff</code>&#x6BD4;&#x8F83;&#x5DE5;&#x4F5C;&#x533A;&#x548C;&#x7F13;&#x5B58;&#x533A;&#xFF0C;&#x5F53;&#x4FEE;&#x6539;&#x5DE5;&#x4F5C;&#x533A;&#x5185;&#x5BB9;&#x65F6;&#x4E14;&#x672A;<code>add</code>,&#x7F13;&#x5B58;&#x533A;&#x7684;&#x5185;&#x5BB9;&#x5219;&#x4E0E;&#x5DE5;&#x4F5C;&#x533A;&#x6709;&#x5DEE;&#x5F02;&#xFF0C;&#x6B64;&#x65F6;&#x7F13;&#x5B58;&#x533A;&#x4E0E;&#x4ED3;&#x5E93;&#x540C;&#x6837;&#x662F;&#x6CA1;&#x6709;&#x53D8;&#x52A8;&#xFF0C;&#x6240;&#x4EE5;&#x4F7F;&#x7528;<code>git diff --cached</code>,&#x53D1;&#x73B0;&#x6CA1;&#x6709;&#x5DEE;&#x5F02;&#xFF0C;&#x5F53;&#x4F7F;&#x7528;<code>add</code>&#x540E;&#xFF0C;&#x7F13;&#x5B58;&#x533A;&#x5219;&#x548C;&#x5DE5;&#x4F5C;&#x533A;&#x76F8;&#x540C;&#x4E86;&#x3002;&#x5355;&#x56E0;&#x4E3A;&#x6CA1;&#x6709;<code>commit</code>,&#x6240;&#x4EE5;&#x4F7F;&#x7528;<code>git diff --cached</code>&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5DEE;&#x5F02;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5F53;&#x4F7F;&#x7528;<code>commit</code>&#x540E;&#xFF0C;&#x5219;&#x53D8;&#x6210;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;<br>
-&#x7528; <code>git diff HEAD -- readme.txt</code> &#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x5DE5;&#x4F5C;&#x533A;&#x548C;&#x7248;&#x672C;&#x5E93;&#x91CC;&#x9762;&#x6700;&#x65B0;&#x7248;&#x672C;&#x7684;&#x533A;&#x522B;&#xFF0C;<code>HEAD</code>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>git log</code>&#x6216;&#x8005;<code>git reflog</code>&#x67E5;&#x770B;&#x7684;&#x7248;&#x672C;&#x53F7;&#x66FF;&#x6362;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br><span class="line">git diff --cached</span><br><span class="line">git diff HEAD</span><br><span class="line"></span><br><span class="line">git diff -- file</span><br><span class="line">git diff --cached --file</span><br><span class="line">git diff HEAD -- file</span><br></pre></td></tr></table></figure>
-<p>&#x53EF;&#x4F7F;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x8F6F;&#x4EF6;&#x6765;&#x6BD4;&#x8F83; &#x76EE;&#x524D;<code>mac</code>&#x4E0A;&#x5B89;&#x88C5;&#x7684;&#x662F;<code>Kaleidoscope</code> <code>git difftool</code>&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x7C7B;&#x4F3C;<code>git diff</code></p>
-<p>&#x6BD4;&#x8F83;&#x4E24;&#x4E2A;<code>commit</code>&#x7684;&#x5DEE;&#x5F02;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;commit1&gt; &lt;commit2&gt;</span><br></pre></td></tr></table></figure>
-<p>&#x8981;&#x67E5;&#x770B;&#x6709;&#x54EA;&#x4E9B;&#x6587;&#x4EF6;&#x53D1;&#x751F;&#x4E86;&#x53D8;&#x5316;&#xFF0C;&#x53EF;&#x4EE5;&#x52A0;&#x4E0A;--stat &#x53C2;&#x6570;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;commit1&gt; &lt;commit2&gt; --stat</span><br></pre></td></tr></table></figure>
-<p>&#x82E5;&#x60F3;&#x67E5;&#x770B;&#x76EE;&#x5F55;&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;--dirstat</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;commit1&gt; &lt;commit2&gt; --dirstat=files</span><br></pre></td></tr></table></figure>
-<p>&#x4EC5;&#x67E5;&#x770B;&#x67D0;&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;&#x7248;&#x672C;&#x5DEE;&#x5F02;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --stat &lt;commit1&gt; &lt;commit2&gt; dir</span><br></pre></td></tr></table></figure>
-<p>&#x663E;&#x793A;&#x51B2;&#x7A81;<code>conflict</code> &#x6587;&#x4EF6;,<code>--diff-filter</code>&#x4E5F;&#x53EF;&#x7528;&#x6765;&#x8FC7;&#x6EE4;&#x65B0;&#x589E;&#x6587;&#x4EF6;&#x7B49;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --name-only --diff-filter=U</span><br></pre></td></tr></table></figure>
-<h3 id="&#x547D;&#x4EE4;&#x5386;&#x53F2;&#x8BB0;&#x5F55;">&#x547D;&#x4EE4;&#x5386;&#x53F2;&#x8BB0;&#x5F55;</h3>
-<p><code>git reflog</code>&#x7528;&#x6765;&#x8BB0;&#x5F55;&#x4F60;&#x7684;&#x6BCF;&#x4E00;&#x6B21;&#x547D;&#x4EE4;</p>
-<h3 id="&#x67E5;&#x627E;&#x4E22;&#x5931;&#x8BB0;&#x5F55;">&#x67E5;&#x627E;&#x4E22;&#x5931;&#x8BB0;&#x5F55;</h3>
-<p><code>git fsck --full</code>&#x68C0;&#x67E5;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x3002; &#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E00;&#x4E2A; --full &#x9009;&#x9879;&#x8FD0;&#x884C;&#x5B83;&#xFF0C;&#x5B83;&#x4F1A;&#x5411;&#x4F60;&#x663E;&#x793A;&#x51FA;&#x6240;&#x6709;&#x6CA1;&#x6709;&#x88AB;&#x5176;&#x4ED6;&#x5BF9;&#x8C61;&#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#xFF1A;</p>
-<h2 id="&#x63D0;&#x4EA4;">&#x63D0;&#x4EA4;</h2>
-<h3 id="&#x8FFD;&#x52A0;&#x63D0;&#x4EA4;">&#x8FFD;&#x52A0;&#x63D0;&#x4EA4;</h3>
-<p>&#x91CD;&#x5199;&#x66F4;&#x6539;&#x63D0;&#x4EA4;&#x4FE1;&#x606F;,&#x6267;&#x884C;&#x540E;&#x4F1A;&#x628A;&#x6700;&#x8FD1;<code>add</code>&#x7684;&#x5185;&#x5BB9;&#x4E00;&#x5E76;&#x653E;&#x5165;&#x5230;&#x6B64;&#x6B21;<code>commit</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
-<h2 id="&#x56DE;&#x9000;&#x64A4;&#x9500;">&#x56DE;&#x9000;,&#x64A4;&#x9500;</h2>
-<p><code>HEAD^</code>&#x6216;<code>HEAD~</code>&#x8868;&#x793A;&#x4E0A;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#xFF0C;&#x7528;<code>git log</code>&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x63D0;&#x4EA4;&#x5386;&#x53F2;&#xFF0C;&#x4EE5;&#x4FBF;&#x786E;&#x5B9A;&#x8981;&#x56DE;&#x9000;&#x5230;&#x54EA;&#x4E2A;&#x7248;&#x672C;&#x3002;<code>git reflog</code>&#x67E5;&#x770B;&#x547D;&#x4EE4;&#x5386;&#x53F2;&#xFF0C;&#x4EE5;&#x4FBF;&#x786E;&#x5B9A;&#x8981;&#x56DE;&#x5230;&#x672A;&#x6765;&#x7684;&#x54EA;&#x4E2A;&#x7248;&#x672C;&#x3002;</p>
-<h3 id="checkout"><code>checkout</code></h3>
-<ol type="1">
-<li>&#x672A;<code>add</code>&#x5230;<code>stage</code>&#x65F6;&#x53EF;&#x7528;<code>git checkout -- file</code>,&#x4E22;&#x5F03;&#x5DE5;&#x4F5C;&#x533A;&#x7684;&#x4FEE;&#x6539;&#x3002;</li>
-<li>&#x4EE5;<code>add</code>&#x5230;<code>stage</code>&#x5148;&#x7528;<code>git reset HEAD &lt;file&gt;</code>&#x53EF;&#x4EE5;&#x628A;&#x6682;&#x5B58;&#x533A;&#x7684;&#x4FEE;&#x6539;&#x64A4;&#x9500;&#x6389;&#xFF08;<code>unstage</code>&#xFF09;&#xFF0C;&#x91CD;&#x65B0;&#x653E;&#x56DE;&#x5DE5;&#x4F5C;&#x533A;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x4E22;&#x5F03;&#x5DE5;&#x4F5C;&#x533A;&#x4FEE;&#x6539;</li>
-<li><code>git checkout &lt;branch&gt;</code>&#x5207;&#x6362;&#x5206;&#x652F;</li>
-<li><code>git checkout -b &lt;branch&gt; &lt;commit&gt;</code> &#x5728;<code>commit</code>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5206;&#x652F;</li>
-</ol>
-<h3 id="reset"><code>reset</code></h3>
-<figure>
-<img src="/images/&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png" alt="&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png"><figcaption>&#x6DF1;&#x5165;git_reset&#x7EC6;&#x8282;.png</figcaption>
-</figure>
-<h3 id="revert"><code>revert</code></h3>
-<blockquote>
-<p><code>git revert &lt;commit&gt;</code>&#xFF0C;&#x64A4;&#x9500;&#x63D0;&#x4EA4;&#x3002;&#x4E0D;&#x540C;&#x4E8E;<code>reset</code>&#xFF0C;<code>revert</code>&#x4E0D;&#x662F;&#x56DE;&#x9000;&#x7248;&#x672C;&#xFF0C;&#x800C;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x53CD;&#x5411;&#x7684;&#x63D0;&#x4EA4;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x4F1A;&#x8FDB;&#x5165;&#x4EA4;&#x4E92;&#x6A21;&#x5F0F;&#xFF0C;&#x9700;&#x8981;&#x586B;&#x5199;&#x65B0;&#x7684;<code>commit</code>&#x4FE1;&#x606F; <code>git revert -n &lt;commit&gt;</code>,&#x64A4;&#x9500;&#x63D0;&#x4EA4;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x52A8;<code>commit</code></p>
-</blockquote>
-<h3 id="apply"><code>apply</code></h3>
-<p>&#x8865;&#x4E01;</p>
-<h2 id="&#x5206;&#x652F;">&#x5206;&#x652F;</h2>
-<h3 id="&#x521B;&#x5EFA;&#x5206;&#x652F;">&#x521B;&#x5EFA;&#x5206;&#x652F;</h3>
-<p>&#x6211;&#x4EEC;&#x521B;&#x5EFA;<code>dev</code>&#x5206;&#x652F;&#xFF0C;&#x7136;&#x540E;&#x5207;&#x6362;&#x5230;<code>dev</code>&#x5206;&#x652F;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev`</span><br></pre></td></tr></table></figure>
-<h3 id="&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5206;&#x652F;">&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5206;&#x652F;</h3>
-<p>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5206;&#x652F;&#xFF0C;&#x5F53;&#x524D;&#x5206;&#x652F;&#x524D;&#x9762;&#x4F1A;&#x6807;&#x4E00;&#x4E2A;<code>*</code>&#x53F7;&#x3002;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch`</span><br></pre></td></tr></table></figure>
-<h3 id="&#x91CD;&#x547D;&#x540D;&#x5206;&#x652F;">&#x91CD;&#x547D;&#x540D;&#x5206;&#x652F;</h3>
-<p>&#x5728;&#x5F53;&#x524D;&#x5206;&#x652F;&#x4E0B;&#x91CD;&#x547D;&#x540D;&#x5206;&#x652F;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m new-name</span><br></pre></td></tr></table></figure>
-<h3 id="&#x5206;&#x652F;&#x7B56;&#x7565;">&#x5206;&#x652F;&#x7B56;&#x7565;</h3>
-<p>&#x9996;&#x5148;&#xFF0C;<code>master</code>&#x5206;&#x652F;&#x5E94;&#x8BE5;&#x662F;&#x975E;&#x5E38;&#x7A33;&#x5B9A;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4EC5;&#x7528;&#x6765;&#x53D1;&#x5E03;&#x65B0;&#x7248;&#x672C;&#xFF0C;&#x5E73;&#x65F6;&#x4E0D;&#x80FD;&#x5728;&#x4E0A;&#x9762;&#x5E72;&#x6D3B;&#xFF1B;&#x90A3;&#x5728;&#x54EA;&#x5E72;&#x6D3B;&#x5462;&#xFF1F;&#x5E72;&#x6D3B;&#x90FD;&#x5728;<code>dev</code>&#x5206;&#x652F;&#x4E0A;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;<code>dev</code>&#x5206;&#x652F;&#x662F;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;&#xFF0C;&#x5230;&#x67D0;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x6BD4;&#x5982;<code>1.0</code>&#x7248;&#x672C;&#x53D1;&#x5E03;&#x65F6;&#xFF0C;&#x518D;&#x628A;<code>dev</code>&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;<code>master</code>&#x4E0A;&#xFF0C;&#x5728;<code>master</code>&#x5206;&#x652F;&#x53D1;&#x5E03;<code>1.0</code>&#x7248;&#x672C;&#xFF1B;&#x4F60;&#x548C;&#x4F60;&#x7684;&#x5C0F;&#x4F19;&#x4F34;&#x4EEC;&#x6BCF;&#x4E2A;&#x4EBA;&#x90FD;&#x5728;<code>dev</code>&#x5206;&#x652F;&#x4E0A;&#x5E72;&#x6D3B;&#xFF0C;&#x6BCF;&#x4E2A;&#x4EBA;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x5206;&#x652F;&#xFF0C;&#x65F6;&#x4E0D;&#x65F6;&#x5730;&#x5F80;<code>dev</code>&#x5206;&#x652F;&#x4E0A;&#x5408;&#x5E76;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
-<p>&#x6240;&#x4EE5;&#xFF0C;&#x56E2;&#x961F;&#x5408;&#x4F5C;&#x7684;&#x5206;&#x652F;&#x770B;&#x8D77;&#x6765;&#x5C31;&#x50CF;&#x8FD9;&#x6837;&#xFF1A; <img src="/images/git_2019-12-05-00-32-43.png" alt="git_2019-12-05-00-32-43.png"></p>
-<h3 id="&#x5408;&#x5E76;&#x5206;&#x652F;">&#x5408;&#x5E76;&#x5206;&#x652F;</h3>
-<p>&#x5408;&#x5E76;&#x5206;&#x652F;,&#x628A;<code>dev</code>&#x5206;&#x652F;&#x7684;&#x5DE5;&#x4F5C;&#x6210;&#x679C;&#x5408;&#x5E76;&#x5230;<code>master</code>&#x5206;&#x652F;&#x4E0A;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
-<p>&#x901A;&#x5E38;&#xFF0C;&#x5408;&#x5E76;&#x5206;&#x652F;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x53EF;&#x80FD;&#xFF0C;<code>Git</code>&#x4F1A;&#x7528;<code>Fast forward</code>&#x6A21;&#x5F0F;&#xFF0C;&#x4F46;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x5220;&#x9664;&#x5206;&#x652F;&#x540E;&#xFF0C;&#x4F1A;&#x4E22;&#x6389;&#x5206;&#x652F;&#x4FE1;&#x606F;&#x3002;&#x5982;&#x679C;&#x8981;&#x5F3A;&#x5236;&#x7981;&#x7528;<code>Fast forward</code>&#x6A21;&#x5F0F;&#xFF0C;<code>Git</code>&#x5C31;&#x4F1A;&#x5728;<code>merge</code>&#x65F6;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>commit</code>&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x4ECE;&#x5206;&#x652F;&#x5386;&#x53F2;&#x4E0A;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x5206;&#x652F;&#x4FE1;&#x606F;&#x3002;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge --no-ff -m &quot;merge with no-ff&quot; dev</span><br></pre></td></tr></table></figure>
-<h3 id="&#x5220;&#x9664;&#x5206;&#x652F;">&#x5220;&#x9664;&#x5206;&#x652F;</h3>
-<p>&#x5982;&#x679C;&#x8981;&#x4E22;&#x5F03;&#x4E00;&#x4E2A;&#x6CA1;&#x6709;&#x88AB;&#x5408;&#x5E76;&#x8FC7;&#x7684;&#x5206;&#x652F;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>git branch -D &lt;name&gt;</code>&#x5F3A;&#x884C;&#x5220;&#x9664;&#x3002;</p>
-<h3 id="&#x79FB;&#x52A8;&#x5206;&#x652F;">&#x79FB;&#x52A8;&#x5206;&#x652F;</h3>
-<p>&#x6211;&#x6709;&#x4E24;&#x4E2A;<code>git</code>&#x5206;&#x652F;&#xFF0C;<code>A</code>&#x548C;<code>B</code>&#xFF0C;&#x5E76;&#x63D0;&#x4EA4;&#x7F16;&#x53F7; 1 &#x5230; 8&#x3002;&#x6211;&#x7684;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x5982;&#x4E0B;</p>
-<blockquote>
-<p>1 -&gt; 2 -&gt; 3 -&gt; 4[A] -&gt; 5 -&gt; 6 -&gt; 7 -&gt; 8[B]</p>
-</blockquote>
-<p>&#x6211;&#x60F3;&#x66F4;&#x6539;&#x5B83;&#xFF0C;&#x4EE5;&#x4FBF;&#x6211;&#x7684;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x5982;&#x4E0B;&#xFF1A;</p>
-<blockquote>
-<p>1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6[A] -&gt; 7 -&gt; 8[B]</p>
-</blockquote>
-<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x60F3;&#x5C06;&#x5206;&#x652F;<code>A</code>&#x7684;&#x5934;&#x4ECE;&#x63D0;&#x4EA4; 4 &#x79FB;&#x52A8;&#x5230;&#x63D0;&#x4EA4; 6&#x3002;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -f A 6</span><br></pre></td></tr></table></figure>
-<h3 id="&#x6311;&#x9009;&#x63D0;&#x4EA4;">&#x6311;&#x9009;&#x63D0;&#x4EA4;</h3>
-<p>&#x540C;&#x4E0A;&#x793A;&#x4F8B;&#xFF0C;&#x52A0;&#x5165;<code>A</code>&#x5206;&#x652F;&#x4EC5;&#x5E0C;&#x671B;&#x7528; 7 &#x8FD9;&#x4E2A;&#x63D0;&#x4EA4; &#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>cherry-pick</code>,&#x5728;<code>A</code>&#x5206;&#x652F;&#x4E0B;&#x4F7F;&#x7528;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  cherry-pick 7</span><br></pre></td></tr></table></figure>
-<h3 id="&#x6311;&#x9009;&#x6587;&#x4EF6;">&#x6311;&#x9009;&#x6587;&#x4EF6;</h3>
-<p>&#x5F53;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7528;&#x522B;&#x7684;&#x5206;&#x652F;&#x7684;&#x6587;&#x4EF6;&#x8986;&#x76D6;&#x672C;&#x5206;&#x652F;&#x7684;&#x6587;&#x4EF6;&#x65F6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C;&#x8BE5;&#x547D;&#x4EE4;&#x4F1A;&#x540C;&#x65F6;&#x8986;&#x76D6;&#x5DE5;&#x4F5C;&#x533A;&#x548C;&#x7F13;&#x5B58;&#x533A;&#x7684;&#x6587;&#x4EF6;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;branch&gt; &lt;file&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="&#x6807;&#x7B7E;">&#x6807;&#x7B7E;</h2>
-<h3 id="&#x65B0;&#x5EFA;&#x6807;&#x7B7E;">&#x65B0;&#x5EFA;&#x6807;&#x7B7E;</h3>
-<p>&#x5206;&#x652F;&#x6253;&#x6807;&#x7B7E;&#xFF0C;&#x9ED8;&#x8BA4;&#x6807;&#x7B7E;&#x662F;&#x6253;&#x5728;&#x6700;&#x65B0;&#x63D0;&#x4EA4;&#x7684;<code>commit</code>&#x4E0A;&#x7684;&#x3002;&#x8FD8;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x5E26;&#x6709;&#x8BF4;&#x660E;&#x7684;&#x6807;&#x7B7E;&#xFF0C;&#x7528;<code>-a</code>&#x6307;&#x5B9A;&#x6807;&#x7B7E;&#x540D;&#xFF0C;<code>-m</code>&#x6307;&#x5B9A;&#x8BF4;&#x660E;&#x6587;&#x5B57;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0</span><br><span class="line">git tag -a v0.1 -m &quot;version 0.1 released&quot;</span><br></pre></td></tr></table></figure>
-<p>&#x9ED8;&#x8BA4;&#x6807;&#x7B7E;&#x662F;&#x6253;&#x5728;&#x6700;&#x65B0;&#x63D0;&#x4EA4;&#x7684;<code>commit</code>&#x4E0A;&#x7684;&#x3002;&#x6709;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x5FD8;&#x4E86;&#x6253;&#x6807;&#x7B7E;&#xFF0C;&#x6BD4;&#x5982;&#xFF0C;&#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x662F;&#x5468;&#x4E94;&#x4E86;&#xFF0C;&#x4F46;&#x5E94;&#x8BE5;&#x5728;&#x5468;&#x4E00;&#x6253;&#x7684;&#x6807;&#x7B7E;&#x6CA1;&#x6709;&#x6253;&#xFF0C;&#x600E;&#x4E48;&#x529E;&#xFF1F;<br>
-&#x65B9;&#x6CD5;&#x662F;&#x627E;&#x5230;&#x5386;&#x53F2;&#x63D0;&#x4EA4;&#x7684;<code>commit id</code>&#xFF0C;&#x7136;&#x540E;&#x6253;&#x4E0A;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v0.9 f52c633</span><br></pre></td></tr></table></figure>
-<h3 id="&#x5220;&#x9664;&#x6807;&#x7B7E;">&#x5220;&#x9664;&#x6807;&#x7B7E;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d v0.1</span><br></pre></td></tr></table></figure>
-<h3 id="&#x67E5;&#x770B;&#x6807;&#x7B7E;">&#x67E5;&#x770B;&#x6807;&#x7B7E;</h3>
-<p>&#x67E5;&#x770B;&#x6240;&#x6709;&#x6807;&#x7B7E;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x6807;&#x7B7E;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6807;&#x7B7E;&#x8BF4;&#x660E;&#x6587;&#x5B57;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show tag</span><br></pre></td></tr></table></figure>
-<h3 id="&#x64CD;&#x4F5C;&#x6807;&#x7B7E;">&#x64CD;&#x4F5C;&#x6807;&#x7B7E;</h3>
-<p>&#x7C7B;&#x4F3C;<code>&lt;commit&gt;</code>&#x7684;&#x4F5C;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>checkout</code>,<code>reset</code>&#x7B49;</p>
-<h3 id="&#x66F4;&#x65B0;&#x8FDC;&#x7A0B;&#x6807;&#x7B7E;">&#x66F4;&#x65B0;&#x8FDC;&#x7A0B;&#x6807;&#x7B7E;</h3>
-<p>&#x5F53;&#x4F7F;&#x7528;<code>git fetch</code>&#x547D;&#x4EE4;&#x65F6;&#xFF0C;&#x672C;&#x5730;&#x5DF2;&#x7ECF;&#x6709;&#x7684;&#x6807;&#x7B7E;&#x4E0D;&#x4F1A;&#x88AB;&#x66F4;&#x65B0;&#x4E3A;&#x8FDC;&#x7A0B;&#x7684;&#x503C; &#x6211;&#x4EEC;&#x9700;&#x8981;&#x5148;&#x5C06;&#x672C;&#x5730;&#x7684;&#x6807;&#x7B7E;&#x5220;&#x9664;&#x540E;&#x518D;&#x66F4;&#x65B0;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -l |xargs git tag -d</span><br></pre></td></tr></table></figure>
-<h2 id="rebase"><code>rebase</code></h2>
-<p>&#x63D0;&#x4EA4;&#x4FE1;&#x606F;&#x8FC7;&#x591A;&#x8FC7;&#x6742;&#xFF0C;&#x6216;&#x8005;&#x5206;&#x652F;&#x5408;&#x5E76;&#x64CD;&#x4F5C;&#x8FC7;&#x591A;,&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>git rebase</code>&#x6574;&#x7406;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i ID #-i&#x4EA4;&#x4E92;&#x6A21;&#x5F0F;&#xFF0C;&#x6765;&#x89C9;&#x5F97;&#x54EA;&#x4E9B;&#x5206;&#x652F;&#x7684;&#x8BB0;&#x5F55;&#x4F1A;&#x88AB;&#x4FDD;&#x7559;</span><br></pre></td></tr></table></figure>
-<p>&#x4EA4;&#x4E92;&#x6A21;&#x5F0F;&#x7684;<code>command</code>&#x9009;&#x9879;</p>
-<blockquote>
-<p>pick&#xFF1A;&#x6B63;&#x5E38;&#x9009;&#x4E2D; reword&#xFF1A;&#x9009;&#x4E2D;&#xFF0C;&#x5E76;&#x4E14;&#x4FEE;&#x6539;&#x63D0;&#x4EA4;&#x4FE1;&#x606F;&#xFF1B; edit&#xFF1A;&#x9009;&#x4E2D;&#xFF0C;rebase &#x65F6;&#x4F1A;&#x6682;&#x505C;&#xFF0C;&#x5141;&#x8BB8;&#x4F60;&#x4FEE;&#x6539;&#x8FD9;&#x4E2A; commit&#xFF08;&#x53C2;&#x8003;&#x8FD9;&#x91CC;&#xFF09; squash&#xFF1A;&#x9009;&#x4E2D;&#xFF0C;&#x4F1A;&#x5C06;&#x5F53;&#x524D; commit &#x4E0E;&#x4E0A;&#x4E00;&#x4E2A; commit &#x5408;&#x5E76; fixup&#xFF1A;&#x4E0E; squash &#x76F8;&#x540C;&#xFF0C;&#x4F46;&#x4E0D;&#x4F1A;&#x4FDD;&#x5B58;&#x5F53;&#x524D; commit &#x7684;&#x63D0;&#x4EA4;&#x4FE1;&#x606F; exec&#xFF1A;&#x6267;&#x884C;&#x5176;&#x4ED6; shell &#x547D;&#x4EE4; merge:&#x5C06;&#x51E0;&#x4E2A; commit &#x5408;&#x5E76;&#x4E3A;&#x4E00;&#x4E2A; commit</p>
-</blockquote>
-<h3 id="&#x5408;&#x5E76;&#x7B2C;&#x4E00;&#x6761;&#x548C;&#x7B2C;&#x4E8C;&#x6761;&#x8BB0;&#x5F55;">&#x5408;&#x5E76;&#x7B2C;&#x4E00;&#x6761;&#x548C;&#x7B2C;&#x4E8C;&#x6761;&#x8BB0;&#x5F55;</h3>
-<ol type="1">
-<li>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x5F53;&#x524D;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55; <img src="/images/git_2020-01-04-11-18-26.png" alt="git_2020-01-04-11-18-26.png"></li>
-<li>&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>git rebase -i da0e80b</code> <img src="/images/git_2020-01-04-11-19-59.png" alt="git_2020-01-04-11-19-59.png"></li>
-<li>&#x5C06;<code>df060c5</code>&#x524D;&#x66F4;&#x6539;&#x4E3A;<code>edit</code>&#x72B6;&#x6001;&#x540E;&#x4FDD;&#x5B58;&#x9000;&#x51FA; <img src="/images/git_2020-01-04-11-21-41.png" alt="git_2020-01-04-11-21-41.png"></li>
-<li>&#x4F7F;&#x7528;<code>git reset --soft HEAD^</code>,&#x4FDD;&#x7559;&#x7B2C;&#x4E8C;&#x7248;&#x7684;&#x6539;&#x52A8;&#x56DE;&#x9000;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x7248;&#x672C; <img src="/images/git_2020-01-04-11-27-41.png" alt="git_2020-01-04-11-27-41.png"></li>
-<li>&#x5C06;&#x6539;&#x52A8;&#x8FFD;&#x52A0;&#x63D0;&#x4EA4;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x5373;&#x53EF;<code>git commmit --amend</code> <img src="/images/git_2020-01-04-11-29-59.png" alt="git_2020-01-04-11-29-59.png"></li>
-<li>&#x7EE7;&#x7EED;<code>rebase</code>,&#x4F7F;&#x7528;<code>git rebase --continue</code> <img src="/images/git_2020-01-04-11-30-56.png" alt="git_2020-01-04-11-30-56.png"></li>
-</ol>
-<p>&#x5F53;&#x7136;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x66F4;&#x7B80;&#x5355;&#x7684;&#x547D;&#x4EE4;<code>git rebase -i --root</code></p>
-<h3 id="&#x5408;&#x5E76;&#x7B56;&#x7565;">&#x5408;&#x5E76;&#x7B56;&#x7565;</h3>
-<p>&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF0C;&#x4EC5;&#x4ECB;&#x7ECD;&#x4E24;&#x4E2A;&#x7B56;&#x7565;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;branch&gt; --strategy=&lt;strategy&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="ours"><code>ours</code></h4>
-<p>&#x5728;&#x5408;&#x5E76;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x65E0;&#x8BBA;&#x6709;&#x591A;&#x5C11;&#x4E2A;&#x5408;&#x5E76;&#x5206;&#x652F;&#xFF0C;&#x5F53;&#x524D;&#x5206;&#x652F;&#x5C31;&#x76F4;&#x63A5;&#x662F;&#x6700;&#x7EC8;&#x7684;&#x5408;&#x5E76;&#x7ED3;&#x679C;&#x3002;&#x65E0;&#x8BBA;&#x5176;&#x4ED6;&#x4EBA;&#x6709;&#x591A;&#x5C11;&#x4FEE;&#x6539;&#xFF0C;&#x5728;&#x6B64;&#x6B21;&#x5408;&#x5E76;&#x4E4B;&#x540E;&#xFF0C;&#x90FD;&#x5C06;&#x4E0D;&#x5B58;&#x5728;&#xFF08;&#x5F53;&#x7136;&#x5386;&#x53F2;&#x91CC;&#x9762;&#x8FD8;&#x6709;&#xFF09;&#x3002;&#x4F60;&#x53EF;&#x80FD;&#x89C9;&#x5F97;&#x8FD9;&#x79CD;&#x4E22;&#x5931;&#x6539;&#x52A8;&#x7684;&#x5408;&#x5E76;&#x7B56;&#x7565;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#x3002;&#x4F46;&#x5982;&#x679C;&#x4F60;&#x51C6;&#x5907;&#x91CD;&#x65B0;&#x5728;&#x4F60;&#x7684;&#x4ED3;&#x5E93;&#x4E2D;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#xFF08;&#x7A0B;&#x5E8F;&#x5458;&#x6700;&#x559C;&#x6B22;&#x7684;&#x91CD;&#x6784;&#xFF09;&#xFF0C;&#x90A3;&#x4E48;&#x5F53;&#x4F60;&#x7684;&#x4FEE;&#x6539;&#x4E0E;&#x65E7;&#x5206;&#x652F;&#x5408;&#x5E76;&#x65F6;&#xFF0C;&#x91C7;&#x7528;&#x6B64;&#x5408;&#x5E76;&#x7B56;&#x7565;&#x5C31;&#x975E;&#x5E38;&#x6709;&#x7528;&#xFF0C;&#x4F60;&#x65B0;&#x7684;&#x91CD;&#x6784;&#x4EE3;&#x7801;&#x5C06;&#x5B8C;&#x5168;&#x4E0D;&#x4F1A;&#x88AB;&#x65E7;&#x5206;&#x652F;&#x7684;&#x6539;&#x52A8;&#x6240;&#x5F71;&#x54CD;&#x3002;</p>
-<h4 id="recursive"><code>recursive</code></h4>
-<p>&#x9ED8;&#x8BA4;&#x7684;&#x5408;&#x5E76;&#x7B56;&#x7565;&#x662F;<code>recursive</code>,&#x6B64;&#x7B56;&#x7565;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x989D;&#x5916;&#x53C2;&#x6570;</p>
-<ol type="1">
-<li><p><code>ours</code>&#x5982;&#x679C;&#x4E0D;&#x51B2;&#x7A81;&#xFF0C;&#x90A3;&#x4E48;&#x4E0E;&#x9ED8;&#x8BA4;&#x7684;&#x5408;&#x5E76;&#x65B9;&#x5F0F;&#x76F8;&#x540C;&#x3002;&#x4F46;&#x5982;&#x679C;&#x53D1;&#x751F;&#x51B2;&#x7A81;&#xFF0C;&#x5C06;&#x81EA;&#x52A8;&#x5E94;&#x7528;&#x81EA;&#x5DF1;&#x8FD9;&#x4E00;&#x65B9;&#x7684;&#x4FEE;&#x6539;&#x3002;&#x6CE8;&#x610F;&#x7B56;&#x7565;&#x91CC;&#x9762;&#x4E5F;&#x6709;&#x4E00;&#x4E2A;<code>ours</code>&#xFF0C;&#x4E0E;&#x8FD9;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x3002;</p></li>
-<li><p><code>theirs</code>&#x8FD9;&#x4E0E; <code>ours</code>&#x76F8;&#x53CD;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x51B2;&#x7A81;&#xFF0C;&#x90A3;&#x4E48;&#x4E0E;&#x9ED8;&#x8BA4;&#x7684;&#x5408;&#x5E76;&#x65B9;&#x5F0F;&#x76F8;&#x540C;&#x3002;&#x4F46;&#x5982;&#x679C;&#x53D1;&#x751F;&#x51B2;&#x7A81;&#xFF0C;&#x5C06;&#x81EA;&#x52A8;&#x5E94;&#x7528;&#x6765;&#x81EA;&#x5176;&#x4ED6;&#x4EBA;&#x7684;&#x4FEE;&#x6539;&#xFF08;&#x4E5F;&#x5C31;&#x662F; <code>merge</code>&#x53C2;&#x6570;&#x4E2D;&#x6307;&#x5B9A;&#x7684;&#x90A3;&#x4E2A;&#x5206;&#x652F;&#x7684;&#x4FEE;&#x6539;&#xFF09;&#x3002;</p></li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git merge --no-ff -m &apos;msg&apos; &lt;branch&gt; --strategy=recursive --strategy-option=theirs</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x6210;</span></span><br><span class="line">git merge --no-ff -m &apos;msg&apos; &lt;branch&gt; --strategy-option=theirs</span><br></pre></td></tr></table></figure>
-<h2 id="&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;">&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;</h2>
-<h3 id="&#x5C06;&#x65B0;&#x9879;&#x76EE;&#x5BFC;&#x5165;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;">&#x5C06;&#x65B0;&#x9879;&#x76EE;&#x5BFC;&#x5165;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin &lt;uri&gt;</span><br><span class="line">git remote rename origin old-origin #&#x91CD;&#x547D;&#x540D;</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;init &apos;</span><br><span class="line">git push -u origin master</span><br><span class="line">git push -u origin  --all #&#x63A8;&#x9001;&#x6240;&#x6709;&#x5206;&#x652F;</span><br></pre></td></tr></table></figure>
-<h3 id="&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;">&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote</span><br></pre></td></tr></table></figure>
-<h3 id="&#x5220;&#x9664;&#x8FDC;&#x7A0B;&#x5206;&#x652F;">&#x5220;&#x9664;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x8FDC;&#x7A0B;&#x5DF2;&#x7ECF;&#x5220;&#x9664;&#x7684;&#x5206;&#x652F;&#xFF0C;&#x5728;&#x672C;&#x5730;&#x6267;&#x884C; git branch -a &#x663E;&#x793A;&#x8FD8;&#x5B58;&#x5728;&#xFF0C;&#x53EF;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;&#x5220;&#x9664;</span></span><br><span class="line">git remote prune origin</span><br></pre></td></tr></table></figure>
-<h3 id="&#x62C9;&#x53D6;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;&#x7684;&#x66F4;&#x65B0;">&#x62C9;&#x53D6;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;&#x7684;&#x66F4;&#x65B0;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git fetch --all</span><br><span class="line">git fetch -p #&#x4F1A;&#x81EA;&#x52A8;&#x5220;&#x9664;&#x672C;&#x5730;&#x5DF2;&#x7ECF;&#x5931;&#x6548;&#x7684;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</span><br></pre></td></tr></table></figure>
-<h3 id="&#x5F3A;&#x5236;&#x66F4;&#x65B0;&#x8986;&#x76D6;&#x4E3A;&#x8FDC;&#x7A0B;&#x5206;&#x652F;">&#x5F3A;&#x5236;&#x66F4;&#x65B0;&#x8986;&#x76D6;&#x4E3A;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;remote&gt;/&lt;branch&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="&#x63A8;&#x9001;&#x5230;&#x8FDC;&#x7A0B;">&#x63A8;&#x9001;&#x5230;&#x8FDC;&#x7A0B;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push #&#x63A8;&#x9001;&#x524D;&#x4F1A;&#x6821;&#x9A8C;&#x662F;&#x5426;&#x5728;&#x6700;&#x65B0;&#x72B6;&#x6001;</span><br><span class="line">git push -f #&#x5F3A;&#x5236;&#x63A8;&#x9001;</span><br></pre></td></tr></table></figure>
-<h2 id="git&#x539F;&#x7406;"><code>Git</code>&#x539F;&#x7406;</h2>
-<p>&#x53C2;&#x8003;<a href="/2020/06/28/&#x6DF1;&#x5165;git/" title="&#x6DF1;&#x5165;git">&#x6DF1;&#x5165;git</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/11/20/分布式锁实现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/20/分布式锁实现/" class="post-title-link" itemprop="url">分布式锁实现</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-20 01:10:40" itemprop="dateCreated datePublished" datetime="2019-11-20T01:10:40+08:00">2019-11-20</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x4E34;&#x754C;&#x533A;">&#x4E34;&#x754C;&#x533A;</h2>
-<p>&#x4E34;&#x754C;&#x533A;&#x6307;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x8BBF;&#x95EE;&#x5171;&#x7528;&#x8D44;&#x6E90;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;&#x5171;&#x7528;&#x8BBE;&#x5907;&#x6216;&#x662F;&#x5171;&#x7528;&#x5B58;&#x50A8;&#x5668;&#xFF09;&#x7684;&#x7A0B;&#x5E8F;&#x7247;&#x6BB5;&#xFF0C;&#x800C;&#x8FD9;&#x4E9B;&#x5171;&#x7528;&#x8D44;&#x6E90;&#x53C8;&#x65E0;&#x6CD5;&#x540C;&#x65F6;&#x88AB;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x7684;&#x7279;&#x6027;&#x3002;&#x5F53;&#x6709;&#x7EBF;&#x7A0B;&#x8FDB;&#x5165;&#x4E34;&#x754C;&#x533A;&#x6BB5;&#x65F6;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x6216;&#x662F;&#x8FDB;&#x7A0B;&#x5FC5;&#x987B;&#x7B49;&#x5F85;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;bounded waiting &#x7B49;&#x5F85;&#x6CD5;&#xFF09;&#xFF0C;&#x6709;&#x4E00;&#x4E9B;&#x540C;&#x6B65;&#x7684;&#x673A;&#x5236;&#x5FC5;&#x987B;&#x5728;&#x4E34;&#x754C;&#x533A;&#x6BB5;&#x7684;&#x8FDB;&#x5165;&#x70B9;&#x4E0E;&#x79BB;&#x5F00;&#x70B9;&#x5B9E;&#x73B0;&#xFF0C;&#x4EE5;&#x786E;&#x4FDD;&#x8FD9;&#x4E9B;&#x5171;&#x7528;&#x8D44;&#x6E90;&#x662F;&#x88AB;&#x4E92;&#x65A5;&#x83B7;&#x5F97;&#x4F7F;&#x7528;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;semaphore&#x3002;&#x53EA;&#x80FD;&#x88AB;&#x5355;&#x4E00;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x7684;&#x8BBE;&#x5907;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;&#x6253;&#x5370;&#x673A;&#x3002;</p>
-<h2 id="&#x9501;">&#x9501;</h2>
-<p>&#x5F53;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5F15;&#x8D77;&#x51B2;&#x7A81;&#x3002;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x4EE5;&#x4E0B;&#x6548;&#x679C;</p>
-<ol type="1">
-<li>&#x540C;&#x4E00;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x4EC5;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x4E34;&#x754C;&#x533A;</li>
-<li>&#x5177;&#x5907;&#x53EF;&#x91CD;&#x5165;&#x6027;</li>
-</ol>
-<p>&#x540C;&#x65F6;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x6B7B;&#x9501;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;</p>
-<ol type="1">
-<li>&#x5177;&#x5907;&#x9501;&#x5931;&#x6548;&#x673A;&#x5236;</li>
-<li>&#x5177;&#x5907;&#x975E;&#x963B;&#x585E;&#x9501;&#x7279;&#x6027;&#xFF0C;&#x5373;&#x6CA1;&#x6709;&#x83B7;&#x53D6;&#x5230;&#x9501;&#x5C06;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x83B7;&#x53D6;&#x9501;&#x5931;&#x8D25;&#x3002;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x5728;&#x5C1D;&#x8BD5;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x540E;&#x8FD4;&#x56DE;&#x5931;&#x8D25;</li>
-</ol>
-<h2 id="java-&#x7EBF;&#x7A0B;&#x9501;">java &#x7EBF;&#x7A0B;&#x9501;</h2>
-<p>&#x5728;&#x4E86;&#x89E3;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x5148;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;<code>java</code>&#x7684;&#x4E24;&#x79CD;&#x9501;&#x7684;&#x5B9E;&#x73B0;</p>
-<h3 id="synchronized"><code>synchronized</code></h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object lock = <span class="keyword">new</span> Object();</span><br><span class="line"><span class="keyword">synchronized</span> (lock) {</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x7684;&#x5B57;&#x8282;&#x7801;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">11</span>: monitorenter</span><br><span class="line"><span class="number">12</span>: aload_2</span><br><span class="line"><span class="number">13</span>: monitorexit</span><br></pre></td></tr></table></figure>
-<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x89C2;&#x5BDF;&#x5230;&#x5728;&#x8FDB;&#x5165;<code>synchronized</code>&#x4EE3;&#x7801;&#x5757;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;<code>monitorenter</code>&#x6307;&#x5B9A;&#x83B7;&#x53D6;&#x9501;&#xFF0C;&#x5728;&#x7ED3;&#x675F;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x8BED;&#x53E5;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;<code>monitorexit</code>&#xFF0C;&#x91CA;&#x653E;&#x9501;&#x3002;</p>
-<p>&#x7B49;&#x5F85;&#x9501;&#x7684;&#x8FC7;&#x7A0B; <img src="/images/&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-20-01-13-39.png" alt="&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-20-01-13-39.png"></p>
-<p>&#x53C2;&#x8003;<a href="/2019/11/12/java&#x6570;&#x7EC4;/" title="java&#x6570;&#x7EC4;">java&#x6570;&#x7EC4;</a>&#x4E2D;&#x5173;&#x4E8E;&#x5BF9;&#x8C61;&#x5934;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x5BF9;&#x8C61;&#x5728;&#x6709;&#x9501;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;&#x4FDD;&#x5B58;&#x5360;&#x7528;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x6307;&#x9488;&#x3002;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;&#x4EC5;&#x5141;&#x8BB8;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x5360;&#x7528;<code>monitor</code>&#x9501;&#xFF0C;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;<code>monitor</code>&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x88AB;&#x963B;&#x585E;&#x76F4;&#x5230;&#x5BF9;&#x8C61;&#x91CA;&#x653E;&#x9501;&#x3002;</p>
-<h3 id="abstractqueuedsynchronizer"><code>AbstractQueuedSynchronizer</code></h3>
-<p>&#x4EE5;<code>ReentrantLock</code>&#x4E3A;&#x4EE3;&#x8868;&#x7684;&#x540C;&#x6B65;&#x9501;&#x6846;&#x67B6;&#x662F;&#x57FA;&#x4E8E;<code>AQS</code>&#xFF0C;<code>AQS</code>&#x4F9D;&#x8D56;<code>FIFO</code>&#x961F;&#x5217;&#x5B9E;&#x73B0;&#x3002;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x9501;&#x901A;&#x8FC7;<code>tryAcquire</code>&#x5411;<code>FIFO</code>&#x63D2;&#x5165;&#x5E76;&#x4F7F;&#x7528;&#x4E50;&#x89C2;&#x9501;<code>CAS</code>&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4E3A;<code>HEAD</code>&#x8282;&#x70B9;&#xFF0C;&#x82E5;&#x662F;<code>HEAD</code>&#x8282;&#x70B9;&#x5219;&#x8868;&#x793A;&#x83B7;&#x53D6;&#x5230;&#x9501;&#xFF0C;&#x91CA;&#x653E;&#x9501;&#x5219;&#x901A;&#x8FC7;<code>tryRelease</code>&#x8BE5;&#x961F;&#x5217;&#x7684;<code>HEAD</code>&#x8282;&#x70B9;&#xFF0C;&#x5E76;&#x5524;&#x9192;&#x7B49;&#x5F85;&#x8282;&#x70B9;&#x3002;</p>
-<p><a href="https://www.jianshu.com/p/f4454164c017" target="_blank" rel="noopener">JVM &#x6E90;&#x7801;&#x5206;&#x6790;&#x4E4B; Object.wait/notify &#x5B9E;&#x73B0;</a></p>
-<h2 id="&#x5206;&#x5E03;&#x5F0F;&#x9501;">&#x5206;&#x5E03;&#x5F0F;&#x9501;</h2>
-<h3 id="&#x6784;&#x5EFA;&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;">&#x6784;&#x5EFA;&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;</h3>
-<p>&#x5728;&#x5206;&#x5E03;&#x5F0F;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x65E0;&#x6CD5;&#x901A;&#x8FC7;<code>JVM</code>&#x5185;&#x5B58;&#x6765;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4E34;&#x754C;&#x533A;&#x3002;&#x5BF9;&#x4E8E;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x548C;<code>java</code>&#x9501;&#x6CA1;&#x6709;&#x672C;&#x8D28;&#x533A;&#x522B;&#xFF0C;&#x4EC5;&#x5728;&#x4E8E;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x4E0D;&#x540C;</p>
-<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x6784;&#x9020;&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;,&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>SpringBoot</code>&#x6784;&#x5EFA;&#x9879;&#x76EE;</p>
-<p><code>pom</code>&#x4F9D;&#x8D56;</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.leaderli<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>Demo project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&#x914D;&#x7F6E;&#x6587;&#x4EF6;</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  application:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">demo</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/li</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  level:</span></span><br><span class="line"><span class="attr">    root:</span> <span class="string">error</span></span><br><span class="line"><span class="attr">lock:</span></span><br><span class="line"><span class="attr">  use:</span> <span class="string">nolock</span></span><br><span class="line"><span class="attr">  bean:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">coral</span></span><br><span class="line"><span class="attr">    machine:</span> <span class="string">mymac</span></span><br></pre></td></tr></table></figure>
-<p>&#x4E34;&#x754C;&#x8D44;&#x6E90;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.demo.lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CriticalSection</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ID = <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x9501;&#x63A5;&#x53E3;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.demo.lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Lock</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x4E3A;&#x4E86;&#x4F7F;&#x4EE3;&#x7801;&#x6E05;&#x6670;&#xFF0C;&#x5C01;&#x88C5;&#x4E00;&#x4E9B;&#x65B9;&#x6CD5;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.demo.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SomeUtils</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">(<span class="keyword">long</span> millis)</span> </span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            Thread.sleep(millis);</span><br><span class="line">        } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">random</span><span class="params">(<span class="keyword">int</span> boundary)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> random.nextInt(boundary);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logWithThread</span><span class="params">(Object msg)</span> </span>{</span><br><span class="line">        System.out.println(Thread.currentThread() + <span class="string">&quot;\t&quot;</span> + String.valueOf(msg));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">join</span><span class="params">(Thread thread)</span> </span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            thread.join();</span><br><span class="line">        } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.demo.lock;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.leaderli.demo.util.SomeUtils;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Assertions;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> maxThreadCount = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> endID = <span class="number">1000</span>;</span><br><span class="line">    <span class="comment">//&#x8BBE;&#x7F6E;&#x5408;&#x9002;&#x7684;&#x503C;&#xFF0C;&#x786E;&#x4FDD;&#x6301;&#x6709;&#x9501;&#x671F;&#x95F4;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x4F01;&#x56FE;&#x83B7;&#x53D6;&#x9501;</span></span><br><span class="line">    <span class="keyword">int</span> randomBoundary = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>{</span><br><span class="line">        Runnable task = () -&gt; {</span><br><span class="line">            <span class="comment">//&#x6240;&#x6709;Lock&#x5B9E;&#x73B0;&#x7C7B;&#x90FD;&#x4E3A;&#x975E;&#x5355;&#x4F8B;&#xFF0C;&#x4FDD;&#x8BC1;&#x6240;&#x6709;&#x7EBF;&#x7A0B;&#x7684;&#x9501;&#x4E0D;&#x4E3A;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x4EE5;&#x6A21;&#x62DF;&#x5206;&#x5E03;&#x5F0F;&#x9501;</span></span><br><span class="line">            Lock lock = applicationContext.getBean(Lock.class);</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) {</span><br><span class="line">                <span class="comment">//&#x4E0D;&#x65AD;&#x6D88;&#x8D39;&#x5E8F;&#x5217;&#x53F7;&#xFF0C;&#x76F4;&#x5230;&#x6D4B;&#x8BD5;&#x7ED3;&#x675F;</span></span><br><span class="line">                <span class="keyword">if</span> (task(lock)) {</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">        };</span><br><span class="line"></span><br><span class="line">        List&lt;Thread&gt; threadPool = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= maxThreadCount; i++) {</span><br><span class="line">            Thread cosumer = <span class="keyword">new</span> Thread(task);</span><br><span class="line">            cosumer.setName((<span class="number">100</span> - i) + <span class="string">&quot;&quot;</span>);</span><br><span class="line">            threadPool.add(cosumer);</span><br><span class="line">        }</span><br><span class="line">        threadPool.forEach(Thread::start);</span><br><span class="line">        threadPool.forEach(SomeUtils::join);</span><br><span class="line">        <span class="comment">//&#x65AD;&#x8A00;&#x7A0B;&#x5E8F;&#x662F;&#x5426;&#x6B63;&#x5E38;&#x7ED3;&#x675F;</span></span><br><span class="line">        Assertions.assertEquals(endID, CriticalSection.ID);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">task</span><span class="params">(Lock lock)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (lock.lock()) {</span><br><span class="line">            <span class="comment">//&#x6A21;&#x62DF;&#x91CD;&#x5165;&#x9501;</span></span><br><span class="line">            <span class="keyword">if</span> (SomeUtils.random(<span class="number">3</span>) == <span class="number">1</span>) {</span><br><span class="line">                <span class="keyword">if</span> (task(lock)) {</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                <span class="keyword">int</span> a = CriticalSection.ID + <span class="number">1</span>;</span><br><span class="line">                SomeUtils.sleep(SomeUtils.random(randomBoundary));</span><br><span class="line">                <span class="keyword">if</span> (CriticalSection.ID &gt;= endID) {</span><br><span class="line">                    <span class="comment">//&#x8FBE;&#x5230;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x6D4B;&#x8BD5;&#x7ED3;&#x675F;</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                }</span><br><span class="line">                CriticalSection.ID++;</span><br><span class="line">                <span class="keyword">if</span> (a != CriticalSection.ID) {</span><br><span class="line">                    <span class="comment">//&#x65AD;&#x8A00;&#x5931;&#x8D25;&#xFF0C;&#x7ED3;&#x675F;&#x7A0B;&#x5E8F;</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                }</span><br><span class="line">            } <span class="keyword">finally</span> {</span><br><span class="line">                lock.unlock();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x901A;&#x8FC7;&#x4F7F;&#x7528;<code>SpringBoot</code>&#x7684;&#x6CE8;&#x89E3;<code>ConditionalOnProperty</code>&#x6765;&#x65B9;&#x4FBF;&#x6D4B;&#x8BD5; &#x9996;&#x5148;&#x6211;&#x4EEC;&#x6D4B;&#x8BD5;&#x6CA1;&#x6709;&#x9501;&#x7684;&#x60C5;&#x51B5;&#x4E0B;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.demo.lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ConditionalOnProperty</span>(prefix = <span class="string">&quot;lock&quot;</span>, name = <span class="string">&quot;use&quot;</span>, havingValue = <span class="string">&quot;nolock&quot;</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope</span>(BeanDefinition.SCOPE_PROTOTYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoLock</span> <span class="keyword">implements</span> <span class="title">Lock</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">lock</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>{</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x5C06;<code>NoLock</code>&#x7C7B;&#x6FC0;&#x6D3B;&#xFF0C;&#x5373;<code>lock.use=nolock</code><br>
-<img src="/images/&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-21-00-56-35.png" alt="&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;_2019-11-21-00-56-35.png"> &#x6211;&#x4EEC;&#x5F88;&#x5BB9;&#x6613;&#x5C31;&#x89C2;&#x5BDF;&#x5230;&#x6CA1;&#x6709;&#x9501;&#x65F6;&#xFF0C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#xFF0C;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#x88AB;&#x4FEE;&#x6539;&#x4E86;</p>
-<h3 id="&#x6570;&#x636E;&#x5E93;&#x9501;">&#x6570;&#x636E;&#x5E93;&#x9501;</h3>
-<p>&#x6839;&#x636E;&#x9501;&#x7684;&#x539F;&#x5219;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x5E93;&#x9501;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;:</p>
-<ol type="1">
-<li>&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x6570;&#x636E;&#x5E93;&#x552F;&#x4E00;&#x7EA6;&#x675F;(&#x4E3B;&#x952E;&#x7EA6;&#x675F;)&#x6765;&#x786E;&#x4FDD;&#x540C;&#x4E00;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x4EC5;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#x3002;&#x901A;&#x8FC7;&#x552F;&#x4E00;<code>ID</code>&#xFF0C;&#x83B7;&#x53D6;&#x9501;&#x65F6;&#x63D2;&#x5165;&#x9501;&#xFF0C;&#x91CA;&#x653E;&#x9501;&#x5219;&#x5220;&#x9664;&#x9501;&#x8BB0;&#x5F55;</li>
-<li><p>&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x53EF;&#x91CD;&#x5165;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BB0;&#x5F55;&#x5360;&#x7528;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x540C;&#x65F6;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x4EC5;&#x5728;&#x6240;&#x6709;&#x91CD;&#x5165;&#x9501;&#x90FD;&#x91CA;&#x653E;&#x540E;&#x518D;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BB0;&#x5F55;&#x91CD;&#x5165;&#x9501;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x91CA;&#x653E;&#x9501;&#x65F6;&#x5224;&#x65AD;&#x91CD;&#x5165;&#x9501;&#x6B21;&#x6570;&#x662F;&#x5426;&#x4E3A;<code>0</code>&#xFF0C;&#x4E3A;<code>0</code>&#x5219;&#x5220;&#x9664;&#x9501;&#x8BB0;&#x5F55;</p></li>
-<li><p>&#x4E3A;&#x4E86;&#x5177;&#x6709;&#x9501;&#x5931;&#x6548;&#x673A;&#x5236;&#xFF0C;&#x5F53;&#x7EBF;&#x7A0B;&#x5360;&#x7528;&#x9501;&#x540E;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#xFF0C;&#x6CA1;&#x6709;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x9501;&#x4E00;&#x76F4;&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x9501;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BB0;&#x5F55;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x4EE5;&#x53CA;&#x8BBE;&#x5B9A;&#x9501;&#x7684;&#x5931;&#x6548;&#x65F6;&#x95F4;&#x3002;&#x5219;&#x5728;&#x83B7;&#x53D6;&#x9501;&#x65F6;&#x5224;&#x65AD;&#x662F;&#x5426;&#x9501;&#x5DF2;&#x7ECF;&#x5931;&#x6548;&#xFF0C;&#x5931;&#x6548;&#x5219;&#x5220;&#x9664;&#x9501;&#x3002;</p></li>
-<li><p>&#x4E3A;&#x4E86;&#x5177;&#x6709;&#x975E;&#x963B;&#x585E;&#x9501;&#x7279;&#x6027;&#xFF0C;&#x5728;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x9501;&#x65F6;&#xFF0C;&#x9996;&#x5148;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x5E93;&#x9501;&#x662F;&#x5426;&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x82E5;&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x5219;&#x91CD;&#x65B0;&#x5C1D;&#x8BD5;&#xFF0C;&#x8FBE;&#x5230;&#x6307;&#x5B9A;&#x6B21;&#x6570;&#x540E;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x83B7;&#x53D6;&#x9501;&#x5931;&#x8D25;&#x3002;&#x901A;&#x8FC7;<code>insert</code>&#x63D2;&#x5165;&#x9501;&#x5931;&#x8D25;&#xFF0C;&#x4E5F;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5931;&#x8D25;</p></li>
-</ol>
-<h3 id="redis&#x9501;"><code>redis</code>&#x9501;</h3>
-<p>--</p>
-<h3 id="zookeeper&#x9501;"><code>zookeeper</code>&#x9501;</h3>
-<p>--</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2793,7 +2575,7 @@ CSS &#x80FD;&#x81EA;&#x52A8;&#x7EE7;&#x627F;&#x7684;&#x5C5E;&#x6027;</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-count">135</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

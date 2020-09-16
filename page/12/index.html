@@ -410,6 +410,409 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/06/spring-ControllerAdvice源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/06/spring-ControllerAdvice源码分析/" class="post-title-link" itemprop="url">spring ControllerAdvice源码分析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-06 23:33:10" itemprop="dateCreated datePublished" datetime="2019-08-06T23:33:10+08:00">2019-08-06</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x7248;&#x672C;&#x8BF4;&#x660E;">&#x7248;&#x672C;&#x8BF4;&#x660E;</h2>
+<p><code>jdk</code>:1.8.0_131<br>
+<code>springboot</code>:2.1.6.RELEAS<br>
+<code>maven</code>:3.6.1<br>
+<code>database</code>:mysql-5.7.14<br>
+<code>lombok&#x63D2;&#x4EF6;</code></p>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;">&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<p>&#x4EC5;&#x4EC5;&#x9488;&#x5BF9;&#x88AB;<code>@ControllerAdvice</code>&#x6CE8;&#x89E3;&#x7684;&#x4E14;&#x5B9E;&#x73B0;&#x63A5;&#x53E3;<code>ResponseBodyAdvice</code>&#x7684;&#x7C7B;&#xFF0C;&#x8FDB;&#x884C;&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF0C;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;&#x5F53;<code>controller</code>&#x4E2D;&#x88AB;<code>@ResponseBody</code>&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x662F;&#x5982;&#x4F55;&#x88AB;&#x89E3;&#x6790;&#x6210;&#x524D;&#x7AEF;&#x9700;&#x8981;&#x7684;&#x503C;&#x7684;&#x3002; &#x81F3;&#x4E8E;<code>RequestBodyAdvice</code>&#x548C;<code>@ExceptionHandler</code>&#x7B49;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#x3002;</p>
+<p>&#x6839;&#x636E;<a href="/2019/08/05/Spring&#x81EA;&#x5B9A;&#x4E49;ReturnValueHandlers/" title="Spring&#x81EA;&#x5B9A;&#x4E49;ReturnValueHandlers">Spring&#x81EA;&#x5B9A;&#x4E49;ReturnValueHandlers</a>&#x4E2D;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x6211;&#x4EEC;&#x4E86;&#x89E3;&#x4E86;&#x5B9E;&#x9645;&#x8C03;&#x7528;<code>controller</code>&#x7C7B;&#x4E2D;&#x7684;&#x88AB;<code>@ResponseBody</code>&#x6CE8;&#x89E3;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4F7F;&#x7528;<code>RequestResponseBodyMethodProcessor</code>&#x5904;&#x7406;&#x5668;&#x53BB;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x4E0B;<code>RequestResponseBodyMethodProcessor</code>&#x7684;<code>handleReturnValue</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleReturnValue</span><span class="params">(@Nullable Object returnValue, MethodParameter returnType,</span></span></span><br><span class="line"><span class="function"><span class="params">        ModelAndViewContainer mavContainer, NativeWebRequest webRequest)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IOException, HttpMediaTypeNotAcceptableException, HttpMessageNotWritableException </span>{</span><br><span class="line"></span><br><span class="line">    mavContainer.setRequestHandled(<span class="keyword">true</span>);</span><br><span class="line">    ServletServerHttpRequest inputMessage = createInputMessage(webRequest);</span><br><span class="line">    ServletServerHttpResponse outputMessage = createOutputMessage(webRequest);</span><br><span class="line"></span><br><span class="line">    writeWithMessageConverters(returnValue, returnType, inputMessage, outputMessage);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>writeWithMessageConverters</code>&#x8282;&#x9009;&#x7247;&#x6BB5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (selectedMediaType != <span class="keyword">null</span>) {</span><br><span class="line">        selectedMediaType = selectedMediaType.removeQualityValue();</span><br><span class="line">        <span class="keyword">for</span> (HttpMessageConverter&lt;?&gt; converter : <span class="keyword">this</span>.messageConverters) {</span><br><span class="line">            GenericHttpMessageConverter genericConverter = (converter <span class="keyword">instanceof</span> GenericHttpMessageConverter ?</span><br><span class="line">                    (GenericHttpMessageConverter&lt;?&gt;) converter : <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">if</span> (genericConverter != <span class="keyword">null</span> ?</span><br><span class="line">                    ((GenericHttpMessageConverter) converter).canWrite(targetType, valueType, selectedMediaType) :</span><br><span class="line">                    converter.canWrite(valueType, selectedMediaType)) {</span><br><span class="line">                body = getAdvice().beforeBodyWrite(body, returnType, selectedMediaType,</span><br><span class="line">                        (Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt;) converter.getClass(),</span><br><span class="line">                        inputMessage, outputMessage);</span><br><span class="line">                <span class="keyword">if</span> (body != <span class="keyword">null</span>) {</span><br><span class="line">                    Object theBody = body;</span><br><span class="line">                    LogFormatUtils.traceDebug(logger, traceOn -&gt;</span><br><span class="line">                            <span class="string">&quot;Writing [&quot;</span> + LogFormatUtils.formatValue(theBody, !traceOn) + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">                    addContentDispositionHeader(inputMessage, outputMessage);</span><br><span class="line">                    <span class="keyword">if</span> (genericConverter != <span class="keyword">null</span>) {</span><br><span class="line">                        genericConverter.write(body, targetType, selectedMediaType, outputMessage);</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">else</span> {</span><br><span class="line">                        ((HttpMessageConverter) converter).write(body, selectedMediaType, outputMessage);</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">if</span> (logger.isDebugEnabled()) {</span><br><span class="line">                        logger.debug(<span class="string">&quot;Nothing to write: null body&quot;</span>);</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<p><code>this.messageConverters</code>&#x7684;&#x5FAA;&#x73AF;&#x8C03;&#x7528;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x7528;&#x5408;&#x9002;&#x7684;<code>HttpMessageConverter</code>&#x6765;&#x89E3;&#x6790;&#x8FD4;&#x56DE;&#x62A5;&#x6587;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x4EEC;&#x7528;&#x7684;&#x5C31;&#x662F;<code>SpringBoot</code>&#x5185;&#x5BB9;&#x7684;<code>MappingJackson2HttpMessageConverter</code>&#x5904;&#x7406;&#x5668;</p>
+<p><code>MappingJackson2HttpMessageConverter</code>&#x7684;<code>canWrite</code>&#x5C31;&#x662F;&#x67E5;&#x770B;<code>MediaType</code>&#x662F;&#x5426;&#x6EE1;&#x8DB3;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">canWrite</span><span class="params">(@Nullable MediaType mediaType)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (mediaType == <span class="keyword">null</span> || MediaType.ALL.equalsTypeAndSubtype(mediaType)) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (MediaType supportedMediaType : getSupportedMediaTypes()) {</span><br><span class="line">        <span class="keyword">if</span> (supportedMediaType.isCompatibleWith(mediaType)) {</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x91CD;&#x70B9;&#x7684;&#x662F;<code>getAdvice()</code>&#x7684;&#x52A0;&#x8F7D;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">RequestResponseBodyAdviceChain <span class="title">getAdvice</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.advice;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x7528;<code>Debug</code>&#x6A21;&#x5F0F;&#x4E00;&#x6B65;&#x6B65;&#x56DE;&#x6EAF;&#x6700;&#x7EC8;&#x53D1;&#x73B0;<code>RequestMappingHandlerAdapter</code>&#x4E2D;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">//&#x626B;&#x63CF;&#x6240;&#x6709;@ControllerAdvice</span></span><br><span class="line">    initControllerAdviceCache();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.argumentResolvers == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        List&lt;HandlerMethodArgumentResolver&gt; resolvers = getDefaultArgumentResolvers();</span><br><span class="line">        <span class="keyword">this</span>.argumentResolvers = <span class="keyword">new</span> HandlerMethodArgumentResolverComposite().addResolvers(resolvers);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.initBinderArgumentResolvers == <span class="keyword">null</span>) {</span><br><span class="line">        List&lt;HandlerMethodArgumentResolver&gt; resolvers = getDefaultInitBinderArgumentResolvers();</span><br><span class="line">        <span class="keyword">this</span>.initBinderArgumentResolvers = <span class="keyword">new</span> HandlerMethodArgumentResolverComposite().addResolvers(resolvers);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.returnValueHandlers == <span class="keyword">null</span>) {</span><br><span class="line">        List&lt;HandlerMethodReturnValueHandler&gt; handlers = getDefaultReturnValueHandlers();</span><br><span class="line">        <span class="keyword">this</span>.returnValueHandlers = <span class="keyword">new</span> HandlerMethodReturnValueHandlerComposite().addHandlers(handlers);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8282;&#x9009;<code>initControllerAdviceCache</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;ControllerAdviceBean&gt; adviceBeans = ControllerAdviceBean.findAnnotatedBeans(getApplicationContext());</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (!requestResponseBodyAdviceBeans.isEmpty()) {</span><br><span class="line">    <span class="keyword">this</span>.requestResponseBodyAdvice.addAll(<span class="number">0</span>, requestResponseBodyAdviceBeans);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8282;&#x9009;&#x65B9;&#x6CD5;<code>getDefaultArgumentResolvers</code>&#x7EC6;&#x8282;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resolvers.add(<span class="keyword">new</span> RequestResponseBodyMethodProcessor(getMessageConverters(), <span class="keyword">this</span>.requestResponseBodyAdvice));</span><br></pre></td></tr></table></figure>
+<p><code>RequestResponseBodyMethodProcessor</code>&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x6700;&#x7EC8;&#x6307;&#x5411;&#x7236;&#x7C7B;<code>AbstractMessageConverterMethodArgumentResolver</code>,&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x770B;&#x5230;<code>@ControllerAdvice</code>&#x6CE8;&#x89E3;&#x7684;&#x4E14;&#x5B9E;&#x73B0;&#x63A5;&#x53E3;<code>ResponseBodyAdvice</code>&#x7684;&#x7C7B;&#x88AB;&#x52A0;&#x8F7D;&#x5230;<code>this.advice</code>&#x4E2D;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AbstractMessageConverterMethodArgumentResolver</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters,</span></span></span><br><span class="line"><span class="function"><span class="params">        @Nullable List&lt;Object&gt; requestResponseBodyAdvice)</span> </span>{</span><br><span class="line"></span><br><span class="line">    Assert.notEmpty(converters, <span class="string">&quot;&apos;messageConverters&apos; must not be empty&quot;</span>);</span><br><span class="line">    <span class="keyword">this</span>.messageConverters = converters;</span><br><span class="line">    <span class="keyword">this</span>.allSupportedMediaTypes = getAllSupportedMediaTypes(converters);</span><br><span class="line">    <span class="keyword">this</span>.advice = <span class="keyword">new</span> RequestResponseBodyAdviceChain(requestResponseBodyAdvice);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x770B;&#x4E0B;<code>this.advice</code>&#x7684;&#x7C7B;<code>RequestResponseBodyAdviceChain</code>&#x65B9;&#x6CD5;<code>beforeBodyWrite</code>&#x7EC6;&#x8282;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">beforeBodyWrite</span><span class="params">(@Nullable Object body, MethodParameter returnType, MediaType contentType,</span></span></span><br><span class="line"><span class="function"><span class="params">        Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt; converterType,</span></span></span><br><span class="line"><span class="function"><span class="params">        ServerHttpRequest request, ServerHttpResponse response)</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> processBody(body, returnType, contentType, converterType, request, response);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> &lt;T&gt; <span class="function">Object <span class="title">processBody</span><span class="params">(@Nullable Object body, MethodParameter returnType, MediaType contentType,</span></span></span><br><span class="line"><span class="function"><span class="params">        Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt; converterType,</span></span></span><br><span class="line"><span class="function"><span class="params">        ServerHttpRequest request, ServerHttpResponse response)</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (ResponseBodyAdvice&lt;?&gt; advice : getMatchingAdvice(returnType, ResponseBodyAdvice.class)) {</span><br><span class="line">        <span class="comment">//&#x51B3;&#x5B9A;&#x81EA;&#x5B9A;&#x4E49;@ControllerAdvice&#x662F;&#x5426;&#x542F;&#x7528;</span></span><br><span class="line">        <span class="keyword">if</span> (advice.supports(returnType, converterType)) {</span><br><span class="line">            <span class="comment">//&#x8C03;&#x7528;&#x6211;&#x4EEC;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5904;&#x7406;&#x7C7B;</span></span><br><span class="line">            body = ((ResponseBodyAdvice&lt;T&gt;) advice).beforeBodyWrite((T) body, returnType,</span><br><span class="line">                    contentType, converterType, request, response);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> body;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6700;&#x540E;&#x8D34;&#x4E0B;<code>@ControllerAdvice</code>&#x5B9E;&#x73B0;&#x7C7B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.li.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.MethodParameter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.server.ServerHttpRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.server.ServerHttpResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ControllerAdvice;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyControllerAdvice</span> <span class="keyword">implements</span> <span class="title">ResponseBodyAdvice</span></span>{</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(MethodParameter returnType, Class converterType)</span> </span>{</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   }</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">beforeBodyWrite</span><span class="params">(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response)</span> </span>{</span><br><span class="line">       log.debug(<span class="string">&quot;MyControllerAdvice beforeBodyWrite&quot;</span>);</span><br><span class="line">       <span class="keyword">return</span> body;</span><br><span class="line">   }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/06/java-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/06/java-tips/" class="post-title-link" itemprop="url">java tips</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-06 10:50:37" itemprop="dateCreated datePublished" datetime="2019-08-06T10:50:37+08:00">2019-08-06</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="&#x5C06;&#x5E38;&#x91CF;&#x653E;&#x5728;&#x63A5;&#x53E3;&#x4E2D;&#x901A;&#x8FC7;&#x7EE7;&#x627F;&#x8BE5;&#x63A5;&#x53E3;&#x8C03;&#x7528;&#x5E38;&#x91CF;">&#x5C06;&#x5E38;&#x91CF;&#x653E;&#x5728;&#x63A5;&#x53E3;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x7EE7;&#x627F;&#x8BE5;&#x63A5;&#x53E3;&#xFF0C;&#x8C03;&#x7528;&#x5E38;&#x91CF;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ClassConstants</span></span>{</span><br><span class="line">   <span class="keyword">int</span> CONSUMER = <span class="number">1</span>;<span class="comment">//&#x63A5;&#x53E3;&#x4E2D;&#x53D8;&#x91CF;&#x9ED8;&#x8BA4;&#x4E3A; static final</span></span><br><span class="line">   <span class="keyword">int</span> DISPLAY = <span class="number">2</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x67E5;&#x770B;-class-&#x662F;&#x5426;&#x662F;&#x57FA;&#x672C;&#x7C7B;&#x578B;">&#x67E5;&#x770B; Class &#x662F;&#x5426;&#x662F;&#x57FA;&#x672C;&#x7C7B;&#x578B;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clasz.isPrimitive();</span><br></pre></td></tr></table></figure>
+<h3 id="&#x67E5;&#x770B;&#x7C7B;&#x662F;&#x5426;&#x4E3A;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x6216;&#x5305;&#x88C5;&#x7C7B;&#x578B;">&#x67E5;&#x770B;&#x7C7B;&#x662F;&#x5426;&#x4E3A;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x6216;&#x5305;&#x88C5;&#x7C7B;&#x578B;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.ClassUtils;</span><br><span class="line">ClassUtils.isPrimitiveOrWrapper(klass)</span><br></pre></td></tr></table></figure>
+<h3 id="&#x8BFB;&#x53D6;-properties-&#x4E2D;&#x6587;&#x4E71;&#x7801;&#x89E3;&#x51B3;">&#x8BFB;&#x53D6; properties &#x4E2D;&#x6587;&#x4E71;&#x7801;&#x89E3;&#x51B3;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">properties.load(<span class="keyword">new</span> InputStreamReader(AutoConfig.class.getResourceAsStream(<span class="string">&quot;/application.properties&quot;</span>),<span class="string">&quot;utf-8&quot;</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5224;&#x65AD;&#x7C7B;&#x662F;&#x5426;&#x4E3A;&#x6570;&#x7EC4;">&#x5224;&#x65AD;&#x7C7B;&#x662F;&#x5426;&#x4E3A;&#x6570;&#x7EC4;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klass.isArray();</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5224;&#x65AD;&#x7C7B;&#x662F;&#x5426;&#x7EE7;&#x627F;&#x81EA;">&#x5224;&#x65AD;&#x7C7B;&#x662F;&#x5426;&#x7EE7;&#x627F;&#x81EA;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Father.class.isAssignableFrom(Son.class)</span><br></pre></td></tr></table></figure>
+<h3 id="&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x6267;&#x884C;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#x901A;&#x8FC7;&#x65B9;&#x6CD5;&#x5185;&#x7684;&#x5185;&#x90E8;&#x7C7B;&#x6765;&#x5B9E;&#x73B0;&#x7684;">&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x6267;&#x884C;&#x7684;&#x65B9;&#x6CD5;&#x540D;,&#x901A;&#x8FC7;&#x65B9;&#x6CD5;&#x5185;&#x7684;&#x5185;&#x90E8;&#x7C7B;&#x6765;&#x5B9E;&#x73B0;&#x7684;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Object(){}.getClass().getEnclosingMethod().getName();</span><br></pre></td></tr></table></figure>
+<h3 id="&#x4F7F;&#x7528;-shell">&#x4F7F;&#x7528; shell</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7CFB;&#x7EDF;&#x540D;&#x79F0;&#xFF0C;&#x53EF;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x547D;&#x4EE4;</span></span><br><span class="line">String os = System.getProperty(<span class="string">&quot;os.name&quot;</span>);</span><br><span class="line"><span class="comment">//&#x547D;&#x4EE4;&#x884C;&#x7684;&#x53C2;&#x6570;</span></span><br><span class="line">String [] para = <span class="keyword">new</span> String[]{<span class="string">&quot;-l&quot;</span>}</span><br><span class="line"><span class="comment">//&#x6267;&#x884C;&#x547D;&#x4EE4;</span></span><br><span class="line">Process ls = Runtime.getRuntime().exec(<span class="string">&quot;ls&quot;</span>,para, <span class="keyword">new</span> File(<span class="string">&quot;/Users/li/Downloads&quot;</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x83B7;&#x53D6;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x7684;inputstream&#x6D41;</span></span><br><span class="line">String getLs = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(ls.getInputStream())).lines().collect(Collectors.joining(System.lineSeparator()));</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x5728;&#x76EE;&#x5F55;&#x4E0B;&#x6267;&#x884C;&#x5177;&#x4F53;&#x7684;&#x547D;&#x4EE4;</span></span><br><span class="line"><span class="comment">//&#x56E0;&#x4E3A;java&#x6267;&#x884C;shell&#x65E0;&#x6CD5;&#x8FDB;&#x884C;&#x8FDE;&#x7EED;&#x6027;&#x7684;&#x4EA4;&#x4E92;&#x547D;&#x4EE4;&#xFF0C;&#x901A;&#x8FC7;&#x5C01;&#x88C5;&#x7684;bash&#x6216;&#x8005;python&#x811A;&#x672C;&#x6267;&#x884C;&#x4E00;&#x7CFB;&#x5217;&#x547D;&#x4EE4;&#x662F;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x9009;&#x62E9;</span></span><br><span class="line">Process process = Runtime.getRuntime().exec(<span class="string">&quot;python test.py&quot;</span>, <span class="keyword">null</span>, <span class="keyword">new</span> File(<span class="string">&quot;/Users/li/Downloads&quot;</span>));</span><br><span class="line"><span class="comment">// &#x90E8;&#x5206;os&#x9700;&#x8981;&#x5148;&#x8F93;&#x51FA;outputStream&#x6D41;&#xFF0C;&#x624D;&#x80FD;&#x6B63;&#x786E;&#x53D6;&#x5F97;shell&#x6267;&#x884C;&#x7ED3;&#x679C;</span></span><br><span class="line">Outputstream out = process.getOutputStream();</span><br><span class="line">out.flush();</span><br><span class="line">out.close();</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x4F7F;&#x7528;&#x6784;&#x9020;&#x5668;&#x6A21;&#x5F0F;</span></span><br><span class="line">ProcessBuilder builder = <span class="keyword">new</span> ProcessBuilder();</span><br><span class="line">builder.command(<span class="string">&quot;more&quot;</span>,<span class="string">&quot;test.py&quot;</span>);</span><br><span class="line">builder.directory(<span class="keyword">new</span> File(<span class="string">&quot;/Users/li/Downloads&quot;</span>));</span><br><span class="line"><span class="comment">//&#x91CD;&#x5B9A;&#x5411;&#x9519;&#x8BEF;&#x6D41;&#xFF0C;&#x5373;System.Err</span></span><br><span class="line">builder.redirectErrorStream(<span class="keyword">true</span>);</span><br><span class="line">Process process = builder.start();</span><br></pre></td></tr></table></figure>
+<h3 id="&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x96F6;&#x503C;">&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x96F6;&#x503C;</h3>
+<p>&#x5BF9;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6765;&#x8BF4;&#xFF0C;&#x5BF9;&#x4E8E;&#x7C7B;&#x53D8;&#x91CF;<code>static</code>&#x548C;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x663E;&#x5F0F;&#x5730;&#x5BF9;&#x5176;&#x8D4B;&#x503C;&#x800C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#xFF0C;&#x5219;&#x7CFB;&#x7EDF;&#x4F1A;&#x4E3A;&#x5176;&#x8D4B;&#x4E88;&#x9ED8;&#x8BA4;&#x7684;&#x96F6;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x8FD9;&#x4E2A;&#x7279;&#x6027;&#xFF0C;&#x76F4;&#x63A5;&#x7528;&#x9759;&#x6001;&#x7C7B;&#x5E38;&#x91CF;&#x6765;&#x83B7;&#x53D6;&#x57FA;&#x672C;&#x53D8;&#x91CF;&#x7684;&#x521D;&#x59CB;&#x503C;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Primitive</span> </span>{</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> i; <span class="comment">//&#x9ED8;&#x8BA4;&#x503C;0</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span> c; <span class="comment">//&#x9ED8;&#x8BA4;&#x503C;&apos;\u0000&apos;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="&#x53CD;&#x5C04;&#x5DE5;&#x5177;&#x7C7B;">&#x53CD;&#x5C04;&#x5DE5;&#x5177;&#x7C7B;</h3>
+<p>&#x7B2C;&#x4E09;&#x65B9;&#x53CD;&#x5C04;&#x5DE5;&#x5177;&#x7C7B;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.reflections<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>reflections<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x626B;&#x63CF;&#x7C7B;&#x5728;&#x67D0;&#x4E2A;&#x5305;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x5B50;&#x7C7B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Reflections reflections = <span class="keyword">new</span> Reflections(<span class="string">&quot;my.project&quot;</span>);</span><br><span class="line">Set&lt;Class&lt;? extends SomeType&gt;&gt; subTypes = reflections.getSubTypesOf(SomeType.class);</span><br></pre></td></tr></table></figure>
+<p>&#x626B;&#x63CF;&#x5728;&#x67D0;&#x4E2A;&#x5305;&#x4E0B;&#x7684;&#x88AB;&#x6CE8;&#x89E3;&#x4E86;&#x67D0;&#x4E2A;&#x6CE8;&#x89E3;&#x7684;&#x6240;&#x6709;&#x7C7B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Class&lt;?&gt;&gt; annotated = reflections.getTypesAnnotatedWith(SomeAnnotation.class);</span><br></pre></td></tr></table></figure>
+<h3 id="comparator.comparing"><code>Comparator.comparing</code></h3>
+<p>&#x53EF;&#x662F;&#x4F7F;&#x7528; lambda &#x5FEB;&#x901F;&#x5B9E;&#x73B0;<code>comparable</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Player&gt; byRanking</span><br><span class="line"> = (Player player1, Player player2) -&gt; player1.getRanking() - player2.getRanking();</span><br></pre></td></tr></table></figure>
+<p>&#x7C7B;&#x4F3C;<code>Collectors</code>&#x63D0;&#x4F9B;&#x4E86;&#x5FEB;&#x6377;&#x7684;<code>Comparator</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Player&gt; byRanking = Comparator</span><br><span class="line">  .comparing(Player::getRanking);</span><br><span class="line">Comparator&lt;Player&gt; byAge = Comparator</span><br><span class="line">  .comparing(Player::getAge);</span><br></pre></td></tr></table></figure>
+<h3 id="&#x6279;&#x91CF;&#x53CD;&#x7F16;&#x8BD1;-jar-&#x5305;">&#x6279;&#x91CF;&#x53CD;&#x7F16;&#x8BD1; jar &#x5305;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.jar|xargs -I {} jadx {} -d src</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/05/Spring自定义ReturnValueHandlers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1611,7 +2014,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-08 16:57:39" itemprop="dateModified" datetime="2020-09-08T16:57:39+08:00">2020-09-08</time>
+                <time title="修改时间：2020-09-16 15:06:53" itemprop="dateModified" datetime="2020-09-16T15:06:53+08:00">2020-09-16</time>
               </span>
             
           
@@ -2635,461 +3038,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/29/简单逻辑学/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/29/简单逻辑学/" class="post-title-link" itemprop="url">简单逻辑学</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-29 22:16:17" itemprop="dateCreated datePublished" datetime="2019-07-29T22:16:17+08:00">2019-07-29</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/逻辑学/" itemprop="url" rel="index"><span itemprop="name">逻辑学</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x4E3A;&#x4EC0;&#x4E48;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;">&#x4E3A;&#x4EC0;&#x4E48;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;</h2>
-<p><strong>&#x63D0;&#x5347;&#x53E3;&#x8BED;&#x8868;&#x8FBE;&#x80FD;&#x529B;</strong> &#x4F60;&#x6240;&#x8BF4;&#x7684;&#x5C31;&#x662F;&#x4F60;&#x6240;&#x60F3;&#x7684;&#xFF0C;&#x82E5;&#x5BF9;&#x4E8B;&#x7269;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x6E05;&#x6670;&#x660E;&#x4E86;&#x7684;&#x8BA4;&#x77E5;&#xFF0C;&#x5C31;&#x66F4;&#x4E0D;&#x53EF;&#x80FD;&#x7528;&#x8BED;&#x8A00;&#x53BB;&#x7CBE;&#x51C6;&#x7684;&#x63CF;&#x8FF0;&#x5B83;&#x3002;&#x4E0D;&#x8981;&#x6C42;&#x8BF4;&#x8BDD;&#x8BF4;&#x5F97;&#x591A;&#x4E48;&#x597D;&#x542C;&#xFF0C;&#x4F46;&#x6C42;&#x80FD;&#x591F;&#x6E05;&#x695A;&#x6709;&#x529B;&#x7684;&#x8868;&#x8FBE;&#x81EA;&#x5DF1;&#x60F3;&#x8981;&#x8BF4;&#x7684;&#x3002;</p>
-<p><strong>&#x8D39;&#x66FC;&#x5B66;&#x4E60;&#x6CD5;</strong> &#x80FD;&#x591F;&#x7528;&#x7B80;&#x5355;&#x7684;&#x8BED;&#x8A00;&#x5411;&#x522B;&#x4EBA;&#x89E3;&#x91CA;&#x4E00;&#x4E2A;&#x77E5;&#x8BC6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x638C;&#x63E1;&#x77E5;&#x8BC6;&#x7684;&#x65F6;&#x5019;&#x3002;&#x800C;&#x903B;&#x8F91;&#x5B66;&#x5C31;&#x662F;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x7CBE;&#x51C6;&#x63CF;&#x8FF0;&#x4E8B;&#x7269;&#x7684;&#x5B66;&#x79D1;&#x3002;</p>
-<h2 id="&#x5982;&#x4F55;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;">&#x5982;&#x4F55;&#x5B66;&#x4E60;&#x903B;&#x8F91;&#x5B66;</h2>
-<p><strong>&#x601D;&#x7EF4;&#x5BFC;&#x56FE;</strong> &#x601D;&#x7EF4;&#x5BFC;&#x56FE;&#x662F;&#x7528;&#x7B80;&#x5355;&#x7684;&#x8BCD;&#x8BED;&#x9AD8;&#x5EA6;&#x62BD;&#x8C61;&#x6982;&#x62EC;&#x77E5;&#x8BC6;&#x7684;&#x4E00;&#x4E2A;&#x5DE5;&#x5177;&#xFF0C;&#x800C;&#x62BD;&#x8C61;&#x7684;&#x8FC7;&#x7A0B;&#x65E2;&#x662F;&#x903B;&#x8F91;&#x5316;&#x7684;&#x4E00;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002; <strong>&#x535A;&#x5BA2;</strong> &#x5199;&#x4F5C;&#x7684;&#x8FC7;&#x7A0B;&#x5373;&#x662F;&#x8BB2;&#x81EA;&#x5DF1;&#x6240;&#x60F3;&#x6240;&#x601D;&#x8F6C;&#x53D8;&#x4E3A;&#x6587;&#x5B57;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5728;&#x7F16;&#x5199;&#x535A;&#x5BA2;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x59CB;&#x7EC8;&#x9075;&#x5FAA;&#x7B80;&#x5355;&#x903B;&#x8F91;&#x5B66;&#x548C;&#x91D1;&#x5B57;&#x5854;&#x539F;&#x7406;&#x7684;&#x7406;&#x8BBA;&#x601D;&#x60F3;&#xFF0C;&#x4E0D;&#x65AD;&#x52A0;&#x5F3A;&#x81EA;&#x5DF1;&#x7684;&#x6982;&#x62EC;&#x62BD;&#x8C61;&#x80FD;&#x529B;&#x3002;</p>
-<h2 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h2>
-<p>&#x903B;&#x8F91;&#x5B66;&#x662F;&#x5173;&#x4E8E;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x6E05;&#x6670;&#x6709;&#x6548;&#x7684;&#x601D;&#x7EF4;&#x3002;&#x903B;&#x8F91;&#x5B66;&#x662F;&#x63ED;&#x9732;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x771F;&#x76F8;&#x7684;&#x4E00;&#x95E8;&#x5B66;&#x95EE;&#x3002;</p>
-<h2 id="&#x5FC3;&#x91CC;&#x4E0A;&#x7684;&#x51C6;&#x5907;">&#x5FC3;&#x91CC;&#x4E0A;&#x7684;&#x51C6;&#x5907;</h2>
-<ol type="1">
-<li><p>&#x4FDD;&#x6301;&#x6CE8;&#x610F;&#x529B;&#xFF0C;&#x4E16;&#x4E0A;&#x6CA1;&#x6709;&#x4E24;&#x7247;&#x76F8;&#x540C;&#x7684;&#x6811;&#x53F6;&#xFF0C;&#x6BCF;&#x4E2A;&#x4E8B;&#x52A1;&#x90FD;&#x662F;&#x552F;&#x4E00;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4FDD;&#x6301;&#x8B66;&#x60D5;&#x3002;</p></li>
-<li><p>&#x4E8B;&#x5B9E;&#x5BA2;&#x89C2;&#x5B58;&#x5728;&#xFF0C;&#x4E0D;&#x56E0;&#x4EBA;&#x7684;&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#x800C;&#x6539;&#x53D8;&#xFF0C;&#x800C;&#x4EBA;&#x7684;&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#x4F1A;&#x968F;&#x7740;&#x5BF9;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x7684;&#x7406;&#x89E3;&#x52A0;&#x6DF1;&#x800C;&#x6108;&#x52A0;&#x63A5;&#x8FD1;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x3002;</p></li>
-<li><p>&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#x6108;&#x52A0;&#x63A5;&#x8FD1;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#xFF0C;&#x5C31;&#x8D8A;&#x5BB9;&#x6613;&#x6E05;&#x6670;&#x51C6;&#x786E;&#x7684;&#x7528;&#x8BED;&#x8A00;&#x53BB;&#x63CF;&#x8FF0;&#x5B83;&#x3002;</p></li>
-<li><p>&#x8BED;&#x8A00;&#x53EA;&#x80FD;&#x63CF;&#x8FF0;&#x4EBA;&#x7684;&#x4E3B;&#x89C2;&#x8BA4;&#x77E5;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x3002;</p></li>
-</ol>
-<h2 id="&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x6709;&#x6548;&#x7684;&#x6C9F;&#x901A;">&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x6709;&#x6548;&#x7684;&#x6C9F;&#x901A;</h2>
-<ol type="1">
-<li><p>&#x4E0D;&#x8981;&#x5047;&#x8BBE;&#x542C;&#x4F17;&#x4E86;&#x89E3;&#x4F60;&#x7684;&#x6F5C;&#x53F0;&#x8BCD;&#x3002;</p></li>
-<li><p>&#x4F7F;&#x7528;&#x5B8C;&#x6574;&#x7684;&#x8BED;&#x53E5;&#x8868;&#x8FBE;&#x81EA;&#x5DF1;&#x7684;&#x89C2;&#x70B9;&#x3002;</p></li>
-<li><p>&#x907F;&#x514D;&#x4F7F;&#x7528;&#x731C;&#x6D4B;&#xFF0C;&#x4E0D;&#x51C6;&#x786E;&#x7684;&#x8868;&#x8FF0;&#x5F62;&#x5F0F;&#x3002;</p></li>
-<li><p>&#x7AD9;&#x5728;&#x542C;&#x4F17;&#x7684;&#x89D2;&#x5EA6;&#xFF0C;&#x4EE5;&#x4ED6;&#x4EEC;&#x80FD;&#x7406;&#x89E3;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x9648;&#x8FF0;&#x3002;</p></li>
-<li><p>&#x907F;&#x514D;&#x4F7F;&#x7528;&#x6B67;&#x4E49;&#xFF0C;&#x6A21;&#x7CCA;&#x7684;&#x8868;&#x8FBE;&#x3002;</p></li>
-</ol>
-<h2 id="&#x903B;&#x8F91;&#x5B66;&#x7B2C;&#x4E00;&#x539F;&#x5219;">&#x903B;&#x8F91;&#x5B66;&#x7B2C;&#x4E00;&#x539F;&#x5219;</h2>
-<ol type="1">
-<li><p>&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x82F9;&#x679C;&#x5C31;&#x662F;&#x82F9;&#x679C;&#xFF0C;&#x4E0D;&#x662F;&#x6A59;&#x5B50;&#xFF0C;&#x4E0D;&#x662F;&#x9999;&#x8549;&#xFF0C;&#x4E5F;&#x4E0D;&#x662F;&#x68A8;&#x5B50;&#x3002;</p></li>
-<li><p>&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x8981;&#x561B;&#x5B58;&#x5728;&#x8981;&#x561B;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x4E2D;&#x95F4;&#x72B6;&#x6001;</p></li>
-<li><p>&#x5BA2;&#x89C2;&#x4E8B;&#x5B9E;&#x5B58;&#x5728;&#x6709;&#x5145;&#x8DB3;&#x7684;&#x7406;&#x7531;</p></li>
-<li><p>&#x5728;&#x540C;&#x6837;&#x7684;&#x89D2;&#x5EA6;&#x4E0B;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x662F;&#x540C;&#x65F6;&#x4E0D;&#x662F;</p></li>
-</ol>
-<h2 id="&#x5176;&#x4ED6;&#x539F;&#x5219;">&#x5176;&#x4ED6;&#x539F;&#x5219;</h2>
-<ol type="1">
-<li><p>&#x6709;&#x4E9B;&#x4E8B;&#x52A1;&#x65E0;&#x6CD5;&#x88AB;&#x6E05;&#x6670;&#x7684;&#x5B9A;&#x4E49;&#x3002;</p></li>
-<li><p>&#x6709;&#x4E9B;&#x4E8B;&#x52A1;&#x6211;&#x4EEC;&#x4E0D;&#x77E5;&#x9053;&#x662F;&#x5982;&#x4F55;&#x53D1;&#x751F;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E00;&#x5B9A;&#x662F;&#x6709;&#x539F;&#x56E0;&#x7684;</p></li>
-<li><p>&#x5C3D;&#x91CF;&#x7F29;&#x77ED;&#x903B;&#x8F91;&#x94FE;</p></li>
-<li><p>&#x533A;&#x5206;&#x4E3B;&#x6B21;</p></li>
-<li><p>&#x7528;&#x81EA;&#x5DF1;&#x7684;&#x8BED;&#x8A00;&#x53BB;&#x89E3;&#x91CA;</p></li>
-<li><p>&#x7528;&#x660E;&#x786E;&#x7684;&#x80AF;&#x5B9A;&#x7684;&#x8BED;&#x8A00;&#x63CF;&#x8FF0;</p></li>
-<li><p>&#x62BD;&#x8C61;&#x6982;&#x62EC;&#x89C2;&#x70B9;</p></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/22/docker基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/22/docker基础/" class="post-title-link" itemprop="url">docker基础</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-22 21:22:57" itemprop="dateCreated datePublished" datetime="2019-07-22T21:22:57+08:00">2019-07-22</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="&#x6307;&#x5357;">&#x6307;&#x5357;</h2>
-<h3 id="&#x5B89;&#x88C5;">&#x5B89;&#x88C5;</h3>
-<p><a href="https://docs.docker.com/install/" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x5B89;&#x88C5;&#x6587;&#x6863;</a></p>
-<p><code>docker --version</code> &#x67E5;&#x770B;&#x7248;&#x672C;&#x53F7; <code>docker info</code> &#x67E5;&#x770B; docker &#x8BE6;&#x7EC6;&#x4FE1;&#x606F;</p>
-<h3 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h3>
-<h4 id="image">image</h4>
-<p>&#x5BB9;&#x5668;&#x662F;&#x7531;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;&#x542F;&#x52A8;&#x7684;&#x3002;&#x955C;&#x50CF;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF0C;&#x5305;&#x542B;&#x8FD0;&#x884C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6240;&#x9700;&#x8981;&#x7684;&#x6240;&#x6709;&#x8D44;&#x6E90;&#xFF0C;&#x5305;&#x62EC; &#x4EE3;&#x7801;&#xFF0C;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7B49;&#x3002; &#x53EF;&#x901A;&#x8FC7;<code>docker images</code>&#x67E5;&#x770B;&#x6240;&#x6709;&#x955C;&#x50CF;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                                             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">jenkins/jenkins                                        2.138.4             b8efbb99cea6        7 months ago        701MB</span><br><span class="line">registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g   latest              3fa112fd3642        3 years ago         6.85GB</span><br></pre></td></tr></table></figure>
-<p>&#x53EF;&#x901A;&#x8FC7;<code>docker pull &lt;image:TAG&gt;</code>&#x4E0B;&#x8F7D;&#x955C;&#x50CF;&#xFF0C;&#x4E0D;&#x663E;&#x793A;&#x6307;&#x5B9A;<code>TAG</code>&#x5219;&#x4E0B;&#x8F7D;<code>latest</code>&#x7248;&#x672C;&#x7684;&#xFF0C;&#x5F53;&#x4F7F;&#x7528;<code>docker run &lt;image&gt;</code>&#x65F6;&#x82E5;&#x672C;&#x5730;&#x955C;&#x50CF;&#x6CA1;&#x6709;&#x5219;&#x4F1A;&#x81EA;&#x52A8;&#x4E0B;&#x8F7D;&#x8FDC;&#x7A0B;&#x955C;&#x50CF;</p>
-<h4 id="container">container</h4>
-<p>&#x5BB9;&#x5668;&#x662F;&#x955C;&#x50CF;&#x7684;&#x8FD0;&#x884C;&#x5B9E;&#x4F8B;&#xFF0C;&#x5BB9;&#x5668;&#x5171;&#x4EAB;&#x5BBF;&#x4E3B;&#x673A;&#x7684;<code>kernel</code>&#x5185;&#x6838;&#xFF0C;&#x72EC;&#x7ACB;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#xFF0C;&#x4E0D;&#x5360;&#x7528;&#x5176;&#x4ED6;&#x4EFB;&#x4F55;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5B58;&#x3002;</p>
-<p>&#x90E8;&#x5206;&#x547D;&#x4EE4;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># List Docker CLI commands</span></span></span><br><span class="line">docker</span><br><span class="line">docker container --help</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Display Docker version and info</span></span></span><br><span class="line">docker --version</span><br><span class="line">docker version</span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Execute Docker image</span></span></span><br><span class="line">docker run hello-world</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># List Docker images</span></span></span><br><span class="line">docker image ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># List Docker containers (running, all, all in quiet mode)</span></span></span><br><span class="line">docker container ls</span><br><span class="line">docker container ls --all</span><br><span class="line">docker container ls -aq</span><br></pre></td></tr></table></figure>
-<h2 id="&#x5BB9;&#x5668;">&#x5BB9;&#x5668;</h2>
-<h3 id="&#x521B;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x5BB9;&#x5668;">&#x521B;&#x5EFA;&#x81EA;&#x5DF1;&#x7684;&#x5BB9;&#x5668;</h3>
-<p>&#x901A;&#x8FC7;<code>Dockerfile</code>&#x5B9A;&#x4E49;&#x955C;&#x50CF; &#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7A7A;&#x76EE;&#x5F55;&#xFF0C;<code>cd</code>&#x8FDB;&#x5165;&#x76EE;&#x5F55;&#xFF0C;&#x7F16;&#x8F91;<code>Dockerfile</code>&#x6587;&#x4EF6;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use an official Python runtime as a parent image</span></span><br><span class="line">FROM python:2.7-slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the working directory to /app</span></span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the current directory contents into the container at /app</span></span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install any needed packages specified in requirements.txt</span></span><br><span class="line">RUN pip install --trusted-host pypi.python.org -r requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make port 80 available to the world outside this container</span></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define environment variable</span></span><br><span class="line">ENV NAME World</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run app.py when the container launches</span></span><br><span class="line">CMD [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;app.py&quot;</span>]</span><br></pre></td></tr></table></figure>
-<p>&#x6839;&#x636E;&#x4E0A;&#x8FF0;<code>Dockerfile</code>&#x65B0;&#x5EFA;<code>requirements.txt</code>&#x548C;<code>app.py</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Flask</span><br><span class="line">Redis</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> redis <span class="keyword">import</span> Redis, RedisError</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect to Redis</span></span><br><span class="line">redis = Redis(host=<span class="string">&quot;redis&quot;</span>, db=<span class="number">0</span>, socket_connect_timeout=<span class="number">2</span>, socket_timeout=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(&quot;/&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        visits = redis.incr(<span class="string">&quot;counter&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> RedisError:</span><br><span class="line">        visits = <span class="string">&quot;&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;&quot;</span></span><br><span class="line"></span><br><span class="line">    html = <span class="string">&quot;&lt;h3&gt;Hello {name}!&lt;/h3&gt;&quot;</span> \</span><br><span class="line">           <span class="string">&quot;&lt;b&gt;Hostname:&lt;/b&gt; {hostname}&lt;br/&gt;&quot;</span> \</span><br><span class="line">           <span class="string">&quot;&lt;b&gt;Visits:&lt;/b&gt; {visits}&quot;</span></span><br><span class="line">    <span class="keyword">return</span> html.format(name=os.getenv(<span class="string">&quot;NAME&quot;</span>, <span class="string">&quot;world&quot;</span>), hostname=socket.gethostname(), visits=visits)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(host=<span class="string">&apos;0.0.0.0&apos;</span>, port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
-<p>&#x6267;&#x884C;<code>docker build -t=friendlyhello .</code> &#x7B49;&#x5F85;&#x7F16;&#x8BD1;&#x5B8C;&#x6210;&#x540E;&#x901A;&#x8FC7;<code>docker image ls</code>&#x53EF;&#x67E5;&#x770B;&#x5230;&#x5DF2;&#x7ECF;&#x7F16;&#x8BD1;&#x597D;&#x7684;&#x955C;&#x50CF;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                                             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">friendlyhello                                          latest              9f7c2034a1f3        27 seconds ago      148MB</span><br><span class="line">python                                                 2.7-slim            5caa018c2dc0        9 days ago          137MB</span><br></pre></td></tr></table></figure>
-<p>&#x6267;&#x884C;<code>docker run -d -p 4000:80 friendlyhello</code>&#xFF0C;&#x4EE5;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;&#x5BB9;&#x5668;</p>
-<p>&#x53EF;&#x901A;&#x8FC7;<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>&#x8BBF;&#x95EE;&#x9996;&#x9875;</p>
-<p>&#x7248;&#x672C;&#x63A7;&#x5236; <code>docker tag image username/repository:tag</code></p>
-<p>&#x90E8;&#x5206;&#x547D;&#x4EE4;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">docker build -t friendlyhello .  <span class="comment"># Create image using this directory&apos;s Dockerfile</span></span><br><span class="line">docker run -p 4000:80 friendlyhello  <span class="comment"># Run &quot;friendlyhello&quot; mapping port 4000 to 80</span></span><br><span class="line">docker run -d -p 4000:80 friendlyhello         <span class="comment"># Same thing, but in detached mode</span></span><br><span class="line">docker container ls                                <span class="comment"># List all running containers</span></span><br><span class="line">docker container ls -a             <span class="comment"># List all containers, even those not running</span></span><br><span class="line">docker container stop &lt;<span class="built_in">hash</span>&gt;           <span class="comment"># Gracefully stop the specified container</span></span><br><span class="line">docker container <span class="built_in">kill</span> &lt;<span class="built_in">hash</span>&gt;         <span class="comment"># Force shutdown of the specified container</span></span><br><span class="line">docker container rm &lt;<span class="built_in">hash</span>&gt;        <span class="comment"># Remove specified container from this machine</span></span><br><span class="line">docker container rm $(docker container ls -a -q)         <span class="comment"># Remove all containers</span></span><br><span class="line">docker image ls -a                             <span class="comment"># List all images on this machine</span></span><br><span class="line">docker image rm &lt;image id&gt;            <span class="comment"># Remove specified image from this machine</span></span><br><span class="line">docker image rm $(docker image ls -a -q)   <span class="comment"># Remove all images from this machine</span></span><br><span class="line">docker login             <span class="comment"># Log in this CLI session using your Docker credentials</span></span><br><span class="line">docker tag &lt;image&gt; username/repository:tag  <span class="comment"># Tag &lt;image&gt; for upload to registry</span></span><br><span class="line">docker push username/repository:tag            <span class="comment"># Upload tagged image to registry</span></span><br><span class="line">docker run username/repository:tag                   <span class="comment"># Run image from a registry</span></span><br></pre></td></tr></table></figure>
-<h3 id="&#x542F;&#x52A8;&#x5BB9;&#x5668;">&#x542F;&#x52A8;&#x5BB9;&#x5668;</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-p &#x6620;&#x5C04;&#x7AEF;&#x53E3;    &lt;&#x5BBF;&#x4E3B;&#x7AEF;&#x53E3;:&#x5BB9;&#x5668;&#x7AEF;&#x53E3;&gt;</span></span><br><span class="line">docker run -p   4001:8080  friendlyhello</span><br><span class="line"><span class="comment">#-d &#x4EE5;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x542F;&#x52A8;</span></span><br><span class="line">docker run -d -p  4001:8080  friendlyhello</span><br></pre></td></tr></table></figure>
-<h3 id="&#x8FDB;&#x5165;&#x5BB9;&#x5668;">&#x8FDB;&#x5165;&#x5BB9;&#x5668;</h3>
-<p>&#x8FDB;&#x5165;&#x5BB9;&#x5668;&#xFF0C;&#x5E76;&#x4EE5;<code>bash</code>&#x4F5C;&#x4E3A;<code>shell</code> <code>docker exec -it 6bcaf729d3d4 bash</code></p>
-<p><code>6bcaf729d3d4</code>&#x5BB9;&#x5668; id&#xFF0C;&#x53EF;&#x901A;&#x8FC7;<code>docker ps</code>&#x67E5;&#x770B;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">6bcaf729d3d4        jenkins             &quot;/bin/tini -- /usr/l&#x2026;&quot;   31 seconds ago      Up 29 seconds       50000/tcp, 0.0.0.0:8002-&gt;8080/tcp   jenkins</span><br></pre></td></tr></table></figure>
-<p>&#x4EE5; root &#x6743;&#x9650;&#x767B;&#x5F55; <code>sudo docker exec -ti -u root 6bcaf729d3d4 bash</code></p>
-<h3 id="&#x5220;&#x9664;&#x5BB9;&#x5668;">&#x5220;&#x9664;&#x5BB9;&#x5668;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker container rm &lt;containerID&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5220;&#x9664;&#x6240;&#x6709;</span></span><br><span class="line">docker container rm `docker container ls -a -q`</span><br></pre></td></tr></table></figure>
-<h2 id="&#x670D;&#x52A1;&#x5316;">&#x670D;&#x52A1;&#x5316;</h2>
-<h2 id="&#x4E0B;&#x8F7D;&#x955C;&#x50CF;">&#x4E0B;&#x8F7D;&#x955C;&#x50CF;</h2>
-<p><code>docker pull name:tag</code> <code>name</code>&#x955C;&#x50CF;&#x540D; <code>tag</code>&#x955C;&#x50CF;&#x7248;&#x672C;</p>
-<blockquote>
-<p>&#x82E5;&#x901F;&#x5EA6;&#x8F83;&#x6162;&#xFF0C;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x955C;&#x50CF;&#x52A0;&#x901F; <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">&#x955C;&#x50CF;&#x52A0;&#x901F;&#x53C2;&#x8003;&#x6587;&#x6863;</a></p>
-</blockquote>
-<h2 id="&#x5220;&#x9664;&#x955C;&#x50CF;">&#x5220;&#x9664;&#x955C;&#x50CF;</h2>
-<p><code>docker images</code>&#x67E5;&#x770B;&#x6240;&#x6709;&#x955C;&#x50CF; <code>dockder rmi &apos;image_id&apos;</code>&#x5220;&#x9664;&#x955C;&#x50CF; &#x5220;&#x9664;&#x6240;&#x6709;&#x955C;&#x50CF;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f `docker images -q`</span><br></pre></td></tr></table></figure>
-<h2 id="&#x4FDD;&#x5B58;&#x955C;&#x50CF;">&#x4FDD;&#x5B58;&#x955C;&#x50CF;</h2>
-<p>&#x5F53;&#x5728;&#x955C;&#x50CF;&#x542F;&#x52A8;&#x7684;&#x5BB9;&#x5668;&#x4E2D;&#x505A;&#x4E86;&#x4FEE;&#x6539;&#xFF0C;&#x6BD4;&#x5982;&#x4E0B;&#x8F7D;&#x4E86;&#x8F6F;&#x4EF6;&#xFF0C;&#x505A;&#x4E86;&#x914D;&#x7F6E;&#x7B49;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x5BB9;&#x5668;&#x4FDD;&#x5B58;&#x4E3A;&#x955C;&#x50CF;&#x3002; <code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code> &#x793A;&#x4F8B; <code>docker commit a8eb6111cf26 li-ubuntu</code> &#x540E;&#x7EED;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x65B0;&#x7684;&#x955C;&#x50CF;&#x540D;&#x79F0;&#x6765;&#x542F;&#x52A8;&#x5E94;&#x7528;&#x4E86; <code>docker run -it li-ubuntu /bin/bash</code></p>
-<h2 id="&#x5BFC;&#x51FA;&#x955C;&#x50CF;">&#x5BFC;&#x51FA;&#x955C;&#x50CF;</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o update1.tar update</span><br></pre></td></tr></table></figure>
-<h2 id="&#x52A0;&#x8F7D;&#x79BB;&#x7EBF;&#x955C;&#x50CF;">&#x52A0;&#x8F7D;&#x79BB;&#x7EBF;&#x955C;&#x50CF;</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i update1.tar</span><br></pre></td></tr></table></figure>
-<h2 id="&#x5B89;&#x88C5;&#x79BB;&#x7EBF;&#x955C;&#x50CF;">&#x5B89;&#x88C5;&#x79BB;&#x7EBF;&#x955C;&#x50CF;</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="&#x67E5;&#x770B;&#x65E5;&#x5FD7;">&#x67E5;&#x770B;&#x65E5;&#x5FD7;</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker logs [OPTIONS] CONTAINER</span><br><span class="line">  Options:</span><br><span class="line">        --details        &#x663E;&#x793A;&#x66F4;&#x591A;&#x7684;&#x4FE1;&#x606F;</span><br><span class="line">    -f, --follow         &#x8DDF;&#x8E2A;&#x5B9E;&#x65F6;&#x65E5;&#x5FD7;</span><br><span class="line">        --since string   &#x663E;&#x793A;&#x81EA;&#x67D0;&#x4E2A;timestamp&#x4E4B;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x6216;&#x76F8;&#x5BF9;&#x65F6;&#x95F4;&#xFF0C;&#x5982;42m&#xFF08;&#x5373;42&#x5206;&#x949F;&#xFF09;</span><br><span class="line">        --tail string    &#x4ECE;&#x65E5;&#x5FD7;&#x672B;&#x5C3E;&#x663E;&#x793A;&#x591A;&#x5C11;&#x884C;&#x65E5;&#x5FD7;&#xFF0C; &#x9ED8;&#x8BA4;&#x662F;all</span><br><span class="line">    -t, --timestamps     &#x663E;&#x793A;&#x65F6;&#x95F4;&#x6233;</span><br><span class="line">        --until string   &#x663E;&#x793A;&#x81EA;&#x67D0;&#x4E2A;timestamp&#x4E4B;&#x524D;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x6216;&#x76F8;&#x5BF9;&#x65F6;&#x95F4;&#xFF0C;&#x5982;42m&#xFF08;&#x5373;42&#x5206;&#x949F;&#xFF09;</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x53EA;&#x663E;&#x793A;&#x6700;&#x540E; 100 &#x884C;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f -t --since=&quot;2018-02-08&quot; --tail=100 CONTAINER_ID`</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x6700;&#x8FD1; 30 &#x5206;&#x949F;&#x7684;&#x65E5;&#x5FD7;:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs --since 30m CONTAINER_ID</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x67D0;&#x65F6;&#x95F4;&#x4E4B;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -t --since=&quot;2018-02-08T13:23:37&quot; CONTAINER_ID</span><br></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;&#x67D0;&#x65F6;&#x95F4;&#x6BB5;&#x65E5;&#x5FD7;&#xFF1A;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -t --since=&quot;2018-02-08T13:23:37&quot; --until &quot;2018-02-09T12:23:37&quot; CONTAINER_ID</span><br></pre></td></tr></table></figure>
-<h2 id="&#x6302;&#x8F7D;&#x5BBF;&#x4E3B;&#x76EE;&#x5F55;">&#x6302;&#x8F7D;&#x5BBF;&#x4E3B;&#x76EE;&#x5F55;</h2>
-<p><code>-v</code>&#x53EF;&#x91CD;&#x590D;&#x4F7F;&#x7528;&#xFF0C;&#x6307;&#x5B9A;&#x591A;&#x4E2A;&#x76EE;&#x5F55;</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8002:8080 -v ~/jenkins:/var/jenkins_home -v /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home:/mnt/java -v /usr/local/Cellar/maven/3.6.1:/mnt/maven -v /Users/li/.m2:/mnt/.m2 --name jenkins --restart=always jenkins/jenkins:2.138.4</span><br></pre></td></tr></table></figure>
-<p><code>/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home:/mnt/java</code>&#x6302;&#x8F7D;<code>jdk</code></p>
-<h2 id="&#x5BB9;&#x5668;&#x5185;-vim-&#x5B89;&#x88C5;">&#x5BB9;&#x5668;&#x5185; vim &#x5B89;&#x88C5;</h2>
-<p>&#x8FDB;&#x5165;&#x5BB9;&#x5668;&#x4E2D;&#x4F7F;&#x7528;<code>vi</code>&#x63D0;&#x793A;&#x4E0D;&#x5B58;&#x5728;</p>
-<p><code>apt-get update</code>&#x66F4;&#x65B0;&#x8F6F;&#x4EF6;&#x5305;&#x7BA1;&#x7406;&#x5DE5;&#x5177;,&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x7684;&#x4F5C;&#x7528;&#x662F;&#xFF1A;&#x540C;&#x6B65; /etc/apt/sources.list &#x548C; /etc/apt/sources.list.d &#x4E2D;&#x5217;&#x51FA;&#x7684;&#x6E90;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x80FD;&#x83B7;&#x53D6;&#x5230;&#x6700;&#x65B0;&#x7684;&#x8F6F;&#x4EF6;&#x5305;&#x3002; <code>apt-get install vim</code>&#x5B89;&#x88C5; vi</p>
-<h2 id="&#x5F00;&#x542F;ssh&#x767B;&#x5F55;">&#x5F00;&#x542F;<code>ssh</code>&#x767B;&#x5F55;</h2>
-<ol type="1">
-<li>&#x5B89;&#x88C5;&#x670D;&#x52A1;&#x7AEF;<code>apt-get install openssh-server</code></li>
-<li>&#x542F;&#x52A8;<code>ssh</code>&#x670D;&#x52A1;,&#x4F7F;&#x7528;&#x547D;&#x4EE4;<code>service ssh start</code>&#x6216;&#x8005;<code>/ect/init.d/ssh start</code></li>
-<li>&#x5173;&#x95ED;<code>ssh</code>&#x670D;&#x52A1;&#xFF0C;<code>service ssh stop</code></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3136,7 +3084,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-count">135</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
