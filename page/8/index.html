@@ -410,6 +410,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/27/springboot自定义加载配置文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/27/springboot自定义加载配置文件/" class="post-title-link" itemprop="url">springboot自定义加载配置文件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-27 00:42:52" itemprop="dateCreated datePublished" datetime="2019-12-27T00:42:52+08:00">2019-12-27</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x5B9E;&#x73B0;">&#x5B9E;&#x73B0;</h2>
+<p><code>springboot</code>&#x63D0;&#x4F9B;&#x4E86;&#x6CE8;&#x89E3;<code>@PropertySource</code>&#x6765;&#x5B9E;&#x73B0;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002; &#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684;&#x6CE8;&#x89E3;&#x914D;&#x7F6E;,&#x4E5F;&#x53EF;&#x6CE8;&#x89E3;&#x5728;&#x5176;&#x4ED6;<code>@Configuration</code>&#x7C7B;&#x4E0A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@PropertySource</span>(factory = YamlPropertySourceFactory.class, value = <span class="string">&quot;classpath:application.yml&quot;</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>{</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>PropertySource</code>&#x548C;<code>PropertySourceFactory</code>&#x7684;&#x6E90;&#x7801;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.springframework.context.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> PropertySource {</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    String[] value();</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">ignoreResourceNotFound</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">encoding</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    Class&lt;? extends PropertySourceFactory&gt; factory() <span class="keyword">default</span> PropertySourceFactory.class;</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PropertySourceFactory</span> </span>{</span><br><span class="line">    PropertySource&lt;?&gt; createPropertySource(<span class="meta">@Nullable</span> String name, EncodedResource resource) <span class="keyword">throws</span> IOException;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><code>PropertySource</code>&#x7684;<code>factory</code>&#x6765;&#x8868;&#x793A;&#x4F7F;&#x7528;&#x4F55;&#x79CD;<code>PropertySourceFactory</code>&#x6765;&#x5B9E;&#x73B0;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#xFF0C;<code>value</code>&#x6307;&#x5411;&#x7684;&#x6587;&#x4EF6;&#x4F1A;&#x88AB;<code>spring</code>&#x52A0;&#x8F7D;&#x4E3A;<code>EncodedResource</code>&#x5B9E;&#x4F8B;&#x4EE5;&#x4F9B;<code>PropertySourceFactory</code>&#x4F7F;&#x7528;</p>
+<p><code>value</code>&#x7684;&#x503C;&#x9700;&#x8981;&#x4E3A;&#x6709;&#x6548;&#x8D44;&#x6E90;&#xFF0C;&#x82E5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x7684;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x89C6;<code>value</code>&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x4EC5;&#x52A0;&#x8F7D;&#x81EA;&#x5DF1;&#x6240;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002; &#x9996;&#x5148;&#x6211;&#x4EEC;&#x4E86;&#x89E3;&#x4E0B;&#x5982;&#x4F55;&#x52A0;&#x8F7D;<code>yaml</code>&#x914D;&#x7F6E;</p>
+<p><code>custom.yml</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;,&#x8DEF;&#x5F84;&#x4E3A;<code>/Users/li/java/workspace/branches/src/main/resources/custom.yml</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">foo:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>FileSystemResource</code>&#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x8D44;&#x6E90;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.branches.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.YamlPropertiesFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.FileSystemResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.EncodedResource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigUtil</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title">loadYamlIntoProperties</span><span class="params">(String yml)</span> </span>{</span><br><span class="line"></span><br><span class="line">        EncodedResource resource = <span class="keyword">new</span> EncodedResource(<span class="keyword">new</span> FileSystemResource(<span class="keyword">new</span> File(yml)));</span><br><span class="line">        YamlPropertiesFactoryBean factory = <span class="keyword">new</span> YamlPropertiesFactoryBean();</span><br><span class="line">        factory.setResources(resource.getResource());</span><br><span class="line">        factory.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> factory.getObject();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.branches.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.leaderli.branches.utils.ConfigUtil;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">YamlPropertySourceFactoryTest</span> </span>{</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>{</span><br><span class="line">        String yml = <span class="string">&quot;/Users/li/java/workspace/branches/src/main/resources/custom.yml&quot;</span>;</span><br><span class="line">        Properties properties = ConfigUtil.loadYamlIntoProperties(yml);</span><br><span class="line">        <span class="keyword">assert</span>  (<span class="keyword">int</span>)properties.get(<span class="string">&quot;foo&quot;</span>) == <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x53EA;&#x9700;&#x8981;&#x5B9E;&#x73B0;<code>PropertySourceFactory</code>&#x63A5;&#x53E3;&#x5373;&#x53EF;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leaderli.branches.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.leaderli.branches.utils.ConfigUtil;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.PropertiesPropertySource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.PropertySource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.EncodedResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.PropertySourceFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YamlPropertySourceFactory</span> <span class="keyword">implements</span> <span class="title">PropertySourceFactory</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log LOGGER = LogFactory.getLog(YamlPropertySourceFactory.class);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> PropertySource&lt;?&gt; createPropertySource(String name, EncodedResource resource) <span class="keyword">throws</span> IOException {</span><br><span class="line">        Properties propertiesFromYaml = ConfigUtil.loadYamlIntoProperties(<span class="string">&quot;/Users/li/java/workspace/branches/src/main/resources/custom.yml&quot;</span>);</span><br><span class="line">        String sourceName = name != <span class="keyword">null</span> ? name : resource.getResource().getFilename();</span><br><span class="line">        LOGGER.debug(<span class="string">&quot;resouce:&quot;</span> + resource);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PropertiesPropertySource(sourceName, propertiesFromYaml);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/12/25/docker-compose/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2358,177 +2543,6 @@ CSS &#x80FD;&#x81EA;&#x52A8;&#x7EE7;&#x627F;&#x7684;&#x5C5E;&#x6027;</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/11/26/响应式编程学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/26/响应式编程学习/" class="post-title-link" itemprop="url">响应式编程学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-26 14:23:10" itemprop="dateCreated datePublished" datetime="2019-11-26T14:23:10+08:00">2019-11-26</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/响应式编程/" itemprop="url" rel="index"><span itemprop="name">响应式编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2575,7 +2589,7 @@ CSS &#x80FD;&#x81EA;&#x52A8;&#x7EE7;&#x627F;&#x7684;&#x5C5E;&#x6027;</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">135</span>
+                    <span class="site-state-item-count">136</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2648,7 +2662,9 @@ CSS &#x80FD;&#x81EA;&#x52A8;&#x7EE7;&#x627F;&#x7684;&#x5C5E;&#x6027;</p>
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

@@ -143,7 +143,7 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x5C06;&amp;#x5E38;&amp;#x91CF;&amp;#x653E;&amp;#x5728;&amp;#x63A5;&amp;#x53E3;&amp;#x4E2D;&amp;#xFF0C;&amp;#x901A;&amp;#x8FC7;&amp;#x7EE7;&amp;#x627F;&amp;#x8BE5;&amp;#x63A5;&amp;#x53E3;&amp;#xFF0C;&amp;#x8C03;&amp;#x7528;&amp;#x5E38;&amp;#x91CF; 1234public interface ClassConst">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta property="og:updated_time" content="2020-09-28T07:33:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java tips">
 <meta name="twitter:description" content="&amp;#x5C06;&amp;#x5E38;&amp;#x91CF;&amp;#x653E;&amp;#x5728;&amp;#x63A5;&amp;#x53E3;&amp;#x4E2D;&amp;#xFF0C;&amp;#x901A;&amp;#x8FC7;&amp;#x7EE7;&amp;#x627F;&amp;#x8BE5;&amp;#x63A5;&amp;#x53E3;&amp;#xFF0C;&amp;#x8C03;&amp;#x7528;&amp;#x5E38;&amp;#x91CF; 1234public interface ClassConst">
@@ -469,7 +469,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-09-28 15:33:43" itemprop="dateModified" datetime="2020-09-28T15:33:43+08:00">2020-09-28</time>
               </span>
             
           
@@ -554,6 +554,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Player&gt; byRanking = Comparator</span><br><span class="line">  .comparing(Player::getRanking);</span><br><span class="line">Comparator&lt;Player&gt; byAge = Comparator</span><br><span class="line">  .comparing(Player::getAge);</span><br></pre></td></tr></table></figure>
 <h3 id="&#x6279;&#x91CF;&#x53CD;&#x7F16;&#x8BD1;-jar-&#x5305;">&#x6279;&#x91CF;&#x53CD;&#x7F16;&#x8BD1; jar &#x5305;</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.jar|xargs -I {} jadx {} -d src</span><br></pre></td></tr></table></figure>
+<h3 id="&#x95EE;&#x9898;">&#x95EE;&#x9898;</h3>
+<p><code>NoSuchMethodError</code>&#x4E00;&#x822C;&#x662F;&#x7531;&#x7248;&#x672C;&#x51B2;&#x7A81;&#x9020;&#x6210;&#x7684;</p>
 
       
     </div>
@@ -731,7 +733,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">135</span>
+                    <span class="site-state-item-count">136</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -804,7 +806,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1095,7 +1099,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#将常量放在接口中通过继承该接口调用常量"><span class="nav-number">1.</span> <span class="nav-text">将常量放在接口中，通过继承该接口，调用常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-class-是否是基本类型"><span class="nav-number">2.</span> <span class="nav-text">查看 Class 是否是基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看类是否为基本类型或包装类型"><span class="nav-number">3.</span> <span class="nav-text">查看类是否为基本类型或包装类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取-properties-中文乱码解决"><span class="nav-number">4.</span> <span class="nav-text">读取 properties 中文乱码解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断类是否为数组"><span class="nav-number">5.</span> <span class="nav-text">判断类是否为数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断类是否继承自"><span class="nav-number">6.</span> <span class="nav-text">判断类是否继承自</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前执行的方法名通过方法内的内部类来实现的"><span class="nav-number">7.</span> <span class="nav-text">获取当前执行的方法名,通过方法内的内部类来实现的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-shell"><span class="nav-number">8.</span> <span class="nav-text">使用 shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型零值"><span class="nav-number">9.</span> <span class="nav-text">基本类型零值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射工具类"><span class="nav-number">10.</span> <span class="nav-text">反射工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#comparator.comparing"><span class="nav-number">11.</span> <span class="nav-text">Comparator.comparing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量反编译-jar-包"><span class="nav-number">12.</span> <span class="nav-text">批量反编译 jar 包</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#将常量放在接口中通过继承该接口调用常量"><span class="nav-number">1.</span> <span class="nav-text">将常量放在接口中，通过继承该接口，调用常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-class-是否是基本类型"><span class="nav-number">2.</span> <span class="nav-text">查看 Class 是否是基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看类是否为基本类型或包装类型"><span class="nav-number">3.</span> <span class="nav-text">查看类是否为基本类型或包装类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取-properties-中文乱码解决"><span class="nav-number">4.</span> <span class="nav-text">读取 properties 中文乱码解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断类是否为数组"><span class="nav-number">5.</span> <span class="nav-text">判断类是否为数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断类是否继承自"><span class="nav-number">6.</span> <span class="nav-text">判断类是否继承自</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前执行的方法名通过方法内的内部类来实现的"><span class="nav-number">7.</span> <span class="nav-text">获取当前执行的方法名,通过方法内的内部类来实现的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-shell"><span class="nav-number">8.</span> <span class="nav-text">使用 shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型零值"><span class="nav-number">9.</span> <span class="nav-text">基本类型零值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射工具类"><span class="nav-number">10.</span> <span class="nav-text">反射工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#comparator.comparing"><span class="nav-number">11.</span> <span class="nav-text">Comparator.comparing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量反编译-jar-包"><span class="nav-number">12.</span> <span class="nav-text">批量反编译 jar 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">13.</span> <span class="nav-text">问题</span></a></li></ol></div>
             
 
           </div>
