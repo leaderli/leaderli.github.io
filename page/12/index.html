@@ -410,6 +410,240 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/09/restTemplate使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/09/restTemplate使用/" class="post-title-link" itemprop="url">restTemplate使用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-09 14:22:45" itemprop="dateCreated datePublished" datetime="2019-08-09T14:22:45+08:00">2019-08-09</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-22 15:22:39" itemprop="dateModified" datetime="2020-07-22T15:22:39+08:00">2020-07-22</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x57FA;&#x7840;">&#x57FA;&#x7840;</h2>
+<p>&#x63A8;&#x8350;&#x4F7F;&#x7528;<code>RestTemplateBuilder</code>&#x6784;&#x5EFA;<code>RestTemplate</code></p>
+<p>&#x6211;&#x4EEC;&#x770B;&#x4E0B;<code>RestTemplate</code>&#x7684;&#x57FA;&#x7840;&#x6210;&#x5458;&#x53D8;&#x91CF;</p>
+<ul>
+<li><code>requestFactory: ClientHttpRequestFactory</code></li>
+<li><code>defaultUriVariables: Map&lt;String, ?&gt;</code></li>
+<li><code>uriTemplateHandler: UriTemplateHandler</code></li>
+<li><code>interceptors: List&lt;ClientHttpRequestInterceptor&gt;</code></li>
+<li><code>messageConverters: List&lt;HttpMessageConverter&lt;?&gt;&gt;</code></li>
+<li><code>errorHandler: ResponseErrorHandler</code></li>
+</ul>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x9488;&#x5BF9;&#x8FD9;&#x4E9B;&#x5C5E;&#x6027;&#x505A;&#x4E00;&#x4E9B;&#x5206;&#x6790;</p>
+<h2 id="requestfactory">requestFactory</h2>
+<p>&#x6307;&#x5B9A;&#x4F7F;&#x7528;&#x7684;<code>HTTP</code>&#x8BF7;&#x6C42;&#x65B9;&#x5F0F;&#xFF0C; &#x8BBE;&#x7F6E;<code>http</code>&#x8BF7;&#x6C42;&#x5DE5;&#x5382;&#x7C7B;&#xFF0C;&#x5904;&#x7406;&#x8D85;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#xFF0C;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7B49;&#x60C5;&#x51B5;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">RestTemplate <span class="title">restTemplate</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> RestTemplateBuilder().requestFactory(requestFactory()).build();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Supplier&lt;ClientHttpRequestFactory&gt; <span class="title">requestFactory</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> () -&gt; {</span><br><span class="line">        HttpComponentsClientHttpRequestFactory requestFactory = <span class="keyword">new</span> HttpComponentsClientHttpRequestFactory();</span><br><span class="line">        requestFactory.setConnectionRequestTimeout(<span class="number">3000</span>);</span><br><span class="line">        requestFactory.setConnectTimeout(<span class="number">3000</span>);</span><br><span class="line">        requestFactory.setReadTimeout(<span class="number">8000</span>);</span><br><span class="line">        requestFactory.setHttpClient(httpClient());</span><br><span class="line">        <span class="keyword">return</span> requestFactory;</span><br><span class="line">    };</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> HttpClient <span class="title">httpClient</span><span class="params">()</span> </span>{</span><br><span class="line">    HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();</span><br><span class="line">    httpClientBuilder.setMaxConnTotal(<span class="number">50</span>);</span><br><span class="line">    httpClientBuilder.setMaxConnPerRoute(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> HttpClientBuilder.create().build();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="defaulturivariables">defaultUriVariables</h2>
+<p>&#x5F53;&#x88AB;&#x8D4B;&#x503C;&#x65F6;&#x5C31;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;<code>uriTemplateHandler</code>&#x3002;&#x8FD9;&#x662F;&#x5C31;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;<code>uriTemplateHandler</code>&#x5373;<code>DefaultUriBuilderFactory</code>&#x3002; &#x5047;&#x8BBE;&#x73B0;&#x5728;<code>defaultUriVariables</code>&#x5305;&#x542B;<code>default=demo</code>&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = <span class="string">&quot;http://localhost:8080/{default}/{replace}&quot;</span></span><br><span class="line"></span><br><span class="line">Map&lt;String,String&gt; uriVariables = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">uriVariables.put(<span class="string">&quot;replace&quot;</span>,<span class="string">&quot;someuri&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">postForObject</span><span class="params">(String url, @Nullable Object request, Class&lt;T&gt; responseType,</span></span></span><br><span class="line"><span class="function"><span class="params">        Map&lt;String, ?&gt; uriVariables)</span></span></span><br></pre></td></tr></table></figure>
+<p>&#x5728;&#x5B9E;&#x9645;&#x8BF7;&#x6C42;&#x65F6;: <code>{default}</code>&#x4F1A;&#x88AB;&#x66FF;&#x6362;&#x4E3A;<code>demo</code><br>
+<code>{replace}</code>&#x4F1A;&#x88AB;&#x66FF;&#x6362;&#x4E3A;<code>someuri</code><br>
+&#x66FF;&#x6362;&#x540E;&#x7684;&#x503C;&#x4E2D;&#x5305;&#x542B;<code>/</code>&#x4F1A;&#x65E0;&#x6CD5;&#x6B63;&#x5E38;&#x89E3;&#x6790;&#x3002;</p>
+<h2 id="uritemplatehandler">uriTemplateHandler</h2>
+<p>&#x9ED8;&#x8BA4;&#x7684; uriTemplateHandler &#x4F1A;&#x5C06; uriVariables &#x4E2D;&#x7684; value &#x8FDB;&#x884C;&#x8F6C;&#x8BD1;&#xFF0C;&#x56E0;&#x6B64;&#x65E0;&#x6CD5;&apos;/&apos;&#x4F1A;&#x88AB;&#x89E3;&#x6790;&#x4E3A; ascii &#x7B26;&#x53F7;&#x3002;&#x6839;&#x636E;&#x9700;&#x8981;&#xFF0C;&#x751F;&#x6210;&#x6EE1;&#x8DB3;&#x81EA;&#x5DF1;&#x9700;&#x8981;&#x7684; URI&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UriTemplateHandler</span> </span>{</span><br><span class="line">    <span class="function">URI <span class="title">expand</span><span class="params">(String uriTemplate, Map&lt;String, ?&gt; uriVariables)</span></span>;</span><br><span class="line">    <span class="function">URI <span class="title">expand</span><span class="params">(String uriTemplate, Object... uriVariables)</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x8FD4;&#x56DE;&#x7684; URI &#x7ECF;&#x8FC7;&#x81EA;&#x5B9A;&#x4E49;&#x5904;&#x7406;&#x5668;&#x4F1A;&#x5C06;<code>{xxx}</code>,&#x66FF;&#x6362;&#x4E3A;<code>uriVariables</code>&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x503C;&#xFF0C;&#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x89E3;&#x6790;<code>/</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">RestTemplate rest = restTemplate();</span><br><span class="line">    rest.setUriTemplateHandler(<span class="keyword">new</span> UriTemplateHandler() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> URI <span class="title">expand</span><span class="params">(String uriTemplate, Map&lt;String, ?&gt; uriVariables)</span> </span>{</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UriTemplate(uriTemplate).expand(uriVariables);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> URI <span class="title">expand</span><span class="params">(String uriTemplate, Object... uriVariables)</span> </span>{</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UriTemplate(uriTemplate).expand(uriVariables);</span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Object&gt; uriVariables = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    uriVariables.put(<span class="string">&quot;replace&quot;</span>, <span class="string">&quot;response/test&quot;</span>);</span><br><span class="line">    String hello = rest.postForObject(<span class="string">&quot;http://localhost:8080/{replace}&quot;</span>, <span class="string">&quot;&quot;</span>, String.class, uriVariables);</span><br></pre></td></tr></table></figure>
+<h2 id="interceptors">interceptors</h2>
+<p>&#x7C7B;&#x4F3C;<code>AOP</code>&#x5207;&#x9762;&#xFF0C;&#x5728;<code>HTTP</code>&#x8BF7;&#x6C42;&#x524D;&#x540E;&#x8FDB;&#x884C;&#x62E6;&#x622A;&#xFF0C;&#x6BD4;&#x5982;&#x7EDF;&#x4E00;&#x52A0;`headers</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ClientHttpRequestInterceptor</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function">ClientHttpResponse <span class="title">intercept</span><span class="params">(HttpRequest request, <span class="keyword">byte</span>[] body, ClientHttpRequestExecution execution)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"> ClientHttpRequestInterceptor interceptor = (request, body, execution) -&gt; {</span><br><span class="line">            <span class="keyword">return</span> execution.execute(request, body);</span><br><span class="line">        };</span><br></pre></td></tr></table></figure>
+<h2 id="messageconverters">messageConverters</h2>
+<p>&#x4E0E;<code>SpringMVC</code>&#x7684;<code>messageConverters</code>&#x539F;&#x7406;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;<code>HTTP</code>&#x4EA4;&#x6613;&#x65F6;&#x6570;&#x636E;&#x4F20;&#x9012;&#x662F;&#x901A;&#x8FC7;&#x4E8C;&#x8FDB;&#x5236;<code>byte</code>&#x4F20;&#x9012;&#x7684;&#x3002;&#x800C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>RestTemplate</code>&#x65F6;&#xFF0C;&#x4E00;&#x822C;&#x8BF7;&#x6C42;&#x8FD4;&#x56DE;&#x90FD;&#x4F7F;&#x7528;<code>javaBean</code>,&#x90A3;&#x5C31;&#x9700;&#x8981;<code>messageConverters</code>&#x6765;&#x7EDF;&#x4E00;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x770B;&#x4E0B;<code>RestTemplate</code>&#x7684;&#x9759;&#x6001;&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> romePresent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> jaxb2Present;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> jackson2Present;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> jackson2XmlPresent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> jackson2SmilePresent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> jackson2CborPresent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> gsonPresent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> jsonbPresent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> {</span><br><span class="line">    ClassLoader classLoader = RestTemplate.class.getClassLoader();</span><br><span class="line">    romePresent = ClassUtils.isPresent(<span class="string">&quot;com.rometools.rome.feed.WireFeed&quot;</span>, classLoader);</span><br><span class="line">    jaxb2Present = ClassUtils.isPresent(<span class="string">&quot;javax.xml.bind.Binder&quot;</span>, classLoader);</span><br><span class="line">    jackson2Present =</span><br><span class="line">            ClassUtils.isPresent(<span class="string">&quot;com.fasterxml.jackson.databind.ObjectMapper&quot;</span>, classLoader) &amp;&amp;</span><br><span class="line">                    ClassUtils.isPresent(<span class="string">&quot;com.fasterxml.jackson.core.JsonGenerator&quot;</span>, classLoader);</span><br><span class="line">    jackson2XmlPresent = ClassUtils.isPresent(<span class="string">&quot;com.fasterxml.jackson.dataformat.xml.XmlMapper&quot;</span>, classLoader);</span><br><span class="line">    jackson2SmilePresent = ClassUtils.isPresent(<span class="string">&quot;com.fasterxml.jackson.dataformat.smile.SmileFactory&quot;</span>, classLoader);</span><br><span class="line">    jackson2CborPresent = ClassUtils.isPresent(<span class="string">&quot;com.fasterxml.jackson.dataformat.cbor.CBORFactory&quot;</span>, classLoader);</span><br><span class="line">    gsonPresent = ClassUtils.isPresent(<span class="string">&quot;com.google.gson.Gson&quot;</span>, classLoader);</span><br><span class="line">    jsonbPresent = ClassUtils.isPresent(<span class="string">&quot;javax.json.bind.Jsonb&quot;</span>, classLoader);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x518D;&#x770B;&#x4E0B;<code>RestTemplate</code>&#x6784;&#x9020;&#x5668;&#xFF0C;&#x5F53;<code>classpath</code>&#x4E2D;&#x6709;&#x5BF9;&#x5E94;&#x7684;<code>class</code>&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;<code>RestTemplate</code>&#x4F1A;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">RestTemplate</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> ByteArrayHttpMessageConverter());</span><br><span class="line">    <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> StringHttpMessageConverter());</span><br><span class="line">    <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> ResourceHttpMessageConverter(<span class="keyword">false</span>));</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> SourceHttpMessageConverter&lt;&gt;());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">catch</span> (Error err) {</span><br><span class="line">        <span class="comment">// Ignore when no TransformerFactory implementation is available</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> AllEncompassingFormHttpMessageConverter());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (romePresent) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> AtomFeedHttpMessageConverter());</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> RssChannelHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (jackson2XmlPresent) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> MappingJackson2XmlHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (jaxb2Present) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> Jaxb2RootElementHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (jackson2Present) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> MappingJackson2HttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (gsonPresent) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> GsonHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (jsonbPresent) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> JsonbHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (jackson2SmilePresent) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> MappingJackson2SmileHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (jackson2CborPresent) {</span><br><span class="line">        <span class="keyword">this</span>.messageConverters.add(<span class="keyword">new</span> MappingJackson2CborHttpMessageConverter());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.uriTemplateHandler = initUriTemplateHandler();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="errorhandler">errorHandler</h2>
+<p>&#x4EC5;&#x5728;<code>HTTP</code>&#x6210;&#x529F;&#x8FD4;&#x56DE;&#x540E;&#x624D;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#xFF0C;&#x51B3;&#x5B9A;&#x5F53;&#x524D;<code>HTTP</code>&#x8BF7;&#x6C42;&#x662F;&#x5426;&#x6210;&#x529F;&#x3002;<code>hasError</code>&#x8FD4;&#x56DE;<code>true</code>&#x65F6;&#x624D;&#x4F1A;&#x8C03;&#x7528;<code>handleError</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ResponseErrorHandler</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasError</span><span class="params">(ClientHttpResponse response)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">handleError</span><span class="params">(ClientHttpResponse response)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">handleError</span><span class="params">(URI url, HttpMethod method, ClientHttpResponse response)</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">        handleError(response);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="rooturi">rootUri</h2>
+<p>&#x901A;&#x8FC7;<code>RestTemplateBuilder</code>&#x8BBE;&#x7F6E;<code>rootUri</code>,&#x8FDB;&#x884C;<code>HTTP</code>&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x82E5;&#x975E;<code>http</code>&#x5F00;&#x5934;&#xFF0C;&#x5219;&#x4F1A;&#x81EA;&#x52A8;&#x52A0;&#x4E0A;<code>rootUri</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RestTemplate rest = <span class="keyword">new</span> RestTemplateBuilder().rootUri(<span class="string">&quot;http://localhost:8080&quot;</span>).build();</span><br><span class="line">rest.postForObject(<span class="string">&quot;/test&quot;</span>, <span class="string">&quot;&quot;</span>, String.class, variables);</span><br></pre></td></tr></table></figure>
+<h2 id="post-&#x8BF7;&#x6C42;&#x53C2;&#x6570;">POST &#x8BF7;&#x6C42;&#x53C2;&#x6570;</h2>
+<p>&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x7684;&#x8BF7;&#x6C42;&#x6A21;&#x62DF;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate();</span><br><span class="line">MultiValueMap multiValueMap = <span class="keyword">new</span> LinkedMultiValueMap();</span><br><span class="line">FileSystemResource resource = <span class="keyword">new</span> FileSystemResource(<span class="keyword">new</span> File(<span class="string">&quot;/Users/li/Documents/Blog/db.json&quot;</span>));</span><br><span class="line">multiValueMap.add(<span class="string">&quot;file&quot;</span>,resource);</span><br><span class="line">String msg = restTemplate.postForObject(<span class="string">&quot;http://localhost:8082/upload/any&quot;</span>, multiValueMap, String.class);</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x7684;&#x9519;&#x8BEF;">&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x7684;&#x9519;&#x8BEF;</h2>
+<p>&#x9519;&#x8BEF;&#x4FE1;&#x606F;</p>
+<blockquote>
+<p>The request was rejected because no multipart boundary was found</p>
+</blockquote>
+<p>&#x901A;&#x8FC7;&#x67E5;&#x627E;&#x8BE5;&#x62A5;&#x9519;&#x4FE1;&#x606F;&#x6253;&#x5370;&#x5904;&#x53EF;&#x4EE5;&#x5B9A;&#x4F4D;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">FileItemIteratorImpl(RequestContext ctx)</span><br><span class="line">        <span class="keyword">throws</span> FileUploadException, IOException {</span><br><span class="line">    <span class="keyword">if</span> (ctx == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">&quot;ctx parameter&quot;</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    String contentType = ctx.getContentType();</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">null</span> == contentType)</span><br><span class="line">            || (!contentType.toLowerCase(Locale.ENGLISH).startsWith(MULTIPART))) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidContentTypeException(String.format(</span><br><span class="line">                <span class="string">&quot;the request doesn&apos;t contain a %s or %s stream, content type header is %s&quot;</span>,</span><br><span class="line">                MULTIPART_FORM_DATA, MULTIPART_MIXED, contentType));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">long</span> requestSize = ((UploadContext) ctx).contentLength();</span><br><span class="line"></span><br><span class="line">    InputStream input; <span class="comment">// N.B. this is eventually closed in MultipartStream processing</span></span><br><span class="line">    <span class="keyword">if</span> (sizeMax &gt;= <span class="number">0</span>) {</span><br><span class="line">        <span class="keyword">if</span> (requestSize != -<span class="number">1</span> &amp;&amp; requestSize &gt; sizeMax) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SizeLimitExceededException(String.format(</span><br><span class="line">                    <span class="string">&quot;the request was rejected because its size (%s) exceeds the configured maximum (%s)&quot;</span>,</span><br><span class="line">                    Long.valueOf(requestSize), Long.valueOf(sizeMax)),</span><br><span class="line">                    requestSize, sizeMax);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// N.B. this is eventually closed in MultipartStream processing</span></span><br><span class="line">        input = <span class="keyword">new</span> LimitedInputStream(ctx.getInputStream(), sizeMax) {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">raiseError</span><span class="params">(<span class="keyword">long</span> pSizeMax, <span class="keyword">long</span> pCount)</span></span></span><br><span class="line"><span class="function">                    <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">                FileUploadException ex = <span class="keyword">new</span> SizeLimitExceededException(</span><br><span class="line">                String.format(<span class="string">&quot;the request was rejected because its size (%s) exceeds the configured maximum (%s)&quot;</span>,</span><br><span class="line">                        Long.valueOf(pCount), Long.valueOf(pSizeMax)),</span><br><span class="line">                        pCount, pSizeMax);</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> FileUploadIOException(ex);</span><br><span class="line">            }</span><br><span class="line">        };</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        input = ctx.getInputStream();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    String charEncoding = headerEncoding;</span><br><span class="line">    <span class="keyword">if</span> (charEncoding == <span class="keyword">null</span>) {</span><br><span class="line">        charEncoding = ctx.getCharacterEncoding();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    boundary = getBoundary(contentType);</span><br><span class="line">    <span class="keyword">if</span> (boundary == <span class="keyword">null</span>) {</span><br><span class="line">        IOUtils.closeQuietly(input); <span class="comment">// avoid possible resource leak</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> FileUploadException(<span class="string">&quot;the request was rejected because no multipart boundary was found&quot;</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    notifier = <span class="keyword">new</span> MultipartStream.ProgressNotifier(listener, requestSize);</span><br><span class="line">    <span class="keyword">try</span> {</span><br><span class="line">        multi = <span class="keyword">new</span> MultipartStream(input, boundary, notifier);</span><br><span class="line">    } <span class="keyword">catch</span> (IllegalArgumentException iae) {</span><br><span class="line">        IOUtils.closeQuietly(input); <span class="comment">// avoid possible resource leak</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidContentTypeException(</span><br><span class="line">                String.format(<span class="string">&quot;The boundary specified in the %s header is too long&quot;</span>, CONTENT_TYPE), iae);</span><br><span class="line">    }</span><br><span class="line">    multi.setHeaderEncoding(charEncoding);</span><br><span class="line"></span><br><span class="line">    skipPreamble = <span class="keyword">true</span>;</span><br><span class="line">    findNextItem();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;&#x67E5;&#x770B;<code>getBoundary</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">byte</span>[] getBoundary(String contentType) {</span><br><span class="line">    ParameterParser parser = <span class="keyword">new</span> ParameterParser();</span><br><span class="line">    parser.setLowerCaseNames(<span class="keyword">true</span>);</span><br><span class="line">    <span class="comment">// Parameter parser can handle null input</span></span><br><span class="line">    Map&lt;String,String&gt; params =</span><br><span class="line">            parser.parse(contentType, <span class="keyword">new</span> <span class="keyword">char</span>[] {<span class="string">&apos;;&apos;</span>, <span class="string">&apos;,&apos;</span>});</span><br><span class="line">    <span class="comment">//Content-Type&#x4E2D;&#x5305;&#x542B;boundary=xxx&#x5B57;&#x6BB5;</span></span><br><span class="line">    String boundaryStr = params.get(<span class="string">&quot;boundary&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (boundaryStr == <span class="keyword">null</span>) {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">byte</span>[] boundary;</span><br><span class="line">    boundary = boundaryStr.getBytes(StandardCharsets.ISO_8859_1);</span><br><span class="line">    <span class="keyword">return</span> boundary;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6839;&#x636E;&#x4E0A;&#x4E00;&#x8282;&#x7684;&#x8BF4;&#x660E;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E0A;&#x9001;&#x6587;&#x4EF6;&#x662F;&#x4F7F;&#x7528;<code>MultiValueMap</code>&#x6765;&#x4E0A;&#x9001;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EA;&#x8981;&#x77E5;&#x9053;<code>MultiValueMap</code>&#x8BF7;&#x6C42;&#x7684;<code>Content-Type</code>&#x662F;&#x4EC0;&#x4E48;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x6839;&#x636E;&#x524D;&#x9762;&#x7AE0;&#x8282;<code>messageConverters</code>&#x7684;&#x52A0;&#x8F7D;&#x4ECB;&#x7ECD;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053;<code>RestTemplate</code>&#x4F1A;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x5408;&#x9002;&#x7684;&#x5904;&#x7406;&#x5668;&#x6765;&#x5904;&#x7406;&#xFF0C; &#x5176;&#x4E2D;<code>AllEncompassingFormHttpMessageConverter</code>&#x7684;&#x7236;&#x7C7B;<code>FormHttpMessageConverter</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doWithRequest</span><span class="params">(ClientHttpRequest httpRequest)</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">    <span class="keyword">super</span>.doWithRequest(httpRequest);</span><br><span class="line">    Object requestBody = <span class="keyword">this</span>.requestEntity.getBody();</span><br><span class="line">    <span class="keyword">if</span> (requestBody == <span class="keyword">null</span>) {</span><br><span class="line">        HttpHeaders httpHeaders = httpRequest.getHeaders();</span><br><span class="line">        HttpHeaders requestHeaders = <span class="keyword">this</span>.requestEntity.getHeaders();</span><br><span class="line">        <span class="keyword">if</span> (!requestHeaders.isEmpty()) {</span><br><span class="line">            requestHeaders.forEach((key, values) -&gt; httpHeaders.put(key, <span class="keyword">new</span> LinkedList&lt;&gt;(values)));</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (httpHeaders.getContentLength() &lt; <span class="number">0</span>) {</span><br><span class="line">            httpHeaders.setContentLength(<span class="number">0L</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">//request&#x7684;&#x7C7B;&#x578B;&#x9700;&#x8981;&#x7EE7;&#x627F;&#x81EA;MultiValueMap&#x6216;&#x8005;HttpEntity&lt;MultiValueMap&gt;</span></span><br><span class="line">        Class&lt;?&gt; requestBodyClass = requestBody.getClass();</span><br><span class="line">        Type requestBodyType = (<span class="keyword">this</span>.requestEntity <span class="keyword">instanceof</span> RequestEntity ?</span><br><span class="line">                ((RequestEntity&lt;?&gt;)<span class="keyword">this</span>.requestEntity).getType() : requestBodyClass);</span><br><span class="line">        HttpHeaders httpHeaders = httpRequest.getHeaders();</span><br><span class="line">        HttpHeaders requestHeaders = <span class="keyword">this</span>.requestEntity.getHeaders();</span><br><span class="line">        MediaType requestContentType = requestHeaders.getContentType();</span><br><span class="line">        <span class="keyword">for</span> (HttpMessageConverter&lt;?&gt; messageConverter : getMessageConverters()) {</span><br><span class="line">            <span class="keyword">if</span> (messageConverter <span class="keyword">instanceof</span> GenericHttpMessageConverter) {</span><br><span class="line">                GenericHttpMessageConverter&lt;Object&gt; genericConverter =</span><br><span class="line">                        (GenericHttpMessageConverter&lt;Object&gt;) messageConverter;</span><br><span class="line">                <span class="keyword">if</span> (genericConverter.canWrite(requestBodyType, requestBodyClass, requestContentType)) {</span><br><span class="line">                    <span class="keyword">if</span> (!requestHeaders.isEmpty()) {</span><br><span class="line">                        requestHeaders.forEach((key, values) -&gt; httpHeaders.put(key, <span class="keyword">new</span> LinkedList&lt;&gt;(values)));</span><br><span class="line">                    }</span><br><span class="line">                    logBody(requestBody, requestContentType, genericConverter);</span><br><span class="line">                    genericConverter.write(requestBody, requestBodyType, requestContentType, httpRequest);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//requestContentType&#x9700;&#x6EE1;&#x8DB3;&#x5982;&#x4E0B;&#x4E4B;&#x4E00;</span></span><br><span class="line">            <span class="comment">// null</span></span><br><span class="line">            <span class="comment">// multipart/form-data</span></span><br><span class="line">            <span class="comment">// */*</span></span><br><span class="line">            <span class="comment">//application/x-www-form-urlencoded</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (messageConverter.canWrite(requestBodyClass, requestContentType)) {</span><br><span class="line">                <span class="keyword">if</span> (!requestHeaders.isEmpty()) {</span><br><span class="line">                    requestHeaders.forEach((key, values) -&gt; httpHeaders.put(key, <span class="keyword">new</span> LinkedList&lt;&gt;(values)));</span><br><span class="line">                }</span><br><span class="line">                logBody(requestBody, requestContentType, messageConverter);</span><br><span class="line">                ((HttpMessageConverter&lt;Object&gt;) messageConverter).write(</span><br><span class="line">                        requestBody, requestContentType, httpRequest);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        String message = <span class="string">&quot;No HttpMessageConverter for &quot;</span> + requestBodyClass.getName();</span><br><span class="line">        <span class="keyword">if</span> (requestContentType != <span class="keyword">null</span>) {</span><br><span class="line">            message += <span class="string">&quot; and content type \&quot;&quot;</span> + requestContentType + <span class="string">&quot;\&quot;&quot;</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RestClientException(message);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;&#x5177;&#x4F53;<code>FormHttpMessageConverter</code>&#x7684;<code>write</code>&#x65B9;&#x6CD5;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(MultiValueMap&lt;String, ?&gt; map, @Nullable MediaType contentType, HttpOutputMessage outputMessage)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IOException, HttpMessageNotWritableException </span>{</span><br><span class="line">    <span class="comment">//&#x4E0A;&#x9001;&#x6587;&#x4EF6;&#x80AF;&#x5B9A;&#x4F7F;&#x7528;&#x7684;writeMultipart</span></span><br><span class="line">    <span class="keyword">if</span> (!isMultipart(map, contentType)) {</span><br><span class="line">        writeForm((MultiValueMap&lt;String, Object&gt;) map, contentType, outputMessage);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        writeMultipart((MultiValueMap&lt;String, Object&gt;) map, outputMessage);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeMultipart</span><span class="params">(<span class="keyword">final</span> MultiValueMap&lt;String, Object&gt; parts, HttpOutputMessage outputMessage)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> IOException </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">byte</span>[] boundary = generateMultipartBoundary();</span><br><span class="line">    Map&lt;String, String&gt; parameters = <span class="keyword">new</span> LinkedHashMap&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (!isFilenameCharsetSet()) {</span><br><span class="line">        parameters.put(<span class="string">&quot;charset&quot;</span>, <span class="keyword">this</span>.charset.name());</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x751F;&#x6210;&#x7684;boundary&#x4FE1;&#x606F;</span></span><br><span class="line">    parameters.put(<span class="string">&quot;boundary&quot;</span>, <span class="keyword">new</span> String(boundary, StandardCharsets.US_ASCII));</span><br><span class="line"></span><br><span class="line">    MediaType contentType = <span class="keyword">new</span> MediaType(MediaType.MULTIPART_FORM_DATA, parameters);</span><br><span class="line">    HttpHeaders headers = outputMessage.getHeaders();</span><br><span class="line">    headers.setContentType(contentType);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (outputMessage <span class="keyword">instanceof</span> StreamingHttpOutputMessage) {</span><br><span class="line">        StreamingHttpOutputMessage streamingOutputMessage = (StreamingHttpOutputMessage) outputMessage;</span><br><span class="line">        streamingOutputMessage.setBody(outputStream -&gt; {</span><br><span class="line">            writeParts(outputStream, parts, boundary);</span><br><span class="line">            writeEnd(outputStream, boundary);</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        writeParts(outputMessage.getBody(), parts, boundary);</span><br><span class="line">        writeEnd(outputMessage.getBody(), boundary);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5B9A;&#x4F4D;&#x4E00;&#x4E0B;&#x5177;&#x4F53;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x4F55;&#x79CD;<code>messageConverter</code>&#x5373;&#x53EF;</p>
+<h2 id="messageconverter&#x6709;&#x5173;&#x95EE;&#x9898;"><code>messageConverter</code>&#x6709;&#x5173;&#x95EE;&#x9898;</h2>
+<p>&#x5F53;&#x8BF7;&#x6C42;&#x7684;<code>api</code>&#x8FD4;&#x56DE;&#x7684;<code>content-type</code>&#x4E0D;&#x662F;&#x6807;&#x51C6;&#x7684;<code>application/json</code>&#x65F6;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;<code>messageConverter</code>&#x4E0D;&#x652F;&#x6301;&#x5904;&#x7406;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = <span class="keyword">new</span> ArrayList&lt;HttpMessageConverter&lt;?&gt;&gt;();</span><br><span class="line"><span class="comment">//Add the Jackson Message converter</span></span><br><span class="line">MappingJackson2HttpMessageConverter converter = <span class="keyword">new</span> MappingJackson2HttpMessageConverter();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Note: here we are making this converter to process any kind of response,</span></span><br><span class="line"><span class="comment">// not only application/*json, which is the default behaviour</span></span><br><span class="line">converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));</span><br><span class="line">messageConverters.add(converter);</span><br><span class="line">restTemplate.setMessageConverters(messageConverters);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/08/09/spring自定义注解改变方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -857,7 +1091,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-28 15:33:43" itemprop="dateModified" datetime="2020-09-28T15:33:43+08:00">2020-09-28</time>
+                <time title="修改时间：2020-10-15 16:08:50" itemprop="dateModified" datetime="2020-10-15T16:08:50+08:00">2020-10-15</time>
               </span>
             
           
@@ -946,6 +1180,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.jar|xargs -I {} jadx {} -d src</span><br></pre></td></tr></table></figure>
 <h3 id="&#x95EE;&#x9898;">&#x95EE;&#x9898;</h3>
 <p><code>NoSuchMethodError</code>&#x4E00;&#x822C;&#x662F;&#x7531;&#x7248;&#x672C;&#x51B2;&#x7A81;&#x9020;&#x6210;&#x7684;</p>
+<h3 id="&#x8FDB;&#x5236;">&#x8FDB;&#x5236;</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0b11</span>;<span class="comment">// &#x4E8C;&#x8FDB;&#x5236;</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0B11</span>;<span class="comment">// &#x4E8C;&#x8FDB;&#x5236;</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0x11</span>;<span class="comment">// &#x5341;&#x516D;&#x8FDB;&#x5236;</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0X11</span>;<span class="comment">// &#x5341;&#x516D;&#x8FDB;&#x5236;</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">011</span>; <span class="comment">//  &#x516B;&#x8FDB;&#x5236;</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -2849,196 +3085,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/31/动态规划/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/31/动态规划/" class="post-title-link" itemprop="url">动态规划</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-31 20:28:41" itemprop="dateCreated datePublished" datetime="2019-07-31T20:28:41+08:00">2019-07-31</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous"><h2 id="&#x9898;&#x76EE;">&#x9898;&#x76EE;</h2>
-<p>&#x5047;&#x8BBE;&#x4F60;&#x6B63;&#x5728;&#x722C;&#x697C;&#x68AF;&#x3002;&#x9700;&#x8981; n&#xA0;&#x9636;&#x4F60;&#x624D;&#x80FD;&#x5230;&#x8FBE;&#x697C;&#x9876;&#x3002; &#x6BCF;&#x6B21;&#x4F60;&#x53EF;&#x4EE5;&#x722C; 1 &#x6216; 2 &#x4E2A;&#x53F0;&#x9636;&#x3002;&#x4F60;&#x6709;&#x591A;&#x5C11;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x5462;&#xFF1F; &#x6CE8;&#x610F;&#xFF1A;&#x7ED9;&#x5B9A; n &#x662F;&#x4E00;&#x4E2A;&#x6B63;&#x6574;&#x6570;&#x3002;</p>
-<p>&#x793A;&#x4F8B; 1&#xFF1A; &gt;&#x8F93;&#x5165;&#xFF1A; 2 &#x8F93;&#x51FA;&#xFF1A; 2</p>
-<p>&#x89E3;&#x91CA;&#xFF1A; &#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x3002;</p>
-<blockquote>
-<p>1 &#x9636; + 1 &#x9636; 2 &#x9636;</p>
-</blockquote>
-<p>&#x793A;&#x4F8B; 2&#xFF1A; &gt;&#x8F93;&#x5165;&#xFF1A; 3 &#x8F93;&#x51FA;&#xFF1A; 3</p>
-<p>&#x89E3;&#x91CA;&#xFF1A; &#x6709;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x3002;</p>
-<blockquote>
-<p>1 &#x9636; + 1 &#x9636; + 1 &#x9636; 1 &#x9636; + 2 &#x9636; 2 &#x9636; + 1 &#x9636;</p>
-</blockquote>
-<h2 id="&#x601D;&#x8DEF;">&#x601D;&#x8DEF;</h2>
-<p>&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x7684;&#x601D;&#x8DEF;&#x53BB;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x3002;&#x5BF9;&#x4E8E;&#x6307;&#x5B9A;n&#x9636;&#x7684;&#x697C;&#x68AF;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x722C;&#x697C;&#x68AF;&#xFF0C;&#x8981;&#x561B;&#x662F;1&#x9636;&#xFF0C;&#x8981;&#x561B;&#x5C31;&#x662F;2&#x9636;&#xFF0C;&#x90A3;&#x4E48;&#x603B;&#x5171;&#x5C31;&#x6709;&#x722C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>&#x9636;&#x548C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&#x2212;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>&#x9636;&#x7684;&#x697C;&#x68AF;</p>
-<p>&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;</p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(1) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F(2) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n-1)+F(n-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></p>
-<p>&#x6839;&#x636E;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x5F97;&#x51FA;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">3</span>) {</span><br><span class="line">      <span class="keyword">return</span> n;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">int</span> f1 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> f2 = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;=n; i++) {</span><br><span class="line">      <span class="keyword">int</span> t = f2;</span><br><span class="line">      f2 = f2 + f1;</span><br><span class="line">      f1 = t;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> f2;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3085,7 +3131,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">136</span>
+                    <span class="site-state-item-count">137</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3413,7 +3459,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">118</span>
+                      
+                    
+                    <span class="site-state-item-count">119</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

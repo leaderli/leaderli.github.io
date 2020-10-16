@@ -135,17 +135,17 @@
 
 
 
-  <meta name="description" content="&amp;#x94FE;&amp;#x63A5; &amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#xFF0C;&amp;#x5168;&amp;#x79F0;&amp;#x662F;&amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x82F1;&amp;#x6587;&amp;#x53EB;&amp;#x4F5C; symbolic link&amp;#x3002;&amp;#x8FD9;&amp;#x7C7B;&amp;#x6587;&amp;">
+  <meta name="description" content="linux &amp;#x4F7F;&amp;#x7528;&amp;#x865A;&amp;#x62DF;&amp;#x76EE;&amp;#x5F55;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;&amp;#x786C;&amp;#x76D8;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x88AB;&amp;#x52A0;&amp;#x8F7D;&amp;#x7684;&amp;#x786C;&amp;#x76D8;&amp;#x88AB;&amp;#x89C6;&amp;#x4E3A; r">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux文件系统">
 <meta property="og:url" content="https://leaderli.github.io/2020/05/13/linux文件系统/index.html">
 <meta property="og:site_name" content="大狗哥传奇">
-<meta property="og:description" content="&amp;#x94FE;&amp;#x63A5; &amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#xFF0C;&amp;#x5168;&amp;#x79F0;&amp;#x662F;&amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x82F1;&amp;#x6587;&amp;#x53EB;&amp;#x4F5C; symbolic link&amp;#x3002;&amp;#x8FD9;&amp;#x7C7B;&amp;#x6587;&amp;">
+<meta property="og:description" content="linux &amp;#x4F7F;&amp;#x7528;&amp;#x865A;&amp;#x62DF;&amp;#x76EE;&amp;#x5F55;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;&amp;#x786C;&amp;#x76D8;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x88AB;&amp;#x52A0;&amp;#x8F7D;&amp;#x7684;&amp;#x786C;&amp;#x76D8;&amp;#x88AB;&amp;#x89C6;&amp;#x4E3A; r">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-21T06:53:19.000Z">
+<meta property="og:updated_time" content="2020-10-16T08:12:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux文件系统">
-<meta name="twitter:description" content="&amp;#x94FE;&amp;#x63A5; &amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#xFF0C;&amp;#x5168;&amp;#x79F0;&amp;#x662F;&amp;#x8F6F;&amp;#x94FE;&amp;#x63A5;&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x82F1;&amp;#x6587;&amp;#x53EB;&amp;#x4F5C; symbolic link&amp;#x3002;&amp;#x8FD9;&amp;#x7C7B;&amp;#x6587;&amp;">
+<meta name="twitter:description" content="linux &amp;#x4F7F;&amp;#x7528;&amp;#x865A;&amp;#x62DF;&amp;#x76EE;&amp;#x5F55;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;&amp;#x786C;&amp;#x76D8;&amp;#xFF0C;&amp;#x7B2C;&amp;#x4E00;&amp;#x4E2A;&amp;#x88AB;&amp;#x52A0;&amp;#x8F7D;&amp;#x7684;&amp;#x786C;&amp;#x76D8;&amp;#x88AB;&amp;#x89C6;&amp;#x4E3A; r">
 
 
 
@@ -468,7 +468,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-21 14:53:19" itemprop="dateModified" datetime="2020-09-21T14:53:19+08:00">2020-09-21</time>
+                <time title="修改时间：2020-10-16 16:12:51" itemprop="dateModified" datetime="2020-10-16T16:12:51+08:00">2020-10-16</time>
               </span>
             
           
@@ -520,7 +520,8 @@
       
 
       
-        <h2 id="&#x94FE;&#x63A5;">&#x94FE;&#x63A5;</h2>
+        <p>linux &#x4F7F;&#x7528;&#x865A;&#x62DF;&#x76EE;&#x5F55;&#x6765;&#x7BA1;&#x7406;&#x786C;&#x76D8;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x88AB;&#x52A0;&#x8F7D;&#x7684;&#x786C;&#x76D8;&#x88AB;&#x89C6;&#x4E3A; root &#x9A71;&#x52A8;&#x5668;&#xFF0C;root &#x9A71;&#x52A8;&#x5305;&#x542B;&#x865A;&#x62DF;&#x76EE;&#x5F55;&#x7684;&#x6838;&#x5FC3;&#x90E8;&#x5206;&#xFF0C;&#x5728; root &#x9A71;&#x52A8;&#x5668;&#x4E0A;&#xFF0C;linux &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x76EE;&#x5F55;&#x88AB;&#x79F0;&#x4E3A; mount points,&#x7528;&#x6765;&#x6302;&#x8F7D;&#x5176;&#x4ED6;&#x786C;&#x76D8;&#x3002;&#x4F7F;&#x7528;&#x865A;&#x62DF;&#x76EE;&#x5F55;&#x53EF;&#x4EE5;&#x5C06;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x90FD;&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x5C3D;&#x7BA1;&#x4ED6;&#x4EEC;&#x53EF;&#x80FD;&#x5B58;&#x50A8;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x786C;&#x76D8;&#x4E0A;&#xFF0C;&#x901A;&#x5E38;&#x6765;&#x8BF4;&#xFF0C;&#x7CFB;&#x7EDF;&#x7684;&#x6838;&#x5FC3;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x5728; root &#x9A71;&#x52A8;&#x5668;&#x4E0A;&#x3002;</p>
+<h2 id="&#x94FE;&#x63A5;">&#x94FE;&#x63A5;</h2>
 <p>&#x8F6F;&#x94FE;&#x63A5;&#xFF0C;&#x5168;&#x79F0;&#x662F;&#x8F6F;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x82F1;&#x6587;&#x53EB;&#x4F5C; symbolic link&#x3002;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#x5176;&#x5B9E;&#x975E;&#x5E38;&#x7C7B;&#x4F3C;&#x4E8E; Windows &#x91CC;&#x7684;&#x5FEB;&#x6377;&#x65B9;&#x5F0F;&#xFF0C;&#x8FD9;&#x4E2A;&#x8F6F;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; VA&#xFF09;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; B&#xFF09;&#x7684;&#x8DEF;&#x5F84;&#x548C;&#x540D;&#x79F0;&#xFF0C;&#x5F53;&#x6253;&#x5F00; A &#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x7CFB;&#x7EDF;&#x4F1A;&#x6839;&#x636E;&#x5176;&#x5185;&#x5BB9;&#x627E;&#x5230;&#x5E76;&#x6253;&#x5F00; B &#x6587;&#x4EF6;&#x3002;</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x8F6F;&#x94FE;&#x63A5;</span></span><br><span class="line">ln  -s [source] [link]</span><br></pre></td></tr></table></figure>
 <p>&#x800C;&#x786C;&#x94FE;&#x63A5;&#xFF0C;&#x5168;&#x79F0;&#x53EB;&#x4F5C;&#x786C;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x82F1;&#x6587;&#x540D;&#x79F0;&#x662F; hard link&#x3002;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#xFF0C;&#x8FD9;&#x7C7B;&#x6587;&#x4EF6;&#xFF08;&#x5047;&#x8BBE;&#x53EB; A&#xFF09;&#x4F1A;&#x62E5;&#x6709;&#x81EA;&#x5DF1;&#x7684; inode &#x8282;&#x70B9;&#x548C;&#x540D;&#x79F0;&#xFF0C;&#x5176; inode &#x4F1A;&#x6307;&#x5411;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x5757;&#x3002;&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#xFF0C;&#x8BE5;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x6240;&#x5728;&#x7684;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4F1A;&#x52A0; 1&#x3002;&#x5F53;&#x6B64;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x5927;&#x4E8E;&#x7B49;&#x4E8E; 2 &#x65F6;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6709;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x540C;&#x65F6;&#x6307;&#x5411;&#x4E86;&#x8FD9;&#x4E00;&#x6570;&#x636E;&#x5757;&#x3002;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#xFF0C;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x4F1A;&#x751F;&#x6548;&#x3002;&#x5F53;&#x5220;&#x9664;&#x5176;&#x4E2D;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x5BF9;&#x53E6;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E0D;&#x4F1A;&#x6709;&#x5F71;&#x54CD;&#xFF0C;&#x4EC5;&#x4EC5;&#x662F;&#x6570;&#x636E;&#x5757;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x51CF; 1&#x3002;&#x5F53;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4E3A; 0 &#x65F6;&#xFF0C;&#x5219;&#x7CFB;&#x7EDF;&#x624D;&#x4F1A;&#x6E05;&#x9664;&#x6B64;&#x6570;&#x636E;&#x5757;&#x3002;</p>
@@ -761,7 +762,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">136</span>
+                    <span class="site-state-item-count">137</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1089,7 +1090,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">118</span>
+                      
+                    
+                    <span class="site-state-item-count">119</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -410,6 +410,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/31/动态规划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/31/动态规划/" class="post-title-link" itemprop="url">动态规划</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-31 20:28:41" itemprop="dateCreated datePublished" datetime="2019-07-31T20:28:41+08:00">2019-07-31</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous"><h2 id="&#x9898;&#x76EE;">&#x9898;&#x76EE;</h2>
+<p>&#x5047;&#x8BBE;&#x4F60;&#x6B63;&#x5728;&#x722C;&#x697C;&#x68AF;&#x3002;&#x9700;&#x8981; n&#xA0;&#x9636;&#x4F60;&#x624D;&#x80FD;&#x5230;&#x8FBE;&#x697C;&#x9876;&#x3002; &#x6BCF;&#x6B21;&#x4F60;&#x53EF;&#x4EE5;&#x722C; 1 &#x6216; 2 &#x4E2A;&#x53F0;&#x9636;&#x3002;&#x4F60;&#x6709;&#x591A;&#x5C11;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x5462;&#xFF1F; &#x6CE8;&#x610F;&#xFF1A;&#x7ED9;&#x5B9A; n &#x662F;&#x4E00;&#x4E2A;&#x6B63;&#x6574;&#x6570;&#x3002;</p>
+<p>&#x793A;&#x4F8B; 1&#xFF1A; &gt;&#x8F93;&#x5165;&#xFF1A; 2 &#x8F93;&#x51FA;&#xFF1A; 2</p>
+<p>&#x89E3;&#x91CA;&#xFF1A; &#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x3002;</p>
+<blockquote>
+<p>1 &#x9636; + 1 &#x9636; 2 &#x9636;</p>
+</blockquote>
+<p>&#x793A;&#x4F8B; 2&#xFF1A; &gt;&#x8F93;&#x5165;&#xFF1A; 3 &#x8F93;&#x51FA;&#xFF1A; 3</p>
+<p>&#x89E3;&#x91CA;&#xFF1A; &#x6709;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x722C;&#x5230;&#x697C;&#x9876;&#x3002;</p>
+<blockquote>
+<p>1 &#x9636; + 1 &#x9636; + 1 &#x9636; 1 &#x9636; + 2 &#x9636; 2 &#x9636; + 1 &#x9636;</p>
+</blockquote>
+<h2 id="&#x601D;&#x8DEF;">&#x601D;&#x8DEF;</h2>
+<p>&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x7684;&#x601D;&#x8DEF;&#x53BB;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x3002;&#x5BF9;&#x4E8E;&#x6307;&#x5B9A;n&#x9636;&#x7684;&#x697C;&#x68AF;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x722C;&#x697C;&#x68AF;&#xFF0C;&#x8981;&#x561B;&#x662F;1&#x9636;&#xFF0C;&#x8981;&#x561B;&#x5C31;&#x662F;2&#x9636;&#xFF0C;&#x90A3;&#x4E48;&#x603B;&#x5171;&#x5C31;&#x6709;&#x722C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>&#x9636;&#x548C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&#x2212;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>&#x9636;&#x7684;&#x697C;&#x68AF;</p>
+<p>&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(1) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F(2) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&#x2212;</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n-1)+F(n-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></p>
+<p>&#x6839;&#x636E;&#x72B6;&#x6001;&#x8F6C;&#x79FB;&#x65B9;&#x7A0B;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x5F97;&#x51FA;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">3</span>) {</span><br><span class="line">      <span class="keyword">return</span> n;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">int</span> f1 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> f2 = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;=n; i++) {</span><br><span class="line">      <span class="keyword">int</span> t = f2;</span><br><span class="line">      f2 = f2 + f1;</span><br><span class="line">      f1 = t;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> f2;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/30/springboot-jpa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1835,7 +2025,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-08-18 10:16:35" itemprop="dateModified" datetime="2020-08-18T10:16:35+08:00">2020-08-18</time>
+                <time title="修改时间：2020-10-14 10:47:03" itemprop="dateModified" datetime="2020-10-14T10:47:03+08:00">2020-10-14</time>
               </span>
             
           
@@ -1946,43 +2136,69 @@
 <p>&#x6240;&#x6709;&#x7684; Java &#x7CFB;&#x7EDF;&#x5C5E;&#x6027;&#x90FD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; Maven &#x5C5E;&#x6027;&#x5F15;&#x7528;,&#x4F7F;&#x7528;<code>mvn help:system</code>&#x547D;&#x4EE4;&#x53EF;&#x67E5;&#x770B;&#x6240;&#x6709;&#x7684; Java &#x7CFB;&#x7EDF;&#x5C5E;&#x6027;;<code>System.getProperties()</code>&#x53EF;&#x5F97;&#x5230;&#x6240;&#x6709;&#x7684; Java &#x5C5E;&#x6027;;<code>${user.home}</code>&#x8868;&#x793A;&#x7528;&#x6237;&#x76EE;&#x5F55;;</p>
 <h3 id="&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5C5E;&#x6027;">&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5C5E;&#x6027;</h3>
 <p>&#x6240;&#x6709;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x90FD;&#x53EF;&#x4EE5;&#x7528;&#x4EE5;<code>env.</code>&#x5F00;&#x5934;&#x7684; Maven &#x5C5E;&#x6027;&#x5F15;&#x7528;&#x4F7F;&#x7528;<code>mvn help:system</code>&#x547D;&#x4EE4;&#x53EF;&#x67E5;&#x770B;&#x6240;&#x6709;&#x73AF;&#x5883;&#x53D8;&#x91CF;;${env.JAVA_HOME}&#x8868;&#x793A; JAVA_HOME &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x503C;;</p>
+<h3 id="&#x624B;&#x52A8;&#x6307;&#x5B9A;&#x53D8;&#x91CF;">&#x624B;&#x52A8;&#x6307;&#x5B9A;&#x53D8;&#x91CF;</h3>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x6253;&#x5305;&#x65F6;&#x4F7F;&#x7528;<code>-D</code>&#x6307;&#x5B9A;&#x53D8;&#x91CF;&#xFF0C;&#x4F8B;&#x5982;<code>mvn package -Denv=uat</code></p>
 <h2 id="&#x7F16;&#x8BD1;&#x8D44;&#x6E90;&#x6587;&#x4EF6;">&#x7F16;&#x8BD1;&#x8D44;&#x6E90;&#x6587;&#x4EF6;</h2>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0</span></span></span><br><span class="line"><span class="tag"><span class="string">                      https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">targetPath</span>&gt;</span>META-INF/plexus<span class="tag">&lt;/<span class="name">targetPath</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>${basedir}/src/main/plexus<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">include</span>&gt;</span>configuration.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">testResources</span>&gt;</span></span><br><span class="line">      ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">testResources</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>targetPath</code> &#x7F16;&#x8BD1;&#x76EE;&#x5F55;,&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x4E3A;<code>classes</code>&#x76EE;&#x5F55;</li>
 <li><code>directory</code> &#x9879;&#x76EE;&#x8D44;&#x6E90;&#x76EE;&#x5F55;</li>
 </ul>
-<h3 id="&#x751F;&#x547D;&#x5468;&#x671F;&#x548C;&#x9636;&#x6BB5;">&#x751F;&#x547D;&#x5468;&#x671F;&#x548C;&#x9636;&#x6BB5;</h3>
-<p>clean</p>
-<blockquote>
-<p>pre-clean, clean, post-clean</p>
-</blockquote>
-<p>default</p>
-<blockquote>
-<p>validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy</p>
-</blockquote>
-<p>site</p>
-<blockquote>
-<p>pre-site, site, post-site, site-deploy</p>
-</blockquote>
+<h2 id="&#x751F;&#x547D;&#x5468;&#x671F;&#x548C;&#x9636;&#x6BB5;">&#x751F;&#x547D;&#x5468;&#x671F;&#x548C;&#x9636;&#x6BB5;</h2>
+<p>maven &#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x90E8;&#x7F72;&#x548C;&#x53D1;&#x5E03;&#x9879;&#x76EE;&#x3002;&#x6BCF;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x90FD;&#x5305;&#x542B;&#x4E00;&#x7CFB;&#x5217; phase&#xFF0C;&#x5F53;&#x6267;&#x884C;&#x6307;&#x5B9A; phase &#x65F6;&#xFF0C;&#x6240;&#x6709;&#x524D;&#x7F6E;&#x7684; phase &#x90FD;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x4E3B;&#x8981;&#x6709;&#x4E0B;&#x8FF0;&#x4E09;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;</p>
+<ol type="1">
+<li><p><hi3>Clean Lifecycle</hi3></p>
+<p>&#x4E3B;&#x8981;&#x7528;&#x6765;&#x6E05;&#x7406; target</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Phase</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pre-clean</td>
+<td style="text-align: left;">execute processes needed prior to the actual project cleaning</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clean</td>
+<td style="text-align: left;">remove all files generated by the previous build</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">post-clean</td>
+<td style="text-align: left;">execute processes needed to finalize the project cleaning</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><hi3>Default Lifecycle</hi3></p>
+<p>&#x9ED8;&#x8BA4;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x7528;&#x4E8E;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#xFF0C;&#x6253;&#x5305;&#xFF0C;&#x53D1;&#x5E03;&#x7B49; | Phase | Description | | :-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | | validate | validate the project is correct and all necessary information is available. | | initialize | initialize build state, e.g. set properties or create directories. | | generate-sources| generate any source code for inclusion in compilation. | | process-sources | process the source code, for example to filter any values. | | generate-resources| generate resources for inclusion in the package. | | process-resources| copy and process the resources into the destination directory, ready for packaging. | | compile | compile the source code of the project. | | process-classes| post-process the generated files from compilation, for example to do bytecode enhancement on Java classes. | | generate-test-sources| generate any test source code for inclusion in compilation. | | process-test-sources| process the test source code, for example to filter any values. | | generate-test-resources| create resources for testing. | | process-test-resources| copy and process the resources into the test destination directory. | | test-compile| compile the test source code into the test destination directory | | process-test-classes| post-process the generated files from test compilation, for example to do bytecode enhancement on Java classes. | | test | run tests using a suitable unit testing framework. These tests should not require the code be packaged or deployed. | | prepare-package| perform any operations necessary to prepare a package before the actual packaging. This often results in an unpacked, processed version of the package. | | package | take the compiled code and package it in its distributable format, such as a JAR. | | pre-integration-test| perform actions required before integration tests are executed. This may involve things such as setting up the required environment. | | integration-test| process and deploy the package if necessary into an environment where integration tests can be run. | | post-integration-test| perform actions required after integration tests have been executed. This may including cleaning up the environment. | | verify | run any checks to verify the package is valid and meets quality criteria. | | install | install the package into the local repository, for use as a dependency in other projects locally. | | deploy | done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects. |</p></li>
+<li><p><hi3>Site Lifecycle</hi3> &#x7528;&#x4E8E;&#x751F;&#x6210;&#x76F8;&#x5173;&#x7684;&#x6587;&#x6863; | Phase | Description | | :---------- | :------------------------------------------------------------------------------------------- | | pre-site | execute processes needed prior to the actual project site generation | | site | generate the project&apos;s site documentation | | post-site | execute processes needed to finalize the site generation, and to prepare for site deployment | | site-deploy | deploy the generated site documentation to the specified web server |</p></li>
+</ol>
 <h3 id="phase">phase</h3>
 <p>&#x6267;&#x884C;&#x6307;&#x5B9A;&#x9636;&#x6BB5;&#x53CA;&#x8BE5;&#x9636;&#x6BB5;&#x7684;&#x6240;&#x6709;&#x524D;&#x7F6E;&#x9636;&#x6BB5;&#x7684;&#x63D2;&#x4EF6;&#x3002;</p>
 <h3 id="goal">goal</h3>
-<p><code>mvn tomcat7:deploy</code>&#x8FD9;&#x65F6; goal &#x4E3A;<code>deploy</code><br>
-<code>mvn clean:clean</code>&#x8FD9;&#x65F6; goal &#x4E3A;<code>clean</code><br>
-<code>goal</code>&#x53EF;&#x53EA;&#x8FD0;&#x884C;&#x6307;&#x5B9A;<code>goal</code>&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x8C03;&#x7528;&#x524D;&#x7F6E;</p>
+<p>&#x6BCF;&#x4E2A; phase &#x90FD;&#x5305;&#x542B;&#x4E00;&#x7CFB;&#x5217; goal&#xFF0C;&#x6BCF;&#x4E2A; goal &#x6267;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x5F53;&#x6267;&#x884C; phase &#x65F6;&#xFF0C;&#x7ED1;&#x5B9A;&#x5728;&#x8BE5; phase &#x7684; goal &#x90FD;&#x4F1A;&#x88AB;&#x6267;&#x884C;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x6765;&#x67E5;&#x770B;&#x7ED1;&#x5B9A;&#x5728; phase &#x4E0A;&#x7684; goal</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn <span class="built_in">help</span>:describe -Dcmd=compile</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x793A;&#x4F8B;&#x8F93;&#x51FA;</span></span><br><span class="line">compile&apos; is a phase corresponding to this plugin:</span><br><span class="line">org.apache.maven.plugins:maven-compiler-plugin:3.1:compile</span><br></pre></td></tr></table></figure>
+<p>maven &#x63D2;&#x4EF6;&#x662F;&#x4E00;&#x4E2A; goal &#x7684;&#x7EC4;&#x5408;&#xFF0C;&#x8FD9;&#x5199; goals &#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x5230;&#x4E0D;&#x540C;&#x7684; phase &#x4E0A;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x67E5;&#x770B; plugin &#x652F;&#x6301;&#x7684; goal</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-failsafe-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>${maven.failsafe.version}<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>integration-test<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>verify<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x8868;&#x793A;&#x6267;&#x884C;<code>integration-test</code>&#x548C;<code>verify</code>&#x8FD9;&#x4E24;&#x4E2A; goal&#xFF0C;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x63D2;&#x4EF6;&#x652F;&#x6301;&#x7684; goal</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mvn &lt;plugin&gt;:<span class="built_in">help</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> mvn failsafe:<span class="built_in">help</span></span></span><br><span class="line">This plugin has 3 goals:</span><br><span class="line"></span><br><span class="line">failsafe:help</span><br><span class="line">  Display help information on maven-failsafe-plugin.</span><br><span class="line">  Call mvn failsafe:help -Ddetail=true -Dgoal=&lt;goal-name&gt; to display parameter</span><br><span class="line">  details.</span><br><span class="line"></span><br><span class="line">failsafe:integration-test</span><br><span class="line">  Run integration tests using Surefire.</span><br><span class="line"></span><br><span class="line">failsafe:verify</span><br><span class="line">  Verify integration tests ran using Surefire.</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x8FD0;&#x884C;&#x6267;&#x884C;&#x7684;goal</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mvn &lt;plugin&gt;:&lt;goal&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mvn failsafe:verify</span></span><br></pre></td></tr></table></figure>
+<p><code>goal</code>&#x53EF;&#x53EA;&#x8FD0;&#x884C;&#x6307;&#x5B9A;<code>goal</code>&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x8C03;&#x7528;&#x524D;&#x7F6E;</p>
 <h3 id="&#x8C03;&#x8BD5;&#x9ED8;&#x8BA4;">&#x8C03;&#x8BD5;&#x9ED8;&#x8BA4;</h3>
-<p><code>mvn compile -X</code><br>
-&#x53EF;&#x4EE5;&#x67E5;&#x770B;<code>compile</code>&#x63D2;&#x4EF6;&#x7684;&#x6240;&#x6709;&#x7EC6;&#x8282;&#xFF0C;&#x5305;&#x62EC;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#xFF0C;&#x6BD4;&#x5982;&#x65E5;&#x5FD7;&#x5982;&#x4E0B; <img src="/images/maven&#x5165;&#x95E8;_1.jpg" alt="&#x8BE6;&#x7EC6;&#x65E5;&#x5FD7;"></p>
-<h3 id="&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;">&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;</h3>
+<p><code>mvn compile -X</code> &#x53EF;&#x4EE5;&#x67E5;&#x770B;<code>compile</code>&#x63D2;&#x4EF6;&#x7684;&#x6240;&#x6709;&#x7EC6;&#x8282;&#xFF0C;&#x5305;&#x62EC;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#xFF0C;&#x6BD4;&#x5982;&#x65E5;&#x5FD7;&#x5982;&#x4E0B; <img src="/images/maven&#x5165;&#x95E8;_1.jpg" alt="&#x8BE6;&#x7EC6;&#x65E5;&#x5FD7;"></p>
+<h2 id="&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;">&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;</h2>
 <p>&#x63D2;&#x4EF6;&#x7684;<code>pom</code>&#x4F1A;&#x6307;&#x5B9A;&#x9ED8;&#x8BA4;<code>phase</code>&#xFF0C;<code>goal</code>:<a href="https://maven.apache.org/plugins/index.html" target="_blank" rel="noopener">&#x63D2;&#x4EF6;&#x7684;&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
-<h4 id="clean">clean</h4>
+<h3 id="clean">clean</h3>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-clean-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>clean &#x63D2;&#x4EF6;&#x4E3B;&#x8981;&#x6E05;&#x7406;&#x7F16;&#x8BD1;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;&#x7F16;&#x8BD1;&#x76EE;&#x5F55;&#x914D;&#x7F6E;&#x5728;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#x4E2D;</p>
 <blockquote>
 <p><code>project.build.directory</code> &gt; <code>project.build.outputDirectory</code> &gt; <code>project.build.testOutputDirectory</code> &gt; <code>project.reporting.outputDirectory</code></p>
 </blockquote>
-<h4 id="compiler">compiler</h4>
+<h3 id="compiler">compiler</h3>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">compilerVersion</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">compilerArgs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">arg</span>&gt;</span>-verbose<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">arg</span>&gt;</span>-Xlint:all,-options,-path<span class="tag">&lt;/<span class="name">arg</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">compilerArgs</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>compilerArgs</code> javac &#x53C2;&#x6570;<br>
 <code>source</code> &#x6E90;&#x7801; jdk &#x7248;&#x672C;<br>
@@ -1996,18 +2212,18 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.maven.project;</span><br><span class="line"><span class="meta">@Component</span>( role = ProjectBuilder.class )</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultProjectBuilder</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">ProjectBuilder</span></span></span><br><span class="line"><span class="class"></span>{</span><br><span class="line">    ...</span><br><span class="line">        <span class="keyword">if</span> ( project.getFile() != <span class="keyword">null</span> )</span><br><span class="line">        {</span><br><span class="line">            Build build = project.getBuild();</span><br><span class="line">            project.addScriptSourceRoot( build.getScriptSourceDirectory() );</span><br><span class="line">            project.addCompileSourceRoot( build.getSourceDirectory() );</span><br><span class="line">            project.addTestCompileSourceRoot( build.getTestSourceDirectory() );</span><br><span class="line">        }</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.maven.project;</span><br><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="meta">@Component</span>( role = PathTranslator.class )</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultPathTranslator</span> <span class="keyword">implements</span> <span class="title">PathTranslator</span> </span>{</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> ( build != <span class="keyword">null</span> )</span><br><span class="line">      {</span><br><span class="line">          build.setDirectory( alignToBaseDirectory( build.getDirectory(), basedir ) );</span><br><span class="line">          build.setSourceDirectory( alignToBaseDirectory( build.getSourceDirectory(), basedir ) );</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.maven.model.interpolation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractStringBasedModelInterpolator</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">ModelInterpolator</span></span></span><br><span class="line"><span class="class"></span>{</span><br><span class="line"> <span class="keyword">static</span></span><br><span class="line">    {</span><br><span class="line">        List&lt;String&gt; translatedPrefixes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// MNG-1927, MNG-2124, MNG-3355:</span></span><br><span class="line">        <span class="comment">// If the build section is present and the project directory is non-null, we should make</span></span><br><span class="line">        <span class="comment">// sure interpolation of the directories below uses translated paths.</span></span><br><span class="line">        <span class="comment">// Afterward, we&apos;ll double back and translate any paths that weren&apos;t covered during interpolation via the</span></span><br><span class="line">        <span class="comment">// code below...</span></span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;build.directory&quot;</span> );</span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;build.outputDirectory&quot;</span> );</span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;build.testOutputDirectory&quot;</span> );</span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;build.sourceDirectory&quot;</span> );</span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;build.testSourceDirectory&quot;</span> );</span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;build.scriptSourceDirectory&quot;</span> );</span><br><span class="line">        translatedPrefixes.add( <span class="string">&quot;reporting.outputDirectory&quot;</span> );</span><br><span class="line"></span><br><span class="line">        TRANSLATED_PATH_EXPRESSIONS = translatedPrefixes;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> List&lt;? extends InterpolationPostProcessor&gt; createPostProcessors( <span class="keyword">final</span> Model model, <span class="keyword">final</span> File projectDir, <span class="keyword">final</span> ModelBuildingRequest config )</span><br><span class="line">    {</span><br><span class="line">        List&lt;InterpolationPostProcessor&gt; processors = <span class="keyword">new</span> ArrayList&lt;&gt;( <span class="number">2</span> );</span><br><span class="line">        <span class="keyword">if</span> ( projectDir != <span class="keyword">null</span> ){</span><br><span class="line">            processors.add( <span class="keyword">new</span> PathTranslatingPostProcessor( PROJECT_PREFIXES, TRANSLATED_PATH_EXPRESSIONS,projectDir, pathTranslator ) );</span><br><span class="line">        }</span><br><span class="line">        processors.add( <span class="keyword">new</span> UrlNormalizingPostProcessor( urlNormalizer ) );</span><br><span class="line">        <span class="keyword">return</span> processors;</span><br><span class="line">    }</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h4 id="resources">resources</h4>
+<h3 id="resources">resources</h3>
 <p>&#x7F16;&#x8BD1;&#x65F6;&#x62F7;&#x8D1D;&#x8D44;&#x6E90;&#x6587;&#x4EF6;,&#x4E0D;&#x9700;&#x8981;&#x663E;&#x5F0F;&#x7684;&#x8C03;&#x7528;&#x63D2;&#x4EF6;</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>${project.artifactId}<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">targetPath</span>&gt;</span>${project.build.directory}/META-INF<span class="tag">&lt;/<span class="name">targetPath</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">directory</span>&gt;</span>${basedir}/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>targetPath</code>&#x7F16;&#x8BD1;&#x540E;&#x76EE;&#x5F55;,&#x9ED8;&#x8BA4;&#x662F;&#x4EE5;<code>${project.build.outputDirectory}</code>&#x4E3A;&#x524D;&#x7F00;&#x7684;<br>
 <code>directory</code> &#x6E90;&#x8D44;&#x6E90;&#x76EE;&#x5F55;,&#x9ED8;&#x8BA4;&#x662F;&#x4EE5;<code>${basedir}</code>&#x4E3A;&#x524D;&#x7F00;&#x7684;<br>
 <code>finalName</code> &#x6253;&#x5305;&#x540E;&#x7684;&#x9879;&#x76EE;&#x540D;,&#x9ED8;&#x8BA4;&#x4E3A;<code>${project.artifactId}-${project.version}</code></p>
-<h4 id="dependency">dependency</h4>
+<h3 id="dependency">dependency</h3>
 <p>&#x89E3;&#x51B3;&#x6253;&#x5305;&#x4F9D;&#x8D56;&#x7684; jar &#x5305;</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>${project.build.directory}/lib<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>outputDirectory</code>&#x8868;&#x793A;&#x4F9D;&#x8D56; jar &#x9ED8;&#x8BA4;&#x8F93;&#x51FA;&#x76EE;&#x5F55;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;<code>${basedir}</code><br>
 <code>goal</code>:<code>copy-dependencies</code> <a href="https://maven.apache.org/plugins/maven-dependency-plugin/copy-dependencies-mojo.html" target="_blank" rel="noopener">&#x76F8;&#x5173;&#x914D;&#x7F6E;&#x8BE6;&#x7EC6;</a></p>
-<h4 id="antrun">antrun</h4>
+<h3 id="antrun">antrun</h3>
 <p>&#x6267;&#x884C;&#x811A;&#x672C;</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-antrun-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> <span class="comment">&lt;!-- &#x62F7;&#x8D1D;&#x63D2;&#x4EF6; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>copy<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span> <span class="comment">&lt;!-- maven&#x751F;&#x547D;&#x5468;&#x671F; --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">tasks</span>&gt;</span> <span class="comment">&lt;!-- &#x5176;&#x4ED6;&#x8BED;&#x6CD5;&#x81EA;&#x884C;&#x767E;&#x5EA6;maven-antrun-plugin&#x63D2;&#x4EF6;&#x7684;&#x76F8;&#x5173;&#x7528;&#x6CD5;--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">echo</span> <span class="attr">message</span>=<span class="string">&quot;${project.build.directory}&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">echo</span> <span class="attr">message</span>=<span class="string">&quot;${output.jar.director}&quot;</span>/&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">tasks</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>tasks</code>&#x5177;&#x4F53;&#x8BED;&#x6CD5;<a href="https://ant.apache.org/manual/index.html" target="_blank" rel="noopener">&#x53C2;&#x8003; ant &#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
@@ -2044,6 +2260,10 @@
 <h2 id="&#x6253;&#x5305;&#x6E90;&#x7801;">&#x6253;&#x5305;&#x6E90;&#x7801;</h2>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- &#x7ED1;&#x5B9A;source&#x63D2;&#x4EF6;&#x5230;Maven&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;,&#x5E76;&#x5728;&#x751F;&#x547D;&#x5468;&#x671F;&#x540E;&#x6267;&#x884C;&#x7ED1;&#x5B9A;&#x7684;source&#x7684;goal --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &#x7ED1;&#x5B9A;source&#x63D2;&#x4EF6;&#x5230;Maven&#x7684;&#x751F;&#x547D;&#x5468;&#x671F; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&#x5728;&#x751F;&#x547D;&#x5468;&#x671F;&#x540E;&#x6267;&#x884C;&#x7ED1;&#x5B9A;&#x7684;source&#x63D2;&#x4EF6;&#x7684;goals --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar-no-fork<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&#x6267;&#x884C; mvn install&#xFF0C;maven &#x4F1A;&#x81EA;&#x52A8;&#x5C06; source install &#x5230; repository &#x3002; &#x6267;&#x884C; mvn deploy&#xFF0C;maven &#x4F1A;&#x81EA;&#x52A8;&#x5C06; source deploy &#x5230; remote-repository &#x3002; &#x6267;&#x884C; mvn source:jar&#xFF0C;&#x5355;&#x72EC;&#x6253;&#x5305;&#x6E90;&#x7801;&#x3002;</p>
+<h2 id="&#x591A;&#x73AF;&#x5883;&#x914D;&#x7F6E;">&#x591A;&#x73AF;&#x5883;&#x914D;&#x7F6E;</h2>
+<p>&#x4F7F;&#x7528;&#x63D2;&#x4EF6;<code>maven-antrun-plugin</code>&#x6765;&#x5B9E;&#x73B0;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-antrun-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> <span class="comment">&lt;!-- &#x62F7;&#x8D1D;&#x63D2;&#x4EF6; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rename<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>prepare-package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span> <span class="comment">&lt;!-- &#x5728;&#x6253;&#x5305;&#x524D;&#x6267;&#x884C;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">tasks</span>&gt;</span> <span class="comment">&lt;!-- &#x5176;&#x4ED6;&#x8BED;&#x6CD5;&#x81EA;&#x884C;&#x767E;&#x5EA6;maven-antrun-plugin&#x63D2;&#x4EF6;&#x7684;&#x76F8;&#x5173;&#x7528;&#x6CD5;--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">copy</span></span></span><br><span class="line"><span class="tag">                <span class="attr">file</span>=<span class="string">&quot;${project.build.directory}/${project.artifactId}/WEB-INF/classes/config_${env}.properties&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">tofile</span>=<span class="string">&quot;${project.build.directory}/${project.artifactId}/WEB-INF/classes/config.properties&quot;</span>/&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">tasks</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5728;&#x6253;&#x5305;&#x65F6;&#x6307;&#x5B9A; env &#x53C2;&#x6570;&#x5373;&#x53EF;<code>mvn clean package -Denv=uat</code></p>
 
           
         
@@ -2490,189 +2710,6 @@ Provide an environment similar to what the user would expect had the user logged
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2019/07/09/maven相关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/09/maven相关/" class="post-title-link" itemprop="url">maven相关</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-09 23:01:19" itemprop="dateCreated datePublished" datetime="2019-07-09T23:01:19+08:00">2019-07-09</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-15 09:45:54" itemprop="dateModified" datetime="2020-07-15T09:45:54+08:00">2020-07-15</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tips/" itemprop="url" rel="index"><span itemprop="name">tips</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="idea-&#x4E2D;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x6E90;&#x4EE3;&#x7801;">idea &#x4E2D;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x6E90;&#x4EE3;&#x7801;</h3>
-<p>&#x53EF;&#x5728;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x4E0B;&#x624B;&#x52A8;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x4E0B;&#x8F7D;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn dependency:resolve -Dclassifier=sources</span><br></pre></td></tr></table></figure>
-<h3 id="maven-&#x7236;&#x7C7B;-pom">maven &#x7236;&#x7C7B; pom</h3>
-<p>&#x5B9A;&#x4E49;&#x7236;&#x7C7B;<code>pom</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.li<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&#x6267;&#x884C;<code>install</code>&#x6216;<code>depoly</code>&#x53D1;&#x5E03;&#x5230;&#x4ED3;&#x5E93;&#x4E2D;</p>
-<p>&#x5176;&#x4ED6;&#x9879;&#x76EE;&#x5F15;&#x7528;</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.li<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springboot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="eclipse-&#x4E2D;-maven-&#x9879;&#x76EE;&#x4E0D;&#x81EA;&#x52A8;&#x7F16;&#x8BD1;">eclipse &#x4E2D; maven &#x9879;&#x76EE;&#x4E0D;&#x81EA;&#x52A8;&#x7F16;&#x8BD1;</h3>
-<p>&#x6267;&#x884C;<code>clean</code>&#xFF0C;&#x518D;<code>compile</code>&#x5373;&#x53EF;&#x3002;</p>
-<h3 id="&#x8DF3;&#x8FC7;&#x6D4B;&#x8BD5;">&#x8DF3;&#x8FC7;&#x6D4B;&#x8BD5;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package -DskipTests=true</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2719,7 +2756,7 @@ Provide an environment similar to what the user would expect had the user logged
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">136</span>
+                    <span class="site-state-item-count">137</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3047,7 +3084,9 @@ Provide an environment similar to what the user would expect had the user logged
                     
                       
                     
-                    <span class="site-state-item-count">118</span>
+                      
+                    
+                    <span class="site-state-item-count">119</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

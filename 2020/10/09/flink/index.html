@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9-iuFTrWxG-NMbBqeS359Y491i0G0HcZ44NiICCEs7s">
+<meta name="baidu-site-verification" content="eQr4ptzetx">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+
+  <meta name="description" content="&amp;#x7B80;&amp;#x4ECB; flink &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x5904;&amp;#x7406;&amp;#x5F15;&amp;#x64CE;&amp;#xFF0C;&amp;#x7528;&amp;#x4E8E;&amp;#x5728;&amp;#x65E0;&amp;#x8FB9;&amp;#x754C;&amp;#x548C;&amp;#x6709;&amp;#x8FB9;&amp;#x754C;&amp;#x6570;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flink">
+<meta property="og:url" content="https://leaderli.github.io/2020/10/09/flink/index.html">
+<meta property="og:site_name" content="大狗哥传奇">
+<meta property="og:description" content="&amp;#x7B80;&amp;#x4ECB; flink &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x5904;&amp;#x7406;&amp;#x5F15;&amp;#x64CE;&amp;#xFF0C;&amp;#x7528;&amp;#x4E8E;&amp;#x5728;&amp;#x65E0;&amp;#x8FB9;&amp;#x754C;&amp;#x548C;&amp;#x6709;&amp;#x8FB9;&amp;#x754C;&amp;#x6570;&amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://leaderli.github.io/images/flink_示例.png">
+<meta property="og:image" content="https://leaderli.github.io/images/flink_状态.png">
+<meta property="og:image" content="https://leaderli.github.io/images/flink_layer.png">
+<meta property="og:image" content="https://leaderli.github.io/images/flink_区别.png">
+<meta property="og:image" content="https://leaderli.github.io/images/flink_analytics.png">
+<meta property="og:image" content="https://leaderli.github.io/images/flink_etl作业和持续数据管道的差异.png">
+<meta property="og:updated_time" content="2020-10-10T08:55:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flink">
+<meta name="twitter:description" content="&amp;#x7B80;&amp;#x4ECB; flink &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x5904;&amp;#x7406;&amp;#x5F15;&amp;#x64CE;&amp;#xFF0C;&amp;#x7528;&amp;#x4E8E;&amp;#x5728;&amp;#x65E0;&amp;#x8FB9;&amp;#x754C;&amp;#x548C;&amp;#x6709;&amp;#x8FB9;&amp;#x754C;&amp;#x6570;&amp;">
+<meta name="twitter:image" content="https://leaderli.github.io/images/flink_示例.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://leaderli.github.io/2020/10/09/flink/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>flink | 大狗哥传奇</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大狗哥传奇</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+  <script type="text/javascript">
+     var search_path = "<%= config.search.path %>";
+     if (search_path.length == 0) {
+     	search_path = "search.json";
+     }
+     var path = "<%= config.root %>" + search_path;
+ </script>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/10/09/flink/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">flink
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-09 10:53:15" itemprop="dateCreated datePublished" datetime="2020-10-09T10:53:15+08:00">2020-10-09</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-10-10 16:55:58" itemprop="dateModified" datetime="2020-10-10T16:55:58+08:00">2020-10-10</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x7B80;&#x4ECB;">&#x7B80;&#x4ECB;</h2>
+<p>flink &#x662F;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x5904;&#x7406;&#x5F15;&#x64CE;&#xFF0C;&#x7528;&#x4E8E;&#x5728;&#x65E0;&#x8FB9;&#x754C;&#x548C;&#x6709;&#x8FB9;&#x754C;&#x6570;&#x636E;&#x6D41;&#x4E0A;&#x8FDB;&#x884C;&#x6709;&#x72B6;&#x6001;&#x7684;&#x8BA1;&#x7B97;&#x3002;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x90FD;&#x53EF;&#x4EE5;&#x5F62;&#x6210;&#x4E00;&#x79CD;&#x4E8B;&#x4EF6;&#x6D41;&#x3002;</p>
+<p><a href="https://flink.apache.org/" target="_blank" rel="noopener">&#x5B98;&#x7F51;</a>&#x3002;</p>
+<p>&#x6570;&#x636E;&#x53EF;&#x88AB;&#x4F5C;&#x4E3A;&#x6709;&#x754C;&#x6216;&#x65E0;&#x754C;&#x6D41;&#x6765;&#x5904;&#x7406;</p>
+<ul>
+<li>&#x65E0;&#x754C;&#x6D41; &#x6709;&#x5B9A;&#x4E49;&#x6D41;&#x7684;&#x5F00;&#x59CB;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x6D41;&#x7684;&#x7ED3;&#x675F;&#x3002;&#x5B83;&#x4EEC;&#x4F1A;&#x65E0;&#x4F11;&#x6B62;&#x7684;&#x4EA7;&#x751F;&#x6570;&#x636E;&#xFF0C;&#x65E0;&#x754C;&#x6D41;&#x7684;&#x6570;&#x636E;&#x5728;&#x6444;&#x53D6;&#x540E;&#x9700;&#x8981;&#x7ACB;&#x5373;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x56E0;&#x4E3A;&#x8F93;&#x5165;&#x662F;&#x65E0;&#x9650;&#x7684;&#xFF0C;&#x5728;&#x4EFB;&#x4F55;&#x65F6;&#x5019;&#x8F93;&#x5165;&#x90FD;&#x4E0D;&#x4F1A;&#x5B8C;&#x6210;&#x3002;&#x5904;&#x7406;&#x65E0;&#x754C;&#x6570;&#x636E;&#x901A;&#x5E38;&#x4EE5;&#x7279;&#x5B9A;&#x987A;&#x5E8F;&#x6444;&#x53D6;&#x4E8B;&#x4EF6;&#xFF0C;&#x4F8B;&#x5982;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x4EE5;&#x4FBF;&#x80FD;&#x591F;&#x63A8;&#x65AD;&#x7ED3;&#x679C;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x3002;</li>
+<li>&#x6709;&#x754C;&#x6D41; &#x6709;&#x5B9A;&#x4E49;&#x6D41;&#x7684;&#x5F00;&#x59CB;&#xFF0C;&#x4E5F;&#x6709;&#x5B9A;&#x4E49;&#x6D41;&#x7684;&#x7ED3;&#x675F;&#x3002;&#xFF0C;&#x6709;&#x754C;&#x6D41;&#x53EF;&#x4EE5;&#x5728;&#x6444;&#x53D6;&#x6240;&#x6709;&#x6570;&#x636E;&#x540E;&#x518D;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x3002;&#x6709;&#x754C;&#x6D41;&#x6240;&#x6709;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x88AB;&#x6392;&#x5E8F;&#xFF0C;&#x6240;&#x4EE5;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x6709;&#x5E8F;&#x6444;&#x53D6;&#x3002;&#x6709;&#x754C;&#x6D41;&#x5904;&#x7406;&#x901A;&#x5E38;&#x88AB;&#x79F0;&#x4E3A;&#x6279;&#x5904;&#x7406;&#x3002;</li>
+</ul>
+<figure>
+<img src="/images/flink_&#x793A;&#x4F8B;.png" alt="flink_&#x793A;&#x4F8B;.png"><figcaption>flink_&#x793A;&#x4F8B;.png</figcaption>
+</figure>
+<h2 id="&#x57FA;&#x672C;&#x7EC4;&#x4EF6;">&#x57FA;&#x672C;&#x7EC4;&#x4EF6;</h2>
+<p>&#x53EF;&#x4EE5;&#x7531;&#x6D41;&#x5904;&#x7406;&#x6846;&#x67B6;&#x6784;&#x5EFA;&#x548C;&#x6267;&#x884C;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7C7B;&#x578B;&#x662F;&#x7531;&#x6846;&#x67B6;&#x5BF9;&#x6D41;&#xFF0C;&#x72B6;&#x6001;&#xFF0C;&#x65F6;&#x95F4;&#x7684;&#x652F;&#x6301;&#x7A0B;&#x5EA6;&#x6765;&#x51B3;&#x5B9A;&#x7684;&#x3002;</p>
+<h3 id="&#x6D41;">&#x6D41;</h3>
+<p>&#x6570;&#x636E;&#x6D41;&#x662F;&#x6D41;&#x5904;&#x7406;&#x7684;&#x57FA;&#x672C;&#x8981;&#x7D20;&#x3002;&#x6D41;&#x62E5;&#x6709;&#x591A;&#x79CD;&#x7279;&#x5F81;&#xFF0C;&#x8FD9;&#x4E9B;&#x7279;&#x5F81;&#x51B3;&#x5B9A;&#x4E86;&#x6D41;&#x5982;&#x4F55;&#x4EE5;&#x53CA;&#x4F55;&#x65F6;&#x88AB;&#x5904;&#x7406;&#x3002;</p>
+<ul>
+<li>&#x6709;&#x754C;&#x548C;&#x65E0;&#x754C;&#x7684;&#x6570;&#x636E;&#x6D41;&#xFF1A;&#x6D41;&#x53EF;&#x4EE5;&#x662F;&#x65E0;&#x754C;&#x7684;&#xFF1B;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x6709;&#x754C;&#x7684;&#xFF0C;&#x4F8B;&#x5982;&#x56FA;&#x5B9A;&#x5927;&#x5C0F;&#x7684;&#x6570;&#x636E;&#x96C6;&#x3002;</li>
+<li>&#x5B9E;&#x65F6;&#x548C;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x7684;&#x6570;&#x636E;&#x6D41;&#xFF1A;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x90FD;&#x662F;&#x4EE5;&#x6D41;&#x7684;&#x65B9;&#x5F0F;&#x4EA7;&#x751F;&#xFF0C;&#x4F46;&#x7528;&#x6237;&#x901A;&#x5E38;&#x4F1A;&#x4F7F;&#x7528;&#x4E24;&#x79CD;&#x622A;&#x7136;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#x6570;&#x636E;&#x3002;&#x6216;&#x662F;&#x5728;&#x6570;&#x636E;&#x751F;&#x6210;&#x65F6;&#x8FDB;&#x884C;&#x5B9E;&#x65F6;&#x7684;&#x5904;&#x7406;&#xFF1B;&#x4EA6;&#x6216;&#x662F;&#x5148;&#x5C06;&#x6570;&#x636E;&#x6D41;&#x6301;&#x4E45;&#x5316;&#x5230;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF08;&#x4F8B;&#x5982;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x6216;&#x5BF9;&#x8C61;&#x5B58;&#x50A8;&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8FDB;&#x884C;&#x6279;&#x5904;&#x7406;&#x3002;</li>
+</ul>
+<h3 id="&#x72B6;&#x6001;">&#x72B6;&#x6001;</h3>
+<p>&#x5177;&#x6709;&#x4E00;&#x5B9A;&#x590D;&#x6742;&#x5EA6;&#x7684;&#x6D41;&#x5904;&#x7406;&#x5E94;&#x7528;&#x90FD;&#x662F;&#x6709;&#x72B6;&#x6001;&#x7684;&#xFF0C;&#x4EFB;&#x4F55;&#x8FD0;&#x884C;&#x57FA;&#x672C;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x7684;&#x6D41;&#x5904;&#x7406;&#x5E94;&#x7528;&#x90FD;&#x9700;&#x8981;&#x5728;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x5B58;&#x50A8;&#x6240;&#x63A5;&#x6536;&#x5230;&#x7684;&#x4E8B;&#x4EF6;&#x6216;&#x4E2D;&#x95F4;&#x7ED3;&#x679C;&#xFF0C;&#x4EE5;&#x4F9B;&#x540E;&#x7EED;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#xFF08;&#x4F8B;&#x5982;&#x6536;&#x5230;&#x4E0B;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x6216;&#x7ECF;&#x8FC7;&#x4E00;&#x6BB5;&#x7279;&#x5B9A;&#x65F6;&#x95F4;&#xFF09;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#x5E76;&#x8FDB;&#x884C;&#x540E;&#x7EED;&#x5904;&#x7406;&#x3002; <img src="/images/flink_&#x72B6;&#x6001;.png" alt="flink_&#x72B6;&#x6001;.png"> &#x5E94;&#x7528;&#x72B6;&#x6001;&#x662F; Flink &#x4E2D;&#x7684;&#x4E00;&#x7B49;&#x516C;&#x6C11;&#xFF0C;FLink &#x63D0;&#x4F9B;&#x4E86;&#x8BB8;&#x591A;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x76F8;&#x5173;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>&#x591A;&#x79CD;&#x72B6;&#x6001;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#xFF1A;flink &#x4E3A;&#x591A;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x63D0;&#x4F9B;&#x4E86;&#x76F8;&#x5BF9;&#x5E94;&#x7684;&#x72B6;&#x6001;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#xFF0C;&#x4F8B;&#x5982; value&#xFF0C;list&#xFF0C;map&#x3002;</li>
+<li>&#x63D2;&#x4EF6;&#x5316;&#x7684; State Backend&#xFF1A;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x7A0B;&#x5E8F;&#x5E94;&#x7528;&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x5728;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x8FDB;&#x884C; checkpoint&#x3002;&#x53EF;&#x4EE5;&#x5C06;&#x72B6;&#x6001;&#x5B58;&#x50A8;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x6216;&#x8005; RocksDB&#x3002;</li>
+<li>&#x7CBE;&#x786E;&#x4E00;&#x6B21;&#x8BED;&#x4E49;&#xFF1A;Flink &#x7684; checkpoint &#x548C;&#x6545;&#x969C;&#x6062;&#x590D;&#x7B97;&#x6CD5;&#x4FDD;&#x8BC1;&#x4E86;&#x6545;&#x969C;&#x53D1;&#x751F;&#x540E;&#x5E94;&#x7528;&#x72B6;&#x6001;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3002;</li>
+<li>&#x8D85;&#x5927;&#x6570;&#x636E;&#x91CF;&#x72B6;&#x6001;&#xFF1A;&#x5229;&#x7528;&#x5176;&#x5F02;&#x6B65;&#x4EE5;&#x53CA;&#x589E;&#x91CF;&#x5F0F;&#x7684; checkpoint &#x7B97;&#x6CD5;&#xFF0C;&#x5B58;&#x50A8;&#x6570; TB &#x7EA7;&#x522B;&#x7684;&#x5E94;&#x7528;&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x53EF;&#x5F39;&#x6027;&#x4F38;&#x7F29;&#x7684;&#x5E94;&#x7528;&#xFF1A;&#x80FD;&#x591F;&#x901A;&#x8FC7;&#x5728;&#x66F4;&#x591A;&#x6216;&#x66F4;&#x5C11;&#x7684;&#x5DE5;&#x4F5C;&#x8282;&#x70B9;&#x4E0A;&#x5BF9;&#x72B6;&#x6001;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x5206;&#x5E03;&#xFF0C;&#x652F;&#x6301;&#x6709;&#x72B6;&#x6001;&#x5E94;&#x7528;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x6A2A;&#x5411;&#x4F38;&#x7F29;&#x3002;</li>
+</ul>
+<h3 id="&#x65F6;&#x95F4;">&#x65F6;&#x95F4;</h3>
+<p>&#x65F6;&#x95F4;&#x662F;&#x6D41;&#x5904;&#x7406;&#x5E94;&#x7528;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#x3002;&#x56E0;&#x4E3A;&#x4E8B;&#x4EF6;&#x603B;&#x662F;&#x5728;&#x7279;&#x5B9A;&#x65F6;&#x95F4;&#x70B9;&#x53D1;&#x751F;&#xFF0C;&#x6240;&#x4EE5;&#x5927;&#x591A;&#x6570;&#x7684;&#x4E8B;&#x4EF6;&#x6D41;&#x90FD;&#x62E5;&#x6709;&#x4E8B;&#x4EF6;&#x672C;&#x8EAB;&#x6240;&#x56FA;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x8BED;&#x4E49;&#x3002;&#x8BB8;&#x591A;&#x5E38;&#x89C1;&#x7684;&#x6D41;&#x8BA1;&#x7B97;&#x90FD;&#x57FA;&#x4E8E;&#x65F6;&#x95F4;&#x3002;&#x6D41;&#x5904;&#x7406;&#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x65B9;&#x9762;&#x662F;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5982;&#x4F55;&#x8861;&#x91CF;&#x65F6;&#x95F4;&#xFF0C;&#x5373;&#x533A;&#x5206;&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#xFF0C;&#x548C;&#x5904;&#x7406;&#x65F6;&#x95F4;&#x3002;</p>
+<ul>
+<li>&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#x6A21;&#x5F0F;&#xFF1A;&#x4F7F;&#x7528;&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#x7684;&#x6D41;&#x5904;&#x7406;&#x5E94;&#x7528;&#x6839;&#x636E;&#x4E8B;&#x4EF6;&#x672C;&#x8EAB;&#x81EA;&#x5E26;&#x7684;&#x65F6;&#x95F4;&#x6233;&#x8FDB;&#x884C;&#x7ED3;&#x679C;&#x7684;&#x8BA1;&#x7B97;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x65E0;&#x8BBA;&#x5904;&#x7406;&#x7684;&#x662F;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x7684;&#x4E8B;&#x4EF6;&#x8FD8;&#x662F;&#x5B9E;&#x65F6;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#x6A21;&#x5F0F;&#x7684;&#x5904;&#x7406;&#x603B;&#x80FD;&#x4FDD;&#x8BC1;&#x7ED3;&#x679C;&#x7684;&#x51C6;&#x786E;&#x6027;&#x548C;&#x4E00;&#x81F4;&#x6027;&#x3002;</li>
+<li>watermark &#x652F;&#x6301;&#xFF1A;&#x7528;&#x4EE5;&#x8861;&#x91CF;&#x65F6;&#x95F4;&#x8FDB;&#x5C55;&#x3002;watermark &#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x5E73;&#x8861;&#x5904;&#x7406;&#x5EF6;&#x65F6;&#x548C;&#x5B8C;&#x6574;&#x6027;&#x7684;&#x7075;&#x6D3B;&#x673A;&#x5236;&#x3002;</li>
+<li>&#x8FDF;&#x5230;&#x6570;&#x636E;&#x5904;&#x7406;&#xFF1A;&#x5F53;&#x5E26;&#x6709; watermark &#x7684;&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#x6A21;&#x5F0F;&#x5904;&#x7406;&#x6570;&#x636E;&#x6D41;&#x65F6;&#xFF0C;&#x5728;&#x8BA1;&#x7B97;&#x5B8C;&#x6210;&#x540E;&#x4E4B;&#x540E;&#x6254;&#x4F1A;&#x6709;&#x76F8;&#x5173;&#x6570;&#x636E;&#x5230;&#x8FBE;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x65F6;&#x95F4;&#x88AB;&#x79F0;&#x4E3A;&#x8FDF;&#x5230;&#x4E8B;&#x4EF6;&#x3002;Flink &#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x79CD;&#x5904;&#x7406;&#x8FDF;&#x5230;&#x6570;&#x636E;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x4F8B;&#x5982;&#x5C06;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x65C1;&#x8DEF;&#x8F93;&#x51FA;&#xFF08;side output&#xFF09;&#x6216;&#x8005;&#x66F4;&#x65B0;&#x4E4B;&#x524D;&#x5B8C;&#x6210;&#x8BA1;&#x7B97;&#x7684;&#x7ED3;&#x679C;&#x3002;</li>
+<li>&#x5904;&#x7406;&#x65F6;&#x95F4;&#x6A21;&#x5F0F;&#xFF1A;&#x5904;&#x7406;&#x65F6;&#x95F4;&#x9ED8;&#x8BA4;&#x6839;&#x636E;&#x5904;&#x7406;&#x5F15;&#x64CE;&#x7684;&#x673A;&#x5668;&#x65F6;&#x949F;&#x89E6;&#x53D1;&#x8BA1;&#x7B97;&#xFF0C;&#x4E00;&#x822C;&#x9002;&#x7528;&#x4E8E;&#x6709;&#x7740;&#x4E25;&#x683C;&#x4F4E;&#x5EF6;&#x8FDF;&#x9700;&#x6C42;&#xFF0C;&#x5E76;&#x4E14;&#x80FD;&#x591F;&#x5BB9;&#x5FCD;&#x8FD1;&#x4F3C;&#x7ED3;&#x679C;&#x7684;&#x6D41;&#x5904;&#x7406;&#x5E94;&#x7528;&#x3002;</li>
+</ul>
+<h3 id="&#x5206;&#x5C42;-api">&#x5206;&#x5C42; API</h3>
+<p>FLink &#x6839;&#x636E;&#x62BD;&#x8C61;&#x7A0B;&#x5EA6;&#x5206;&#x5C42;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x4E09;&#x79CD;&#x4E0D;&#x540C;&#x7684; API&#x3002;&#x6BCF;&#x4E00;&#x79CD; API &#x5728;&#x7B80;&#x6D01;&#x6027;&#x4E0A;&#x548C;&#x8868;&#x8FBE;&#x529B;&#x4E0A;&#x6709;&#x7740;&#x4E0D;&#x540C;&#x7684;&#x4FA7;&#x91CD;&#xFF0C;&#x5E76;&#x4E14;&#x9488;&#x5BF9;&#x4E0D;&#x540C;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#x3002; <img src="/images/flink_layer.png" alt="flink_layer.png"></p>
+<ul>
+<li><p>ProcessFunction &#x662F; FLink &#x6240;&#x63D0;&#x4F9B;&#x7684;&#x6700;&#x5177;&#x6709;&#x8868;&#x8FBE;&#x80FD;&#x529B;&#x7684;&#x63A5;&#x53E3;&#x3002;ProcessFunction &#x53EF;&#x4EE5;&#x5904;&#x7406;&#x4E00;&#x6216;&#x4E24;&#x4E2A;&#x8F93;&#x5165;&#x6570;&#x636E;&#x6D41;&#x4E2D;&#x7684;&#x5355;&#x4E2A;&#x4E8B;&#x4EF6;&#x6216;&#x8005;&#x5F52;&#x5165;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x7A97;&#x53E3;&#x5185;&#x7684;&#x591A;&#x4E2A;&#x4E8B;&#x4EF6;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x5BF9;&#x4E8E;&#x65F6;&#x95F4;&#x548C;&#x72B6;&#x6001;&#x7684;&#x7EC6;&#x7C92;&#x5EA6;&#x63A7;&#x5236;&#x3002;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x5728;&#x5176;&#x4E2D;&#x4EFB;&#x610F;&#x7684;&#x4FEE;&#x6539;&#x72B6;&#x6001;&#xFF0C;&#x4E5F;&#x80FD;&#x591F;&#x6CE8;&#x518C;&#x5B9A;&#x65F6;&#x5668;&#x7528;&#x4EE5;&#x5728;&#x672A;&#x6765;&#x7684;&#x67D0;&#x4E00;&#x65F6;&#x523B;&#x89E6;&#x53D1;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5229;&#x7528; ProcessFunction &#x5B9E;&#x73B0;&#x6240;&#x6709;&#x6709;&#x72B6;&#x6001;&#x7684;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x5E94;&#x7528;&#x9501;&#x9700;&#x8981;&#x7684;&#x57FA;&#x4E8E;&#x5355;&#x4E2A;&#x4E8B;&#x4EF6;&#x7684;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x3002; &#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#x5C55;&#x793A;&#x4E86;&#x5982;&#x4F55;&#x5728; KeyedStream &#x4E0A;&#x5229;&#x7528; KeyedProcessFunction &#x5BF9;&#x6807;&#x8BB0;&#x4E3A; START &#x548C; END &#x7684;&#x4E8B;&#x4EF6;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* &#x5C06;&#x76F8;&#x90BB;&#x7684; keyed START &#x548C; END &#x4E8B;&#x4EF6;&#x76F8;&#x5339;&#x914D;&#x5E76;&#x8BA1;&#x7B97;&#x4E24;&#x8005;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;</span></span><br><span class="line"><span class="comment">* &#x8F93;&#x5165;&#x6570;&#x636E;&#x4E3A; Tuple2&lt;String, String&gt; &#x7C7B;&#x578B;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x4E3A; key &#x503C;&#xFF0C;</span></span><br><span class="line"><span class="comment">* &#x7B2C;&#x4E8C;&#x4E2A;&#x5B57;&#x6BB5;&#x6807;&#x8BB0; START &#x548C; END &#x4E8B;&#x4EF6;&#x3002;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">StartEndDuration</span></span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">KeyedProcessFunction</span>&lt;<span class="title">String</span>, <span class="title">Tuple2</span>&lt;<span class="title">String</span>, <span class="title">String</span>&gt;, <span class="title">Tuple2</span>&lt;<span class="title">String</span>, <span class="title">Long</span>&gt;&gt; </span>{</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> ValueState&lt;Long&gt; startTime;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">(Configuration conf)</span> </span>{</span><br><span class="line">    <span class="comment">// obtain state handle</span></span><br><span class="line">    startTime = getRuntimeContext()</span><br><span class="line">    .getState(<span class="keyword">new</span> ValueStateDescriptor&lt;Long&gt;(<span class="string">&quot;startTime&quot;</span>, Long.class));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Called for each processed event. */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processElement</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    Tuple2&lt;String, String&gt; in,</span></span></span><br><span class="line"><span class="function"><span class="params">    Context ctx,</span></span></span><br><span class="line"><span class="function"><span class="params">    Collector&lt;Tuple2&lt;String, Long&gt;&gt; out)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (in.f1) {</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;START&quot;</span>:</span><br><span class="line">        <span class="comment">// set the start time if we receive a start event.</span></span><br><span class="line">        startTime.update(ctx.timestamp());</span><br><span class="line">        <span class="comment">// register a timer in four hours from the start event.</span></span><br><span class="line">        ctx.timerService()</span><br><span class="line">        .registerEventTimeTimer(ctx.timestamp() + <span class="number">4</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;END&quot;</span>:</span><br><span class="line">        <span class="comment">// emit the duration between start and end event</span></span><br><span class="line">        Long sTime = startTime.value();</span><br><span class="line">        <span class="keyword">if</span> (sTime != <span class="keyword">null</span>) {</span><br><span class="line">        out.collect(Tuple2.of(in.f0, ctx.timestamp() - sTime));</span><br><span class="line">        <span class="comment">// clear the state</span></span><br><span class="line">        startTime.clear();</span><br><span class="line">        }</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="comment">// do nothing</span></span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Called when a timer fires. */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTimer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">long</span> timestamp,</span></span></span><br><span class="line"><span class="function"><span class="params">    OnTimerContext ctx,</span></span></span><br><span class="line"><span class="function"><span class="params">    Collector&lt;Tuple2&lt;String, Long&gt;&gt; out)</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Timeout interval exceeded. Cleaning up the state.</span></span><br><span class="line">    startTime.clear();</span><br><span class="line">}</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+<li><p>DataStream API &#x4E3A;&#x8BB8;&#x591A;&#x901A;&#x7528;&#x7684;&#x6D41;&#x5904;&#x7406;&#x64CD;&#x4F5C;&#x63D0;&#x4F9B;&#x4E86;&#x5904;&#x7406;&#x539F;&#x8BED;&#x3002;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x5305;&#x62EC;&#x7A97;&#x53E3;&#xFF0C;&#x9010;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#xFF0C;&#x5728;&#x5904;&#x7406;&#x4E8B;&#x4EF6;&#x65F6;&#x8FDB;&#x884C;&#x5916;&#x90E8;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x7B49;&#x3002;DataStream API &#x652F;&#x6301; Java &#x548C; Scala &#x8BED;&#x8A00;&#xFF0C;&#x9884;&#x5148;&#x5B9A;&#x4E49;&#x4E86;&#x4F8B;&#x5982; map()&#x3001;reduce()&#x3001;aggregate()&#x7B49;&#x51FD;&#x6570;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6269;&#x5C55;&#x5B9E;&#x73B0;&#x9884;&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#x6216;&#x4F7F;&#x7528; Java&#xFF0C;Scala &#x7684; lambda &#x8868;&#x8FBE;&#x5F0F;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x51FD;&#x6570;&#x3002; &#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#x5C55;&#x793A;&#x4E86;&#x5982;&#x4F55;&#x6355;&#x6349;&#x4F1A;&#x8BDD;&#x4E8B;&#x4EF6;&#x8303;&#x56F4;&#x5185;&#x6240;&#x6709;&#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#xFF0C;&#x5E76;&#x5BF9;&#x6BCF;&#x4E00;&#x6B21;&#x4F1A;&#x8BDD;&#x7684;&#x70B9;&#x51FB;&#x91CF;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x7F51;&#x7AD9;&#x70B9;&#x51FB; Click &#x7684;&#x6570;&#x636E;&#x6D41;</span></span><br><span class="line">DataStream&lt;Click&gt; clicks = ...</span><br><span class="line"></span><br><span class="line">DataStream&lt;Tuple2&lt;String, Long&gt;&gt; result = clicks</span><br><span class="line"><span class="comment">// &#x5C06;&#x7F51;&#x7AD9;&#x70B9;&#x51FB;&#x6620;&#x5C04;&#x4E3A; (userId, 1) &#x4EE5;&#x4FBF;&#x8BA1;&#x6570;</span></span><br><span class="line">.map(</span><br><span class="line"><span class="comment">// &#x5B9E;&#x73B0; MapFunction &#x63A5;&#x53E3;&#x5B9A;&#x4E49;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="keyword">new</span> MapFunction&lt;Click, Tuple2&lt;String, Long&gt;&gt;() {</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Tuple2&lt;String, Long&gt; <span class="title">map</span><span class="params">(Click click)</span> </span>{</span><br><span class="line"><span class="keyword">return</span> Tuple2.of(click.userId, <span class="number">1L</span>);</span><br><span class="line">}</span><br><span class="line">})</span><br><span class="line"><span class="comment">// &#x4EE5; userId (field 0) &#x4F5C;&#x4E3A; key</span></span><br><span class="line">.keyBy(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// &#x5B9A;&#x4E49; 30 &#x5206;&#x949F;&#x8D85;&#x65F6;&#x7684;&#x4F1A;&#x8BDD;&#x7A97;&#x53E3;</span></span><br><span class="line">.window(EventTimeSessionWindows.withGap(Time.minutes(<span class="number">30L</span>)))</span><br><span class="line"><span class="comment">// &#x5BF9;&#x6BCF;&#x4E2A;&#x4F1A;&#x8BDD;&#x7A97;&#x53E3;&#x7684;&#x70B9;&#x51FB;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#xFF0C;&#x4F7F;&#x7528; lambda &#x8868;&#x8FBE;&#x5F0F;&#x5B9A;&#x4E49; reduce &#x51FD;&#x6570;</span></span><br><span class="line">.reduce((a, b) -&gt; Tuple2.of(a.f0, a.f1 + b.f1));</span><br></pre></td></tr></table></figure></li>
+<li><p>SQL &amp; Table API FLink &#x652F;&#x6301;&#x4E24;&#x79CD;&#x5173;&#x7CFB;&#x578B;&#x7684; API&#xFF0C;TableAPI &#x548C; SQL&#x3002;&#x8FD9;&#x4E24;&#x4E2A; API &#x90FD;&#x662F;&#x6279;&#x5904;&#x7406;&#x548C;&#x6D41;&#x5904;&#x7406;&#x7EDF;&#x4E00;&#x7684; API&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x5728;&#x65E0;&#x8FB9;&#x754C;&#x7684;&#x5B9E;&#x65F6;&#x6570;&#x636E;&#x6D41;&#x548C;&#x6709;&#x8FB9;&#x754C;&#x7684;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x6570;&#x636E;&#x6D41;&#x4E0A;&#xFF0C;&#x5173;&#x7CFB;&#x578B; API &#x4F1A;&#x4EE5;&#x76F8;&#x540C;&#x7684;&#x8BED;&#x4E49;&#x6267;&#x884C;&#x67E5;&#x8BE2;&#xFF0C;&#x5E76;&#x4EA7;&#x751F;&#x76F8;&#x540C;&#x7684;&#x7ED3;&#x679C;&#x3002;Table API &#x548C; SQL &#x501F;&#x52A9;&#x4E86; Apache Calcite &#x6765;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x7684;&#x89E3;&#x6790;&#xFF0C;&#x6821;&#x9A8C;&#x4EE5;&#x53CA;&#x4F18;&#x5316;&#x3002;&#x5B83;&#x4EEC;&#x53EF;&#x4EE5;&#x4E0E; DataStream &#x548C; DataSet API &#x65E0;&#x7F1D;&#x96C6;&#x6210;&#xFF0C;&#x5E76;&#x652F;&#x6301;&#x7528;&#x4E8E;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x6807;&#x91CF;&#x51FD;&#x6570;&#xFF0C;&#x805A;&#x4F1A;&#x51FD;&#x6570;&#x4EE5;&#x53CA;&#x8868;&#x503C;&#x51FD;&#x6570;&#x3002; FLink &#x7684;&#x5173;&#x7CFB;&#x578B; API &#x65E8;&#x5728;&#x7B80;&#x5316;&#x6570;&#x636E;&#x5206;&#x6790;&#xFF0C;&#x6570;&#x636E;&#x6D41;&#x6C34;&#x7EBF;&#x548C; ETL &#x5E94;&#x7528;&#x7684;&#x5B9A;&#x4E49;&#x3002; &#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#x5C55;&#x793A;&#x4E86;&#x5982;&#x4F55;&#x4F7F;&#x7528; SQL &#x8BED;&#x53E5;&#x6355;&#x83B7;&#x4F1A;&#x8BDD;&#x65F6;&#x95F4;&#x8303;&#x56F4;&#x5185;&#x6240;&#x6709;&#x7684;&#x70B9;&#x51FB;&#x6D41;&#x4E8B;&#x4EF6;&#xFF0C;&#x5E76;&#x5BF9;&#x6BCF;&#x4E00;&#x6B21;&#x4F1A;&#x8BDD;&#x7684;&#x70B9;&#x51FB;&#x91CF;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#x3002;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> userId, <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> clicks</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">SESSION</span>(clicktime, <span class="built_in">INTERVAL</span> <span class="string">&apos;30&apos;</span> <span class="keyword">MINUTE</span>), userId</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="&#x5B89;&#x88C5;">&#x5B89;&#x88C5;</h2>
+<p><a href="https://flink.apache.org/downloads.html" target="_blank" rel="noopener">&#x4E0B;&#x8F7D;&#x5730;&#x5740;</a>&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7248;&#x672C;<a href="https://mirror-hk.koddos.net/apache/flink/flink-1.10.2/flink-1.10.2-bin-scala_2.11.tgz" target="_blank" rel="noopener">flink-1.10.2</a></p>
+<p>java &#x7248;&#x672C;&#x4EC5;&#x652F;&#x6301; 8 &#x6216; 11</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> tar -xzf  flink-1.10.2-bin-scala_2.11.tgz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> flink-1.10.2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x542F;&#x52A8; &#x82E5;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;8081&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x5219;&#x65E0;&#x6CD5;&#x6B63;&#x5E38;&#x542F;&#x52A8;&#xFF0C;&#x9700;&#x4FEE;&#x6539;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./bin/start-cluster.sh</span></span><br><span class="line">Starting cluster.</span><br><span class="line">Starting standalonesession daemon on host CentOS7.</span><br><span class="line">[INFO] 1 instance(s) of taskexecutor are already running on CentOS7.</span><br><span class="line">Starting taskexecutor daemon on host CentOS7.</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x505C;&#x6B62;</span></span><br><span class="line">./bin/stop-cluster.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x6D4B;&#x8BD5; &#x63D0;&#x4EA4;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./bin/flink run examples/streaming/WordCount.jar</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x53EF;&#x901A;&#x8FC7;&#x65E5;&#x5FD7;&#x67E5;&#x770B;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tail <span class="built_in">log</span>/flink-*-taskexecutor-*.out</span></span><br><span class="line">(to,1)</span><br><span class="line">(be,1)</span><br><span class="line">(or,1)</span><br><span class="line">(not,1)</span><br><span class="line">(to,2)</span><br><span class="line">(be,2)</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Web UI&#x754C;&#x9762;&#x67E5;&#x770B;&#xFF0C;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;&#x4E3A;8081&#xFF0C;&#x53EF;&#x5728;conf/flink-conf.yaml&#x4E2D;&#x4FEE;&#x6539;rest.port&#x914D;&#x7F6E;</span></span><br></pre></td></tr></table></figure>
+<h2 id="&#x5E94;&#x7528;&#x573A;&#x666F;">&#x5E94;&#x7528;&#x573A;&#x666F;</h2>
+<h3 id="&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;">&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;</h3>
+<h4 id="&#x4EC0;&#x4E48;&#x662F;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;">&#x4EC0;&#x4E48;&#x662F;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;</h4>
+<p>&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x662F;&#x4E00;&#x7C7B;&#x5177;&#x6709;&#x72B6;&#x6001;&#x7684;&#x5E94;&#x7528;&#xFF0C;&#x5B83;&#x4ECE;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x4E8B;&#x4EF6;&#x6D41;&#x63D0;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x5230;&#x6765;&#x7684;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x8BA1;&#x7B97;&#x3001;&#x72B6;&#x6001;&#x66F4;&#x65B0;&#x6216;&#x5176;&#x4ED6;&#x5916;&#x90E8;&#x52A8;&#x4F5C;&#x3002;</p>
+<p>&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x662F;&#x5728;&#x8BA1;&#x7B97;&#x5B58;&#x50A8;&#x5206;&#x79BB;&#x7684;&#x4F20;&#x7EDF;&#x5E94;&#x7528;&#x57FA;&#x7840;&#x4E0A;&#x6F14;&#x5316;&#x800C;&#x6765;&#x3002;&#x5728;&#x4F20;&#x7EDF;&#x67B6;&#x6784;&#x4E2D;&#xFF0C;&#x5E94;&#x7528;&#x9700;&#x8981;&#x8BFB;&#x5199;&#x8FDC;&#x7A0B;&#x4E8B;&#x52A1;&#x578B;&#x6570;&#x636E;&#x5E93;&#x3002;&#x800C;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x662F;&#x57FA;&#x4E8E;&#x72B6;&#x6001;&#x5316;&#x6D41;&#x5904;&#x7406;&#x6765;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x6837;&#x7684;&#x8BBE;&#x8BA1;&#xFF0C;&#x6570;&#x636E;&#x548C;&#x8BA1;&#x7B97;&#x4E0D;&#x4F1A;&#x5206;&#x79BB;&#xFF0C;&#x5E94;&#x7528;&#x53EA;&#x9700;&#x8BBF;&#x95EE;&#x672C;&#x5730;&#xFF08;&#x5185;&#x5B58;&#x6216;&#x78C1;&#x76D8;&#xFF09;&#x5373;&#x53EF;&#x83B7;&#x53D6;&#x6570;&#x636E;&#x3002;&#x7CFB;&#x7EDF;&#x5BB9;&#x9519;&#x6027;&#x7684;&#x5B9E;&#x73B0;&#x4F9D;&#x8D56;&#x4E8E;&#x5B9A;&#x671F;&#x5411;&#x8FDC;&#x7A0B;&#x6301;&#x4E45;&#x5316;&#x5B58;&#x50A8;&#x5199;&#x5165; checkpoint&#x3002;&#x4E0B;&#x56FE;&#x63CF;&#x8FF0;&#x4E86;&#x4F20;&#x7EDF;&#x5E94;&#x7528;&#x548C;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x67B6;&#x6784;&#x7684;&#x533A;&#x522B;&#x3002; <img src="/images/flink_&#x533A;&#x522B;.png" alt="flink_&#x533A;&#x522B;.png"></p>
+<h4 id="&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x7684;&#x4F18;&#x52BF;">&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x7684;&#x4F18;&#x52BF;</h4>
+<p>&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x65E0;&#x987B;&#x67E5;&#x8BE2;&#x8FDC;&#x7A0B;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x672C;&#x5730;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#x4F7F;&#x5F97;&#x5B83;&#x5177;&#x6709;&#x66F4;&#x9AD8;&#x7684;&#x541E;&#x5410;&#x91CF;&#x548C;&#x66F4;&#x4F4E;&#x7684;&#x5EF6;&#x8FDF;&#x3002;&#x800C;&#x7531;&#x4E8E;&#x5B9A;&#x671F;&#x5411;&#x8FDC;&#x7A0B;&#x6301;&#x4E45;&#x5316;&#x5B58;&#x50A8;&#x7684; checkpoint &#x5DE5;&#x4F5C;&#x53EF;&#x4EE5;&#x5F02;&#x6B65;&#x3001;&#x589E;&#x91CF;&#x5F0F;&#x5B8C;&#x6210;&#xFF0C;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x6B63;&#x5E38;&#x4E8B;&#x4EF6;&#x7684;&#x5904;&#x7406;&#x7684;&#x5F71;&#x54CD;&#x751A;&#x5FAE;&#x3002;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x7684;&#x4F18;&#x52BF;&#x4E0D;&#x4EC5;&#x9650;&#x4E8E;&#x672C;&#x5730;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#xFF0C;&#x5728;&#x4F20;&#x7EDF;&#x5206;&#x5C42;&#x67B6;&#x6784;&#x4E0B;&#xFF0C;&#x901A;&#x5E38;&#x591A;&#x4E2A;&#x5E94;&#x7528;&#x4F1A;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x56E0;&#x800C;&#x4EFB;&#x4F55;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x81EA;&#x8EAB;&#x7684;&#x66F4;&#x6539;&#x90FD;&#x9700;&#x8C28;&#x614E;&#x534F;&#x8C03;&#x3002;&#x53CD;&#x89C2;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#xFF0C;&#x7531;&#x4E8E;&#x53EA;&#x9700;&#x8003;&#x8651;&#x81EA;&#x8EAB;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#x5728;&#x66F4;&#x6539;&#x6570;&#x636E;&#x8868;&#x793A;&#x6216;&#x670D;&#x52A1;&#x6269;&#x5BB9;&#x65F6;&#x6240;&#x9700;&#x8981;&#x7684;&#x534F;&#x8C03;&#x5DE5;&#x4F5C;&#x5C06;&#x5927;&#x5927;&#x51CF;&#x5C11;&#x3002;</p>
+<h4 id="flink-&#x5982;&#x4F55;&#x652F;&#x6301;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;">FLink &#x5982;&#x4F55;&#x652F;&#x6301;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;</h4>
+<p>&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x578B;&#x5E94;&#x7528;&#x4F1A;&#x53D7;&#x5236;&#x4E8E;&#x5E95;&#x5C42;&#x6D41;&#x5904;&#x7406;&#x7CFB;&#x7EDF;&#x5BF9;&#x65F6;&#x95F4;&#x548C;&#x72B6;&#x6001;&#x7684;&#x628A;&#x63A7;&#x80FD;&#x529B;&#xFF0C;FLink &#x8BF8;&#x591A;&#x7279;&#x8D28;&#x90FD;&#x662F;&#x56F4;&#x7ED5;&#x8FD9;&#x4E9B;&#x65B9;&#x9762;&#x6765;&#x8BBE;&#x8BA1;&#x7684;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x4E30;&#x5BCC;&#x7684;&#x72B6;&#x6001;&#x64CD;&#x4F5C;&#x539F;&#x8BED;&#xFF0C;&#x5141;&#x8BB8;&#x4EE5;&#x7CBE;&#x786E;&#x4E00;&#x6B21;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x8BED;&#x4E49;&#x5408;&#x5E76;&#x6D77;&#x91CF;&#x89C4;&#x6A21;&#x7684;&#x72B6;&#x6001;&#x6570;&#x636E;&#x3002;&#x6B64;&#x5916;&#xFF0C;Flink &#x8FD8;&#x652F;&#x6301;&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#x548C;&#x81EA;&#x7531;&#x5EA6;&#x6781;&#x9AD8;&#x7684;&#x5B9A;&#x5236;&#x5316;&#x7A97;&#x53E3;&#x903B;&#x8F91;&#xFF0C;&#x800C;&#x4E14;&#x5B83;&#x5185;&#x7F6E;&#x7684; ProcessFunction &#x652F;&#x6301;&#x7EC6;&#x7C92;&#x5EA6;&#x65F6;&#x95F4;&#x63A7;&#x5236;&#xFF0C;&#x65B9;&#x4FBF;&#x5B9E;&#x73B0;&#x4E00;&#x4E9B;&#x9AD8;&#x7EA7;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x3002;&#x540C;&#x65F6;&#xFF0C;Flink &#x8FD8;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x590D;&#x6742;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7C7B;&#x5E93;&#xFF08;CEP&#xFF09;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x68C0;&#x6D4B;&#x6570;&#x636E;&#x6D41;&#x4E2D;&#x7684;&#x6A21;&#x5F0F;&#x3002; savepoint &#x662F;&#x4E00;&#x4E2A;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x72B6;&#x6001;&#x955C;&#x50CF;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x7528;&#x6765; &#x521D;&#x59CB;&#x5316;&#x4EFB;&#x610F;&#x72B6;&#x6001;&#x517C;&#x5BB9;&#x7684;&#x5E94;&#x7528;&#x3002;&#x5728;&#x5B8C;&#x6210;&#x4E00;&#x6B21; savepoint &#x540E;&#xFF0C;&#x5373;&#x53EF;&#x653E;&#x5FC3;&#x5BF9;&#x5E94;&#x7528;&#x5347;&#x7EA7;&#x6216;&#x6269;&#x5BB9;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x542F;&#x52A8;&#x591A;&#x4E2A;&#x7248;&#x672C;&#x7684;&#x5E94;&#x7528;&#x6765;&#x5B8C;&#x6210; A/B &#x6D4B;&#x8BD5;&#x3002;</p>
+<h3 id="&#x6570;&#x636E;&#x5206;&#x6790;&#x5E94;&#x7528;">&#x6570;&#x636E;&#x5206;&#x6790;&#x5E94;&#x7528;</h3>
+<h4 id="&#x4EC0;&#x4E48;&#x662F;&#x6570;&#x636E;&#x5206;&#x6790;&#x5E94;&#x7528;">&#x4EC0;&#x4E48;&#x662F;&#x6570;&#x636E;&#x5206;&#x6790;&#x5E94;&#x7528;</h4>
+<p>&#x6570;&#x636E;&#x5206;&#x6790;&#x4EFB;&#x52A1;&#x9700;&#x8981;&#x4ECE;&#x539F;&#x59CB;&#x6570;&#x636E;&#x4E2D;&#x63D0;&#x53D6;&#x6709;&#x4EF7;&#x503C;&#x7684;&#x4FE1;&#x606F;&#x548C;&#x6307;&#x6807;&#x3002;&#x4F20;&#x7EDF;&#x7684;&#x5206;&#x6790;&#x65B9;&#x5F0F;&#x901A;&#x5E38;&#x662F;&#x5229;&#x7528;&#x6279;&#x67E5;&#x8BE2;&#xFF0C;&#x6216;&#x5C06;&#x4E8B;&#x4EF6;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#x5E76;&#x57FA;&#x4E8E;&#x6B64;&#x6709;&#x9650;&#x6570;&#x636E;&#x96C6;&#x6784;&#x5EFA;&#x5E94;&#x7528;&#x6765;&#x5B8C;&#x6210;&#x3002;&#x4E3A;&#x4E86;&#x5F97;&#x5230;&#x6700;&#x65B0;&#x6570;&#x636E;&#x7684;&#x5206;&#x6790;&#x7ED3;&#x679C;&#xFF0C;&#x5FC5;&#x987B;&#x5148;&#x5C06;&#x5B83;&#x4EEC;&#x52A0;&#x5165;&#x5206;&#x6790;&#x6570;&#x636E;&#x96C6;&#x5E76;&#x91CD;&#x65B0;&#x6267;&#x884C;&#x67E5;&#x8BE2;&#x6216;&#x8FD0;&#x884C;&#x5E94;&#x7528;&#xFF0C;&#x968F;&#x540E;&#x5C06;&#x7ED3;&#x679C;&#x5199;&#x5165;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x6216;&#x751F;&#x6210;&#x62A5;&#x544A;&#x3002;</p>
+<p>&#x501F;&#x52A9;&#x4E00;&#x4E9B;&#x5148;&#x8FDB;&#x7684;&#x6D41;&#x5904;&#x7406;&#x5F15;&#x64CE;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5B9E;&#x65F6;&#x5730;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5206;&#x6790;&#x3002;&#x6D41;&#x5F0F;&#x67E5;&#x8BE2;&#x6216;&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x8FDB;&#x5165;&#x5B9E;&#x65F6;&#x4E8B;&#x4EF6;&#x6D41;&#xFF0C;&#x5E76;&#x968F;&#x7740;&#x4E8B;&#x4EF6;&#x6D88;&#x8D39;&#x6301;&#x7EED;&#x4EA7;&#x751F;&#x548C;&#x66F4;&#x65B0;&#x7ED3;&#x679C;&#x3002;&#x8FD9;&#x4E9B;&#x7ED3;&#x679C;&#x6570;&#x636E;&#x53EF;&#x80FD;&#x4F1A;&#x5199;&#x5165;&#x5916;&#x90E8;&#x6570;&#x636E;&#x5E93;&#x6216;&#x4EE5;&#x5185;&#x90E8;&#x72B6;&#x6001;&#x7684;&#x5F62;&#x5F0F;&#x7EF4;&#x62A4;&#x3002;&#x4EEA;&#x8868;&#x5C55;&#x793A;&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x76F8;&#x5E94;&#x5730;&#x4ECE;&#x5916;&#x90E8;&#x6570;&#x636E;&#x5E93;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x6216;&#x76F4;&#x63A5;&#x67E5;&#x8BE2;&#x5E94;&#x7528;&#x7684;&#x5185;&#x90E8;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF0C;Flink &#x540C;&#x65F6;&#x652F;&#x6301;&#x6D41;&#x5F0F;&#x53CA;&#x6279;&#x5904;&#x7406;&#x5E94;&#x7528;</p>
+<figure>
+<img src="/images/flink_analytics.png" alt="flink_analytics.png"><figcaption>flink_analytics.png</figcaption>
+</figure>
+<h4 id="&#x6D41;&#x5F0F;&#x5206;&#x6790;&#x5E94;&#x7528;&#x7684;&#x4F18;&#x52BF;">&#x6D41;&#x5F0F;&#x5206;&#x6790;&#x5E94;&#x7528;&#x7684;&#x4F18;&#x52BF;</h4>
+<p>&#x548C;&#x6279;&#x91CF;&#x5206;&#x6790;&#x76F8;&#x6BD4;&#xFF0C;&#x7531;&#x4E8E;&#x6D41;&#x5F0F;&#x5206;&#x6790;&#x7701;&#x6389;&#x4E86;&#x5468;&#x671F;&#x6027;&#x7684;&#x6570;&#x636E;&#x5BFC;&#x5165;&#x548C;&#x67E5;&#x8BE2;&#x8FC7;&#x7A0B;&#xFF0C;&#x56E0;&#x6B64;&#x4ECE;&#x4E8B;&#x4EF6;&#x4E2D;&#x83B7;&#x53D6;&#x6307;&#x6807;&#x7684;&#x5EF6;&#x8FDF;&#x66F4;&#x4F4E;&#x3002;&#x4E0D;&#x4EC5;&#x5982;&#x6B64;&#xFF0C;&#x6279;&#x91CF;&#x67E5;&#x8BE2;&#x5FC5;&#x987B;&#x5904;&#x7406;&#x90A3;&#x4E9B;&#x7531;&#x5B9A;&#x671F;&#x5BFC;&#x5165;&#x548C;&#x8F93;&#x5165;&#x6709;&#x754C;&#x6027;&#x5BFC;&#x81F4;&#x7684;&#x4EBA;&#x5DE5;&#x6570;&#x636E;&#x8FB9;&#x754C;&#xFF0C;&#x800C;&#x6D41;&#x5F0F;&#x67E5;&#x8BE2;&#x5219;&#x65E0;&#x9700;&#x8003;&#x8651;&#x8BE5;&#x95EE;&#x9898;&#x3002; &#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x6D41;&#x5F0F;&#x5206;&#x6790;&#x4F1A;&#x7B80;&#x5316;&#x5E94;&#x7528;&#x62BD;&#x8C61;&#x3002;&#x6279;&#x91CF;&#x67E5;&#x8BE2;&#x7684;&#x6D41;&#x6C34;&#x7EBF;&#x901A;&#x5E38;&#x7531;&#x591A;&#x4E2A;&#x72EC;&#x7ACB;&#x90E8;&#x4EF6;&#x7EC4;&#x6210;&#xFF0C;&#x9700;&#x8981;&#x5468;&#x671F;&#x6027;&#x8C03;&#x5EA6;&#x63D0;&#x53D6;&#x6570;&#x636E;&#x548C;&#x6267;&#x884C;&#x67E5;&#x8BE2;&#x3002;&#x5982;&#x6B64;&#x590D;&#x6742;&#x7684;&#x6D41;&#x6C34;&#x7EBF;&#x64CD;&#x4F5C;&#x8D77;&#x6765;&#x5E76;&#x4E0D;&#x5BB9;&#x6613;&#xFF0C;&#x4E00;&#x65E6;&#x67D0;&#x4E2A;&#x7EC4;&#x4EF6;&#x51FA;&#x9519;&#x5C06;&#x4F1A;&#x5F71;&#x54CD;&#x6D41;&#x6C34;&#x7EBF;&#x7684;&#x540E;&#x7EED;&#x6B65;&#x9AA4;&#x3002;&#x800C;&#x6D41;&#x5F0F;&#x5206;&#x6790;&#x5E94;&#x7528;&#x6574;&#x4F53;&#x8FD0;&#x884C;&#x5728; Flink &#x4E4B;&#x7C7B;&#x7684;&#x9AD8;&#x7AEF;&#x5904;&#x7406;&#x7CFB;&#x7EDF;&#x4E4B;&#x4E0A;&#xFF0C;&#x6DB5;&#x76D6;&#x4E86;&#x4ECE;&#x6570;&#x636E;&#x63A5;&#x5165;&#x5230;&#x8FDE;&#x7EED;&#x7ED3;&#x679C;&#x8BA1;&#x7B97;&#x7684;&#x6240;&#x6709;&#x6B65;&#x9AA4;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x4F9D;&#x8D56;&#x5E95;&#x5C42;&#x5F15;&#x64CE;&#x63D0;&#x4F9B;&#x7684;&#x6545;&#x969C;&#x6062;&#x590D;&#x673A;&#x5236;&#x3002;</p>
+<h4 id="flink-&#x5982;&#x4F55;&#x652F;&#x6301;&#x6570;&#x636E;&#x5206;&#x6790;&#x7C7B;&#x5E94;&#x7528;">Flink &#x5982;&#x4F55;&#x652F;&#x6301;&#x6570;&#x636E;&#x5206;&#x6790;&#x7C7B;&#x5E94;&#x7528;</h4>
+<p>Flink &#x4E3A;&#x6301;&#x7EED;&#x6D41;&#x5F0F;&#x5206;&#x6790;&#x548C;&#x6279;&#x91CF;&#x5206;&#x6790;&#x90FD;&#x63D0;&#x4F9B;&#x4E86;&#x826F;&#x597D;&#x7684;&#x652F;&#x6301;&#x3002;&#x5177;&#x4F53;&#x800C;&#x8A00;&#xFF0C;&#x5B83;&#x5185;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x7B26;&#x5408; ANSI &#x6807;&#x51C6;&#x7684; SQL &#x63A5;&#x53E3;&#xFF0C;&#x5C06;&#x6279;&#xFF0C;&#x6D41;&#x67E5;&#x8BE2;&#x7684;&#x8BED;&#x4E49;&#x7EDF;&#x4E00;&#x8D77;&#x6765;&#x3002;&#x65E0;&#x8BBA;&#x662F;&#x5728;&#x8BB0;&#x5F55;&#x65F6;&#x95F4;&#x7684;&#x9759;&#x6001;&#x6570;&#x636E;&#x96C6;&#x4E0A;&#x8FD8;&#x662F;&#x5B9E;&#x65F6;&#x4E8B;&#x4EF6;&#x6D41;&#x4E0A;&#x3002;&#x76F8;&#x540C;&#x7684; SQL &#x67E5;&#x8BE2;&#x90FD;&#x4F1A;&#x5F97;&#x5230;&#x4E00;&#x81F4;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x540C;&#x65F6; Flink &#x8FD8;&#x652F;&#x6301;&#x4E30;&#x5BCC;&#x7684;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x51FD;&#x6570;&#xFF0C;&#x8FD0;&#x884C;&#x5728; SQL &#x6267;&#x884C;&#x5B9A;&#x5236;&#x5316;&#x4EE3;&#x7801;&#x3002;&#x5982;&#x4F55;&#x8FD8;&#x9700;&#x8FDB;&#x4E00;&#x6B65;&#x5B9A;&#x5236;&#x903B;&#x8F91;&#xFF0C;&#x53EF;&#x4EE5;&#x5229;&#x7528; Flink DataStream API &#x548C; DataSet API &#x8FDB;&#x884C;&#x66F4;&#x4F4E;&#x5C42;&#x6B21;&#x7684;&#x63A7;&#x5236;&#x3002;&#x6B64;&#x5916;&#xFF0C;Flink &#x7684; Gelly &#x5E93;&#x4E3A;&#x57FA;&#x4E8E;&#x6279;&#x91CF;&#x6570;&#x636E;&#x96C6;&#x7684;&#x5927;&#x89C4;&#x6A21;&#x9AD8;&#x6027;&#x80FD;&#x56FE;&#x5206;&#x6790;&#x63D0;&#x4F9B;&#x4E86;&#x7B97;&#x6CD5;&#x548C;&#x6784;&#x5EFA;&#x6A21;&#x5757;&#x652F;&#x6301;&#x3002;</p>
+<h3 id="&#x6570;&#x636E;&#x7BA1;&#x9053;&#x5E94;&#x7528;">&#x6570;&#x636E;&#x7BA1;&#x9053;&#x5E94;&#x7528;</h3>
+<h4 id="&#x4EC0;&#x4E48;&#x662F;&#x6570;&#x636E;&#x7BA1;&#x9053;">&#x4EC0;&#x4E48;&#x662F;&#x6570;&#x636E;&#x7BA1;&#x9053;</h4>
+<p>Extract-transform-load&#xFF08;ETL&#xFF09;&#x662F;&#x4E00;&#x79CD;&#x5728;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x548C;&#x8FC1;&#x79FB;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;&#x3002;ETL &#x4F5C;&#x4E1A;&#x901A;&#x5E38;&#x4F1A;&#x5468;&#x671F;&#x6027;&#x5730;&#x89E6;&#x53D1;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x4ECE;&#x4E8B;&#x52A1;&#x578B;&#x6570;&#x636E;&#x5E93;&#x62F7;&#x8D1D;&#x5230;&#x5206;&#x6790;&#x578B;&#x6570;&#x636E;&#x5E93;&#x6216;&#x6570;&#x636E;&#x4ED3;&#x5E93;&#x3002; &#x6570;&#x636E;&#x7BA1;&#x9053;&#x548C; ETL &#x4F5C;&#x4E1A;&#x7684;&#x7528;&#x9014;&#x76F8;&#x4F3C;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x8F6C;&#x6362;&#x3001;&#x4E30;&#x5BCC;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x4ECE;&#x67D0;&#x4E2A;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x79FB;&#x52A8;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x3002;&#x4F46;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x662F;&#x4EE5;&#x6301;&#x7EED;&#x6D41;&#x6A21;&#x5F0F;&#x8FD0;&#x884C;&#xFF0C;&#x800C;&#x975E;&#x5468;&#x671F;&#x6027;&#x89E6;&#x53D1;&#x3002;&#x56E0;&#x6B64;&#x5B83;&#x652F;&#x6301;&#x4E00;&#x4E2A;&#x4E0D;&#x65AD;&#x751F;&#x6210;&#x6570;&#x636E;&#x7684;&#x6E90;&#x5934;&#x8BFB;&#x53D6;&#x8BB0;&#x5F55;&#xFF0C;&#x5E76;&#x5C06;&#x5B83;&#x4EEC;&#x4EE5;&#x4F4E;&#x5EF6;&#x8FDF;&#x79FB;&#x52A8;&#x5230;&#x7EC8;&#x70B9;&#x3002;&#x4F8B;&#x5982;&#xFF1A;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x76D1;&#x63A7;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x76EE;&#x5F55;&#x7684;&#x65B0;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x6570;&#x636E;&#x5199;&#x5165;&#x4E8B;&#x4EF6;&#x65E5;&#x5FD7;&#xFF1B;&#x53E6;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x53EF;&#x80FD;&#x4F1A;&#x5C06;&#x6570;&#x636E;&#x6D41;&#x7269;&#x5316;&#x5230;&#x6570;&#x636E;&#x5E93;&#x6216;&#x589E;&#x91CF;&#x6784;&#x5EFA;&#x548C;&#x4F18;&#x5316;&#x67E5;&#x8BE2;&#x7D22;&#x5F15;&#x3002;</p>
+<p>&#x4E0B;&#x56FE; &#x63CF;&#x8FF0;&#x4E86;&#x5468;&#x671F;&#x6027; ETL &#x4F5C;&#x4E1A;&#x548C;&#x6301;&#x7EED;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x7684;&#x5DEE;&#x5F02;&#x3002; <img src="/images/flink_etl&#x4F5C;&#x4E1A;&#x548C;&#x6301;&#x7EED;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x7684;&#x5DEE;&#x5F02;.png" alt="flink_etl&#x4F5C;&#x4E1A;&#x548C;&#x6301;&#x7EED;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x7684;&#x5DEE;&#x5F02;.png"></p>
+<h4 id="&#x6570;&#x636E;&#x7BA1;&#x9053;&#x7684;&#x4F18;&#x52BF;">&#x6570;&#x636E;&#x7BA1;&#x9053;&#x7684;&#x4F18;&#x52BF;</h4>
+<p>&#x548C; ETL &#x4F5C;&#x4E1A;&#x76F8;&#x6BD4;&#xFF0C;&#x6301;&#x7EED;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x53EF;&#x4EE5;&#x660E;&#x663E;&#x964D;&#x4F4E;&#x5C06;&#x6570;&#x636E;&#x79FB;&#x52A8;&#x5230;&#x76EE;&#x7684;&#x77ED;&#x7684;&#x5EF6;&#x8FDF;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x7531;&#x4E8E;&#x5B83;&#x80FD;&#x591F;&#x6301;&#x7EED;&#x6D88;&#x8D39;&#x548C;&#x53D1;&#x9001;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#x7528;&#x9014;&#x66F4;&#x5E7F;&#xFF0C;&#x652F;&#x6301;&#x7528;&#x4F8B;&#x66F4;&#x591A;&#x3002;</p>
+<h4 id="flink-&#x5982;&#x4F55;&#x652F;&#x6301;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x5E94;&#x7528;">Flink &#x5982;&#x4F55;&#x652F;&#x6301;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x5E94;&#x7528;</h4>
+<p>&#x5F88;&#x591A;&#x5E38;&#x89C1;&#x7684;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x548C;&#x589E;&#x5F3A;&#x64CD;&#x4F5C;&#x53EF;&#x4EE5;&#x5229;&#x7528; Flink &#x7684; SQL &#x63A5;&#x53E3;&#xFF08;&#x6216;&#x8005; Table API&#xFF09;&#x4EE5;&#x53CA;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x51FD;&#x6570;&#x89E3;&#x51B3;&#x3002;&#x5982;&#x679C;&#x6570;&#x636E;&#x7BA1;&#x9053;&#x6709;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x66F4;&#x901A;&#x7528;&#x7684; DataStream API &#x6765;&#x5B9E;&#x73B0;&#x3002;Flink &#x4E3A;&#x591A;&#x79CD;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#xFF08;&#x5982;&#xFF1A;Kafka&#x3001;Kinesis&#x3001;Elasticsearch&#x3001;JDBC &#x6570;&#x636E;&#x5E93;&#x7CFB;&#x7EDF;&#x7B49;&#xFF09;&#x5185;&#x7F6E;&#x4E86;&#x8FDE;&#x63A5;&#x5668;&#x3002;&#x540C;&#x65F6;&#x5B83;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x8FDE;&#x7EED;&#x578B;&#x6570;&#x636E;&#x6E90;&#x5373;&#x6570;&#x636E;&#x6C47;&#xFF0C;&#x53EF;&#x7528;&#x6765;&#x76D1;&#x63A7;&#x76EE;&#x5F55;&#x53D8;&#x5316;&#x548C;&#x4EE5;&#x65F6;&#x95F4;&#x5206;&#x533A;&#x7684;&#x65B9;&#x5F0F;&#x5199;&#x5165;&#x6587;&#x4EF6;&#x3002;</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+            
+              <div>
+                
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+              </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/21/c/" rel="next" title="c">
+                <i class="fa fa-chevron-left"></i> c
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/13/fork/" rel="prev" title="fork">
+                fork <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lijun</p>
+              <div class="site-description motion-element" itemprop="description">与其感慨路难行，不如马上就出发</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本组件"><span class="nav-number">2.</span> <span class="nav-text">基本组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流"><span class="nav-number">2.1.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态"><span class="nav-number">2.2.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间"><span class="nav-number">2.3.</span> <span class="nav-text">时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层-api"><span class="nav-number">2.4.</span> <span class="nav-text">分层 API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件驱动型应用"><span class="nav-number">4.1.</span> <span class="nav-text">事件驱动型应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事件驱动型应用"><span class="nav-number">4.1.1.</span> <span class="nav-text">什么是事件驱动型应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件驱动型应用的优势"><span class="nav-number">4.1.2.</span> <span class="nav-text">事件驱动型应用的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flink-如何支持事件驱动型应用"><span class="nav-number">4.1.3.</span> <span class="nav-text">FLink 如何支持事件驱动型应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析应用"><span class="nav-number">4.2.</span> <span class="nav-text">数据分析应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是数据分析应用"><span class="nav-number">4.2.1.</span> <span class="nav-text">什么是数据分析应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流式分析应用的优势"><span class="nav-number">4.2.2.</span> <span class="nav-text">流式分析应用的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flink-如何支持数据分析类应用"><span class="nav-number">4.2.3.</span> <span class="nav-text">Flink 如何支持数据分析类应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据管道应用"><span class="nav-number">4.3.</span> <span class="nav-text">数据管道应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是数据管道"><span class="nav-number">4.3.1.</span> <span class="nav-text">什么是数据管道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据管道的优势"><span class="nav-number">4.3.2.</span> <span class="nav-text">数据管道的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flink-如何支持数据管道应用"><span class="nav-number">4.3.3.</span> <span class="nav-text">Flink 如何支持数据管道应用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lijun</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+// gitalk
+
+
+
+
+
+
+  
+
+
+
+  
+<script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+        search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+        isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+        $('.popup').hide();
+        $('#local-search-input').val('');
+        $('.search-result-list').remove();
+        $('#no-result').remove();
+        $(".local-search-pop-overlay").remove();
+        $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+            .css('overflow', 'hidden');
+        $('.search-popup-overlay').click(onPopupClose);
+        $('.popup').toggle();
+        var $localSearchInput = $('#local-search-input');
+        $localSearchInput.attr("autocapitalize", "none");
+        $localSearchInput.attr("autocorrect", "off");
+        $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+
+        // start loading animation
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                '<div id="search-loading-icon">' +
+                '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                '</div>' +
+                '</div>')
+            .css('overflow', 'hidden');
+        $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+        $.ajax({
+            url: path,
+            dataType: isXml ? "xml" : "json",
+            async: true,
+            success: function (res) {
+                // get the contents from search data
+                isfetched = true;
+                $('.popup').detach().appendTo('.header-inner');
+                var datas = isXml ? $("entry", res).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get() : res;
+                var input = document.getElementById(search_id);
+                var resultContent = document.getElementById(content_id);
+                var inputEventFunction = function () {
+                    var searchText = input.value.toLowerCase();
+                    if (searchText.length < 1) {
+                        return
+                    }
+                    var keywords = []
+                    var first_keyword;
+                    if (searchText.charAt(0) === '/') {
+                        if (searchText.indexOf('/', 1) == 1) {
+                            keywords.push(searchText.substring(1))
+                        } else if (searchText.length > 2 && searchText.charAt(searchText.length - 1) === '/') {
+                            keywords.push('$$')
+                            try {
+                                eval('first_keyword = ' + searchText + 'g');
+                            } catch (err) {
+                                console.error(err)
+                                return
+                            }
+                            input.value = searchText.substring(0,searchText.length-1)
+                        } else {
+                            return
+                        }
+                    } else {
+                        keywords.push(searchText);
+                    }
+                    var resultItems = [];
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = false;
+                        var hitCount = 0;
+                        var searchTextCount = 0;
+                        if(!data.title){
+                            return
+                        }
+                        var title = data.title.trim();
+                        var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
+                        var content = data.content.trim();
+                        var contentInLowerCase = content.toLowerCase();
+                        var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                        var indexOfTitle = [];
+                        var indexOfContent = [];
+                        // only match articles with not empty titles
+                        if (title != '') {
+                            if (first_keyword) {
+                                keywords = contentInLowerCase.match(first_keyword)
+                            }
+                            if (!keywords) {
+                                keywords = []
+                            }
+                            keywords.forEach(function (keyword) {
+                            
+                                function getIndexByWord(word, text, caseSensitive) {
+                                    var wordLen = word.length;
+                                    if (wordLen === 0) {
+                                        return [];
+                                    }
+                                    var startPosition = 0, position = [], index = [];
+                                    if (!caseSensitive) {
+                                        text = text.toLowerCase();
+                                        word = word.toLowerCase();
+                                    }
+                                    while ((position = text.indexOf(word, startPosition)) > -1) {
+
+                                        index.push({ position: position, word: word });
+                                        startPosition = position + wordLen;
+                                    }
+                                    return index;
+                                }
+
+                                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                            });
+                            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                isMatch = true;
+                                hitCount = indexOfTitle.length + indexOfContent.length;
+                            }
+                        }
+
+                        // show search results
+
+                        if (isMatch) {
+                            // sort index by position of keyword
+
+                            [indexOfTitle, indexOfContent].forEach(function (index) {
+                                index.sort(function (itemLeft, itemRight) {
+                                    if (itemRight.position !== itemLeft.position) {
+                                        return itemRight.position - itemLeft.position;
+                                    } else {
+                                        return itemLeft.word.length - itemRight.word.length;
+                                    }
+                                });
+                            });
+
+                            // merge hits into slices
+
+                            function mergeIntoSlice(text, start, end, index) {
+                                var item = index[index.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                var hits = [];
+                                var searchTextCountInSlice = 0;
+                                while (position + word.length <= end && index.length != 0) {
+                                    if (word === searchText) {
+                                        searchTextCountInSlice++;
+                                    }
+                                    hits.push({ position: position, length: word.length });
+                                    var wordEnd = position + word.length;
+
+                                    // move to next position of hit
+
+                                    index.pop();
+                                    while (index.length != 0) {
+                                        item = index[index.length - 1];
+                                        position = item.position;
+                                        word = item.word;
+                                        if (wordEnd > position) {
+                                            index.pop();
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+                                searchTextCount += searchTextCountInSlice;
+                                return {
+                                    hits: hits,
+                                    start: start,
+                                    end: end,
+                                    searchTextCount: searchTextCountInSlice
+                                };
+                            }
+
+                            var slicesOfTitle = [];
+                            if (indexOfTitle.length != 0) {
+                                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                            }
+
+                            var slicesOfContent = [];
+                            while (indexOfContent.length != 0) {
+                                var item = indexOfContent[indexOfContent.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                // cut out 100 characters
+                                var start = position - 20;
+                                var end = position + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (end < position + word.length) {
+                                    end = position + word.length;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                            }
+
+                            // sort slices in content by search text's count and hits' count
+
+                            slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                    return sliceRight.hits.length - sliceLeft.hits.length;
+                                } else {
+                                    return sliceLeft.start - sliceRight.start;
+                                }
+                            });
+
+                            // select top N slices in content
+                            var upperBound = parseInt('1');
+                            if (upperBound >= 0) {
+                                slicesOfContent = slicesOfContent.slice(0, upperBound);
+                            }
+
+                            // highlight title and content
+
+                            function highlightKeyword(text, slice) {
+                                var result = '';
+                                var prevEnd = slice.start;
+                                slice.hits.forEach(function (hit) {
+                                    result += text.substring(prevEnd, hit.position);
+                                    var end = hit.position + hit.length;
+                                    result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                    prevEnd = end;
+                                });
+                                result += text.substring(prevEnd, slice.end);
+                                
+                                return result;
+                            }
+
+                            var resultItem = '';
+
+                            if (slicesOfTitle.length != 0) {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                            } else {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                            }
+
+                            slicesOfContent.forEach(function (slice) {
+                                resultItem += "<a href='" + articleUrl + "'>" +
+                                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                    "...</p>" + "</a>";
+                            });
+
+                            resultItem += "</li>";
+                            resultItems.push({
+                                item: resultItem,
+                                searchTextCount: searchTextCount,
+                                hitCount: hitCount,
+                                id: resultItems.length
+                            });
+                        }
+                    })
+                    if (keywords.length === 1 && keywords[0] === "") {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+                    } else if (resultItems.length === 0) {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+                    } else {
+                        resultItems.sort(function (resultLeft, resultRight) {
+                            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                return resultRight.searchTextCount - resultLeft.searchTextCount;
+                            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                return resultRight.hitCount - resultLeft.hitCount;
+                            } else {
+                                return resultRight.id - resultLeft.id;
+                            }
+                        });
+                        var searchResultList = '<ul class=\"search-result-list\">';
+                        resultItems.forEach(function (result) {
+                            searchResultList += result.item;
+                        })
+                        searchResultList += "</ul>";
+                        resultContent.innerHTML = searchResultList;
+                    }
+                }
+
+                if ('auto' === 'auto') {
+                    input.addEventListener('input', inputEventFunction);
+                } else {
+                    $('.search-icon').click(inputEventFunction);
+                    input.addEventListener('keypress', function (event) {
+                        if (event.keyCode === 13) {
+                            inputEventFunction();
+                        }
+                    });
+                }
+
+                // remove loading animation
+                $(".local-search-pop-overlay").remove();
+                $('body').css('overflow', '');
+
+                proceedsearch();
+            }
+        });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+        e.stopPropagation();
+        if (isfetched === false) {
+            searchFunc(path, 'local-search-input', 'local-search-result');
+        } else {
+            proceedsearch();
+        };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+        e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+        var shouldDismissSearchPopup = event.which === 27 &&
+            $('.search-popup').is(':visible');
+        if (shouldDismissSearchPopup) {
+            onPopupClose();
+        }
+    });
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    //url: '',
+    url: '/js/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: '',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+   <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>
