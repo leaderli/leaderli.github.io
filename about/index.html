@@ -135,17 +135,17 @@
 
 
 
-  <meta name="description" content="&amp;#x591A;&amp;#x5199;&amp;#x535A;&amp;#x5BA2; &amp;#x7801;&amp;#x4E91;&amp;#x5730;&amp;#x5740; github &amp;#x5730;&amp;#x5740; &amp;#x963F;&amp;#x91CC;&amp;#x4E91;&amp;#x5730;&amp;#x5740;">
+  <meta name="description" content="&amp;#x591A;&amp;#x5199;&amp;#x535A;&amp;#x5BA2; &amp;#x7801;&amp;#x4E91;&amp;#x5730;&amp;#x5740; github &amp;#x5730;&amp;#x5740; &amp;#x6B63;&amp;#x5219;&amp;#x641C;&amp;#x7D22;&amp;#x4F7F;&amp;#x7528;/&amp;#x5F00;&amp;#x5934;&amp;#xFF0C;/&amp;#x7ED3;&amp;#x5C3E;&amp;#x5F00;&amp;#x59CB;&amp;#x6">
 <meta property="og:type" content="website">
 <meta property="og:title" content="个人介绍">
 <meta property="og:url" content="https://leaderli.github.io/about/index.html">
 <meta property="og:site_name" content="大狗哥传奇">
-<meta property="og:description" content="&amp;#x591A;&amp;#x5199;&amp;#x535A;&amp;#x5BA2; &amp;#x7801;&amp;#x4E91;&amp;#x5730;&amp;#x5740; github &amp;#x5730;&amp;#x5740; &amp;#x963F;&amp;#x91CC;&amp;#x4E91;&amp;#x5730;&amp;#x5740;">
+<meta property="og:description" content="&amp;#x591A;&amp;#x5199;&amp;#x535A;&amp;#x5BA2; &amp;#x7801;&amp;#x4E91;&amp;#x5730;&amp;#x5740; github &amp;#x5730;&amp;#x5740; &amp;#x6B63;&amp;#x5219;&amp;#x641C;&amp;#x7D22;&amp;#x4F7F;&amp;#x7528;/&amp;#x5F00;&amp;#x5934;&amp;#xFF0C;/&amp;#x7ED3;&amp;#x5C3E;&amp;#x5F00;&amp;#x59CB;&amp;#x6">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-16T07:06:53.000Z">
+<meta property="og:updated_time" content="2020-10-30T09:15:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="个人介绍">
-<meta name="twitter:description" content="&amp;#x591A;&amp;#x5199;&amp;#x535A;&amp;#x5BA2; &amp;#x7801;&amp;#x4E91;&amp;#x5730;&amp;#x5740; github &amp;#x5730;&amp;#x5740; &amp;#x963F;&amp;#x91CC;&amp;#x4E91;&amp;#x5730;&amp;#x5740;">
+<meta name="twitter:description" content="&amp;#x591A;&amp;#x5199;&amp;#x535A;&amp;#x5BA2; &amp;#x7801;&amp;#x4E91;&amp;#x5730;&amp;#x5740; github &amp;#x5730;&amp;#x5740; &amp;#x6B63;&amp;#x5219;&amp;#x641C;&amp;#x7D22;&amp;#x4F7F;&amp;#x7528;/&amp;#x5F00;&amp;#x5934;&amp;#xFF0C;/&amp;#x7ED3;&amp;#x5C3E;&amp;#x5F00;&amp;#x59CB;&amp;#x6">
 
 
 
@@ -446,7 +446,7 @@
           <p>&#x591A;&#x5199;&#x535A;&#x5BA2;</p>
 <p><a href="https://leaderli.gitee.io/about/" target="_blank" rel="noopener">&#x7801;&#x4E91;&#x5730;&#x5740;</a></p>
 <p><a href="https://leaderli.github.io/">github &#x5730;&#x5740;</a></p>
-<p><a href="http://115.159.53.71" target="_blank" rel="noopener">&#x963F;&#x91CC;&#x4E91;&#x5730;&#x5740;</a></p>
+<p>&#x6B63;&#x5219;&#x641C;&#x7D22;&#x4F7F;&#x7528;<code>/</code>&#x5F00;&#x5934;&#xFF0C;<code>/</code>&#x7ED3;&#x5C3E;&#x5F00;&#x59CB;&#x641C;&#x7D22;</p>
 
         
       </div>
@@ -505,7 +505,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -831,11 +831,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1369,6 +1365,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 

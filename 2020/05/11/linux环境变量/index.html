@@ -143,7 +143,7 @@
 <meta property="og:site_name" content="大狗哥传奇">
 <meta property="og:description" content="&amp;#x914D;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;&amp;#x52A0;&amp;#x8F7D; login shell login shell&amp;#x662F;&amp;#x9700;&amp;#x8981;&amp;#x7528;&amp;#x6237;&amp;#x8F93;&amp;#x5165;&amp;#x8D26;&amp;#x53F7;&amp;#x548C;&amp;#x5BC6;&amp;#x7801;&amp;#x8FDB;&amp;#x5165;shell&amp;#xFF0C;&amp;#x">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-30T15:59:15.000Z">
+<meta property="og:updated_time" content="2020-10-16T17:01:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux环境变量">
 <meta name="twitter:description" content="&amp;#x914D;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;&amp;#x52A0;&amp;#x8F7D; login shell login shell&amp;#x662F;&amp;#x9700;&amp;#x8981;&amp;#x7528;&amp;#x6237;&amp;#x8F93;&amp;#x5165;&amp;#x8D26;&amp;#x53F7;&amp;#x548C;&amp;#x5BC6;&amp;#x7801;&amp;#x8FDB;&amp;#x5165;shell&amp;#xFF0C;&amp;#x">
@@ -469,7 +469,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-10-17 01:01:57" itemprop="dateModified" datetime="2020-10-17T01:01:57+08:00">2020-10-17</time>
               </span>
             
           
@@ -525,20 +525,62 @@
 <h3 id="login-shell">login shell</h3>
 <p><code>login shell</code>&#x662F;&#x9700;&#x8981;&#x7528;&#x6237;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#x8FDB;&#x5165;<code>shell</code>&#xFF0C;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x5F55;&#x6D41;&#x7A0B;&#x3002;&#x8FD9;&#x79CD;&#x767B;&#x5F55;&#x65B9;&#x5F0F;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;</p>
 <ol type="1">
-<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/profile</code></li>
+<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/profile</code> &#xFF0C; &#x8BE5;&#x811A;&#x672C;&#x4F1A;&#x5C06;<code>/etc/profile.d</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684; sh &#x6587;&#x4EF6;&#x5168;&#x90E8;&#x6267;&#x884C;</li>
 <li>&#x52A0;&#x8F7D;&#x7528;&#x6237;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;~/.bash_profile &#x6216; ~/.bash_login &#x6216;~/.profile&#x3002;&#x4E0A;&#x8FF0;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#x53EA;&#x4F1A;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x4F9D;&#x6B21;&#x964D;&#x4F4E; login shell &#x662F;&#x8BF4;&#x5728;&#x53D6;&#x5F97; bash &#x65F6;&#x9700;&#x8981;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x9646;&#x6D41;&#x7A0B;&#x3002;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x53D6;&#x5F97; bash &#x5462;&#xFF1F;&#x5F53;&#x7136;&#x5C31;&#x662F;&#x7528;&#x6237;&#x767B;&#x9646;&#x7684;&#x65F6;&#x5019;&#x3002;&#x5F53;&#x4F60;&#x5728; tty1~tty6 &#x767B;&#x9646;&#xFF0C;&#x9700;&#x8981;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#xFF0C;&#x6B64;&#x65F6;&#x53D6;&#x5F97;&#x7684; bash &#x5C31;&#x662F; login shell&#x3002;</li>
 </ol>
-<h3 id="non-login-shell">non-login shell</h3>
-<p><code>non-login shell</code> &#x5C31;&#x662F;&#x53D6;&#x5F97; bash &#x4E0D;&#x9700;&#x8981;&#x91CD;&#x590D;&#x767B;&#x5F55;&#xFF0C;&#x5C31;&#x50CF;&#x4F60;&#x5728;&#x684C;&#x9762;&#x89C6;&#x56FE;&#x4E2D;&#x7528;<code>ctrl+alt+T</code>&#x542F;&#x52A8;&#x7684; shell &#x8F93;&#x5165;&#x7A97;&#x53E3;&#x5C31;&#x662F;<code>non-login shell</code>&#x3002;&#x8FD8;&#x6709;&#x5C31;&#x662F;&#x4F60;&#x5728; shell &#x7A97;&#x53E3;&#x76F4;&#x63A5; su &#x5207;&#x6362;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x90FD;&#x5C5E;&#x4E8E;<code>non-login shell</code>&#x3002; <code>non-login shell</code> &#x53EA;&#x4F1A;&#x8BFB;&#x53D6;~/.bashrc &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;</p>
+<h3 id="interactive-shell">interactive shell</h3>
+<p>&#x5F53;&#x4F7F;&#x7528;&#x975E;&#x767B;&#x5F55;&#x7684;&#x65B9;&#x5F0F;&#x542F;&#x52A8;&#x4E00;&#x4E2A; bash &#x65F6; &#xFF0C;&#x5C31;&#x50CF;&#x4F60;&#x5728;&#x684C;&#x9762;&#x89C6;&#x56FE;&#x4E2D;&#x7528;<code>ctrl+alt+T</code>&#x542F;&#x52A8;&#x7684; shell &#x8F93;&#x5165;&#x7A97;&#x53E3;&#x5C31;&#x662F;<code>non-login shell</code>&#x3002;&#x8FD8;&#x6709;&#x5C31;&#x662F;&#x4F60;&#x5728; shell &#x7A97;&#x53E3;&#x76F4;&#x63A5; su &#x5207;&#x6362;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x90FD;&#x5C5E;&#x4E8E;<code>non-login shell</code>&#x3002; <code>non-login shell</code></p>
+<ol type="1">
+<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/bashrc</code></li>
+<li>&#x52A0;&#x8F7D;<code>~/.bashrc</code></li>
+</ol>
 <blockquote>
 <p>&#x5F53;&#x4F7F;&#x7528;<code>su &lt;user&gt;</code>&#x5207;&#x6362;&#x7528;&#x6237;&#x7684;&#x65F6;&#xFF0C;&#x662F;&#x4EE5;<code>non-login shell</code>&#x7684;&#x65B9;&#x5F0F;&#x53D6;&#x5F97; bash &#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF; PATH &#x7B49;&#x662F;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x8BFB;&#x53D6;<code>/etc/profile</code>&#x7684;&#x8BDD;&#xFF0C; &#x4F60;&#x9700;&#x8981;&#x7528;<code>su - &lt;user&gt;</code>&#x7684;&#x65B9;&#x5F0F;&#x767B;&#x5F55;&#x3002;<code>su -</code>&#x5C31;&#x662F;<code>su -l</code>&#x5373;<code>su --login</code>&#x7684;&#x610F;&#x601D; &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x540E;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>source</code>&#x547D;&#x4EE4;&#x8BA9;&#x5B83;&#x7ACB;&#x5373;&#x751F;&#x6548;&#xFF0C;&#x4F8B;&#x5982;<code>source ~/.bashrc</code></p>
 </blockquote>
+<h3 id="non-interactive-shell">Non-interactive shell</h3>
+<p>&#x5728;&#x811A;&#x672C;&#x4E2D;&#x6267;&#x884C;&#x7684; shell</p>
+<h2 id="&#x5168;&#x5C40;&#x53D8;&#x91CF;">&#x5168;&#x5C40;&#x53D8;&#x91CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printenv #&#x6253;&#x5370;&#x6240;&#x6709;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E34;&#x65F6;&#x53D8;&#x91CF;">&#x4E34;&#x65F6;&#x53D8;&#x91CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set             # &#x6253;&#x5370;&#x6240;&#x6709;&#x4E34;&#x65F6;&#x53D8;&#x91CF;</span><br><span class="line">set hello=you   # &#x8BBE;&#x7F6E;&#x4E34;&#x65F6;&#x53D8;&#x91CF;</span><br><span class="line">unset hello     # &#x79FB;&#x9664;&#x53D8;&#x91CF;&#xFF0C;&#x5F53;&#x4F60;&#x5C1D;&#x8BD5;&#x79FB;&#x9664;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x4EC5;&#x4EC5;&#x79FB;&#x9664;&#x5F53;&#x524D;&#x73AF;&#x5883;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x5728;&#x9000;&#x51FA;&#x5F53;&#x524D;&#x6267;&#x884C;&#x8FDB;&#x7A0B;&#x540E;&#xFF0C;&#x8BE5;&#x53D8;&#x91CF;&#x4F9D;&#x7136;&#x5B58;&#x5728;</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x53D8;&#x91CF;">&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x53D8;&#x91CF;</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">&#x53D8;&#x91CF;</th>
+<th style="text-align: left;">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IFS</td>
+<td style="text-align: left;">&#x4E00;&#x7CFB;&#x5217;&#x7528;&#x4E8E;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x5C5E;&#x6027;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x96C6;&#x5408;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x7A7A;&#x683C;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PATH</td>
+<td style="text-align: left;">shell &#x7528;&#x6765;&#x67E5;&#x627E;&#x547D;&#x4EE4;&#x7684;&#x76EE;&#x5F55;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x76EE;&#x5F55;&#x7528;<code>:</code>&#x5206;&#x5272;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PS1</td>
+<td style="text-align: left;">&#x539F;&#x59CB;&#x7684; shell &#x63D0;&#x793A;&#x5B57;&#x7B26;&#x4E32;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PS2</td>
+<td style="text-align: left;">&#x63D0;&#x793A;&#x7EE7;&#x7EED;&#x8FDB;&#x884C;&#x8F93;&#x5165;&#x7684;&#x63D0;&#x793A;&#x7B26;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PWD</td>
+<td style="text-align: left;">&#x5F53;&#x524D;&#x76EE;&#x5F55;</td>
+</tr>
+</tbody>
+</table>
 <h2 id="&#x76F8;&#x5173;&#x914D;&#x7F6E;">&#x76F8;&#x5173;&#x914D;&#x7F6E;</h2>
 <h3 id="&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;">&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;</h3>
 <p>1&#x3001;&#x7F16;&#x8F91;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;/etc/profile&#xFF0C;&#x4F7F;&#x6240;&#x6709;&#x7528;&#x6237;&#x5747;&#x663E;&#x793A;&#x8BE5;&#x683C;&#x5F0F;&#xFF1A;</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vi  /etc/profile</span></span><br><span class="line">export TIME_STYLE=&quot;+%Y-%m-%d %H:%M:%S&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="path"><code>PATH</code></h3>
-<p>&#x5F53;&#x7A0B;&#x5E8F;&#x5728;<code>PATH</code>&#x7684;&#x76EE;&#x5F55;&#x4E2D;&#x4E14;&#x5177;&#x6709;&#x6267;&#x884C;&#x6743;&#x9650;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x4EFB;&#x610F;&#x5730;&#x65B9;&#x76F4;&#x63A5;&#x8FD0;&#x884C;</p>
+<h4 id="ifs">IFS</h4>
+<p>Shell &#x811A;&#x672C;&#x4E2D;&#x6709;&#x4E2A;&#x53D8;&#x91CF;&#x53EB; IFS(Internal Field Seprator) &#xFF0C;&#x5185;&#x90E8;&#x57DF;&#x5206;&#x9694;&#x7B26;&#xFF0C;shell &#x6839;&#x636E; IFS &#x7684;&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; space, tab, newline &#x6765;&#x62C6;&#x89E3;&#x8BFB;&#x5165;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x7136;&#x540E;&#x5BF9;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x6700;&#x540E;&#x91CD;&#x65B0;&#x7EC4;&#x5408;&#x8D4B;&#x503C;&#x7ED9;&#x8BE5;&#x53D8;&#x91CF;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">string=&quot;hello,shell,split,test&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5BF9;IFS&#x53D8;&#x91CF; &#x8FDB;&#x884C;&#x66FF;&#x6362;&#x5904;&#x7406;</span></span><br><span class="line">OLD_IFS=&quot;$IFS&quot;</span><br><span class="line">IFS=&quot;,&quot;</span><br><span class="line">array=($string)</span><br><span class="line">IFS=&quot;$OLD_IFS&quot;</span><br><span class="line"></span><br><span class="line">for var in ${array[@]}</span><br><span class="line">do</span><br><span class="line">   echo $var</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -716,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1042,11 +1084,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1084,7 +1122,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件加载"><span class="nav-number">1.</span> <span class="nav-text">配置文件加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#login-shell"><span class="nav-number">1.1.</span> <span class="nav-text">login shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-login-shell"><span class="nav-number">1.2.</span> <span class="nav-text">non-login shell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关配置"><span class="nav-number">2.</span> <span class="nav-text">相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设定文件日期显示格式"><span class="nav-number">2.1.</span> <span class="nav-text">设定文件日期显示格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#path"><span class="nav-number">2.2.</span> <span class="nav-text">PATH</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件加载"><span class="nav-number">1.</span> <span class="nav-text">配置文件加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#login-shell"><span class="nav-number">1.1.</span> <span class="nav-text">login shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interactive-shell"><span class="nav-number">1.2.</span> <span class="nav-text">interactive shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-interactive-shell"><span class="nav-number">1.3.</span> <span class="nav-text">Non-interactive shell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局变量"><span class="nav-number">2.</span> <span class="nav-text">全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临时变量"><span class="nav-number">3.</span> <span class="nav-text">临时变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常见变量"><span class="nav-number">4.</span> <span class="nav-text">一些常见变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关配置"><span class="nav-number">5.</span> <span class="nav-text">相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设定文件日期显示格式"><span class="nav-number">5.1.</span> <span class="nav-text">设定文件日期显示格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ifs"><span class="nav-number">5.1.1.</span> <span class="nav-text">IFS</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1597,6 +1635,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 

@@ -428,7 +428,7 @@
         
          
           
-        非常好! 目前共计 137 篇日志。 继续努力。
+        非常好! 目前共计 138 篇日志。 继续努力。
       </span>
       
 
@@ -443,6 +443,76 @@
           <div class="collection-title">
             <h1 class="archive-year" id="archive-year-2020">2020</h1>
           </div>
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+          <a class="post-title-link" href="/2020/05/20/redis-过期时间/" itemprop="url">
+            
+              <span itemprop="name">redis-过期时间</span>
+            
+          </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2020-05-20T19:18:33+08:00" content="2020-05-20">
+          05-20
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+          <a class="post-title-link" href="/2020/05/19/redis发布订阅/" itemprop="url">
+            
+              <span itemprop="name">redis发布订阅</span>
+            
+          </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2020-05-19T20:10:06+08:00" content="2020-05-19">
+          05-19
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
         
         
 
@@ -719,76 +789,6 @@
 
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2020/05/11/linux进程管理/" itemprop="url">
-            
-              <span itemprop="name">linux进程管理</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-05-11T22:53:29+08:00" content="2020-05-11">
-          05-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2020/05/11/linux环境变量/" itemprop="url">
-            
-              <span itemprop="name">linux环境变量</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-05-11T21:51:47+08:00" content="2020-05-11">
-          05-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
   </div>
   
@@ -840,7 +840,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1166,11 +1166,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1698,6 +1694,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 

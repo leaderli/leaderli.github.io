@@ -410,6 +410,442 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/11/linux进程管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/11/linux进程管理/" class="post-title-link" itemprop="url">linux进程管理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-11 22:53:29" itemprop="dateCreated datePublished" datetime="2020-05-11T22:53:29+08:00">2020-05-11</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x540E;&#x53F0;&#x8FD0;&#x884C;">&#x540E;&#x53F0;&#x8FD0;&#x884C;</h2>
+<p>shell &#x4E2D;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x82E5;&#x4EE5;<code>&amp;</code>&#x7ED3;&#x5C3E;&#xFF0C;&#x5219;&#x7A0B;&#x5E8F;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x6267;&#x884C;&#xFF0C;&#x5F53;&#x7528;&#x6237;&#x9000;&#x51FA;&#x65F6;&#x8BE5;&#x540E;&#x53F0;&#x7A0B;&#x5E8F;&#x4F1A;&#x505C;&#x6B62;&#x8FD0;&#x884C;&#x3002;&#x82E5;&#x9700;&#x8981;&#x7A0B;&#x5E8F;&#x6C38;&#x4E45;&#x8FD0;&#x884C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>nohup</code> &#x53EF;&#x4F7F;&#x7528;<code>jobs</code>&#x67E5;&#x770B;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x4F5C;&#x4E1A;&#xFF0C;&#x7136;&#x540E;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>fg %n</code>(n &#x4E3A;&#x4F5C;&#x4E1A;&#x7F16;&#x53F7;)&#x5C06;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#x8FD4;&#x56DE;&#x524D;&#x53F0;</p>
+<p>Ctrl+c &#x662F;&#x5F3A;&#x5236;&#x4E2D;&#x65AD;&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x3002; Ctrl+z &#x7684;&#x662F;&#x5C06;&#x4EFB;&#x52A1;&#x4E2D;&#x65AD;,&#x4F46;&#x662F;&#x6B64;&#x4EFB;&#x52A1;&#x5E76;&#x6CA1;&#x6709;&#x7ED3;&#x675F;,&#x4ED6;&#x4ECD;&#x7136;&#x5728;&#x8FDB;&#x7A0B;&#x4E2D;&#x4ED6;&#x53EA;&#x662F;&#x7EF4;&#x6301;&#x6302;&#x8D77;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<p>Ctrl+z &#x7684;&#x7A0B;&#x5E8F;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>fg</code>&#x5C06;&#x5176;&#x8FD4;&#x56DE;&#x524D;&#x53F0;</p>
+<p><code>jobs -l</code>&#x663E;&#x793A;<code>pid</code></p>
+<h2 id="&#x67E5;&#x8BE2;&#x8FDB;&#x7A0B;">&#x67E5;&#x8BE2;&#x8FDB;&#x7A0B;</h2>
+<ol type="1">
+<li><p>&#x67E5;&#x8BE2;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#x4FE1;&#x606F;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x8BE2;&#x5F52;&#x5C5E;&#x4E8E;&#x7528;&#x6237; colin115 &#x7684;&#x8FDB;&#x7A0B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep colin115</span><br><span class="line">ps -lu colin115</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x8BE2;&#x8FDB;&#x7A0B; ID&#xFF08;&#x9002;&#x5408;&#x53EA;&#x8BB0;&#x5F97;&#x90E8;&#x5206;&#x8FDB;&#x7A0B;&#x5B57;&#x6BB5;&#xFF09;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep &lt;name&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x4EE5;&#x5B8C;&#x6574;&#x7684;&#x683C;&#x5F0F;&#x663E;&#x793A;&#x6240;&#x6709;&#x7684;&#x8FDB;&#x7A0B;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ajx</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x663E;&#x793A;&#x8FDB;&#x7A0B;&#x5185;&#x5B58;&#x5360;&#x7528;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x770B;&#x7AEF;&#x53E3;&#x5360;&#x7528;&#x7684;&#x8FDB;&#x7A0B;&#x72B6;&#x6001;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i:3306</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x770B;&#x7528;&#x6237; username &#x7684;&#x8FDB;&#x7A0B;&#x6240;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -u username</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x8BE2; init &#x8FDB;&#x7A0B;&#x5F53;&#x524D;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -c init</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x7684;&#x8FDB;&#x7A0B; ID(23295)&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -p 23295</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x76EE;&#x5F55;&#x4E0B;&#x88AB;&#x8FDB;&#x7A0B;&#x5F00;&#x542F;&#x7684;&#x6587;&#x4EF6;&#xFF08;&#x4F7F;&#x7528;+D &#x9012;&#x5F52;&#x76EE;&#x5F55;&#xFF09;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof +d mydir1/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="&#x6740;&#x8FDB;&#x7A0B;">&#x6740;&#x8FDB;&#x7A0B;</h2>
+<p>kill &#x547D;&#x4EE4;&#x53EF;&#x5411;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x6307;&#x5B9A;&#x7684;&#x4FE1;&#x53F7;&#xFF08;&#x9ED8;&#x8BA4;&#x53D1;&#x9001;&#x7684;&#x4FE1;&#x53F7;&#x662F; SIGTERM&#xFF09;&#x3002;<code>kill -l</code>&#xFF1A;&#x663E;&#x793A;&#x4FE1;&#x53F7;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x6211;&#x4EEC;&#x5E38;&#x7528;&#x7684;<code>kill -9</code>&#x5C31;&#x662F;<code>SIGKILL</code>&#x4FE1;&#x53F7;</p>
+<h2 id="&#x5206;&#x6790;&#x8FDB;&#x7A0B;">&#x5206;&#x6790;&#x8FDB;&#x7A0B;</h2>
+<h3 id="pstack">pstack</h3>
+<p>&#x6B64;&#x547D;&#x4EE4;&#x53EF;&#x663E;&#x793A;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x6808;&#x8DDF;&#x8E2A;&#xFF0C;<code>pstack &lt;pid&gt;</code>,&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x5728;&#x6392;&#x67E5;&#x8FDB;&#x7A0B;&#x95EE;&#x9898;&#x65F6;&#x975E;&#x5E38;&#x6709;&#x7528;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x4E00;&#x76F4;&#x5904;&#x4E8E; work &#x72B6;&#x6001;&#xFF08;&#x5982;&#x5047;&#x6B7B;&#x72B6;&#x6001;&#xFF0C;&#x597D;&#x4F3C;&#x6B7B;&#x5FAA;&#x73AF;&#xFF09;&#xFF0C;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x5C31;&#x80FD;&#x8F7B;&#x677E;&#x5B9A;&#x4F4D;&#x95EE;&#x9898;&#x6240;&#x5728;&#xFF1B;&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x591A;&#x6267;&#x884C;&#x51E0;&#x6B21; pstack&#xFF0C;&#x82E5;&#x53D1;&#x73B0;&#x4EE3;&#x7801;&#x6808;&#x603B;&#x662F;&#x505C;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x90A3;&#x4E2A;&#x4F4D;&#x7F6E;&#x5C31;&#x9700;&#x8981;&#x91CD;&#x70B9;&#x5173;&#x6CE8;&#xFF0C;&#x5F88;&#x53EF;&#x80FD;&#x5C31;&#x662F;&#x51FA;&#x95EE;&#x9898;&#x7684;&#x5730;&#x65B9;&#xFF1B;</p>
+<h2 id="&#x5E38;&#x7528;&#x547D;&#x4EE4;">&#x5E38;&#x7528;&#x547D;&#x4EE4;</h2>
+<h3 id="&#x5FEB;&#x901F;&#x6740;&#x8FDB;&#x7A0B;">&#x5FEB;&#x901F;&#x6740;&#x8FDB;&#x7A0B;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep java|grep -v grep|awk &apos;{print &quot;kill -9 &quot;$2}&apos;|sh</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/11/linux环境变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/05/11/linux环境变量/" class="post-title-link" itemprop="url">linux环境变量</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-11 21:51:47" itemprop="dateCreated datePublished" datetime="2020-05-11T21:51:47+08:00">2020-05-11</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-10-17 01:01:57" itemprop="dateModified" datetime="2020-10-17T01:01:57+08:00">2020-10-17</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;">&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x52A0;&#x8F7D;</h2>
+<h3 id="login-shell">login shell</h3>
+<p><code>login shell</code>&#x662F;&#x9700;&#x8981;&#x7528;&#x6237;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#x8FDB;&#x5165;<code>shell</code>&#xFF0C;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x5F55;&#x6D41;&#x7A0B;&#x3002;&#x8FD9;&#x79CD;&#x767B;&#x5F55;&#x65B9;&#x5F0F;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;</p>
+<ol type="1">
+<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/profile</code> &#xFF0C; &#x8BE5;&#x811A;&#x672C;&#x4F1A;&#x5C06;<code>/etc/profile.d</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684; sh &#x6587;&#x4EF6;&#x5168;&#x90E8;&#x6267;&#x884C;</li>
+<li>&#x52A0;&#x8F7D;&#x7528;&#x6237;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;~/.bash_profile &#x6216; ~/.bash_login &#x6216;~/.profile&#x3002;&#x4E0A;&#x8FF0;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#x53EA;&#x4F1A;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x4F9D;&#x6B21;&#x964D;&#x4F4E; login shell &#x662F;&#x8BF4;&#x5728;&#x53D6;&#x5F97; bash &#x65F6;&#x9700;&#x8981;&#x5B8C;&#x6574;&#x7684;&#x767B;&#x9646;&#x6D41;&#x7A0B;&#x3002;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x53D6;&#x5F97; bash &#x5462;&#xFF1F;&#x5F53;&#x7136;&#x5C31;&#x662F;&#x7528;&#x6237;&#x767B;&#x9646;&#x7684;&#x65F6;&#x5019;&#x3002;&#x5F53;&#x4F60;&#x5728; tty1~tty6 &#x767B;&#x9646;&#xFF0C;&#x9700;&#x8981;&#x8F93;&#x5165;&#x8D26;&#x53F7;&#x548C;&#x5BC6;&#x7801;&#xFF0C;&#x6B64;&#x65F6;&#x53D6;&#x5F97;&#x7684; bash &#x5C31;&#x662F; login shell&#x3002;</li>
+</ol>
+<h3 id="interactive-shell">interactive shell</h3>
+<p>&#x5F53;&#x4F7F;&#x7528;&#x975E;&#x767B;&#x5F55;&#x7684;&#x65B9;&#x5F0F;&#x542F;&#x52A8;&#x4E00;&#x4E2A; bash &#x65F6; &#xFF0C;&#x5C31;&#x50CF;&#x4F60;&#x5728;&#x684C;&#x9762;&#x89C6;&#x56FE;&#x4E2D;&#x7528;<code>ctrl+alt+T</code>&#x542F;&#x52A8;&#x7684; shell &#x8F93;&#x5165;&#x7A97;&#x53E3;&#x5C31;&#x662F;<code>non-login shell</code>&#x3002;&#x8FD8;&#x6709;&#x5C31;&#x662F;&#x4F60;&#x5728; shell &#x7A97;&#x53E3;&#x76F4;&#x63A5; su &#x5207;&#x6362;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x90FD;&#x5C5E;&#x4E8E;<code>non-login shell</code>&#x3002; <code>non-login shell</code></p>
+<ol type="1">
+<li>&#x52A0;&#x8F7D;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/bashrc</code></li>
+<li>&#x52A0;&#x8F7D;<code>~/.bashrc</code></li>
+</ol>
+<blockquote>
+<p>&#x5F53;&#x4F7F;&#x7528;<code>su &lt;user&gt;</code>&#x5207;&#x6362;&#x7528;&#x6237;&#x7684;&#x65F6;&#xFF0C;&#x662F;&#x4EE5;<code>non-login shell</code>&#x7684;&#x65B9;&#x5F0F;&#x53D6;&#x5F97; bash &#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF; PATH &#x7B49;&#x662F;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x8BFB;&#x53D6;<code>/etc/profile</code>&#x7684;&#x8BDD;&#xFF0C; &#x4F60;&#x9700;&#x8981;&#x7528;<code>su - &lt;user&gt;</code>&#x7684;&#x65B9;&#x5F0F;&#x767B;&#x5F55;&#x3002;<code>su -</code>&#x5C31;&#x662F;<code>su -l</code>&#x5373;<code>su --login</code>&#x7684;&#x610F;&#x601D; &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x540E;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>source</code>&#x547D;&#x4EE4;&#x8BA9;&#x5B83;&#x7ACB;&#x5373;&#x751F;&#x6548;&#xFF0C;&#x4F8B;&#x5982;<code>source ~/.bashrc</code></p>
+</blockquote>
+<h3 id="non-interactive-shell">Non-interactive shell</h3>
+<p>&#x5728;&#x811A;&#x672C;&#x4E2D;&#x6267;&#x884C;&#x7684; shell</p>
+<h2 id="&#x5168;&#x5C40;&#x53D8;&#x91CF;">&#x5168;&#x5C40;&#x53D8;&#x91CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printenv #&#x6253;&#x5370;&#x6240;&#x6709;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E34;&#x65F6;&#x53D8;&#x91CF;">&#x4E34;&#x65F6;&#x53D8;&#x91CF;</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set             # &#x6253;&#x5370;&#x6240;&#x6709;&#x4E34;&#x65F6;&#x53D8;&#x91CF;</span><br><span class="line">set hello=you   # &#x8BBE;&#x7F6E;&#x4E34;&#x65F6;&#x53D8;&#x91CF;</span><br><span class="line">unset hello     # &#x79FB;&#x9664;&#x53D8;&#x91CF;&#xFF0C;&#x5F53;&#x4F60;&#x5C1D;&#x8BD5;&#x79FB;&#x9664;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x4EC5;&#x4EC5;&#x79FB;&#x9664;&#x5F53;&#x524D;&#x73AF;&#x5883;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x5728;&#x9000;&#x51FA;&#x5F53;&#x524D;&#x6267;&#x884C;&#x8FDB;&#x7A0B;&#x540E;&#xFF0C;&#x8BE5;&#x53D8;&#x91CF;&#x4F9D;&#x7136;&#x5B58;&#x5728;</span><br></pre></td></tr></table></figure>
+<h2 id="&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x53D8;&#x91CF;">&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x53D8;&#x91CF;</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">&#x53D8;&#x91CF;</th>
+<th style="text-align: left;">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IFS</td>
+<td style="text-align: left;">&#x4E00;&#x7CFB;&#x5217;&#x7528;&#x4E8E;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x5C5E;&#x6027;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x96C6;&#x5408;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x7A7A;&#x683C;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PATH</td>
+<td style="text-align: left;">shell &#x7528;&#x6765;&#x67E5;&#x627E;&#x547D;&#x4EE4;&#x7684;&#x76EE;&#x5F55;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x76EE;&#x5F55;&#x7528;<code>:</code>&#x5206;&#x5272;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PS1</td>
+<td style="text-align: left;">&#x539F;&#x59CB;&#x7684; shell &#x63D0;&#x793A;&#x5B57;&#x7B26;&#x4E32;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PS2</td>
+<td style="text-align: left;">&#x63D0;&#x793A;&#x7EE7;&#x7EED;&#x8FDB;&#x884C;&#x8F93;&#x5165;&#x7684;&#x63D0;&#x793A;&#x7B26;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PWD</td>
+<td style="text-align: left;">&#x5F53;&#x524D;&#x76EE;&#x5F55;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x76F8;&#x5173;&#x914D;&#x7F6E;">&#x76F8;&#x5173;&#x914D;&#x7F6E;</h2>
+<h3 id="&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;">&#x8BBE;&#x5B9A;&#x6587;&#x4EF6;&#x65E5;&#x671F;&#x663E;&#x793A;&#x683C;&#x5F0F;</h3>
+<p>1&#x3001;&#x7F16;&#x8F91;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;/etc/profile&#xFF0C;&#x4F7F;&#x6240;&#x6709;&#x7528;&#x6237;&#x5747;&#x663E;&#x793A;&#x8BE5;&#x683C;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vi  /etc/profile</span></span><br><span class="line">export TIME_STYLE=&quot;+%Y-%m-%d %H:%M:%S&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="ifs">IFS</h4>
+<p>Shell &#x811A;&#x672C;&#x4E2D;&#x6709;&#x4E2A;&#x53D8;&#x91CF;&#x53EB; IFS(Internal Field Seprator) &#xFF0C;&#x5185;&#x90E8;&#x57DF;&#x5206;&#x9694;&#x7B26;&#xFF0C;shell &#x6839;&#x636E; IFS &#x7684;&#x503C;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; space, tab, newline &#x6765;&#x62C6;&#x89E3;&#x8BFB;&#x5165;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x7136;&#x540E;&#x5BF9;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x6700;&#x540E;&#x91CD;&#x65B0;&#x7EC4;&#x5408;&#x8D4B;&#x503C;&#x7ED9;&#x8BE5;&#x53D8;&#x91CF;&#x3002;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">string=&quot;hello,shell,split,test&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5BF9;IFS&#x53D8;&#x91CF; &#x8FDB;&#x884C;&#x66FF;&#x6362;&#x5904;&#x7406;</span></span><br><span class="line">OLD_IFS=&quot;$IFS&quot;</span><br><span class="line">IFS=&quot;,&quot;</span><br><span class="line">array=($string)</span><br><span class="line">IFS=&quot;$OLD_IFS&quot;</span><br><span class="line"></span><br><span class="line">for var in ${array[@]}</span><br><span class="line">do</span><br><span class="line">   echo $var</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/05/08/node入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -470,7 +906,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-17 19:28:39" itemprop="dateModified" datetime="2020-09-17T19:28:39+08:00">2020-09-17</time>
+                <time title="修改时间：2020-10-28 16:33:56" itemprop="dateModified" datetime="2020-10-28T16:33:56+08:00">2020-10-28</time>
               </span>
             
           
@@ -556,6 +992,8 @@
 <li><code>-S</code> <code>-s</code> <code>--save</code> &#x5C06;&#x5B89;&#x88C5;&#x5305;&#x4FE1;&#x606F;&#x52A0;&#x5165;&#x5230;<code>dependencies</code></li>
 <li><code>-D</code> <code>-d</code> <code>--save --dev</code> &#x5C06;&#x5B89;&#x88C5;&#x5305;&#x4FE1;&#x606F;&#x52A0;&#x5165;<code>devDependencies</code></li>
 </ol>
+<h3 id="&#x914D;&#x7F6E;">&#x914D;&#x7F6E;</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x663E;&#x793A;&#x6240;&#x6709;&#x914D;&#x7F6E;</span></span><br><span class="line">npm config ls -l</span><br></pre></td></tr></table></figure>
 <h2 id="&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;">&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;</h2>
 <p>Node.js &#x57FA;&#x672C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#x673A;&#x5236;&#x90FD;&#x662F;&#x7528;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E2D;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#x5B9E;&#x73B0;&#x3002; Node.js &#x5355;&#x7EBF;&#x7A0B;&#x7C7B;&#x4F3C;&#x8FDB;&#x5165;&#x4E00;&#x4E2A; while(true)&#x7684;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#xFF0C;&#x76F4;&#x5230;&#x6CA1;&#x6709;&#x4E8B;&#x4EF6;&#x89C2;&#x5BDF;&#x8005;&#x9000;&#x51FA;&#xFF0C;&#x6BCF;&#x4E2A;&#x5F02;&#x6B65;&#x4E8B;&#x4EF6;&#x90FD;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x5C31;&#x8C03;&#x7528;&#x8BE5;&#x56DE;&#x8C03;&#x51FD;&#x6570;. <img src="/images/node&#x5165;&#x95E8;_2020-05-09-17-16-32.png" alt="node&#x5165;&#x95E8;_2020-05-09-17-16-32.png"></p>
 <p>Node.js &#x6709;&#x591A;&#x4E2A;&#x5185;&#x7F6E;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5F15;&#x5165; events &#x6A21;&#x5757;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x5B9E;&#x4F8B;&#x5316; EventEmitter &#x7C7B;&#x6765;&#x7ED1;&#x5B9A;&#x548C;&#x76D1;&#x542C;&#x4E8B;&#x4EF6;&#xFF0C;&#x5982;&#x4E0B;&#x5B9E;&#x4F8B;&#xFF1A;</p>
@@ -638,6 +1076,34 @@
 <p>&#x5728;&#x4EE5;&#x4E0A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;hello.js &#x901A;&#x8FC7; exports &#x5BF9;&#x8C61;&#x628A; world &#x4F5C;&#x4E3A;&#x6A21;&#x5757;&#x7684;&#x8BBF;&#x95EE;&#x63A5;&#x53E3;&#xFF0C;&#x5728; main.js &#x4E2D;&#x901A;&#x8FC7; require(&apos;./hello&apos;) &#x52A0;&#x8F7D;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BBF;&#x95EE; hello.js &#x4E2D; exports &#x5BF9;&#x8C61;&#x7684;&#x6210;&#x5458;&#x51FD;&#x6570;&#x4E86;&#x3002; &#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x53EA;&#x662F;&#x60F3;&#x628A;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5C01;&#x88C5;&#x5230;&#x6A21;&#x5757;&#x4E2D;&#xFF0C;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">};</span><br></pre></td></tr></table></figure>
 <p>&#x6A21;&#x5757;&#x63A5;&#x53E3;&#x7684;&#x552F;&#x4E00;&#x53D8;&#x5316;&#x662F;&#x4F7F;&#x7528; module.exports = Hello &#x4EE3;&#x66FF;&#x4E86; exports.world = function(){}&#x3002; &#x5728;&#x5916;&#x90E8;&#x5F15;&#x7528;&#x8BE5;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x5176;&#x63A5;&#x53E3;&#x5BF9;&#x8C61;&#x5C31;&#x662F;&#x8981;&#x8F93;&#x51FA;&#x7684; Hello &#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x539F;&#x5148;&#x7684; exports</p>
+<h3 id="export-&#x548C;-import">export &#x548C; import</h3>
+<p>export &#x4E0E; import &#x662F; JavaScript &#x7528;&#x6765;&#x8FDB;&#x884C;&#x6A21;&#x5757;&#x5316;&#x7BA1;&#x7406;&#x7684;&#x4E24;&#x4E2A;&#x5173;&#x952E;&#x8BCD;</p>
+<p>export &#x53EF;&#x4EE5;&#x6807;&#x8BB0;&#x5728;&#x4EFB;&#x4F55;&#x53D8;&#x91CF;&#x3001;&#x65B9;&#x6CD5;&#x3001;&#x7C7B;&#x7684;&#x58F0;&#x660E;&#x524D; &#x4F8B;&#x5982;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x1F4C1; say.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> months = [<span class="string">&quot;Jan&quot;</span>, <span class="string">&quot;Feb&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> MODULES_BECAME_STANDARD_YEAR = <span class="number">2015</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">user</span>) </span>{</span><br><span class="line">  alert(<span class="string">`Hello, <span class="subst">${user}</span>!`</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>{</span><br><span class="line">  <span class="keyword">constructor</span>(name) {</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">user</span>) </span>{</span><br><span class="line">  alert(<span class="string">`Hello, <span class="subst">${user}</span>!`</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayBye</span>(<span class="params">user</span>) </span>{</span><br><span class="line">  alert(<span class="string">`Bye, <span class="subst">${user}</span>!`</span>);</span><br><span class="line">}</span><br><span class="line"><span class="comment">//&#x4E5F;&#x53EF;&#x5355;&#x72EC;export&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="keyword">export</span> { sayHi, sayBye };</span><br><span class="line"></span><br><span class="line"><span class="comment">//export &#x53EF;&#x91CD;&#x547D;&#x540D;</span></span><br><span class="line"><span class="keyword">export</span> { sayHi <span class="keyword">as</span> hi, sayBye <span class="keyword">as</span> bye };</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; import &#x5BFC;&#x5165;&#x5176;&#x4ED6;&#x6A21;&#x5757;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x8BED;&#x6CD5;&#x4E3A;<code>import {...}</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x1F4C1; main.js</span></span><br><span class="line"><span class="keyword">import</span> { sayHi, sayBye } <span class="keyword">from</span> <span class="string">&quot;./say.js&quot;</span>;</span><br><span class="line"></span><br><span class="line">sayHi(<span class="string">&quot;John&quot;</span>); <span class="comment">// Hello, John!</span></span><br><span class="line">sayBye(<span class="string">&quot;John&quot;</span>); <span class="comment">// Bye, John!</span></span><br></pre></td></tr></table></figure>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x7ED9; import &#x7684;&#x5BF9;&#x8C61;&#x547D;&#x540D;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x1F4C1; main.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> say <span class="keyword">from</span> <span class="string">&quot;./say.js&quot;</span>;</span><br><span class="line"></span><br><span class="line">say.sayHi(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">say.sayBye(<span class="string">&quot;John&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x53EF;&#x4EE5;&#x4E3A;&#x5177;&#x4F53;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x91CD;&#x65B0;&#x547D;&#x540D;</span></span><br><span class="line"><span class="comment">// &#x1F4C1; main.js</span></span><br><span class="line"><span class="keyword">import</span> { sayHi <span class="keyword">as</span> hi, sayBye <span class="keyword">as</span> bye } <span class="keyword">from</span> <span class="string">&quot;./say.js&quot;</span>;</span><br><span class="line"></span><br><span class="line">hi(<span class="string">&quot;John&quot;</span>); <span class="comment">// Hello, John!</span></span><br><span class="line">bye(<span class="string">&quot;John&quot;</span>); <span class="comment">// Bye, John!</span></span><br></pre></td></tr></table></figure>
+<p>&#x5F53;&#x4F7F;&#x7528;<code>export default</code>&#x65F6;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x1F4C1; user.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>{</span><br><span class="line">  <span class="comment">// just add &quot;default&quot;</span></span><br><span class="line">  <span class="keyword">constructor</span>(name) {</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//export default &#x53EF;&#x4EE5;&#x5BFC;&#x51FA;&#x533F;&#x540D;&#x51FD;&#x6570;&#x6216;&#x7C7B;&#xFF0C;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;default</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>{</span><br><span class="line">  <span class="keyword">constructor</span>() { ... }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x1F4C1; main.js</span></span><br><span class="line"><span class="keyword">import</span> User <span class="keyword">from</span> <span class="string">&quot;./user.js&quot;</span>; <span class="comment">// not {User}, just User</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> User(<span class="string">&quot;John&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x975E;default&#x7684;&#x65B9;&#x5F0F;&#x5BFC;&#x5165;&#xFF0C;&#x9ED8;&#x8BA4;&#x5C06;&#x5176;&#x89C6;&#x4E3A;&#x540D;&#x4E3A;default&#x7684;&#x53D8;&#x91CF;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> {<span class="keyword">default</span> <span class="keyword">as</span> User,sayHi} <span class="keyword">from</span> <span class="string">&apos;./user.js&apos;</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">export</th>
+<th style="text-align: left;">default export</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">export class User {...}</td>
+<td style="text-align: left;">export default class User {...}</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">import {User} from ...</td>
+<td style="text-align: left;">import User from ...</td>
+</tr>
+</tbody>
+</table>
 <h3 id="&#x6A21;&#x5757;&#x7684;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;">&#x6A21;&#x5757;&#x7684;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;</h3>
 <p>&#x7531;&#x4E8E; Node.js &#x4E2D;&#x5B58;&#x5728; 4 &#x7C7B;&#x6A21;&#x5757;&#xFF08;&#x539F;&#x751F;&#x6A21;&#x5757;&#x548C; 3 &#x79CD;&#x6587;&#x4EF6;&#x6A21;&#x5757;&#xFF09;&#xFF0C;&#x5C3D;&#x7BA1; require &#x65B9;&#x6CD5;&#x6781;&#x5176;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x662F;&#x5185;&#x90E8;&#x7684;&#x52A0;&#x8F7D;&#x5374;&#x662F;&#x5341;&#x5206;&#x590D;&#x6742;&#x7684;&#xFF0C;&#x5176;&#x52A0;&#x8F7D;&#x4F18;&#x5148;&#x7EA7;&#x4E5F;&#x5404;&#x81EA;&#x4E0D;&#x540C;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A; <img src="/images/node&#x5165;&#x95E8;_2020-05-12-20-57-08.png" alt="node&#x5165;&#x95E8;_2020-05-12-20-57-08.png"></p>
 <h4 id="&#x4ECE;&#x6587;&#x4EF6;&#x6A21;&#x5757;&#x7F13;&#x5B58;&#x4E2D;&#x52A0;&#x8F7D;">&#x4ECE;&#x6587;&#x4EF6;&#x6A21;&#x5757;&#x7F13;&#x5B58;&#x4E2D;&#x52A0;&#x8F7D;</h4>
@@ -1439,7 +1905,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
+                <time title="修改时间：2020-10-17 00:36:28" itemprop="dateModified" datetime="2020-10-17T00:36:28+08:00">2020-10-17</time>
               </span>
             
           
@@ -1494,7 +1960,8 @@
         
           
             <h3 id="&#x5BFC;&#x51FA;&#x8868;&#x7ED3;&#x6784;">&#x5BFC;&#x51FA;&#x8868;&#x7ED3;&#x6784;</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db2look -d dbname -e -a -x -i username -w password -o ddlfile.sql</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x8BE5;&#x8BED;&#x53E5;&#x4F1A;&#x5BFC;&#x51FA;&#x6240;&#x6709;&#x8868;&#x7ED3;&#x6784;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x8BE5;&#x8BED;&#x53E5;&#x4F1A;&#x5BFC;&#x51FA;&#x6240;&#x6709;&#x8868;&#x7ED3;&#x6784;</span></span><br><span class="line">db2look -d &lt;db&gt; -e -a -x -i &lt;username&gt; -w &lt;password&gt; -o &lt;file&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5BFC;&#x51FA;&#x6307;&#x5B9A;&#x8868;&#x7ED3;&#x6784;</span></span><br><span class="line">db2look -d &lt;db&gt; -e -t &lt;table&gt; -o  &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#&#x91CD;&#x8BBE;&#x81EA;&#x52A8;&#x81EA;&#x52A8;&#x8D77;&#x59CB;&#x503C;</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> &lt;<span class="keyword">table</span>&gt; <span class="keyword">alter</span> <span class="keyword">column</span> &lt;<span class="keyword">column</span>&gt; restart <span class="keyword">with</span> &lt;<span class="keyword">num</span>&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="&#x6267;&#x884C;-sql-&#x6587;&#x4EF6;">&#x6267;&#x884C; sql &#x6587;&#x4EF6;</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db2 &#x2013;tvf script1.sql &#x2013;z script1.log  #&#x9700;&#x8F6C;&#x5316;&#x4E3A;unix&#x683C;&#x5F0F;&#x6587;&#x672C;</span><br></pre></td></tr></table></figure>
 <p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x547D;&#x4EE4;&#x4E2D;&#xFF0C;</p>
@@ -3909,366 +4376,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/04/18/大学计算机笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/18/大学计算机笔记/" class="post-title-link" itemprop="url">大学计算机笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-18 10:19:11" itemprop="dateCreated datePublished" datetime="2020-04-18T10:19:11+08:00">2020-04-18</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机基础/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous"><h2 id="&#x8FD0;&#x7B97;&#x51CF;&#x6CD5;&#x8865;&#x7801;&#x53CD;&#x7801;">&#x8FD0;&#x7B97;&#x51CF;&#x6CD5;(&#x8865;&#x7801;&#x53CD;&#x7801;)</h2>
-<p>&#x5BF9;&#x4E8E;&#x5341;&#x4E8C;&#x523B;&#x65F6;&#x7684;&#x65F6;&#x949F;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x7684;&#x4E00;&#x4E2A;&#x5468;&#x671F;&#x4E3A; 12 &#x4E2A;&#x5C0F;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x79F0;&#x4E4B;&#x4E3A;&#x6A21;&#x3002;<code>9-3</code>&#x5373;&#x4ECE; 9 &#x70B9;&#x5411;&#x540E;&#x62E8; 3 &#x4E2A;&#x5C0F;&#x65F6;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x662F; 6 &#x70B9;&#xFF0C;&#x540C;&#x65F6;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x5411;&#x524D;&#x62E8; 9 &#x4E2A;&#x5C0F;&#x65F6;&#xFF0C;&#x90A3;&#x4E48;&#x4E5F;&#x662F; 6 &#x70B9;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x51CF;&#x6CD5;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E0E;&#x6A21;&#x6765;&#x53D8;&#x6362;&#x6210;&#x52A0;&#x6CD5;&#x3002;&#x5BF9;&#x4E8E;&#x65F6;&#x949F;&#x6765;&#x8BF4;&#x6A21;<code>R = 12</code>,<code>-3</code>&#x4E0E;&#x6A21;&#x76F8;&#x5DEE;<code>9</code>&#x3002;&#x90A3;&#x4E48;<code>-3</code>&#x7B49;&#x540C;&#x4E8E;<code>+9</code>&#x3002;&#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x516C;&#x5F0F;&#x6765;&#x8BC1;&#x660E;</p>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>&#x2212;</mo><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#x2212;</mo><mi>b</mi><mo>+</mo><mi>R</mi><mo>=</mo><mi>a</mi><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo>&#x2212;</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
-   a-b=a-b+R=a+(R-b)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></span></p>
-<p>&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;<code>n</code>&#x4F4D;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x7684;&#x6A21; R = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span>&#xFF0C;&#x5B83;&#x7684;&#x51CF;&#x6CD5;&#x53EF;&#x4EE5;&#x7528;&#x4EE5;&#x4E0B;&#x516C;&#x5F0F;&#x6765;&#x6362;&#x7B97;</p>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>&#x2212;</mo><mi>b</mi><mo>=</mo><mi>a</mi><mo>&#x2212;</mo><mi>b</mi><mo>+</mo><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><mi>a</mi><mo>+</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x2212;</mo><mi>b</mi><mo stretchy="false">)</mo><mo>=</mo><mi>a</mi><mo>+</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x2212;</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>&#x2212;</mo><mi>b</mi><mo stretchy="false">)</mo><mo>=</mo><mi>a</mi><mo>+</mo><mo stretchy="false">(</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo>&#x2212;</mo><mi>b</mi><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">
-   a-b=a-b+2^n=a+(2^n-b)=a+(2^n-1+1-b)=a+((2^n-1)-b)+1
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7143919999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>&#x2212;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.747722em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x8868;&#x8FBE;&#x5C31;&#x662F; n &#x4F4D; 1,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x2212;</mo><mn>1</mn><mo stretchy="false">)</mo><mo>&#x2212;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">(2^n-1) - b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x8BA1;&#x7B97;<code>-b</code>&#x7684;&#x8865;&#x7801;&#x6240;&#x4EE5;&#x4E0A;&#x8FF0;&#x8868;&#x793A;&#x5F0F;&#x6700;&#x7EC8;&#x53EF;&#x4EE5;&#x8868;&#x73B0;&#x4E3A;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>+</mo><mover accent="true"><mi>b</mi><mo stretchy="true">&#x203E;</mo></mover><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a+\overline{b}+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.97777em;vertical-align:-0.08333em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.89444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">b</span></span></span><span style="top:-3.81444em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;&#x4FD7;&#x79F0;&#x7684;&#x53CD;&#x7801;</p>
-<h2 id="&#x4E0E;&#x975E;&#x95E8;&#x5B9E;&#x73B0;&#x771F;&#x503C;&#x8868;&#x8FBE;&#x5F0F;">&#x4E0E;&#x975E;&#x95E8;&#x5B9E;&#x73B0;&#x771F;&#x503C;&#x8868;&#x8FBE;&#x5F0F;</h2>
-<p><img src="/images/&#x5927;&#x5B66;&#x8BA1;&#x7B97;&#x673A;&#x7B14;&#x8BB0;_2020-04-18-17-50-17.png" alt="&#x5927;&#x5B66;&#x8BA1;&#x7B97;&#x673A;&#x7B14;&#x8BB0;_2020-04-18-17-50-17.png"> <img src="/images/&#x5927;&#x5B66;&#x8BA1;&#x7B97;&#x673A;&#x7B14;&#x8BB0;_2020-04-18-17-51-41.png" alt="&#x5927;&#x5B66;&#x8BA1;&#x7B97;&#x673A;&#x7B14;&#x8BB0;_2020-04-18-17-51-41.png"></p>
-<h2 id="&#x4E2D;&#x6587;ascii&#x7801;">&#x4E2D;&#x6587;<code>ASCII</code>&#x7801;</h2>
-<p><code>html</code>&#x4E2D;&#x4EE5;<code>&amp;#x</code>&#x5F00;&#x5934;&#x7684;&#x7279;&#x6B8A;&#x5B57;&#x7B26;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/03/16/spring配置类加载yaml配置项的模拟实现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lijun">
-      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大狗哥传奇">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/16/spring配置类加载yaml配置项的模拟实现/" class="post-title-link" itemprop="url">spring配置类加载yaml配置项的模拟实现</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-16 14:27:04" itemprop="dateCreated datePublished" datetime="2020-03-16T14:27:04+08:00">2020-03-16</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-06-30 23:59:15" itemprop="dateModified" datetime="2020-06-30T23:59:15+08:00">2020-06-30</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&#x6838;&#x5FC3;&#x601D;&#x8DEF;&#x5C31;&#x662F;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6CE8;&#x89E3;&#x7528;&#x4EE5;<code>Spring</code>&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5C06;&#x5176;&#x624B;&#x52A8;&#x6CE8;&#x5165;&#x5230;<code>Spring</code>&#x5BB9;&#x5668;&#x4E2D;&#xFF0C;&#x5E76;&#x5E72;&#x9884;&#x8BE5;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x5316;&#x8FC7;&#x7A0B;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>({ElementType.TYPE})</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> YamlBean {</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportBeanDefinitionRegistrar;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.filter.AnnotationTypeFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YamlBeanRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>{</span><br><span class="line">        createComponentScanner().findCandidateComponents(<span class="string">&quot;com.leaderli.yaml&quot;</span>).forEach(beanDefinition -&gt; {</span><br><span class="line">            System.out.println(<span class="string">&quot;beanDefinition = &quot;</span> + beanDefinition);</span><br><span class="line">            beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(Objects.requireNonNull(beanDefinition.getBeanClassName()));</span><br><span class="line">            beanDefinition.setBeanClassName(ProxyFactoryBean.class.getName()); <span class="comment">//&#x6307;&#x5B9A;&#x8BE5;&#x7C7B;&#x7684;&#x751F;&#x6210;&#x5DE5;&#x5382;&#x7C7B;</span></span><br><span class="line">            registry.registerBeanDefinition(Objects.requireNonNull(beanDefinition.getBeanClassName()), beanDefinition);</span><br><span class="line">        });</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ClassPathScanningCandidateComponentProvider <span class="title">createComponentScanner</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="comment">// &#x626B;&#x63CF;YamlBean&#x6CE8;&#x89E3;&#x7684;&#x7C7B;</span></span><br><span class="line">        ClassPathScanningCandidateComponentProvider provider</span><br><span class="line">                = <span class="keyword">new</span> ClassPathScanningCandidateComponentProvider(<span class="keyword">false</span>);</span><br><span class="line">        provider.addIncludeFilter(<span class="keyword">new</span> AnnotationTypeFilter(YamlBean.class));</span><br><span class="line">        <span class="keyword">return</span> provider;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.FactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.yaml.snakeyaml.Yaml;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyFactoryBean</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">FactoryBean</span>&lt;<span class="title">T</span>&gt; </span>{</span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; interfaceClass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyFactoryBean</span><span class="params">(Class&lt;T&gt; interfaceClass)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.interfaceClass = interfaceClass;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">        YamlBean annotation = interfaceClass.getAnnotation(YamlBean.class);</span><br><span class="line"></span><br><span class="line">        InputStream inputStream = ClassLoader.getSystemResourceAsStream(<span class="string">&quot;bean.yml&quot;</span>);</span><br><span class="line">        Yaml yaml = <span class="keyword">new</span> Yaml();</span><br><span class="line">        Map&lt;String,Object&gt; load = yaml.load(inputStream);</span><br><span class="line"></span><br><span class="line">        String prefix = annotation.value();</span><br><span class="line">        System.out.println(<span class="string">&quot;prefix = &quot;</span> + prefix);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String key : prefix.split(<span class="string">&quot;\\.&quot;</span>)) {</span><br><span class="line">            load= (Map&lt;String, Object&gt;) load.get(key);</span><br><span class="line">            System.out.println(<span class="string">&quot;load = &quot;</span> + load);</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">        yaml = <span class="keyword">new</span> Yaml();</span><br><span class="line">        String dump = yaml.dump(load);</span><br><span class="line">        System.out.println(<span class="string">&quot;dump = &quot;</span> + dump);</span><br><span class="line"></span><br><span class="line">        T bean = yaml.loadAs(dump, interfaceClass);</span><br><span class="line">        System.out.println(<span class="string">&quot;bean = &quot;</span> + bean);</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; getObjectType() {</span><br><span class="line">        <span class="keyword">return</span> interfaceClass;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>&#x5728;<code>Spring</code>&#x7684;&#x914D;&#x7F6E;&#x7C7B;&#x5C06;&#x626B;&#x63CF;&#x5668;&#x5BFC;&#x5165;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import</span>(YamlBeanRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringConfig</span> </span>{</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4315,7 +4422,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -4641,11 +4748,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -5173,6 +5276,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 

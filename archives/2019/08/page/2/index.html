@@ -428,7 +428,7 @@
         
          
           
-        非常好! 目前共计 137 篇日志。 继续努力。
+        非常好! 目前共计 138 篇日志。 继续努力。
       </span>
       
 
@@ -840,7 +840,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1166,11 +1166,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1698,6 +1694,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 

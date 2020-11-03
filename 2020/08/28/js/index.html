@@ -143,7 +143,7 @@
 <meta property="og:description" content="&amp;#x540D;&amp;#x5B57;&amp;#x7A7A;&amp;#x95F4; &amp;#x5168;&amp;#x5C40;&amp;#x53D8;&amp;#x91CF;&amp;#x4F1A;&amp;#x7ED1;&amp;#x5B9A;&amp;#x5230;window&amp;#x4E0A;&amp;#xFF0C;&amp;#x4E0D;&amp;#x540C;&amp;#x7684; JavaScript &amp;#x6587;&amp;#x4EF6;&amp;#x5982;&amp;#x679C;&amp;#x4F7F;&amp;#x75">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leaderli.github.io/images/js-tips_2020-04-25-13-18-14.png">
-<meta property="og:updated_time" content="2020-09-21T01:03:36.000Z">
+<meta property="og:updated_time" content="2020-10-30T01:18:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js">
 <meta name="twitter:description" content="&amp;#x540D;&amp;#x5B57;&amp;#x7A7A;&amp;#x95F4; &amp;#x5168;&amp;#x5C40;&amp;#x53D8;&amp;#x91CF;&amp;#x4F1A;&amp;#x7ED1;&amp;#x5B9A;&amp;#x5230;window&amp;#x4E0A;&amp;#xFF0C;&amp;#x4E0D;&amp;#x540C;&amp;#x7684; JavaScript &amp;#x6587;&amp;#x4EF6;&amp;#x5982;&amp;#x679C;&amp;#x4F7F;&amp;#x75">
@@ -470,7 +470,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-21 09:03:36" itemprop="dateModified" datetime="2020-09-21T09:03:36+08:00">2020-09-21</time>
+                <time title="修改时间：2020-10-30 09:18:05" itemprop="dateModified" datetime="2020-10-30T09:18:05+08:00">2020-10-30</time>
               </span>
             
           
@@ -547,7 +547,7 @@
 <p>&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x5B89;&#x5168;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x5728;&#x8BBE;&#x7F6E; Cookie &#x65F6;&#xFF0C;&#x5E94;&#x8BE5;&#x59CB;&#x7EC8;&#x575A;&#x6301;&#x4F7F;&#x7528; httpOnly&#x3002;</p>
 <h2 id="&#x4F5C;&#x7528;&#x57DF;">&#x4F5C;&#x7528;&#x57DF;</h2>
 <ol type="1">
-<li><p>&#x5728; object &#x5185;&#x7684; function this &#x6307;&#x5411; object&#xFF0C;&#x800C;&#x5C5E;&#x4E8E; function &#x5185;&#x90E8;&#x7684;&#x95ED;&#x5305;&#x51FD;&#x6570; this &#x6307;&#x5411; window &#x5BF9;&#x8C61;,&#x7EAF; function this &#x4E5F;&#x6307;&#x5411; window &#x5BF9;&#x8C61;</p></li>
+<li><p>&#x5728; object &#x5185;&#x7684; function this &#x6307;&#x5411; object&#xFF0C;&#x800C;&#x5C5E;&#x4E8E; function &#x5185;&#x90E8;&#x7684;&#x95ED;&#x5305;&#x51FD;&#x6570; this &#x6307;&#x5411; window &#x5BF9;&#x8C61;,&#x7EAF; function this &#x4E5F;&#x6307;&#x5411; window &#x5BF9;&#x8C61;&#x3002;</p></li>
 <li><p>&#x201C;&#x81EA;&#x7531;&#x53D8;&#x91CF;&#x201D;&#x3002;&#x5728; A &#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x53D8;&#x91CF; x&#xFF0C;&#x5374;&#x6CA1;&#x6709;&#x5728; A &#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x58F0;&#x660E;&#xFF08;&#x5373;&#x5728;&#x5176;&#x4ED6;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x58F0;&#x660E;&#x7684;&#xFF09;&#xFF0C;&#x5BF9;&#x4E8E; A &#x4F5C;&#x7528;&#x57DF;&#x6765;&#x8BF4;&#xFF0C;x &#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x7531;&#x53D8;&#x91CF;&#x3002;&#x5982;&#x4E0B;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">20</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x + b); <span class="comment">//&#x8FD9;&#x91CC;&#x7684;x&#x5728;&#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x7531;&#x53D8;&#x91CF;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
 <li><p>&#x4E3A; Object.prototype &#x8D4B;&#x503C;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x5728; window &#x5BF9;&#x8C61;&#x4E0A;&#x8D4B;&#x503C;</p></li>
@@ -580,6 +580,7 @@
 <li>&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4E2D;&#x7684; this &#x5C31;&#x4EE3;&#x8868;&#x5B83;&#x5373;&#x5C06; new &#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;</li>
 <li>&#x5982;&#x679C;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5E76;&#x4E14;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x51FD;&#x6570;&#x4E2D;&#x7684; this &#x6307;&#x5411;&#x8BE5;&#x5BF9;&#x8C61;</li>
 <li>&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x88AB; call &#x548C; apply &#x8C03;&#x7528;&#x65F6;&#xFF0C;this &#x7684;&#x503C;&#x5C31;&#x53D6;&#x4F20;&#x5165;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x503C;</li>
+<li>&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x4F53;&#x5185;&#x7684; this &#x5BF9;&#x8C61;&#x5C31;&#x662F;&#x5B9A;&#x4E49;&#x65F6;&#x6240;&#x5728;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F7F;&#x7528;&#x65F6;&#x7684;&#x5BF9;&#x8C61;</li>
 </ol>
 <h2 id="&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;">&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;</h2>
 <p>&#x51FD;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#x201D;&#x548C;&#x201C;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x201D;&#x3002;&#x867D;&#x7136;&#x4E24;&#x8005;&#x90FD;&#x5F88;&#x5E38;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E24;&#x8005;&#x5728;&#x201C;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x201D;&#x65F6;&#xFF0C;&#x5374;&#x662F;&#x4E24;&#x79CD;&#x5F85;&#x9047;&#x3002;</p>
@@ -786,7 +787,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1112,11 +1113,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1667,6 +1664,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 

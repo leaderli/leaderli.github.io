@@ -136,7 +136,7 @@
 
 
   <meta name="description" content="shell &amp;#x662F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x5185;&amp;#x6838;&amp;#x548C;&amp;#x7528;&amp;#x6237;&amp;#x6C9F;&amp;#x901A;&amp;#x7684;&amp;#x6865;&amp;#x6881;&amp;#xFF0C;&amp;#x5B83;&amp;#x4F5C;&amp;#x4E3A;&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x547D;&amp;#x4EE4;&amp;#x89E3;&amp;#x91CA;&amp;#">
-<meta name="keywords" content="tips,linux">
+<meta name="keywords" content="linux,tips">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux">
 <meta property="og:url" content="https://leaderli.github.io/2019/07/04/linux/index.html">
@@ -568,9 +568,9 @@
         
         <div class="post-tags">
           
-            <a href="/tags/tips/" rel="tag"># tips</a>
-          
             <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/tips/" rel="tag"># tips</a>
           
         </div>
       
@@ -706,7 +706,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">137</span>
+                    <span class="site-state-item-count">138</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1032,11 +1032,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1570,6 +1566,17 @@
             onPopupClose();
         }
     });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
 </script>
 
 
