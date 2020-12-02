@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9-iuFTrWxG-NMbBqeS359Y491i0G0HcZ44NiICCEs7s">
+<meta name="baidu-site-verification" content="eQr4ptzetx">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+
+  <meta name="description" content="&amp;#x6982;&amp;#x8FF0; MRCP &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6807;&amp;#x51C6;&amp;#x3001;&amp;#x7EDF;&amp;#x4E00;&amp;#x3001;&amp;#x53EF;&amp;#x6269;&amp;#x5C55;&amp;#x7684;&amp;#x5A92;&amp;#x4F53;&amp;#x8D44;&amp;#x6E90;&amp;#x63A7;&amp;#x5236;&amp;#x534F;&amp;#x8BAE;&amp;#xFF0C;&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mrcp">
+<meta property="og:url" content="https://leaderli.github.io/2020/11/18/mrcp/index.html">
+<meta property="og:site_name" content="大狗哥传奇">
+<meta property="og:description" content="&amp;#x6982;&amp;#x8FF0; MRCP &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6807;&amp;#x51C6;&amp;#x3001;&amp;#x7EDF;&amp;#x4E00;&amp;#x3001;&amp;#x53EF;&amp;#x6269;&amp;#x5C55;&amp;#x7684;&amp;#x5A92;&amp;#x4F53;&amp;#x8D44;&amp;#x6E90;&amp;#x63A7;&amp;#x5236;&amp;#x534F;&amp;#x8BAE;&amp;#xFF0C;&amp;#">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://leaderli.github.io/images/mrcp_结构.png">
+<meta property="og:image" content="https://leaderli.github.io/images/mrcp_single_media.png">
+<meta property="og:image" content="https://leaderli.github.io/images/mrcp_add_remove.png">
+<meta property="og:image" content="https://leaderli.github.io/images/mrcp_control_session.png">
+<meta property="og:updated_time" content="2020-12-02T01:58:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mrcp">
+<meta name="twitter:description" content="&amp;#x6982;&amp;#x8FF0; MRCP &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x6807;&amp;#x51C6;&amp;#x3001;&amp;#x7EDF;&amp;#x4E00;&amp;#x3001;&amp;#x53EF;&amp;#x6269;&amp;#x5C55;&amp;#x7684;&amp;#x5A92;&amp;#x4F53;&amp;#x8D44;&amp;#x6E90;&amp;#x63A7;&amp;#x5236;&amp;#x534F;&amp;#x8BAE;&amp;#xFF0C;&amp;#">
+<meta name="twitter:image" content="https://leaderli.github.io/images/mrcp_结构.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://leaderli.github.io/2020/11/18/mrcp/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>mrcp | 大狗哥传奇</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大狗哥传奇</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+  <script type="text/javascript">
+     var search_path = "<%= config.search.path %>";
+     if (search_path.length == 0) {
+     	search_path = "search.json";
+     }
+     var path = "<%= config.root %>" + search_path;
+ </script>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leaderli.github.io/2020/11/18/mrcp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijun">
+      <meta itemprop="description" content="与其感慨路难行，不如马上就出发">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大狗哥传奇">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mrcp
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-11-18 09:28:14" itemprop="dateCreated datePublished" datetime="2020-11-18T09:28:14+08:00">2020-11-18</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-02 09:58:26" itemprop="dateModified" datetime="2020-12-02T09:58:26+08:00">2020-12-02</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ivr/" itemprop="url" rel="index"><span itemprop="name">ivr</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x6982;&#x8FF0;">&#x6982;&#x8FF0;</h2>
+<p>MRCP &#x662F;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x3001;&#x7EDF;&#x4E00;&#x3001;&#x53EF;&#x6269;&#x5C55;&#x7684;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x63A7;&#x5236;&#x534F;&#x8BAE;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x8BED;&#x97F3;&#x8BC6;&#x522B;&#x3001;TTS &#x5408;&#x6210;&#x3001;&#x5F55;&#x97F3;&#x3001; &#x58F0;&#x7EB9;&#x8BC6;&#x522B;&#xFF08;&#x786E;&#x8BA4;&#x662F;&#x5426;&#x4E3A;&#x67D0;&#x4E00;&#x7C7B;&#x7FA4;&#x4F53;&#xFF09;&#xFF0C;&#x58F0;&#x7EB9;&#x8BA4;&#x8BC1;&#x3002;MRCP &#x662F;&#x4E00;&#x4E2A;&#x6846;&#x67B6;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x534F;&#x8BAE;&#x3002;&#x8BE5;&#x6846;&#x67B6;&#x5B9A;&#x4E49;&#x4E86;&#x5B83;&#x7684;&#x7F51;&#x7EDC;&#x57FA;&#x672C;&#x7EC4;&#x4EF6;&#x53CA;&#x76F8;&#x4E92;&#x5173;&#x7CFB;&#x3002;&#x5B83;&#x4F7F;&#x7528; SIP &#x534F;&#x8BAE;&#x6765;&#x63A7;&#x5236;&#x4F1A;&#x8BDD;&#x7BA1;&#x7406;&#xFF0C;&#x4F7F;&#x7528; RTP &#x8FDB;&#x884C;&#x5A92;&#x4F53;&#x6D41;&#x4F20;&#x8F93;&#x3002;&#x5B83;&#x7684;&#x534F;&#x8BAE;&#x5B9A;&#x4E49;&#x4E86;&#x5B83;&#x5982;&#x4F55;&#x63A7;&#x5236;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x7684;&#x8FC7;&#x7A0B;&#x3002; MRCP &#x662F;&#x57FA;&#x4E8E;&#x6587;&#x672C;&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x4E0E; HTTP&#x3001;SIP &#x7684;&#x7ED3;&#x6784;&#x7C7B;&#x4F3C;</p>
+<h2 id="&#x7ED3;&#x6784;">&#x7ED3;&#x6784;</h2>
+<p>MRCP &#x5141;&#x8BB8;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x548C;&#x63A7;&#x5236;&#x7F51;&#x8DEF;&#x4E0A;&#x6307;&#x5B9A;&#x7684;&#x5A92;&#x4F53;&#x670D;&#x52A1;&#xFF0C;&#x4F7F;&#x7528;&#x5A92;&#x4F53;&#x670D;&#x52A1;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x5E38;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>IVR &#x5E73;&#x53F0;</li>
+<li>&#x9AD8;&#x7EA7;&#x5A92;&#x4F53;&#x7F51;&#x5173;</li>
+<li>&#x57FA;&#x4E8E; IP &#x7684;&#x5A92;&#x4F53;&#x670D;&#x52A1;&#x7AEF;</li>
+</ul>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x4E00;&#x822C;&#x9700;&#x8981;&#x6709;</p>
+<ol type="1">
+<li>&#x5B9A;&#x4F4D;&#x548C;&#x53D1;&#x73B0;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x7AEF;</li>
+<li>&#x4E0E;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5EFA;&#x7ACB;&#x6D88;&#x606F; channel</li>
+<li>&#x8FDC;&#x7A0B;&#x63A7;&#x5236;&#x5A92;&#x4F53;&#x8D44;&#x6E90;</li>
+</ol>
+<p>MRCP &#x901A;&#x8FC7; SIP URI &#x6765;&#x786E;&#x8BA4;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x7684; IP &#x5730;&#x5740;&#xFF0C;&#x5F53;&#x627E;&#x5230;&#x5408;&#x9002;&#x7684;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#xFF0C;SIP &#x4F1A;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x5EFA;&#x7ACB;&#x4E24;&#x4E2A;&#x6D88;&#x606F;&#x7BA1;&#x9053;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x6765;&#x53D1;&#x9001;&#x548C;&#x63A5;&#x6536;&#x97F3;&#x9891;&#x6D41;&#xFF08;&#x53C8;&#x79F0;&#x5A92;&#x4F53;&#x4F1A;&#x8BDD;&#xFF09;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x7528;&#x6765;&#x53D1;&#x9001;&#x63A7;&#x5236;&#x8BF7;&#x6C42;&#x5230;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x7AEF;&#x3001;&#x670D;&#x52A1;&#x7AEF;&#x54CD;&#x5E94;&#x5E76;&#x8FD4;&#x56DE;&#x4E8B;&#x4EF6;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;&#x53C8;&#x79F0;&#x63A7;&#x5236;&#x4F1A;&#x8BDD;&#xFF0C;MRCP &#x534F;&#x8BAE;&#x5EFA;&#x7ACB;&#x5728;&#x63A7;&#x5236;&#x4F1A;&#x8BDD;&#x4E0A;&#xFF09; <img src="/images/mrcp_&#x7ED3;&#x6784;.png" alt="mrcp_&#x7ED3;&#x6784;.png"></p>
+<p>&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x7C7B;&#x578B;</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">&#x7C7B;&#x578B;</th>
+<th style="text-align: left;">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">basicsynth</td>
+<td style="text-align: left;">&#x57FA;&#x7840; tts&#xFF0C;&#x4EC5;&#x652F;&#x6301; SSML &#x6807;&#x51C6;&#x7684;&#x4E00;&#x4E9B;&#x5B50;&#x96C6;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">speechsynth</td>
+<td style="text-align: left;">tts &#xFF0C;&#x652F;&#x6301;&#x5B8C;&#x6574;&#x7684; SSML</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dtmfrecog</td>
+<td style="text-align: left;">DTMF &#x8BC6;&#x522B;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sppechrecog</td>
+<td style="text-align: left;">&#x8BED;&#x97F3;&#x8BC6;&#x522B;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">recorder</td>
+<td style="text-align: left;">&#x5F55;&#x97F3;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">speakverify</td>
+<td style="text-align: left;">&#x8BED;&#x97F3;&#x9A8C;&#x8BC1;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x62A5;&#x6587;">&#x62A5;&#x6587;</h2>
+<p>MRCP &#x6D88;&#x606F;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#x7C7B;&#x578B;&#xFF0C;request&#x3001;response&#x3001;event&#x3002;&#x670D;&#x52A1;&#x7AEF;&#x63A5;&#x6536;&#x5230;&#x4ECE;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x7684; request &#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x89E3;&#x6790;&#x6267;&#x884C;&#x540E;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; response &#x54CD;&#x5E94;&#x3002;response &#x5305;&#x542B;&#x4E00;&#x4E2A;&#x4E09;&#x4F4D;&#x6570;&#x5B57;&#x7684;&#x54CD;&#x5E94;&#x7801;&#xFF08;&#x4E0E; HTTP &#x7684;&#x7C7B;&#x4F3C;&#xFF09;&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x6709;&#x5305;&#x542B;&#x5F53;&#x524D; request &#x7684;&#x72B6;&#x6001;&#xFF08;<code>PENDING</code>,<code>IN-PROGRESS</code>,<code>COMPLETE</code>&#xFF09;</p>
+<ul>
+<li>PENDING &#x8868;&#x660E;&#x5BA2;&#x6237;&#x7AEF;&#x7684; request &#x8BF7;&#x6C42;&#x5DF2;&#x7ECF;&#x5230;&#x8FBE;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E76;&#x6DFB;&#x52A0;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7684; FIFO &#x7684;&#x5904;&#x7406;&#x961F;&#x5217;&#x4E2D;&#x3002;</li>
+<li>IN-PROGRESS &#x8868;&#x660E;&#x5BA2;&#x6237;&#x7AEF;&#x7684; request &#x8BF7;&#x6C42;&#x5904;&#x4E8E;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x3002;</li>
+<li>COMPLETE &#x8868;&#x660E;&#x5BA2;&#x6237;&#x7AEF;&#x7684; request &#x8BF7;&#x6C42;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#xFF0C;&#x6CA1;&#x6709;&#x540E;&#x7EED;&#x6D88;&#x606F;</li>
+</ul>
+<p>PENDING &#x548C; IN-PROGRESS &#x90FD;&#x8868;&#x660E;&#x8BF7;&#x6C42;&#x8FD8;&#x672A;&#x7ED3;&#x675F;&#xFF0C;&#x8FD8;&#x5728;&#x7B49;&#x5F85;&#x5176;&#x4ED6; event &#x4E8B;&#x4EF6;&#x3002;&#x901A;&#x8FC7; &#x5BF9;&#x7279;&#x5B9A; events &#x7684;&#x54CD;&#x5E94;&#x670D;&#x52A1;&#x7AEF;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4EA4;&#x4E92;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684; tts &#x64AD;&#x62A5;&#x8FC7;&#x7A0B;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">client                    TTS</span><br><span class="line">  |                        |</span><br><span class="line">  |        SPEAK           |</span><br><span class="line">  |-----------------------&gt;|</span><br><span class="line">  |                        |</span><br><span class="line">  |    200(IN-PROGRESS)    |</span><br><span class="line">  |&lt;-----------------------|</span><br><span class="line">  |                        |</span><br><span class="line">  |SPEAK-COMPLETE(COMPLETE)|</span><br><span class="line">  |&lt;-----------------------|</span><br><span class="line">  |                        |</span><br><span class="line">  |                        |</span><br></pre></td></tr></table></figure>
+<p>&#x5176;&#x8BF7;&#x6C42;&#x62A5;&#x6587;&#x5927;&#x81F4;&#x5982;&#x4E0B;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 380 SPEAK 14321</span><br><span class="line"><span class="attribute">Channel-Identifier</span>: 43b9ae17@speechsynth</span><br><span class="line"><span class="attribute">Content-Type</span>: application/ssml+xml</span><br><span class="line"><span class="attribute">Content-Length</span>: 253</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;speak version=&quot;1.0&quot; xmlns=&quot;http://www.w3.org/2001/10/synthesis&quot;&gt;</span><br><span class="line">&lt;emphasis&gt;Good afternoon&lt;/emphasis&gt; Anne.&lt;break/&gt; You have one voice message, two e-mails, and three faxes waiting for you.</span><br><span class="line">&lt;/speak&gt;</span><br></pre></td></tr></table></figure>
+<p>MRCP &#x7684;&#x8BF7;&#x6C42;&#x62A5;&#x6587;&#x5927;&#x4F53;&#x4E0A;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x4E2A;&#x90E8;&#x5206;</p>
+<ol type="1">
+<li>&#x8BF7;&#x6C42;&#x884C;&#xFF0C;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#x4EE5;&#x7A7A;&#x683C;&#x5206;&#x9694;&#xFF0C;&#x4EE5;&#x6362;&#x884C;&#xFF08;CRLF&#xFF09;&#x7ED3;&#x675F;&#xFF0C;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#x5206;&#x522B;&#x8868;&#x793A;<code>MRCP&#x7248;&#x672C;</code>&#x3001;<code>&#x8BF7;&#x6C42;&#x62A5;&#x6587;&#x957F;&#x5EA6;</code>&#x3001;<code>&#x8BF7;&#x6C42;&#x4E8B;&#x4EF6;</code>&#x3001;<code>&#x8BF7;&#x6C42;id</code></li>
+<li>&#x8BF7;&#x6C42;&#x5934; <code>header-name:header-value CRLF</code>&#x683C;&#x5F0F;&#xFF0C;&#x8BF7;&#x6C42;&#x5934;&#x7ED3;&#x5C3E;&#x4E00;&#x5B9A;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x7A7A;&#x884C;</li>
+<li>&#x8BF7;&#x6C42;&#x62A5;&#x6587;</li>
+</ol>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 119 14321 200 IN-PROGRESS</span><br><span class="line"><span class="attribute">Channel-Identifier</span>: 43b9ae17@speechsynth</span><br><span class="line"><span class="attribute">Speech-Marker</span>: timestamp=857206027059</span><br></pre></td></tr></table></figure>
+<p>MRCP &#x7684;&#x8FD4;&#x56DE;&#x62A5;&#x6587;&#x7C7B;&#x4F3C;&#x8BF7;&#x6C42;&#x62A5;&#x6587;&#xFF0C;&#x8FD4;&#x56DE;&#x884C;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#x5206;&#x522B;&#x4EE3;&#x8868;<code>MRCP&#x7248;&#x672C;</code>&#x3001;<code>&#x8FD4;&#x56DE;&#x62A5;&#x6587;&#x957F;&#x5EA6;</code>&#x3001;<code>&#x8BF7;&#x6C42;id</code>&#x3001;<code>&#x8FD4;&#x56DE;&#x7801;</code>&#x3001;<code>&#x5F53;&#x524D;request&#x72B6;&#x6001;</code>&#x3002; IN-PROGRESS &#x72B6;&#x6001;&#x4E00;&#x822C;&#x8868;&#x793A; audio &#x6D41;&#x6B63;&#x5728;&#x5411;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x3002;</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 157 SPEAK-COMPLETE 14321 COMPLETE</span><br><span class="line"><span class="attribute">Channel-Identifier</span>: 43b9ae17@speechsynth</span><br><span class="line"><span class="attribute">Speech-Marker</span>: timestamp=861500994355</span><br><span class="line"><span class="attribute">Completion-Cause</span>: 000 normal</span><br></pre></td></tr></table></figure>
+<p>&#x5F53;&#x670D;&#x52A1;&#x7AEF;&#x6267;&#x884C;&#x5230; COMPLETE &#x72B6;&#x6001;&#x65F6;&#xFF0C;&#x8868;&#x660E;&#x4E0D;&#x5728;&#x63A5;&#x6536;&#x6307;&#x5B9A;&#x7684; request &#x8BF7;&#x6C42;&#xFF0C;&#x5219;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B; COMPLETE &#x7684;&#x54CD;&#x5E94;&#x62A5;&#x6587;&#x3002;&#x6B64;&#x65F6;&#x8FD4;&#x56DE;&#x884C;&#x6BCF;&#x4E2A;&#x5B57;&#x6BB5;&#x5206;&#x522B;&#x4EE3;&#x8868;<code>MRCP&#x7248;&#x672C;</code>&#x3001;<code>&#x8FD4;&#x56DE;&#x4E8B;&#x4EF6;</code>&#x3001;<code>&#x8FD4;&#x56DE;&#x62A5;&#x6587;&#x957F;&#x5EA6;</code>&#x3001;<code>&#x8BF7;&#x6C42;id</code>&#x3001;<code>&#x5F53;&#x524D;request&#x72B6;&#x6001;</code>&#x3002;</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 111 START-OF-INPUT 32121 IN-PROGRESS</span><br><span class="line"><span class="attribute">Channel-Identifier</span>: 23af1e13@speechrecog</span><br><span class="line"><span class="attribute">Input-Type</span>: speech</span><br></pre></td></tr></table></figure>
+<p>&#x5176;&#x4ED6;&#x6709;&#x8FD4;&#x56DE;&#x4E8B;&#x4EF6;&#x7684;&#x8FD4;&#x56DE;&#x884C;&#x683C;&#x5F0F;&#x4E5F;&#x662F;&#x8FD9;&#x6837;&#x3002;</p>
+<h2 id="sip-in-mrcp">SIP in MRCP</h2>
+<p>MRCP &#x4F7F;&#x7528; SIP &#x534F;&#x8BAE;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x7AEF;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x3002;&#x6807;&#x51C6;&#x7684;&#x4E09;&#x6B65;<code>INVITE-200 OK-ACK</code>&#x63E1;&#x624B;&#x7528;&#x6765;&#x5EFA;&#x7ACB; media session &#x548C; control session &#x8FDE;&#x63A5;&#x3002;<code>BYE-200 OK</code>&#x7528;&#x6765;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#x3002;&#x4F7F;&#x7528;<code>SDP offer/answer</code>&#x6A21;&#x578B;&#x6765;&#x8FDB;&#x884C;&#x534F;&#x5546;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F; control channel &#x7684;&#x4E00;&#x4E9B; SDP &#x7247;&#x6BB5;</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">c</span>=<span class="string">IN IP4 10.0.0.1</span></span><br><span class="line"><span class="attr">m</span>=<span class="string">application 9 TCP/MRCPv2</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">setup:active</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">connection:new</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">resource:speechsynth</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">cmid:1</span></span><br></pre></td></tr></table></figure>
+<p>SDP &#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x7AEF;&#x62A5;&#x6587;&#x4F53;&#x91CD;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#xFF0C;&#x6BD4;&#x5982;&#x5305;&#x542B;&#x5728; INVITE &#x6D88;&#x606F;&#x4E2D;&#x3002;&#x4E0A;&#x8FF0;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;MRCP &#x5411;&#x5A92;&#x4F53;&#x670D;&#x52A1;&#x5668;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x8BED;&#x97F3;&#x5408;&#x6210;&#x670D;&#x52A1;&#x3002;</p>
+<ul>
+<li>c &#x884C;&#x8868;&#x793A; IP &#x5730;&#x5740;&#x3002;</li>
+<li>m control session &#x5305;&#x542B;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A; m &#x884C;&#xFF0C;&#x5176;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x4E3A; application&#xFF08;&#x5BF9;&#x4E8E; media session &#xFF0C;&#x5176;&#x503C;&#x5E94;&#x4E3A; audio&#xFF09;&#x3002;&#x6BCF;&#x4E2A; m &#x884C;&#x4EE3;&#x8868;&#x4E00;&#x4E2A; media &#x8D44;&#x6E90;&#x3002;<code>TCP/MRCPv2</code>&#x8868;&#x793A;&#x4F7F;&#x7528; TCP &#x8FDB;&#x884C;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x3002;&#x7AEF;&#x53E3;&#x53F7;&#x4EC5;&#x4E3A;<code>0</code>&#x6216;<code>9</code>&#xFF0C;<code>0</code>&#x8868;&#x793A;&#x7981;&#x7528;&#xFF0C;<code>9</code>&#x8868;&#x793A;&#x6682;&#x672A;&#x786E;&#x5B9A;&#xFF0C;&#x5C06;&#x6709;&#x670D;&#x52A1;&#x7AEF;&#x6765;&#x786E;&#x5B9A;&#x3002;m &#x884C;&#x4E0B;&#x9762;&#x7684; a &#x884C;&#x662F;&#x5BF9;&#x5F53;&#x524D; m &#x884C;&#x7684;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x8BBE;&#x5B9A;&#x3002;</li>
+<li>setup &#x5BA2;&#x6237;&#x7AEF;&#x603B;&#x662F;&#x521D;&#x59CB;&#x5316;&#x4E3A; active&#xFF0C;&#x670D;&#x52A1;&#x7AEF;&#x603B;&#x662F;&#x4E3A; passive</li>
+<li>connection &#x662F;&#x5426;&#x65B0;&#x5EFA; TCP &#x8FDE;&#x63A5;&#xFF08;new)&#xFF0C;&#x8FD8;&#x662F;&#x4F7F;&#x7528; &#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684; TCP &#x8FDE;&#x63A5;&#xFF08;existing&#xFF09;</li>
+<li>resource &#x8BF7;&#x6C42;&#x7684;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x7C7B;&#x578B;</li>
+<li>cmid control channel &#x5230; media &#x6D41;&#x7684;&#x4E00;&#x4E2A;&#x6807;&#x8BC6;&#xFF0C;&#x591A;&#x4E2A; contrl channel &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x4E2A; cmid&#xFF0C;&#x8FD9;&#x6807;&#x8BC6;&#x540C;&#x4E00;&#x901A;&#x4F1A;&#x8BDD;&#x53EF;&#x4EE5;&#x591A;&#x6B21;&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x4E2A; media &#x6D41;&#x3002;</li>
+</ul>
+<p>&#x4EE5;&#x4E0B;&#x662F; SIP 200 Ok &#x7684;&#x54CD;&#x5E94;&#x62A5;&#x6587;&#x7684;&#x4E00;&#x4E9B;&#x7247;&#x6BB5;</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">c</span>=<span class="string">IN IP4 10.0.0.22</span></span><br><span class="line"><span class="attr">m</span>=<span class="string">application 43251 TCP/MRCPv2</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">setup:passive</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">connection:new</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">channel:43b9ae17@speechsynth</span></span><br><span class="line"><span class="attr">a</span>=<span class="string">cmid:1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>m &#x8FD9;&#x91CC;&#x5C31;&#x6307;&#x5B9A;&#x4E86;&#x5C06;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x7AEF;&#x53E3;&#x53F7;</li>
+</ul>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;&#x5355;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x8BF7;&#x6C42;&#x670D;&#x52A1; <img src="/images/mrcp_single_media.png" alt="mrcp_single_media.png"></p>
+<p>INVITE</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">INVITE sip:mrcpv2@example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bKabc Max-Forwards: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 1 INVITE</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host1.example.com&gt; Content-Type: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 264</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=client 2890844527 2890844527 IN IP4 host1.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 host1.example.com</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 5324 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=recvonly</span><br><span class="line">a=mid:1</span><br><span class="line">m=application 9 TCP/MRCPv2</span><br><span class="line">a=setup:active</span><br><span class="line">a=connection:new</span><br><span class="line">a=resource:speechsynth</span><br><span class="line">a=cmid:1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>&#x7B2C;&#x4E00;&#x4E2A; m &#x884C;&#x5EFA;&#x7ACB; media &#x6D41;</li>
+<li>&#x7B2C;&#x4E8C;&#x4E2A; m &#x884C;&#x8FDE;&#x63A5; control session</li>
+</ul>
+<p>200 OK</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bKabc</span><br><span class="line">;received=192.168.1.11</span><br><span class="line"><span class="attribute">Max-Forwards</span>: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 1 INVITE</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:mrcpv2@host100.example.com&gt;</span><br><span class="line"><span class="attribute">Content-Type</span>: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 274</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=server 31412312 31412312 IN IP4 host100.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 host100.example.com</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 4620 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=sendonly</span><br><span class="line">a=mid:1</span><br><span class="line">m=application 9001 TCP/MRCPv2</span><br><span class="line">a=setup:passive</span><br><span class="line">a=connection:new</span><br><span class="line">a=channel:153af6@speechsynth</span><br><span class="line">a=cmid:1</span><br></pre></td></tr></table></figure>
+<p>ACK</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ACK sip:mrcpv2@host100.example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK214 Max-Forwards: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 1 ACK</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:mrcpv2@host1.example.com&gt;</span><br><span class="line"><span class="attribute">Content-Length</span>: 0</span><br></pre></td></tr></table></figure>
+<p>&#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664; media &#x8D44;&#x6E90; <img src="/images/mrcp_add_remove.png" alt="mrcp_add_remove.png"></p>
+<p>INVITE</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">INVITE sip:mrcpv2@host100.example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK452 Max-Forwards: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com CSeq: 2 INVITE</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host1.example.com&gt;</span><br><span class="line"><span class="attribute">Content-Type</span>: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 367</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=client 2890844527 2890844528 IN IP4 host1.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 host1.example.com</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 5324 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=sendrecv</span><br><span class="line">a=mid:1</span><br><span class="line">m=application 9 TCP/MRCPv2</span><br><span class="line">a=setup:active</span><br><span class="line">a=connection:existing</span><br><span class="line">a=resource:speechsynth</span><br><span class="line">a=cmid:1</span><br><span class="line">m=application 9 TCP/MRCPv2</span><br><span class="line">a=setup:active</span><br><span class="line">a=connection:existing</span><br><span class="line">a=resource:recorder</span><br><span class="line">a=cmid:1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>&#x65B0;&#x7533;&#x8BF7;&#x4E00;&#x4E2A; recorder &#x670D;&#x52A1;&#x3002;SDP &#x5168;&#x91CF;&#x66F4;&#x65B0; control session &#x548C; media session &#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4E4B;&#x524D;&#x5EFA;&#x7ACB;&#x7684; control session &#x662F;&#x9700;&#x8981;&#x4F53;&#x73B0;&#x5728;&#x5F53;&#x524D;&#x7684; SDP &#x5185;&#x5BB9;&#x4E2D;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x4F7F;&#x7528; recorder &#x670D;&#x52A1;&#xFF0C;media &#x8D44;&#x6E90;&#x5C31;&#x9700;&#x8981;&#x4FDD;&#x6301;&#x53CC;&#x5411;&#x8FDE;&#x63A5;&#xFF08;sendrecv&#xFF09;&#xFF0C;control session &#x7684; connection &#x4F7F;&#x7528;&#x4E86;&#x73B0;&#x6709;&#x7684; control session &#x7684; TCP &#x8FDE;&#x63A5;</li>
+</ul>
+<p>200 OK</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK452;received=192.168.1.1</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com CSeq: 2 INVITE</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host1.example.com&gt;</span><br><span class="line"><span class="attribute">Content-Type</span>: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 387</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=client 31412312 31412313 IN IP4 host100.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 host100.example.com</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 4620 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=sendrecv</span><br><span class="line">a=mid:1</span><br><span class="line">m=application 9001 TCP/MRCPv2</span><br><span class="line">a=setup:passive</span><br><span class="line">a=connection:existing</span><br><span class="line">a=channel:153af6@speechsynth</span><br><span class="line">a=cmid:1</span><br><span class="line">m=application 9001 TCP/MRCPv2</span><br><span class="line">a=setup:passive</span><br><span class="line">a=connection:existing</span><br><span class="line">a=channel: 153af6@recorder</span><br><span class="line">a=cmid:1</span><br></pre></td></tr></table></figure>
+<p>ACK</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ACK sip:mrcpv2@host100.example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK554</span><br><span class="line"><span class="attribute">Max-Forwards</span>: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 2 ACK</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:mrcpv2@host1.example.com&gt; Content-Length: 0</span><br></pre></td></tr></table></figure>
+<p>INVITE</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">INVITE sip:mrcpv2@host100.example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK763 Max-Forwards: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 3 INVITE</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host1.example.com&gt;</span><br><span class="line"><span class="attribute">Content-Type</span>: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 367</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=client 2890844527 2890844529 IN IP4 host1.example.com</span><br><span class="line">s=-</span><br><span class="line">c=IN IP4 host1.example.com</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 5324 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=recvonly</span><br><span class="line">a=mid:1</span><br><span class="line">m=application 9 TCP/MRCPv2</span><br><span class="line">a=setup:active</span><br><span class="line">a=connection:existing</span><br><span class="line">a=resource:speechsynth</span><br><span class="line">a=cmid:1</span><br><span class="line">m=application 0 TCP/MRCPv2</span><br><span class="line">a=setup:active</span><br><span class="line">a=connection:existing</span><br><span class="line">a=resource:recorder</span><br><span class="line">a=cmid:1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>application &#x540E;&#x7684;&#x7AEF;&#x53E3;&#x88AB;&#x8BBE;&#x7F6E; 0&#xFF0C;&#x8868;&#x793A;&#x7981;&#x7528;</li>
+</ul>
+<p>200 OK</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK763</span><br><span class="line">;received=192.168.1.1</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452 From: &lt;sip:client@example.com&gt;;tag=12425 Call-ID: 43fb8aec@host1.example.com CSeq: 3 INVITE</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host1.example.com&gt; Content-Type: application/sdp Content-Length: 384</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=client 31412312 31412314 IN IP4 host100.example.com s=-</span><br><span class="line">c=IN IP4 host100.example.com</span><br><span class="line">t=0 0</span><br><span class="line">m=audio 4620 RTP/AVP 0</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=sendonly</span><br><span class="line">a=mid:1</span><br><span class="line">m=application 9001 TCP/MRCPv2</span><br><span class="line">a=setup:passive</span><br><span class="line">a=connection:existing</span><br><span class="line">a=channel:153af6@speechsynth</span><br><span class="line">a=cmid:1</span><br><span class="line">m=application 0 TCP/MRCPv2</span><br><span class="line">a=setup:passive</span><br><span class="line">a=connection:existing</span><br><span class="line">a=channel: 153af6@recorder</span><br><span class="line">a=cmid:1</span><br></pre></td></tr></table></figure>
+<p>ACK</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ACK sip:mrcpv2@host100.example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bK432</span><br><span class="line"><span class="attribute">Max-Forwards</span>: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=98452</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=12425</span><br><span class="line"><span class="attribute">Call-ID</span>: 43fb8aec@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 3 ACK</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:mrcpv2@host1.example.com&gt; Content-Length: 0</span><br></pre></td></tr></table></figure>
+<p>&#x67E5;&#x8BE2;&#x670D;&#x52A1;&#x7AEF;&#x652F;&#x6301;&#x7684;&#x529F;&#x80FD;</p>
+<p>OPTIONS</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS sip:mrcpv2@example.com SIP/2.0</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bKab3</span><br><span class="line"><span class="attribute">Max-Forwards</span>: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=21342</span><br><span class="line"><span class="attribute">Call-ID</span>: 12fa3421@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 21342 OPTIONS</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host1.example.com&gt;</span><br><span class="line"><span class="attribute">Accept</span>: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 0</span><br></pre></td></tr></table></figure>
+<p>200 OK</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">SIP/2.0 200 OK</span><br><span class="line"><span class="attribute">Via</span>: SIP/2.0/UDP host1.example.com;branch=z9hG4bKab3</span><br><span class="line"><span class="attribute">Max-Forwards</span>: 70</span><br><span class="line"><span class="attribute">To</span>: &lt;sip:mrcpv2@example.com&gt;;tag=32421</span><br><span class="line"><span class="attribute">From</span>: &lt;sip:client@example.com&gt;;tag=21342</span><br><span class="line"><span class="attribute">Call-ID</span>: 12fa3421@host1.example.com</span><br><span class="line"><span class="attribute">CSeq</span>: 21342 OPTIONS</span><br><span class="line"><span class="attribute">Contact</span>: &lt;sip:client@host99.example.com&gt;</span><br><span class="line"><span class="attribute">Allow</span>: INVITE, BYE, OPTIONS, ACK, CANCEL</span><br><span class="line"><span class="attribute">Content-Type</span>: application/sdp</span><br><span class="line"><span class="attribute">Content-Length</span>: 288</span><br><span class="line"></span><br><span class="line">v=0</span><br><span class="line">o=Server 289123140 289123140 IN IP4 host99.example.com</span><br><span class="line">s=-</span><br><span class="line">t=0 0</span><br><span class="line">m=application 0 TCP/MRCPv2</span><br><span class="line">a=resource:speechsynth</span><br><span class="line">a=resource:speechrecog</span><br><span class="line">a=resource:recorder</span><br><span class="line">m=audio 0 RTP/AVP 0 8 96</span><br><span class="line">a=rtpmap:0 PCMU/8000</span><br><span class="line">a=rtpmap:8 PCMA/8000</span><br><span class="line">a=rtpmap:96 telephone-event/8000</span><br><span class="line">a=fmtp:96 0-15</span><br></pre></td></tr></table></figure>
+<h2 id="control-session">control session</h2>
+<p>MRCP &#x6D88;&#x606F;&#x6709;&#x4E09;&#x79CD;&#xFF1A;request&#x3001;response&#x3001;event&#x3002;&#x6BCF;&#x79CD;&#x6D88;&#x606F;&#x90FD;&#x542B;&#x6709;&#x4E00;&#x4E2A;&#x8D77;&#x59CB;&#x884C;&#xFF08;&#x5404;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x6D88;&#x606F;&#x8D77;&#x59CB;&#x884C;&#x6709;&#x5DEE;&#x5F02;&#xFF09;&#xFF0C;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6D88;&#x606F;&#x5934;&#xFF0C;&#x4EE5; CRLF &#x95F4;&#x9694;&#xFF0C;&#x683C;&#x5F0F;&#x4E3A;<code>header-name:header-value</code>&#xFF0C;&#x6D88;&#x606F;&#x4F53;&#x62A5;&#x6587;&#x4E00;&#x4E2A;&#x6709;&#x6D88;&#x606F;&#x5934;&#x5B9A;&#x4E49;&#x957F;&#x5EA6;&#x548C;&#x683C;&#x5F0F;&#x7684;&#x62A5;&#x6587;&#x3002; <img src="/images/mrcp_control_session.png" alt="mrcp_control_session.png"></p>
+<h3 id="request">request</h3>
+<p>&#x8D77;&#x59CB;&#x884C;&#x683C;&#x5F0F;&#xFF1A;<code>MRCP/2.0 message-length method-name requestid</code></p>
+<ul>
+<li>&#x534F;&#x8BAE;&#x7248;&#x672C;</li>
+<li>&#x6574;&#x4E2A;&#x62A5;&#x6587;&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x5305;&#x62EC;&#x8D77;&#x59CB;&#x884C;</li>
+<li>&#x8BF7;&#x6C42;&#x7684;&#x670D;&#x52A1;
+<ul>
+<li>SPEACK &#x8BED;&#x97F3;&#x5408;&#x6210;&#x670D;&#x52A1;</li>
+<li>RECOGNIZE &#x8BED;&#x97F3;&#x8BC6;&#x522B;&#x670D;&#x52A1;</li>
+</ul></li>
+<li>32 &#x4F4D;&#x81EA;&#x589E; int &#x6765;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x7684;&#x8BF7;&#x6C42;</li>
+</ul>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 267 SPEAK 10000</span><br><span class="line"><span class="attribute">Channel-Identifier</span>: 43b9ae17@speechsynth</span><br><span class="line"><span class="attribute">Content-Type</span>: application/ssml+xml</span><br><span class="line"><span class="attribute">Content-Length</span>: 150</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;speak version=&quot;1.0&quot;</span><br><span class="line">xmlns=&quot;http://www.w3.org/2001/10/synthesis&quot;&gt; Hello world!</span><br><span class="line">&lt;/speak&gt;</span><br></pre></td></tr></table></figure>
+<p>Channel-Identifier &#x662F;&#x6240;&#x6709; request &#x90FD;&#x5FC5;&#x987B;&#x7684;&#xFF0C;&#x4E0E; SDP channel &#x7684;&#x503C;&#x662F;&#x76F8;&#x540C;&#x7684;</p>
+<h3 id="response">response</h3>
+<p>&#x8D77;&#x59CB;&#x884C;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A;<code>MRCP/2.0 message-length request-id status-code request-state</code></p>
+<ul>
+<li>&#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;</li>
+<li>&#x6574;&#x4F53;&#x62A5;&#x6587;&#x957F;&#x5EA6;&#xFF0C;&#x5305;&#x62EC;&#x8D77;&#x59CB;&#x884C;</li>
+<li>&#x8BF7;&#x6C42; ID</li>
+<li>&#x7C7B;&#x4F3C; HTTP &#x72B6;&#x6001;&#x7801;</li>
+<li>&#x8BF7;&#x6C42;&#x72B6;&#x6001;&#xFF0C;PENDING&#x3001;IN-PROGRESS&#x3001;COMPLETE</li>
+</ul>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 79 10000 200 IN-PROGRESS Channel-Identifier: 43b9ae17@speechsynth</span><br></pre></td></tr></table></figure>
+<h3 id="event">event</h3>
+<p>&#x8D77;&#x59CB;&#x884C;&#x683C;&#x5F0F;&#xFF1A;<code>MRCP/2.0 message-length event-name request-id request-state</code></p>
+<ul>
+<li>&#x534F;&#x8BAE;&#x7248;&#x672C;&#x53F7;</li>
+<li>&#x6574;&#x4F53;&#x62A5;&#x6587;&#x957F;&#x5EA6;&#xFF0C;&#x5305;&#x62EC;&#x8D77;&#x59CB;&#x884C;</li>
+<li>&#x4E8B;&#x4EF6;</li>
+<li>&#x8BF7;&#x6C42; ID</li>
+<li>&#x8BF7;&#x6C42;&#x72B6;&#x6001;&#xFF0C;PENDING&#x3001;IN-PROGRESS&#x3001;COMPLETE</li>
+</ul>
+<p>&#x4E0D;&#x540C;&#x7684;&#x5A92;&#x4F53;&#x8D44;&#x6E90;&#x652F;&#x6301;&#x4E0D;&#x540C;&#x7684;&#x4E8B;&#x4EF6;</p>
+<p>&#x793A;&#x4F8B;</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MRCP/2.0 109 START-OF-INPUT 10000 IN-PROGRESS</span><br><span class="line"><span class="attribute">Channel-Identifier</span>: 43b9ae17@speechrecog</span><br><span class="line"><span class="attribute">Input-Type</span>: dtmf</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+            
+              <div>
+                
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+              </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/05/highlightjs/" rel="next" title="highlightjs">
+                <i class="fa fa-chevron-left"></i> highlightjs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/24/wireshark/" rel="prev" title="wireshark">
+                wireshark <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">lijun</p>
+              <div class="site-description motion-element" itemprop="description">与其感慨路难行，不如马上就出发</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">145</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构"><span class="nav-number">2.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报文"><span class="nav-number">3.</span> <span class="nav-text">报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sip-in-mrcp"><span class="nav-number">4.</span> <span class="nav-text">SIP in MRCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#control-session"><span class="nav-number">5.</span> <span class="nav-text">control session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#request"><span class="nav-number">5.1.</span> <span class="nav-text">request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#response"><span class="nav-number">5.2.</span> <span class="nav-text">response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event"><span class="nav-number">5.3.</span> <span class="nav-text">event</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lijun</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+  
+<script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+        search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+        isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+        $('.popup').hide();
+        $('#local-search-input').val('');
+        $('.search-result-list').remove();
+        $('#no-result').remove();
+        $(".local-search-pop-overlay").remove();
+        $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+            .css('overflow', 'hidden');
+        $('.search-popup-overlay').click(onPopupClose);
+        $('.popup').toggle();
+        var $localSearchInput = $('#local-search-input');
+        $localSearchInput.attr("autocapitalize", "none");
+        $localSearchInput.attr("autocorrect", "off");
+        $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+
+        // start loading animation
+        $("body")
+            .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+                '<div id="search-loading-icon">' +
+                '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+                '</div>' +
+                '</div>')
+            .css('overflow', 'hidden');
+        $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+        $.ajax({
+            url: path,
+            dataType: isXml ? "xml" : "json",
+            async: true,
+            success: function (res) {
+                // get the contents from search data
+                isfetched = true;
+                $('.popup').detach().appendTo('.header-inner');
+                var datas = isXml ? $("entry", res).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get() : res;
+                var input = document.getElementById(search_id);
+                var resultContent = document.getElementById(content_id);
+                var inputEventFunction = function () {
+                    var searchText = input.value.toLowerCase();
+                    if (searchText.length < 1) {
+                        return
+                    }
+                    var keywords = []
+                    var first_keyword;
+                    if (searchText.charAt(0) === '/') {
+                        if (searchText.indexOf('/', 1) == 1) {
+                            keywords.push(searchText.substring(1))
+                        } else if (searchText.length > 2 && searchText.charAt(searchText.length - 1) === '/') {
+                            keywords.push('$$')
+                            try {
+                                eval('first_keyword = ' + searchText + 'g');
+                            } catch (err) {
+                                console.error(err)
+                                return
+                            }
+                            input.value = searchText.substring(0,searchText.length-1)
+                        } else {
+                            return
+                        }
+                    } else {
+                        keywords.push(searchText);
+                    }
+                    var resultItems = [];
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = false;
+                        var hitCount = 0;
+                        var searchTextCount = 0;
+                        if(!data.title){
+                            return
+                        }
+                        var title = data.title.trim();
+                        var titleInLowerCase = title.toLowerCase();
+                        if (!data.content){
+                            console.log(title,'内容为空')
+                            return
+                        }
+                        var content = data.content.trim();
+                        var contentInLowerCase = content.toLowerCase();
+                        var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                        var indexOfTitle = [];
+                        var indexOfContent = [];
+                        // only match articles with not empty titles
+                        if (title != '') {
+                            if (first_keyword) {
+                                keywords = contentInLowerCase.match(first_keyword)
+                            }
+                            if (!keywords) {
+                                keywords = []
+                            }
+                            keywords.forEach(function (keyword) {
+                            
+                                function getIndexByWord(word, text, caseSensitive) {
+                                    var wordLen = word.length;
+                                    if (wordLen === 0) {
+                                        return [];
+                                    }
+                                    var startPosition = 0, position = [], index = [];
+                                    if (!caseSensitive) {
+                                        text = text.toLowerCase();
+                                        word = word.toLowerCase();
+                                    }
+                                    while ((position = text.indexOf(word, startPosition)) > -1) {
+
+                                        index.push({ position: position, word: word });
+                                        startPosition = position + wordLen;
+                                    }
+                                    return index;
+                                }
+
+                                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                            });
+                            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                                isMatch = true;
+                                hitCount = indexOfTitle.length + indexOfContent.length;
+                            }
+                        }
+
+                        // show search results
+
+                        if (isMatch) {
+                            // sort index by position of keyword
+
+                            [indexOfTitle, indexOfContent].forEach(function (index) {
+                                index.sort(function (itemLeft, itemRight) {
+                                    if (itemRight.position !== itemLeft.position) {
+                                        return itemRight.position - itemLeft.position;
+                                    } else {
+                                        return itemLeft.word.length - itemRight.word.length;
+                                    }
+                                });
+                            });
+
+                            // merge hits into slices
+
+                            function mergeIntoSlice(text, start, end, index) {
+                                var item = index[index.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                var hits = [];
+                                var searchTextCountInSlice = 0;
+                                while (position + word.length <= end && index.length != 0) {
+                                    if (word === searchText) {
+                                        searchTextCountInSlice++;
+                                    }
+                                    hits.push({ position: position, length: word.length });
+                                    var wordEnd = position + word.length;
+
+                                    // move to next position of hit
+
+                                    index.pop();
+                                    while (index.length != 0) {
+                                        item = index[index.length - 1];
+                                        position = item.position;
+                                        word = item.word;
+                                        if (wordEnd > position) {
+                                            index.pop();
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                }
+                                searchTextCount += searchTextCountInSlice;
+                                return {
+                                    hits: hits,
+                                    start: start,
+                                    end: end,
+                                    searchTextCount: searchTextCountInSlice
+                                };
+                            }
+
+                            var slicesOfTitle = [];
+                            if (indexOfTitle.length != 0) {
+                                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                            }
+
+                            var slicesOfContent = [];
+                            while (indexOfContent.length != 0) {
+                                var item = indexOfContent[indexOfContent.length - 1];
+                                var position = item.position;
+                                var word = item.word;
+                                // cut out 100 characters
+                                var start = position - 20;
+                                var end = position + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (end < position + word.length) {
+                                    end = position + word.length;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                            }
+
+                            // sort slices in content by search text's count and hits' count
+
+                            slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                                    return sliceRight.hits.length - sliceLeft.hits.length;
+                                } else {
+                                    return sliceLeft.start - sliceRight.start;
+                                }
+                            });
+
+                            // select top N slices in content
+                            var upperBound = parseInt('1');
+                            if (upperBound >= 0) {
+                                slicesOfContent = slicesOfContent.slice(0, upperBound);
+                            }
+
+                            // highlight title and content
+
+                            function highlightKeyword(text, slice) {
+                                var result = '';
+                                var prevEnd = slice.start;
+                                slice.hits.forEach(function (hit) {
+                                    result += text.substring(prevEnd, hit.position);
+                                    var end = hit.position + hit.length;
+                                    result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                                    prevEnd = end;
+                                });
+                                result += text.substring(prevEnd, slice.end);
+                                
+                                return result;
+                            }
+
+                            var resultItem = '';
+
+                            if (slicesOfTitle.length != 0) {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                            } else {
+                                resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                            }
+
+                            slicesOfContent.forEach(function (slice) {
+                                resultItem += "<a href='" + articleUrl + "'>" +
+                                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                                    "...</p>" + "</a>";
+                            });
+
+                            resultItem += "</li>";
+                            resultItems.push({
+                                item: resultItem,
+                                searchTextCount: searchTextCount,
+                                hitCount: hitCount,
+                                id: resultItems.length
+                            });
+                        }
+                    })
+                    if (keywords.length === 1 && keywords[0] === "") {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+                    } else if (resultItems.length === 0) {
+                        resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+                    } else {
+                        resultItems.sort(function (resultLeft, resultRight) {
+                            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                                return resultRight.searchTextCount - resultLeft.searchTextCount;
+                            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                                return resultRight.hitCount - resultLeft.hitCount;
+                            } else {
+                                return resultRight.id - resultLeft.id;
+                            }
+                        });
+                        var searchResultList = '<ul class=\"search-result-list\">';
+                        resultItems.forEach(function (result) {
+                            searchResultList += result.item;
+                        })
+                        searchResultList += "</ul>";
+                        resultContent.innerHTML = searchResultList;
+                    }
+                }
+
+                if ('auto' === 'auto') {
+                    input.addEventListener('input', inputEventFunction);
+                } else {
+                    $('.search-icon').click(inputEventFunction);
+                    input.addEventListener('keypress', function (event) {
+                        if (event.keyCode === 13) {
+                            inputEventFunction();
+                        }
+                    });
+                }
+
+                // remove loading animation
+                $(".local-search-pop-overlay").remove();
+                $('body').css('overflow', '');
+
+                proceedsearch();
+            }
+        });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+        e.stopPropagation();
+        if (isfetched === false) {
+            searchFunc(path, 'local-search-input', 'local-search-result');
+        } else {
+            proceedsearch();
+        };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+        e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+        var shouldDismissSearchPopup = event.which === 27 &&
+            $('.search-popup').is(':visible');
+        if (shouldDismissSearchPopup) {
+            onPopupClose();
+        }
+    });
+
+
+    //添加全局的ctrl + a 按键 搜索
+
+    document.onkeydown = function (e) {
+
+         if (e.ctrlKey && e.key == 'a') {
+             document.getElementsByClassName('popup-trigger')[0].dispatchEvent(new Event('click'))
+         }
+    }
+
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    //url: '',
+    url: '/js/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: '',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+   <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>

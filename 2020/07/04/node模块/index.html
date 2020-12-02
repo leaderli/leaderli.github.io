@@ -143,7 +143,7 @@
 <meta property="og:description" content="&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#x5E93; pm2 &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FDB;&amp;#x7A0B;&amp;#x7BA1;&amp;#x7406;&amp;#x5DE5;&amp;#x5177;,&amp;#x53EF;&amp;#x4EE5;&amp;#x7528;&amp;#x5B83;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;&amp;#x4F60;&amp;#x7684; node &amp;#x8">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leaderli.github.io/images/node模块_私有仓库.png">
-<meta property="og:updated_time" content="2020-10-29T07:18:10.000Z">
+<meta property="og:updated_time" content="2020-12-02T01:58:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node模块">
 <meta name="twitter:description" content="&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#x5E93; pm2 &amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x8FDB;&amp;#x7A0B;&amp;#x7BA1;&amp;#x7406;&amp;#x5DE5;&amp;#x5177;,&amp;#x53EF;&amp;#x4EE5;&amp;#x7528;&amp;#x5B83;&amp;#x6765;&amp;#x7BA1;&amp;#x7406;&amp;#x4F60;&amp;#x7684; node &amp;#x8">
@@ -470,7 +470,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-10-29 15:18:10" itemprop="dateModified" datetime="2020-10-29T15:18:10+08:00">2020-10-29</time>
+                <time title="修改时间：2020-12-02 09:58:26" itemprop="dateModified" datetime="2020-12-02T09:58:26+08:00">2020-12-02</time>
               </span>
             
           
@@ -552,6 +552,23 @@
 <h2 id="fs">fs</h2>
 <p>&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x4E3A; base64</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> buff = fs.readFileSync(<span class="string">&quot;stack-abuse-logo.png&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> base64data = buff.toString(<span class="string">&quot;base64&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="moment">moment</h2>
+<p>&#x65F6;&#x95F4;&#x683C;&#x5F0F;&#x5316;&#x6A21;&#x5757;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -S -D moment</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> moment form <span class="string">&apos;moment&apos;</span></span><br><span class="line"></span><br><span class="line">moment().format(<span class="string">&apos;YYYY-MM-DD HH:mm:ss&apos;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="js-beautify"><a href="https://github.com/beautify-web/js-beautify" target="_blank" rel="noopener">js-beautify</a></h2>
+<p>&#x683C;&#x5F0F;&#x5316; js&#x3001;html&#x3001;css &#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x7528;&#x7684;&#x63D2;&#x4EF6;</p>
+<h2 id="express">express</h2>
+<p>&#x62E6;&#x622A;<code>/</code>&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x6253;&#x5370;&#x8BF7;&#x6C42;&#x62A5;&#x6587;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save express</span><br><span class="line">npm install --save body-parser</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&quot;body-parser&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.use(bodyParser.urlencoded({ <span class="attr">extended</span>: <span class="literal">false</span> }));</span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line">app.post(<span class="string">&quot;/&quot;</span>, (req, res) =&gt; {</span><br><span class="line">  <span class="built_in">console</span>.log(req.body);</span><br><span class="line">  res.send(<span class="string">&quot;ok&quot;</span>);</span><br><span class="line">});</span><br><span class="line">app.listen(<span class="number">5000</span>, () =&gt; {</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;start server at 5000&quot;</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h2 id="child_process">child_process</h2>
+<p>&#x8C03;&#x7528; shell &#x547D;&#x4EE4;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save child_process</span><br></pre></td></tr></table></figure>
+<p>exec &#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5728;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x540E;&#x624D;&#x4F1A;&#x8FD4;&#x56DE;&#x3002;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> { exec } = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>);</span><br><span class="line">exec(<span class="string">&quot;cat *.js missing_file | wc -l&quot;</span>, (error, stdout, stderr) =&gt; {</span><br><span class="line">  <span class="keyword">if</span> (error) {</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">`&#x6267;&#x884C;&#x51FA;&#x9519;: <span class="subst">${error}</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`stdout: <span class="subst">${stdout}</span>`</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`stderr: <span class="subst">${stderr}</span>`</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>on</code>&#x76D1;&#x542C; shell &#x547D;&#x4EE4;&#x7684;&#x7BA1;&#x9053;&#x6765;&#x5B9E;&#x65F6;&#x8F93;&#x51FA;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> { exec } = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> tail = exec(<span class="string">&quot;tail -f 1.log&quot;</span>);</span><br><span class="line"><span class="comment">//data&#x4E3A;byte&#x6570;&#x7EC4;</span></span><br><span class="line">tail.stdout.on(<span class="string">&quot;data&quot;</span>, (data) =&gt; {</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">${data}</span>`</span>);</span><br><span class="line">});</span><br><span class="line">tail.stderr.on(<span class="string">&quot;data&quot;</span>, (data) =&gt; {</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">${data}</span>`</span>);</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line">tail.on(<span class="string">&quot;close&quot;</span>, (code) =&gt; {</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`&#x5B50;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x7801;&#xFF1A;<span class="subst">${code}</span>`</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -718,7 +735,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">141</span>
+                    <span class="site-state-item-count">145</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1084,7 +1101,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#后台运行库"><span class="nav-number">1.</span> <span class="nav-text">后台运行库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像源管理工具"><span class="nav-number">2.</span> <span class="nav-text">镜像源管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私人仓库"><span class="nav-number">3.</span> <span class="nav-text">搭建私人仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http"><span class="nav-number">4.</span> <span class="nav-text">http</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fs"><span class="nav-number">5.</span> <span class="nav-text">fs</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#后台运行库"><span class="nav-number">1.</span> <span class="nav-text">后台运行库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像源管理工具"><span class="nav-number">2.</span> <span class="nav-text">镜像源管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私人仓库"><span class="nav-number">3.</span> <span class="nav-text">搭建私人仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http"><span class="nav-number">4.</span> <span class="nav-text">http</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fs"><span class="nav-number">5.</span> <span class="nav-text">fs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#moment"><span class="nav-number">6.</span> <span class="nav-text">moment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-beautify"><span class="nav-number">7.</span> <span class="nav-text">js-beautify</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#express"><span class="nav-number">8.</span> <span class="nav-text">express</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#child_process"><span class="nav-number">9.</span> <span class="nav-text">child_process</span></a></li></ol></div>
             
 
           </div>
@@ -1238,7 +1255,6 @@
 
   
 
-// gitalk
 
 
 
