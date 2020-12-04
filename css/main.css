@@ -1732,7 +1732,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #d09824;
+  background: #08d788;
 }
 .feed-link,
 .chat {
@@ -2821,4 +2821,8 @@ h3 {
 red {
   color: #f00;
   padding: 2px 4px;
+}
+empty {
+  height: 14px;
+  display: block;
 }
